@@ -1,0 +1,23 @@
+name: Prepare gh-pages branch
+
+on:
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types: [ external-console-deployment-trigger ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force_orphan: true
+          allow_empty_commit: true

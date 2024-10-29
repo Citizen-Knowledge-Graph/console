@@ -1,0 +1,6 @@
+{
+  "name": "foerderfunke-console",
+  "version": "0.0.1",
+  "description": "Playground and discovery tool for all Linked Data in the FörderFunke project",
+  "dependencies": {}
+}
