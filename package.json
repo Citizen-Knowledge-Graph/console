@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rm -rf public/assets/",
     "cloneRepo": "git clone https://github.com/Citizen-Knowledge-Graph/requirement-profiles public/assets/requirement-profiles",
+    "extractCommit": "cd public/assets/requirement-profiles && git rev-parse HEAD > ../latest-rps-repo-commit.txt",
     "cleanRepo": "rm -rf public/assets/requirement-profiles/.git*",
-    "collectAssets": "npm run clean && npm run cloneRepo && npm run cleanRepo"
+    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractCommit && npm run cleanRepo"
   }
 }
