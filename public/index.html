@@ -3,13 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>FörderFunke</title>
+        <script src="./utils.js"></script>
         <script src="./check-repo-updates.js"></script>
         <style></style>
     </head>
     <body>
         <div onclick="checkForNewRepoCommits()">dev</div>
         <script>
-            checkForNewRepoCommits()
+            setInterval(checkForNewRepoCommits, 60 * 1000)
         </script>
     </body>
 </html>
