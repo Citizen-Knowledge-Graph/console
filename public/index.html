@@ -11,6 +11,12 @@
         <div onclick="checkForNewRepoCommits()">dev</div>
         <script>
             setInterval(checkForNewRepoCommits, 60 * 1000)
+
+            async function dev() {
+                let rpsDir = await fetchAsset("rps-dir.txt")
+                console.log(rpsDir)
+            }
+            dev()
         </script>
     </body>
 </html>

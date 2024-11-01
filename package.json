@@ -8,7 +8,8 @@
     "cloneRepo": "git clone https://github.com/Citizen-Knowledge-Graph/requirement-profiles public/assets/requirement-profiles",
     "extractLatestRPcommit": "cd public/assets/requirement-profiles && git rev-parse HEAD > ../latest-rps-repo-commit.txt",
     "cleanRepo": "rm -rf public/assets/requirement-profiles/.git*",
+    "listRpsDir": "cd public/assets/requirement-profiles && ls -R > ../rps-dir.txt",
     "extractLatestConsoleCommit": "git rev-parse HEAD > public/assets/latest-console-repo-commit.txt",
-    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run extractLatestConsoleCommit"
+    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit"
   }
 }
