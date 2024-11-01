@@ -8,7 +8,8 @@
         <style></style>
     </head>
     <body>
-        <div onclick="checkForNewRepoCommits()">dev</div>
+        <input type="file" id="fileUpload" />
+        <div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>
         <script>
             setInterval(checkForNewRepoCommits, 60 * 1000)
 
@@ -17,6 +18,16 @@
                 console.log(rpsDir)
             }
             dev()
+
+            document.getElementById("fileUpload").addEventListener("change", function() {
+                const reader = new FileReader()
+                reader.onload = function(event) {
+                    const content = event.target.result
+                    console.log("File content:", content)
+                }
+                const file = this.files[0]
+                reader.readAsText(file)
+            })
         </script>
     </body>
 </html>
