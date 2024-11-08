@@ -1,5 +1,5 @@
 import {
-    func
+    runSparqlSelectQueryOnRdfString
 } from "./src/main.js"
 
-window.func = func
+window.runSparqlSelectQueryOnRdfString = runSparqlSelectQueryOnRdfString

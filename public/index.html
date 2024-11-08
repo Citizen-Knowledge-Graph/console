@@ -11,9 +11,19 @@
     <body>
         <input type="file" id="fileUpload" />
         <!--<div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>-->
-        <div onclick="console.log(func())">dev</div>
+        <div onclick="func()">dev</div>
         <script>
             setInterval(checkForNewRepoCommits, 60 * 1000)
+
+            async function func() {
+                let query = "SELECT * WHERE { ?s ?p ?o }"
+                let rdfStr = `
+                    @prefix ex: <http://example.org/> .
+                    ex:sub ex:pred ex:obj .
+                `
+                let result = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+                console.log(result)
+            }
 
             async function dev() {
                 let rpsDir = await fetchAsset("rps-dir.txt")

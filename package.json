@@ -2,7 +2,10 @@
   "name": "foerderfunke-console",
   "version": "0.0.1",
   "description": "Playground and discovery tool for all Linked Data in the FörderFunke project",
-  "dependencies": {},
+  "dependencies": {
+    "@comunica/query-sparql-rdfjs": "^4.0.2",
+    "n3": "^1.23.0"
+  },
   "scripts": {
     "clean": "rm -rf public/assets/",
     "cloneRepo": "git clone https://github.com/Citizen-Knowledge-Graph/requirement-profiles public/assets/requirement-profiles",
