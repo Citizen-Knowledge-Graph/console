@@ -5,11 +5,13 @@
         <title>FörderFunke</title>
         <script src="./utils.js"></script>
         <script src="./check-repo-updates.js"></script>
+        <script src="./assets/bundle.js"></script>
         <style></style>
     </head>
     <body>
         <input type="file" id="fileUpload" />
-        <div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>
+        <!--<div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>-->
+        <div onclick="console.log(func())">dev</div>
         <script>
             setInterval(checkForNewRepoCommits, 60 * 1000)
 

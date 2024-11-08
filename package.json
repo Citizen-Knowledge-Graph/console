@@ -10,6 +10,11 @@
     "cleanRepo": "rm -rf public/assets/requirement-profiles/.git*",
     "listRpsDir": "cd public/assets/requirement-profiles && ls -R > ../rps-dir.txt",
     "extractLatestConsoleCommit": "git rev-parse HEAD > public/assets/latest-console-repo-commit.txt",
-    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit"
+    "build": "webpack",
+    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit && npm run build"
+  },
+  "devDependencies": {
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   }
 }
