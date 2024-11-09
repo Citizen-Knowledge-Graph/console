@@ -18,3 +18,28 @@ async function download(content, type, filename) {
     document.body.removeChild(a)
     window.URL.revokeObjectURL(url)
 }
+
+async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
+    let store = window.bundle.newStore()
+    await addRdfStringToStore(rdfStr, store)
+    const queryEngine = window.bundle.newQueryEngine()
+    let bindingsStream = await queryEngine.queryBindings(query, { sources: [ store ] })
+    return await bindingsStream.toArray()
+}
+
+function addRdfStringToStore(rdfStr, store) {
+    return new Promise((resolve, reject) => {
+        const parser = window.bundle.newParser()
+        parser.parse(rdfStr, (err, quad) => {
+            if (err) {
+                console.error(err)
+                reject(err)
+            }
+            if (quad) {
+                store.add(quad)
+            } else {
+                resolve(store)
+            }
+        })
+    })
+}
