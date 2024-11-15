@@ -24,3 +24,21 @@ async function dev() {
     const file = this.files[0]
     reader.readAsText(file)
 })*/
+
+function initLitegraph() {
+    let graph = new LGraph()
+    let canvasEl = new LGraphCanvas("#canvas", graph)
+
+    let node1 = LiteGraph.createNode("basic/string")
+    node1.pos = [200, 200]
+    graph.add(node1)
+    node1.setValue("foo")
+
+    let node2 = LiteGraph.createNode("basic/watch")
+    node2.pos = [700, 200]
+    graph.add(node2)
+
+    node1.connect(0, node2, 0 )
+
+    graph.start()
+}

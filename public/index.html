@@ -6,16 +6,22 @@
         <script src="./utils.js"></script>
         <script src="./check-repo-updates.js"></script>
         <script src="./assets/bundle.js"></script>
-        <script src="./main.js"></script>
         <link rel="stylesheet" type="text/css" href="./assets/litegraph.css">
         <script src="./assets/litegraph.min.js"></script>
-        <style></style>
+        <script src="./main.js"></script>
+        <style>
+            body {
+                background-color: #000;
+            }
+        </style>
     </head>
     <body>
         <!--<input type="file" id="fileUpload" />
-        <div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>-->
-        <div onclick="func()">dev</div>
+        <div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>-
+        <div onclick="func()">dev</div>-->
+        <canvas id="canvas" width="1200" height="700"></canvas>
         <script>
+            initLitegraph()
         </script>
     </body>
 </html>
