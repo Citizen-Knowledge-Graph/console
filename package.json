@@ -4,7 +4,7 @@
   "description": "Playground and discovery tool for all Linked Data in the FörderFunke project",
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.0.2",
-    "litegraph.js": "^0.7.18",
+    "drawflow": "^0.0.60",
     "n3": "^1.23.0"
   },
   "scripts": {
@@ -15,7 +15,7 @@
     "listRpsDir": "cd public/assets/requirement-profiles && ls -R > ../rps-dir.txt",
     "extractLatestConsoleCommit": "git rev-parse HEAD > public/assets/latest-console-repo-commit.txt",
     "bundle": "webpack",
-    "copyDependencies": "cp ./node_modules/litegraph.js/build/litegraph.min.js public/assets/ && cp ./node_modules/litegraph.js/css/litegraph.css public/assets/",
+    "copyDependencies": "cp ./node_modules/drawflow/dist/drawflow.min.js public/assets/ && cp ./node_modules/drawflow/dist/drawflow.min.css public/assets/",
     "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit && npm run bundle && npm run copyDependencies"
   },
   "devDependencies": {
