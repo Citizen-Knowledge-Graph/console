@@ -7,6 +7,7 @@
         <script src="./check-repo-updates.js"></script>
         <script src="./assets/bundle.js"></script>
         <link rel="stylesheet" type="text/css" href="./assets/drawflow.min.css">
+        <link rel="stylesheet" type="text/css" href="./drawflow.css">
         <script src="./assets/drawflow.min.js"></script>
         <script src="./main.js"></script>
         <style>
@@ -24,12 +25,121 @@
         <script>
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
-            const html = `
-                <div>
-                    Test123
+
+            const triplesHtml = `
+              <div>
+                <div class="title-box">User profile</div>
+                <div class="box">
+                    <textarea df-name="triples" rows="5" placeholder=""></textarea>
                 </div>
+              </div>
             `
-            editor.addNode('node1', 0, 1, 100, 100, '', {}, html)
+            editor.registerNode("triples", {
+                template: triplesHtml,
+                outputs: { output_1: { label: "triples" } },
+                data: { triples: "" },
+            })
+            const triplesNode = editor.addNode("triples", 0, 1, 50, 50, "", {}, triplesHtml)
+
+            const sparqlHtml = `
+              <div>
+                <div class="title-box">Materialization rules</div>
+                <div class="box">
+                    <textarea df-name="sparql" rows="5" placeholder=""></textarea>
+                </div>
+              </div>
+            `
+            editor.registerNode("sparql", {
+                template: sparqlHtml,
+                outputs: { output_1: { label: "sparql" } },
+                data: { sparql: "" },
+            })
+            const sparqlNode = editor.addNode("sparql", 0, 1, 50, 280, "", {}, sparqlHtml)
+
+            const sparqlExecHtml = `
+              <div>
+                <div class="title-box">Execute SPARQL query</div>
+                <div class="box">
+                    Result:
+                    <pre df-name="result"></pre>
+                </div>
+              </div>
+            `
+            editor.registerNode("sparqlExec", {
+                template: sparqlExecHtml,
+                inputs: {
+                    input_1: { label: "triples" },
+                    input_2: { label: "sparql" },
+                    outputs: { output_1: { label: "result" } },
+                },
+                data: { result: "" },
+            })
+            const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 350, 150, "", {}, sparqlExecHtml)
+
+            editor.addConnection(triplesNode, sparqlExecNode, "output_1", "input_1")
+            editor.addConnection(sparqlNode, sparqlExecNode, "output_1", "input_2")
+
+            const shaclHtml = `
+              <div>
+                <div class="title-box">Requirement profile</div>
+                <div class="box">
+                    <textarea df-name="shacl" rows="5" placeholder=""></textarea>
+                </div>
+              </div>
+            `
+            editor.registerNode("shacl", {
+                template: shaclHtml,
+                outputs: { output_1: { label: "shacl" } },
+                data: { shacl: "" },
+            })
+            const shaclNode = editor.addNode("shacl", 0, 1, 650, 280, "", {}, shaclHtml)
+
+            const mergeHtml = `
+              <div>
+                <div class="title-box">Merge triples</div>
+                <div class="box">
+                    Result:
+                    <pre df-name="result"></pre>
+                </div>
+              </div>
+            `
+            editor.registerNode("merge", {
+                template: mergeHtml,
+                inputs: {
+                    input_1: { label: "triples1" },
+                    input_2: { label: "triples2" },
+                },
+                outputs: { output_1: { label: "merged_triples" } },
+                data: { sparql: "" },
+            })
+            const mergeNode = editor.addNode("merge", 2, 1, 650, 50, "", {}, mergeHtml)
+
+            editor.addConnection(triplesNode, mergeNode, "output_1", "input_1")
+            editor.addConnection(sparqlExecNode, mergeNode, "output_1", "input_2")
+
+            const valiHtml = `
+              <div>
+                <div class="title-box">SHACL validation</div>
+                <div class="box">
+                    Result:
+                    <pre df-name="result"></pre>
+                </div>
+              </div>
+            `
+            editor.registerNode("vali", {
+                template: valiHtml,
+                inputs: {
+                    input_1: { label: "triples" },
+                    input_2: { label: "shacl" },
+                },
+                outputs: { output_1: { label: "result" } },
+                data: { result: "" },
+            })
+            const valiNode = editor.addNode("vali", 2, 1, 950, 150, "", {}, valiHtml)
+
+            editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
+            editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
+
         </script>
     </body>
 </html>
