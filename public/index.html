@@ -26,6 +26,19 @@
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
 
+            editor.container.addEventListener("contextmenu", function(event) {
+                event.stopPropagation()
+                return true
+            }, true);
+            ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
+                editor.container.addEventListener(eventType, function(event) {
+                    if (event.button === 2) {
+                        event.stopPropagation()
+                        return true
+                    }
+                }, true)
+            })
+
             const triplesHtml = `
               <div>
                 <div class="title-box">User profile</div>
