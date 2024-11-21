@@ -23,7 +23,7 @@
                 font-size: 12px;
             }
             .drawflow-node {
-                width: 378px !important;
+                width: 414px !important;
             }
             .drawflow-node .box {
                 padding-left: 14px !important;
@@ -102,11 +102,12 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 const node = editor.getNodeFromId(id)
                 const htmlNode = editor.container.querySelector(`#node-${id} .codemirror-editor`)
                 if (!htmlNode) return
+                const canEdit = ["triples", "sparql", "shacl"].includes(node.name)
                 const codeMirror = CodeMirror(htmlNode, {
                     value: initialData[node.name] ?? "",
                     mode: node.name === "sparql" ? "sparql" : "turtle",
-                    lineNumbers: false,
-                    readOnly: false,
+                    lineNumbers: canEdit,
+                    readOnly: !canEdit,
                 });
                 codemirrorInstances[node.name] = codeMirror
                 codeMirror.setSize('100%', '100%')
@@ -175,7 +176,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                     outputs: { output_1: { label: "result" } },
                 }
             })
-            const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 490, 190, "", {}, sparqlExecHtml)
+            const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 530, 190, "", {}, sparqlExecHtml)
 
             editor.addConnection(triplesNode, sparqlExecNode, "output_1", "input_1")
             editor.addConnection(sparqlNode, sparqlExecNode, "output_1", "input_2")
@@ -192,7 +193,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 template: shaclHtml,
                 outputs: { output_1: { label: "shacl" } }
             })
-                const shaclNode = editor.addNode("shacl", 0, 1, 570, 325, "", {}, shaclHtml)
+                const shaclNode = editor.addNode("shacl", 0, 1, 570, 380, "", {}, shaclHtml)
 
             const mergeHtml = `
               <div>
@@ -211,7 +212,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 },
                 outputs: { output_1: { label: "merged_triples" } }
             })
-            const mergeNode = editor.addNode("merge", 2, 1, 920, 50, "", {}, mergeHtml)
+            const mergeNode = editor.addNode("merge", 2, 1, 990, 50, "", {}, mergeHtml)
 
             editor.addConnection(triplesNode, mergeNode, "output_1", "input_1")
             editor.addConnection(sparqlExecNode, mergeNode, "output_1", "input_2")
@@ -233,7 +234,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 },
                 outputs: { output_1: { label: "result" } }
             })
-            const valiNode = editor.addNode("vali", 2, 1, 1110, 240, "", {}, valiHtml)
+            const valiNode = editor.addNode("vali", 2, 1, 1110, 280, "", {}, valiHtml)
 
             editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
             editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
