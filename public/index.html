@@ -246,30 +246,35 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 let constructedQuads = await runSparqlConstructQueryOnRdfString(matRule, userProfile)
 
                 // sparql exec
-
                 let store = window.bundle.newStore()
                 for (let quad of constructedQuads) {
                     store.addQuad(quad)
                 }
-                let turtle = await serializeStoreToTurtle(store)
-                codemirrorInstances["sparqlExec"].setValue(turtle)
+                let sparqlExecTurtle = await serializeStoreToTurtle(store)
 
                 // merge
-
                 store = window.bundle.newStore() // new store: otherwise the order of triples is not nice
                 await addRdfStringToStore(userProfile, store)
                 for (let quad of constructedQuads) {
                     store.addQuad(quad)
                 }
-                turtle = await serializeStoreToTurtle(store)
-                codemirrorInstances["merge"].setValue(turtle)
+                let mergeTurtle = await serializeStoreToTurtle(store)
 
                 // validation
-
                 await addRdfStringToStore(reqProfile, store)
                 let result = await runValidationOnStore(store)
-                turtle = await serializeDatasetToTurtle(result.dataset)
-                codemirrorInstances["vali"].setValue(turtle)
+                let valiTurtle = await serializeDatasetToTurtle(result.dataset)
+
+                // set values with time delay
+                setTimeout(() => {
+                    codemirrorInstances["sparqlExec"].setValue(sparqlExecTurtle)
+                }, 150)
+                setTimeout(() => {
+                    codemirrorInstances["merge"].setValue(mergeTurtle)
+                }, 450)
+                setTimeout(() => {
+                    codemirrorInstances["vali"].setValue(valiTurtle)
+                }, 750)
             }
         </script>
     </body>
