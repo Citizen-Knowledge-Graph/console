@@ -42,6 +42,11 @@
             .play-node-box {
                 height: 65px;
             }
+            .info-node {
+                width: 935px !important;
+                padding: 8px !important;
+                background-color: lightcyan !important;
+            }
         </style>
     </head>
     <body>
@@ -91,10 +96,10 @@ ff:SimpleBenefitShape a sh:NodeShape ;
     ] .`
             }
 
-            /*editor.on("nodeMoved", function(id) {
+            editor.on("nodeMoved", function(id) {
                 const node = editor.getNodeFromId(id)
-                console.log(node.pos_x, node.pos_y)
-            })*/
+                console.log(node.name, node.pos_x, node.pos_y)
+            })
 
             let codemirrorInstances = {}
 
@@ -117,6 +122,16 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 })*/
             })
 
+            const infoNodeHtml = `
+                <div class="box">
+                    This is a <a href="https://github.com/Citizen-Knowledge-Graph/console">prototype</a> for a <strong>low code linked data operations flow tool</strong> (working title &#128521;). It shows a very simplified FörderFunke-example of checking a user's eligibility for one benefit. You can press play, change things, press play again etc. But beyond that, a lot is hardcoded in the background for now. The idea is to develop this into a tool where you can drag and drop a variety of nodes and wire them up as you like. For instance, the entire matching logic of FörderFunke could be displayed like this and be shared via a link that encodes the setup. I imagine it could be neat for didactic purposes and also during the development of linked data operations to quickly prototype things and talk about them together &#129299; What do you think? <small style="color: silver">benjamin.degenhart@foerderfunke.org</small>
+                </div>
+            `
+            editor.registerNode("info", {
+                template: infoNodeHtml,
+            })
+            const infoNode = editor.addNode("info", 0, 0, 520, 15, "info-node", {}, infoNodeHtml);
+
             const playBtnHtml = `
                 <div>
                     <div class="play-node-box">
@@ -129,7 +144,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             editor.registerNode("play", {
                 template: playBtnHtml,
             })
-            const playNode = editor.addNode("play", 0, 0, 550, 20, "play-node", {}, playBtnHtml);
+            const playNode = editor.addNode("play", 0, 0, 210, 485, "play-node", {}, playBtnHtml);
 
             const triplesHtml = `
               <div>
@@ -143,7 +158,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 template: triplesHtml,
                 outputs: { output_1: { label: "triples" } },
             })
-            const triplesNode = editor.addNode("triples", 0, 1, 50, 50, "", {}, triplesHtml);
+            const triplesNode = editor.addNode("triples", 0, 1, 35, 70, "", {}, triplesHtml);
 
             const sparqlHtml = `
               <div>
@@ -157,7 +172,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 template: sparqlHtml,
                 outputs: { output_1: { label: "sparql" } },
             })
-            const sparqlNode = editor.addNode("sparql", 0, 1, 50, 280, "", {}, sparqlHtml)
+            const sparqlNode = editor.addNode("sparql", 0, 1, 35, 265, "", {}, sparqlHtml)
 
             const sparqlExecHtml = `
               <div>
@@ -176,7 +191,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                     outputs: { output_1: { label: "result" } },
                 }
             })
-            const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 530, 190, "", {}, sparqlExecHtml)
+            const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 535, 260, "", {}, sparqlExecHtml)
 
             editor.addConnection(triplesNode, sparqlExecNode, "output_1", "input_1")
             editor.addConnection(sparqlNode, sparqlExecNode, "output_1", "input_2")
@@ -193,7 +208,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 template: shaclHtml,
                 outputs: { output_1: { label: "shacl" } }
             })
-                const shaclNode = editor.addNode("shacl", 0, 1, 570, 380, "", {}, shaclHtml)
+                const shaclNode = editor.addNode("shacl", 0, 1, 540, 445, "", {}, shaclHtml)
 
             const mergeHtml = `
               <div>
@@ -212,7 +227,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 },
                 outputs: { output_1: { label: "merged_triples" } }
             })
-            const mergeNode = editor.addNode("merge", 2, 1, 990, 50, "", {}, mergeHtml)
+            const mergeNode = editor.addNode("merge", 2, 1, 1020, 200, "", {}, mergeHtml)
 
             editor.addConnection(triplesNode, mergeNode, "output_1", "input_1")
             editor.addConnection(sparqlExecNode, mergeNode, "output_1", "input_2")
@@ -234,7 +249,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 },
                 outputs: { output_1: { label: "result" } }
             })
-            const valiNode = editor.addNode("vali", 2, 1, 1110, 280, "", {}, valiHtml)
+            const valiNode = editor.addNode("vali", 2, 1, 1100, 450, "", {}, valiHtml)
 
             editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
             editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
