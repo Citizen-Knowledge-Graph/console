@@ -29,6 +29,10 @@
                 padding-left: 14px !important;
                 padding-bottom: 7px !important;
             }
+            .result {
+                color: silver;
+                margin-bottom: 8px;
+            }
         </style>
     </head>
     <body>
@@ -55,6 +59,7 @@
 
             let initialData = {
 triples: `@prefix ff: <https://foerderfunke.org/default#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ff:mainPerson a ff:Citizen ;
     ff:hasBirthday "1990-01-02"^^xsd:date .`,
@@ -82,18 +87,21 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 console.log(node.pos_x, node.pos_y)
             })*/
 
+            let codemirrorInstances = {}
+
             editor.on("nodeCreated", function(id) {
                 const node = editor.getNodeFromId(id)
-                if (!Object.keys(initialData).includes(node.name)) return
                 const htmlNode = editor.container.querySelector(`#node-${id} .codemirror-editor`)
                 if (!htmlNode) return
                 const codeMirror = CodeMirror(htmlNode, {
-                    value: initialData[node.name],
+                    value: initialData[node.name] ?? "",
                     mode: node.name === "sparql" ? "sparql" : "turtle",
                     lineNumbers: false,
                     readOnly: false,
                 });
+                codemirrorInstances[node.name] = codeMirror
                 codeMirror.setSize('100%', '100%')
+                if (!["triples", "sparql", "shacl"].includes(node.name)) return
                 codeMirror.on("change", () => {
                     eval()
                 })
@@ -115,7 +123,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
             const sparqlHtml = `
               <div>
-                <div class="title-box">Materialization rules</div>
+                <div class="title-box">Materialization rule</div>
                 <div class="box">
                     <div class="codemirror-editor"></div>
                 </div>
@@ -129,9 +137,9 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
             const sparqlExecHtml = `
               <div>
-                <div class="title-box">Execute SPARQL query</div>
+                <div class="title-box">Execute SPARQL CONSTRUCT query</div>
                 <div class="box">
-                    Result:
+                    <div class="result">Result:</div>
                     <div class="codemirror-editor"></div>
                 </div>
               </div>
@@ -167,7 +175,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
               <div>
                 <div class="title-box">Merge triples</div>
                 <div class="box">
-                    Result:
+                    <div class="result">Result:</div>
                     <div class="codemirror-editor"></div>
                 </div>
               </div>
@@ -189,7 +197,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
               <div>
                 <div class="title-box">SHACL validation</div>
                 <div class="box">
-                    Result:
+                    <div class="result">Result:</div>
                     <div class="codemirror-editor"></div>
                 </div>
               </div>
