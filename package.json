@@ -5,7 +5,9 @@
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.0.2",
     "drawflow": "^0.0.60",
-    "n3": "^1.23.0"
+    "n3": "^1.23.0",
+    "rdf-ext": "^2.5.2",
+    "shacl-engine": "^1.0.1"
   },
   "scripts": {
     "clean": "rm -rf public/assets/",
