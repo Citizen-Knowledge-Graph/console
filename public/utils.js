@@ -43,3 +43,21 @@ function addRdfStringToStore(rdfStr, store) {
         })
     })
 }
+
+function serializeStoreToTurtle(store) {
+    return new Promise((resolve, reject) => {
+        let writer = window.bundle.newWriter({
+            prefixes: {
+                ff: "https://foerderfunke.org/default#"
+            }
+        })
+        store.getQuads().forEach(quad => writer.addQuad(quad))
+        writer.end((error, result) => {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(result)
+            }
+        })
+    })
+}

@@ -1,8 +1,12 @@
-import { Parser, Store } from "n3"
+import { Parser, Store, Writer } from "n3"
 import { QueryEngine } from "@comunica/query-sparql-rdfjs"
 
 export function newParser() {
     return new Parser()
+}
+
+export function newWriter(params) {
+    return new Writer(params)
 }
 
 export function newStore() {
@@ -13,4 +17,4 @@ export function newQueryEngine() {
     return new QueryEngine()
 }
 
-window.bundle = { newParser, newStore, newQueryEngine }
+window.bundle = { newParser, newWriter, newStore, newQueryEngine }
