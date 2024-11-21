@@ -239,8 +239,37 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
             editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
 
-            function eval() {
-                // ...
+            async function eval() {
+                let userProfile = codemirrorInstances["triples"].getValue()
+                let matRule = codemirrorInstances["sparql"].getValue()
+                let reqProfile = codemirrorInstances["shacl"].getValue()
+                let constructedQuads = await runSparqlConstructQueryOnRdfString(matRule, userProfile)
+
+                // sparql exec
+
+                let store = window.bundle.newStore()
+                for (let quad of constructedQuads) {
+                    store.addQuad(quad)
+                }
+                let turtle = await serializeStoreToTurtle(store)
+                codemirrorInstances["sparqlExec"].setValue(turtle)
+
+                // merge
+
+                store = window.bundle.newStore() // new store: otherwise the order of triples is not nice
+                await addRdfStringToStore(userProfile, store)
+                for (let quad of constructedQuads) {
+                    store.addQuad(quad)
+                }
+                turtle = await serializeStoreToTurtle(store)
+                codemirrorInstances["merge"].setValue(turtle)
+
+                // validation
+
+                await addRdfStringToStore(reqProfile, store)
+                let result = await runValidationOnStore(store)
+                turtle = await serializeDatasetToTurtle(result.dataset)
+                codemirrorInstances["vali"].setValue(turtle)
             }
         </script>
     </body>

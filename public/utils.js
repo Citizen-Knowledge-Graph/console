@@ -27,6 +27,14 @@ async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
     return await bindingsStream.toArray()
 }
 
+async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
+    let store = window.bundle.newStore()
+    await addRdfStringToStore(rdfStr, store)
+    const queryEngine = window.bundle.newQueryEngine()
+    let quadsStream = await queryEngine.queryQuads(query, { sources: [ store ] })
+    return await quadsStream.toArray()
+}
+
 function addRdfStringToStore(rdfStr, store) {
     return new Promise((resolve, reject) => {
         const parser = window.bundle.newParser()
@@ -60,4 +68,30 @@ function serializeStoreToTurtle(store) {
             }
         })
     })
+}
+
+function serializeDatasetToTurtle(dataset) {
+    return new Promise((resolve, reject) => {
+        let writer = window.bundle.newWriter({
+            prefixes: {
+                ff: "https://foerderfunke.org/default#",
+                sh: "http://www.w3.org/ns/shacl#",
+            }
+        })
+        dataset.forEach(quad => writer.addQuad(quad))
+        writer.end((error, result) => {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(result)
+            }
+        })
+    })
+}
+
+async function runValidationOnStore(store) {
+    let rdf = window.bundle.getRdfFactory()
+    let dataset = rdf.dataset(store.getQuads())
+    let validator = window.bundle.newValidator(dataset, { factory: rdf, debug: false })
+    return await validator.validate({ dataset: dataset })
 }
