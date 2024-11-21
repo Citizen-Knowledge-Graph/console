@@ -33,6 +33,9 @@
                 color: silver;
                 margin-bottom: 8px;
             }
+            .view-only {
+                background-color: lightgoldenrodyellow !important;
+            }
         </style>
     </head>
     <body>
@@ -137,7 +140,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
             const sparqlExecHtml = `
               <div>
-                <div class="title-box">Execute SPARQL CONSTRUCT query</div>
+                <div class="title-box view-only">Execute SPARQL CONSTRUCT query</div>
                 <div class="box">
                     <div class="result">Result:</div>
                     <div class="codemirror-editor"></div>
@@ -173,7 +176,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
             const mergeHtml = `
               <div>
-                <div class="title-box">Merge triples</div>
+                <div class="title-box view-only">Merge triples</div>
                 <div class="box">
                     <div class="result">Result:</div>
                     <div class="codemirror-editor"></div>
@@ -195,7 +198,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
             const valiHtml = `
               <div>
-                <div class="title-box">SHACL validation</div>
+                <div class="title-box view-only">SHACL validation</div>
                 <div class="box">
                     <div class="result">Result:</div>
                     <div class="codemirror-editor"></div>
