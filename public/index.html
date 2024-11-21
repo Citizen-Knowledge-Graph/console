@@ -36,6 +36,12 @@
             .view-only {
                 background-color: lightgoldenrodyellow !important;
             }
+            .play-node {
+                width: 65px !important;
+            }
+            .play-node-box {
+                height: 65px;
+            }
         </style>
     </head>
     <body>
@@ -104,11 +110,25 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 });
                 codemirrorInstances[node.name] = codeMirror
                 codeMirror.setSize('100%', '100%')
-                if (!["triples", "sparql", "shacl"].includes(node.name)) return
+                /*if (!["triples", "sparql", "shacl"].includes(node.name)) return
                 codeMirror.on("change", () => {
                     eval()
-                })
+                })*/
             })
+
+            const playBtnHtml = `
+                <div>
+                    <div class="play-node-box">
+                        <svg onclick="eval()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="cursor: pointer;">
+                            <path d="M40 30 L70 50 L40 70 Z" style="fill: darkblue; stroke: darkblue; stroke-linejoin: round; stroke-width: 5;"/>
+                        </svg>
+                    </div>
+                </div>
+            `;
+            editor.registerNode("play", {
+                template: playBtnHtml,
+            })
+            const playNode = editor.addNode("play", 0, 0, 550, 20, "play-node", {}, playBtnHtml);
 
             const triplesHtml = `
               <div>
