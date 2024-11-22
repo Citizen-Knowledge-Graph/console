@@ -45,7 +45,7 @@
                 height: 65px;
             }
             .info-node {
-                width: 935px !important;
+                width: 950px !important;
                 padding: 8px !important;
                 background-color: lightcyan !important;
             }
@@ -124,15 +124,22 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 })*/
             })
 
+            function showFeatures() {
+                alert("Backend can be switched out: in-browser session (default), remote triplestore, local java server, etc.\n\n" +
+                    "Export flow graph as Turtle file, maybe in line with github.com/rdf-connect?\n\n" +
+                    "Export an entire ready-to-execute implementation in different programming languages based on the flow graph.\n\n" +
+                    "... your ideas?")
+            }
+
             const infoNodeHtml = `
                 <div class="box">
-                    This is a <a href="https://github.com/Citizen-Knowledge-Graph/console">prototype</a> for a <strong>low code linked data operations flow tool</strong> (working title &#128521;). It shows a very simplified FörderFunke-example of checking a user's eligibility for one benefit. You can press play, change things, press play again etc. But beyond that, a lot is hardcoded in the background for now. The idea is to develop this into a tool where you can drag and drop a variety of nodes and wire them up as you like. For instance, the entire matching logic of FörderFunke could be displayed like this and be shared via a link that encodes the setup. I imagine it could be neat for didactic purposes and also during the development of linked data operations to quickly prototype things and talk about them together &#129299; What do you think? <small style="color: silver">benjamin.degenhart@foerderfunke.org</small>
+                    This is a "<a href="https://github.com/Citizen-Knowledge-Graph/console">demo prototype sketch</a>" for a <strong>low code linked data operations flow tool</strong> (working title &#128521;, more low ops than low code actually). It shows a very simplified FörderFunke-example of checking a user's eligibility for one benefit. You can press play, change things (e.g. birthday or min age), press play again etc. But beyond that, a lot is hardcoded in the background for now. The idea is to develop this into a tool where you can drag and drop a variety of nodes and wire them up as you like. For instance, the entire matching logic of FörderFunke could be displayed like this and be shared via a link that encodes the setup. But I imagine it to be useful beyond FörderFunke - it could be neat for didactic purposes and also during the development of linked data operations to quickly prototype things and talk about them together &#129299; More feature ideas <a href="#" onclick="showFeatures()">here</a>. What do you think? <small style="color: silver">benjamin.degenhart@foerderfunke.org</small>
                 </div>
             `
             editor.registerNode("info", {
                 template: infoNodeHtml,
             })
-            const infoNode = editor.addNode("info", 0, 0, 520, 15, "info-node", {}, infoNodeHtml);
+            const infoNode = editor.addNode("info", 0, 0, 520, 10, "info-node", {}, infoNodeHtml);
 
             const playBtnHtml = `
                 <div>
