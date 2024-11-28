@@ -1,10 +1,16 @@
-const path = require("path")
+import path from "path"
 
-module.exports = {
+export default {
     entry: "./bundling.js",
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, "public/assets"),
+        path: path.resolve("public/assets"),
+        library: {
+            type: "module",
+        },
+    },
+    experiments: {
+        outputModule: true,
     },
     mode: "production",
-};
+}

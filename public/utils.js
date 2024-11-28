@@ -1,4 +1,6 @@
-async function fetchAsset(relPath) {
+import { Parser, QueryEngine, rdf, Store, Validator, Writer } from "./assets/bundle.js"
+
+export async function fetchAsset(relPath) {
     const response = await fetch("assets/" + relPath, {
         method: "GET",
         cache: "reload"
@@ -7,7 +9,7 @@ async function fetchAsset(relPath) {
 }
 
 // type: "text/turtle"
-async function download(content, type, filename) {
+export async function download(content, type, filename) {
     let blob = new Blob([content], {type: type})
     let url = URL.createObjectURL(blob)
     let a = document.createElement("a")
@@ -19,25 +21,25 @@ async function download(content, type, filename) {
     window.URL.revokeObjectURL(url)
 }
 
-async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
-    let store = window.bundle.newStore()
+export async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
+    let store = new Store()
     await addRdfStringToStore(rdfStr, store)
-    const queryEngine = window.bundle.newQueryEngine()
+    const queryEngine = new QueryEngine()
     let bindingsStream = await queryEngine.queryBindings(query, { sources: [ store ] })
     return await bindingsStream.toArray()
 }
 
-async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
-    let store = window.bundle.newStore()
+export async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
+    let store = new Store()
     await addRdfStringToStore(rdfStr, store)
-    const queryEngine = window.bundle.newQueryEngine()
+    const queryEngine = new QueryEngine()
     let quadsStream = await queryEngine.queryQuads(query, { sources: [ store ] })
     return await quadsStream.toArray()
 }
 
-function addRdfStringToStore(rdfStr, store) {
+export function addRdfStringToStore(rdfStr, store) {
     return new Promise((resolve, reject) => {
-        const parser = window.bundle.newParser()
+        const parser = new Parser()
         parser.parse(rdfStr, (err, quad) => {
             if (err) {
                 console.error(err)
@@ -52,9 +54,9 @@ function addRdfStringToStore(rdfStr, store) {
     })
 }
 
-function serializeStoreToTurtle(store) {
+export function serializeStoreToTurtle(store) {
     return new Promise((resolve, reject) => {
-        let writer = window.bundle.newWriter({
+        let writer = new Writer({
             prefixes: {
                 ff: "https://foerderfunke.org/default#"
             }
@@ -70,9 +72,9 @@ function serializeStoreToTurtle(store) {
     })
 }
 
-function serializeDatasetToTurtle(dataset) {
+export function serializeDatasetToTurtle(dataset) {
     return new Promise((resolve, reject) => {
-        let writer = window.bundle.newWriter({
+        let writer = new Writer({
             prefixes: {
                 ff: "https://foerderfunke.org/default#",
                 sh: "http://www.w3.org/ns/shacl#",
@@ -89,9 +91,8 @@ function serializeDatasetToTurtle(dataset) {
     })
 }
 
-async function runValidationOnStore(store) {
-    let rdf = window.bundle.getRdfFactory()
+export async function runValidationOnStore(store) {
     let dataset = rdf.dataset(store.getQuads())
-    let validator = window.bundle.newValidator(dataset, { factory: rdf, debug: false })
+    let validator = new Validator(dataset, { factory: rdf, debug: false })
     return await validator.validate({ dataset: dataset })
 }
