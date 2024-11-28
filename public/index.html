@@ -45,6 +45,13 @@
                 padding: 8px !important;
                 background-color: lightcyan !important;
             }
+            .highlighted-edge {
+                stroke: red !important;
+                stroke-width: 5px !important;
+            }
+            .highlighted-node {
+                background-color: yellow !important;
+            }
         </style>
     </head>
     <body>
@@ -299,11 +306,16 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 let result = await runValidationOnStore(store)
                 let valiTurtle = await serializeDatasetToTurtle(result.dataset)
 
-                // set values with time delay
+                let edgeEl = document.querySelector(`svg.node_out_${components["triples"].nodeId}.node_in_${components["sparqlExec"].nodeId} path`)
+                // edgeEl.classList.add("highlighted-edge")
+                let nodeEl = document.getElementById(components["sparqlExec"].nodeId)
+                // nodeEl.classList.add("highlighted-node")
+
                 setTimeout(() => {
                     let comp = components["sparqlExec"]
                     comp.codeMirror.setValue(sparqlExecTurtle)
                     editor.updateConnectionNodes(comp.nodeId)
+                    // edgeEl.classList.remove("highlighted-edge")
                 }, 150)
                 setTimeout(() => {
                     let comp = components["merge"]
