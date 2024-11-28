@@ -6,6 +6,7 @@
         <script src="./assets/bundle.js" type="module"></script>
         <script src="./utils.js" type="module"></script>
         <script src="./check-repo-updates.js" type="module"></script>
+        <!--<script src="./drawflow.js" type="module"></script>-->
         <link rel="stylesheet" type="text/css" href="./assets/codemirror.css">
         <link rel="stylesheet" type="text/css" href="./assets/drawflow.min.css">
         <link rel="stylesheet" type="text/css" href="./drawflow.css">
@@ -51,7 +52,7 @@
         <script type="module">
             import { CodeMirror } from "./assets/bundle.js"
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
-            import { Drawflow } from "./assets/bundle.js"
+            import { Drawflow } from "./assets/bundle.js" // import Drawflow from "./drawflow.js"
             import {
                 runSparqlConstructQueryOnRdfString,
                 serializeStoreToTurtle,
@@ -109,7 +110,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 console.log(node.name, node.pos_x, node.pos_y)
             })
 
-            let codemirrorInstances = {}
+            let components = {}
 
             editor.on("nodeCreated", function(id) {
                 const node = editor.getNodeFromId(id)
@@ -122,7 +123,10 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                     lineNumbers: canEdit,
                     readOnly: !canEdit,
                 });
-                codemirrorInstances[node.name] = codeMirror
+                components[node.name] = {
+                    nodeId: "node-" + id,
+                    codeMirror: codeMirror
+                }
                 codeMirror.setSize('100%', '100%')
                 /*if (!["triples", "sparql", "shacl"].includes(node.name)) return
                 codeMirror.on("change", () => {
@@ -270,9 +274,9 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
 
             async function compute() {
-                let userProfile = codemirrorInstances["triples"].getValue()
-                let matRule = codemirrorInstances["sparql"].getValue()
-                let reqProfile = codemirrorInstances["shacl"].getValue()
+                let userProfile = components["triples"].codeMirror.getValue()
+                let matRule = components["sparql"].codeMirror.getValue()
+                let reqProfile = components["shacl"].codeMirror.getValue()
                 let constructedQuads = await runSparqlConstructQueryOnRdfString(matRule, userProfile)
 
                 // sparql exec
@@ -297,13 +301,19 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
                 // set values with time delay
                 setTimeout(() => {
-                    codemirrorInstances["sparqlExec"].setValue(sparqlExecTurtle)
+                    let comp = components["sparqlExec"]
+                    comp.codeMirror.setValue(sparqlExecTurtle)
+                    editor.updateConnectionNodes(comp.nodeId)
                 }, 150)
                 setTimeout(() => {
-                    codemirrorInstances["merge"].setValue(mergeTurtle)
+                    let comp = components["merge"]
+                    comp.codeMirror.setValue(mergeTurtle)
+                    editor.updateConnectionNodes(comp.nodeId)
                 }, 450)
                 setTimeout(() => {
-                    codemirrorInstances["vali"].setValue(valiTurtle)
+                    let comp = components["vali"]
+                    comp.codeMirror.setValue(valiTurtle)
+                    editor.updateConnectionNodes(comp.nodeId)
                 }, 750)
             }
             window.compute = compute;
