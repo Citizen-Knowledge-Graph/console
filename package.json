@@ -18,10 +18,10 @@
     "listRpsDir": "cd public/assets/requirement-profiles && ls -R > ../rps-dir.txt",
     "extractLatestConsoleCommit": "git rev-parse HEAD > public/assets/latest-console-repo-commit.txt",
     "bundle": "webpack",
-    "copyDependencies": "cp ./node_modules/drawflow/dist/drawflow.min.js public/assets/ && cp ./node_modules/drawflow/dist/drawflow.min.css public/assets/",
-    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit && npm run bundle && npm run copyDependencies"
+    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit && npm run bundle"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4"
   }
