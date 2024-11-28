@@ -21,6 +21,10 @@ export default {
                     from: path.resolve("node_modules/drawflow/dist/drawflow.min.css"),
                     to: path.resolve("public/assets"),
                 },
+                {
+                    from: path.resolve("node_modules/codemirror/lib/codemirror.css"),
+                    to: path.resolve("public/assets"),
+                },
             ],
         }),
     ],

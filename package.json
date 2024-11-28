@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.0.2",
+    "codemirror": "^5.65.18",
     "drawflow": "^0.0.60",
     "n3": "^1.23.0",
     "rdf-ext": "^2.5.2",
