@@ -5,10 +5,7 @@
         <title>Console</title>
         <script src="./utils.js" type="module"></script>
         <script src="./assets/bundle.js" type="module"></script>
-        <!--
-        <script src="./check-repo-updates.js"></script>
-        <script src="./main.js"></script>
-        -->
+        <script src="./check-repo-updates.js" type="module"></script>
         <link rel="stylesheet" type="text/css" href="./assets/drawflow.min.css">
         <link rel="stylesheet" type="text/css" href="./drawflow.css">
         <script src="./assets/drawflow.min.js"></script>
@@ -54,11 +51,11 @@
         </style>
     </head>
     <body>
-        <!--<input type="file" id="fileUpload" />
-        <div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>-
-        <div onclick="func()">dev</div>-->
         <div id="drawflow"></div>
         <script type="module">
+            import { checkForNewRepoCommits } from "./check-repo-updates.js"
+            setInterval(checkForNewRepoCommits, 60 * 1000)
+
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
 

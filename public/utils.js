@@ -21,6 +21,24 @@ export async function download(content, type, filename) {
     window.URL.revokeObjectURL(url)
 }
 
+/*
+let rpsDir = await fetchAsset("rps-dir.txt")
+
+<input type="file" id="fileUpload" />
+<div onclick="download('foo', 'text/plain', 'file.txt')">dev</div>-
+<div onclick="func()">dev</div>
+
+document.getElementById("fileUpload").addEventListener("change", function() {
+    const reader = new FileReader()
+    reader.onload = function(event) {
+        const content = event.target.result
+        console.log("File content:", content)
+    }
+    const file = this.files[0]
+    reader.readAsText(file)
+})
+*/
+
 export async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
     let store = new Store()
     await addRdfStringToStore(rdfStr, store)

@@ -1,3 +1,5 @@
+import { fetchAsset } from "./utils.js";
+
 let commits = {
     rps: {
         uponPageLoad: "",
@@ -9,8 +11,8 @@ let commits = {
     }
 }
 
-async function checkForNewRepoCommits() {
-    console.log("checking")
+export async function checkForNewRepoCommits() {
+    console.log("checking for new repo commits")
     await doCheck("rps")
     await doCheck("console")
 }
