@@ -19,7 +19,7 @@
     "listRpsDir": "cd public/assets/requirement-profiles && ls -R > ../rps-dir.txt",
     "extractLatestConsoleCommit": "git rev-parse HEAD > public/assets/latest-console-repo-commit.txt",
     "bundle": "webpack",
-    "collectAssets": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit && npm run bundle"
+    "build": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit && npm run bundle"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^12.0.2",

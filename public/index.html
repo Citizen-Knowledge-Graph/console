@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>Console</title>
-        <script src="./utils.js" type="module"></script>
         <script src="./assets/bundle.js" type="module"></script>
+        <script src="./utils.js" type="module"></script>
         <script src="./check-repo-updates.js" type="module"></script>
+        <link rel="stylesheet" type="text/css" href="./assets/codemirror.css">
         <link rel="stylesheet" type="text/css" href="./assets/drawflow.min.css">
         <link rel="stylesheet" type="text/css" href="./drawflow.css">
-        <link rel="stylesheet" type="text/css" href="./assets/codemirror.css">
         <script defer data-domain="foerderfunke.org" src="https://plausible.io/js/script.js"></script>
         <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
         <style>
@@ -51,9 +51,18 @@
         <script type="module">
             import { CodeMirror } from "./assets/bundle.js"
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
+            import { Drawflow } from "./assets/bundle.js"
+            import {
+                runSparqlConstructQueryOnRdfString,
+                serializeStoreToTurtle,
+                serializeDatasetToTurtle,
+                addRdfStringToStore,
+                runValidationOnStore,
+            } from "./utils.js"
+            import { Store } from "./assets/bundle.js"
+
             setInterval(checkForNewRepoCommits, 60 * 1000)
 
-            import { Drawflow } from "./assets/bundle.js"
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
 
@@ -259,16 +268,6 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
             editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
             editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
-
-            import {
-                runSparqlConstructQueryOnRdfString,
-                serializeStoreToTurtle,
-                serializeDatasetToTurtle,
-                addRdfStringToStore,
-                runValidationOnStore,
-            } from "./utils.js"
-
-            import { Store } from "./assets/bundle.js"
 
             async function compute() {
                 let userProfile = codemirrorInstances["triples"].getValue()

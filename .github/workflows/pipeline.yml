@@ -21,8 +21,8 @@ jobs:
           node-version: "20.11.1"
       - name: Install dependencies
         run: npm install
-      - name: Collect assets
-        run: npm run collectAssets
+      - name: Build and collect assets
+        run: npm run build
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
