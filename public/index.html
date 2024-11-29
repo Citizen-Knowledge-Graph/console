@@ -74,7 +74,7 @@
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
 
-            editor.container.addEventListener("contextmenu", function(event) {
+            /*editor.container.addEventListener("contextmenu", function(event) {
                 event.stopPropagation()
                 return true
             }, true);
@@ -85,7 +85,12 @@
                         return true
                     }
                 }, true)
-            })
+            })*/
+
+            editor.container.addEventListener("contextmenu", function(event) {
+                if (event.target.className !== "drawflow") return
+                // open context menu TODO
+            });
 
             let initialData = {
 triples: `@prefix ff: <https://foerderfunke.org/default#> .
@@ -139,6 +144,18 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 codeMirror.on("change", () => {
                     compute()
                 })*/
+            })
+
+            editor.on("nodeRemoved", function(id) {
+                console.log("nodeRemoved", id)
+            })
+
+            editor.on("connectionCreated", function(connection) {
+                console.log("connectionCreated", connection)
+            })
+
+            editor.on("connectionRemoved", function(connection) {
+                console.log("connectionRemoved", connection)
             })
 
             function showFeatures() {
