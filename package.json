@@ -12,12 +12,12 @@
     "shacl-engine": "^1.0.1"
   },
   "scripts": {
-    "clean": "rm -rf public/assets/",
-    "cloneRepo": "git clone https://github.com/Citizen-Knowledge-Graph/requirement-profiles public/assets/requirement-profiles",
-    "extractLatestRPcommit": "cd public/assets/requirement-profiles && git rev-parse HEAD > ../latest-rps-repo-commit.txt",
-    "cleanRepo": "rm -rf public/assets/requirement-profiles/.git*",
-    "listRpsDir": "cd public/assets/requirement-profiles && ls -R > ../rps-dir.txt",
-    "extractLatestConsoleCommit": "git rev-parse HEAD > public/assets/latest-console-repo-commit.txt",
+    "clean": "rm -rf src/assets/",
+    "cloneRepo": "git clone https://github.com/Citizen-Knowledge-Graph/requirement-profiles src/assets/requirement-profiles",
+    "extractLatestRPcommit": "cd src/assets/requirement-profiles && git rev-parse HEAD > ../latest-rps-repo-commit.txt",
+    "cleanRepo": "rm -rf src/assets/requirement-profiles/.git*",
+    "listRpsDir": "cd src/assets/requirement-profiles && ls -R > ../rps-dir.txt",
+    "extractLatestConsoleCommit": "git rev-parse HEAD > src/assets/latest-console-repo-commit.txt",
     "bundle": "webpack",
     "build": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run extractLatestConsoleCommit && npm run bundle"
   },

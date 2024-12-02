@@ -5,7 +5,7 @@ export default {
     entry: "./bundling.js",
     output: {
         filename: "bundle.js",
-        path: path.resolve("public/assets"),
+        path: path.resolve("src/assets"),
         library: {
             type: "module",
         },
@@ -19,11 +19,11 @@ export default {
             patterns: [
                 {
                     from: path.resolve("node_modules/drawflow/dist/drawflow.min.css"),
-                    to: path.resolve("public/assets"),
+                    to: path.resolve("src/assets"),
                 },
                 {
                     from: path.resolve("node_modules/codemirror/lib/codemirror.css"),
-                    to: path.resolve("public/assets"),
+                    to: path.resolve("src/assets"),
                 },
             ],
         }),
