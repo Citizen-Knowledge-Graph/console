@@ -1,8 +1,8 @@
 import { Node } from "./node.js"
 
 export class CodeNode extends Node {
-    constructor(name, editor, nodesMap) {
-        super(name, editor, nodesMap)
+    constructor(name, x, y, editor, nodesMap) {
+        super(name, x, y, editor, nodesMap)
 
         this.html = `
 <div>

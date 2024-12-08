@@ -6,10 +6,12 @@
         <script src="./assets/bundle.js" type="module"></script>
         <script src="./utils.js" type="module"></script>
         <script src="./check-repo-updates.js" type="module"></script>
+        <script src="./contextmenu.js" type="module"></script>
         <!--<script src="./drawflow.js" type="module"></script>-->
         <link rel="stylesheet" type="text/css" href="./assets/codemirror.css">
         <link rel="stylesheet" type="text/css" href="./assets/drawflow.min.css">
         <link rel="stylesheet" type="text/css" href="./drawflow.css">
+        <link rel="stylesheet" type="text/css" href="./contextmenu.css">
         <script defer data-domain="foerderfunke.org" src="https://plausible.io/js/script.js"></script>
         <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
         <style>
@@ -69,29 +71,37 @@
             } from "./utils.js"
             import { Store } from "./assets/bundle.js"
             import { CodeNode } from "./nodes/CodeNode.js"
+            import { setupContextMenu } from "./contextmenu.js";
 
             setInterval(checkForNewRepoCommits, 60 * 1000)
 
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
 
-            /*editor.container.addEventListener("contextmenu", function(event) {
+            let nodesMap = {}
+            let edgesMap = {}
+
+            editor.container.addEventListener("contextmenu", event => {
+                if (event.target.className !== "drawflow") return
                 event.stopPropagation()
-                return true
-            }, true);
-            ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
-                editor.container.addEventListener(eventType, function(event) {
-                    if (event.button === 2) {
+                setupContextMenu(event, (command, x, y) => {
+                    y -= document.getElementById("drawflow").getBoundingClientRect().top
+                    switch (command) {
+                        case "CodeNode":
+                            let node = new CodeNode("Test123", x, y, editor, nodesMap)
+                            console.log(node)
+                            break
+                    }
+                })
+            });
+
+           ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
+                editor.container.addEventListener(eventType, event => {
+                    if (event.button === 2 && event.target.className === "drawflow") {
                         event.stopPropagation()
-                        return true
                     }
                 }, true)
-            })*/
-
-            editor.container.addEventListener("contextmenu", function(event) {
-                if (event.target.className !== "drawflow") return
-                // open context menu TODO
-            });
+            })
 
             let initialData = {
 triples: `@prefix ff: <https://foerderfunke.org/default#> .
@@ -124,12 +134,6 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             })
 
             let components = {}
-
-            let nodesMap = {}
-            let edgesMap = {}
-
-            let n1 = new CodeNode("Test123", editor, nodesMap)
-            console.log("n1", n1)
 
             editor.on("nodeCreated", function(id) {
                 const node = editor.getNodeFromId(id)

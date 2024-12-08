@@ -1,0 +1,48 @@
+/* by ChatGPT */
+
+#ctx-menu {
+    position: absolute;
+    display: none;
+    background: #fff;
+    border: 1px solid #000;
+    font: 13px sans-serif;
+}
+
+#ctx-menu > div {
+    padding: 5px 10px;
+    margin: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#ctx-menu > div:hover {
+    background: #ddd;
+}
+
+.sub {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    display: none;
+    background: #fff;
+    border: 1px solid #000;
+}
+
+.sub:hover > .submenu {
+    display: block;
+}
+
+.submenu > div {
+    padding: 5px 10px;
+    margin: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.submenu > div:hover {
+    background: #ddd;
+}
