@@ -184,7 +184,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             editor.registerNode("info", {
                 template: infoNodeHtml,
             })
-            const infoNode = editor.addNode("info", 0, 0, 520, 10, "info-node", {}, infoNodeHtml);
+            //const infoNode = editor.addNode("info", 0, 0, 520, 10, "info-node", {}, infoNodeHtml);
 
             const playBtnHtml = `
                 <div>
@@ -198,7 +198,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             editor.registerNode("play", {
                 template: playBtnHtml,
             })
-            const playNode = editor.addNode("play", 0, 0, 210, 485, "play-node", {}, playBtnHtml);
+            //const playNode = editor.addNode("play", 0, 0, 210, 485, "play-node", {}, playBtnHtml);
 
             const triplesHtml = `
               <div>
@@ -212,7 +212,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 template: triplesHtml,
                 outputs: { output_1: { label: "triples" } },
             })
-            const triplesNode = editor.addNode("triples", 0, 1, 35, 70, "", {}, triplesHtml);
+            //const triplesNode = editor.addNode("triples", 0, 1, 35, 70, "", {}, triplesHtml);
 
             const sparqlHtml = `
               <div>
@@ -226,7 +226,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 template: sparqlHtml,
                 outputs: { output_1: { label: "sparql" } },
             })
-            const sparqlNode = editor.addNode("sparql", 0, 1, 35, 265, "", {}, sparqlHtml)
+            //const sparqlNode = editor.addNode("sparql", 0, 1, 35, 265, "", {}, sparqlHtml)
 
             const sparqlExecHtml = `
               <div>
@@ -245,10 +245,10 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                     outputs: { output_1: { label: "result" } },
                 }
             })
-            const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 535, 260, "", {}, sparqlExecHtml)
+            //const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 535, 260, "", {}, sparqlExecHtml)
 
-            editor.addConnection(triplesNode, sparqlExecNode, "output_1", "input_1")
-            editor.addConnection(sparqlNode, sparqlExecNode, "output_1", "input_2")
+            //editor.addConnection(triplesNode, sparqlExecNode, "output_1", "input_1")
+            //editor.addConnection(sparqlNode, sparqlExecNode, "output_1", "input_2")
 
             const shaclHtml = `
               <div>
@@ -262,7 +262,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 template: shaclHtml,
                 outputs: { output_1: { label: "shacl" } }
             })
-                const shaclNode = editor.addNode("shacl", 0, 1, 540, 445, "", {}, shaclHtml)
+            //const shaclNode = editor.addNode("shacl", 0, 1, 540, 445, "", {}, shaclHtml)
 
             const mergeHtml = `
               <div>
@@ -281,10 +281,10 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 },
                 outputs: { output_1: { label: "merged_triples" } }
             })
-            const mergeNode = editor.addNode("merge", 2, 1, 1020, 200, "", {}, mergeHtml)
+            //const mergeNode = editor.addNode("merge", 2, 1, 1020, 200, "", {}, mergeHtml)
 
-            editor.addConnection(triplesNode, mergeNode, "output_1", "input_1")
-            editor.addConnection(sparqlExecNode, mergeNode, "output_1", "input_2")
+            //editor.addConnection(triplesNode, mergeNode, "output_1", "input_1")
+            //editor.addConnection(sparqlExecNode, mergeNode, "output_1", "input_2")
 
             const valiHtml = `
               <div>
@@ -303,10 +303,10 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 },
                 outputs: { output_1: { label: "result" } }
             })
-            const valiNode = editor.addNode("vali", 2, 1, 1100, 450, "", {}, valiHtml)
+            //const valiNode = editor.addNode("vali", 2, 1, 1100, 450, "", {}, valiHtml)
 
-            editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
-            editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
+            //editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
+            //editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
 
             async function compute() {
                 let userProfile = components["triples"].codeMirror.getValue()
