@@ -1,5 +1,5 @@
 export class Edge {
-    constructor(outNodeId, outPortId, inNodeId, inPortId, edgesMap) {
+    constructor(outNodeId, outPortId, inNodeId, inPortId, edgesMap, editorEdgeObj) {
         this.outNodeId = outNodeId
         this.outPortId = outPortId
         this.inNodeId = inNodeId
@@ -7,5 +7,6 @@ export class Edge {
         this.id = `${outNodeId}-${outPortId}-${inNodeId}-${inPortId}`
         this.edgesMap = edgesMap
         this.edgesMap[this.id] = this
+        this.editorEdgeObj = editorEdgeObj
     }
 }

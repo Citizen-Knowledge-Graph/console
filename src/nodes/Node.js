@@ -12,6 +12,7 @@ export class Node {
 
     addNode() {
         this.editorId = this.editor.addNode(this.name, 0, 0, this.x, this.y, "", {}, this.html)
+        this.editorNodeObj = this.editor.getNodeFromId(this.editorId)
         this.id = slugify(this.name, { lower: true })
         if (this.nodesMap.hasOwnProperty(this.id)) {
             let i = 1

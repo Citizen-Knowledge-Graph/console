@@ -168,7 +168,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 let inNode = Object.values(nodesMap).find(node => node.editorId.toString() === connection.input_id)
                 let outPortId = connection.output_class
                 let inPortId = connection.input_class
-                new Edge(outNode.id, outPortId, inNode.id, inPortId, edgesMap)
+                new Edge(outNode.id, outPortId, inNode.id, inPortId, edgesMap, connection)
             })
 
             editor.on("connectionRemoved", function(connection) {
