@@ -68,6 +68,7 @@
                 runValidationOnStore,
             } from "./utils.js"
             import { Store } from "./assets/bundle.js"
+            import { CodeNode } from "./nodes/CodeNode.js"
 
             setInterval(checkForNewRepoCommits, 60 * 1000)
 
@@ -123,6 +124,12 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             })
 
             let components = {}
+
+            let nodesMap = {}
+            let edgesMap = {}
+
+            let n1 = new CodeNode("Test123", editor, nodesMap)
+            console.log("n1", n1)
 
             editor.on("nodeCreated", function(id) {
                 const node = editor.getNodeFromId(id)
