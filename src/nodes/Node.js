@@ -1,13 +1,5 @@
 import { slugify } from "../assets/bundle.js"
 
-export const PORT = {
-    ANY: 1,
-    TURTLE: 2,
-    SPARQL_SELECT: 3,
-    SPARQL_CONSTRUCT: 4,
-    SHACL: 5
-}
-
 export class Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap) {
         this.name = name

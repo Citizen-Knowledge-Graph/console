@@ -34,7 +34,7 @@ const menuItems = [
     {
         text: "Processors",
         submenu: [
-            { text: "Merge", action: "" },
+            { text: "SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
         ]
     }
 ]
