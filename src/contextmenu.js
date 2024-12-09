@@ -24,7 +24,20 @@
     { text: "Item C" }
 ]*/
 
-const menuItems = [{ text: "New CodeNode", action: "CodeNode" }]
+const menuItems = [
+    {
+        text: "Input",
+        submenu: [
+            { text: "Turtle", action: "TurtleInputNode" },
+        ]
+    },
+    {
+        text: "Processors",
+        submenu: [
+            { text: "Merge", action: "" },
+        ]
+    }
+]
 
 function buildMenu(items) {
     return items.map(item => {

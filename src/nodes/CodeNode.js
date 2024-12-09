@@ -1,8 +1,8 @@
-import { Node } from "./node.js"
+import { Node } from "./Node.js"
 
 export class CodeNode extends Node {
-    constructor(name, x, y, editor, nodesMap) {
-        super(name, x, y, editor, nodesMap)
+    constructor(name, inputs, outputs, x, y, editor, nodesMap) {
+        super(name, inputs, outputs, x, y, editor, nodesMap)
 
         this.html = `
 <div>
@@ -11,6 +11,5 @@ export class CodeNode extends Node {
         <div class="codemirror-editor"></div>
     </div>
 </div>`
-        super.addNode()
     }
 }

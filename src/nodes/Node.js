@@ -1,8 +1,18 @@
 import { slugify } from "../assets/bundle.js"
 
+export const PORT = {
+    ANY: 1,
+    TURTLE: 2,
+    SPARQL_SELECT: 3,
+    SPARQL_CONSTRUCT: 4,
+    SHACL: 5
+}
+
 export class Node {
-    constructor(name, x, y, editor, nodesMap) {
+    constructor(name, inputs, outputs, x, y, editor, nodesMap) {
         this.name = name
+        this.inputs = inputs
+        this.outputs = outputs
         this.x = x
         this.y = y
         this.editor = editor
@@ -11,7 +21,7 @@ export class Node {
     }
 
     addNode() {
-        this.editorId = this.editor.addNode(this.name, 0, 0, this.x, this.y, "", {}, this.html)
+        this.editorId = this.editor.addNode(this.name, this.inputs.length, this.outputs.length, this.x, this.y, "", {}, this.html)
         this.editorNodeObj = this.editor.getNodeFromId(this.editorId)
         this.id = slugify(this.name, { lower: true })
         if (this.nodesMap.hasOwnProperty(this.id)) {

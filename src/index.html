@@ -71,10 +71,10 @@
             } from "./utils.js"
             import { Store } from "./assets/bundle.js"
             import { Edge } from "./nodes/Edge.js"
-            import { CodeNode } from "./nodes/CodeNode.js"
+            import { TurtleInputNode } from "./nodes/TurtleInputNode.js"
             import { setupContextMenu } from "./contextmenu.js"
 
-            setInterval(checkForNewRepoCommits, 60 * 1000)
+            // setInterval(checkForNewRepoCommits, 60 * 1000)
 
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
@@ -87,9 +87,11 @@
                 event.stopPropagation()
                 setupContextMenu(event, (command, x, y) => {
                     y -= document.getElementById("drawflow").getBoundingClientRect().top
+                    let name = prompt("Name of the node", command);
+                    if (name == null) return
                     switch (command) {
-                        case "CodeNode":
-                            let node = new CodeNode("Test123", x, y, editor, nodesMap)
+                        case "TurtleInputNode":
+                            let node = new TurtleInputNode(name, x, y, editor, nodesMap)
                             console.log(node)
                             break
                     }
