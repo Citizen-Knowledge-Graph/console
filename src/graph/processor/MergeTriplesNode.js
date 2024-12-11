@@ -14,7 +14,6 @@ export class MergeTriplesNode extends CodeNode {
         for (let port of this.incomingData) {
             await addRdfStringToStore(port.data, store)
         }
-        let mergeTurtle = await serializeStoreToTurtle(store)
-        this.setValue(mergeTurtle)
+        return await serializeStoreToTurtle(store)
     }
 }

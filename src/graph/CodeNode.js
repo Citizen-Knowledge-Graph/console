@@ -34,7 +34,7 @@ export class CodeNode extends Node {
 
     async run(outgoingEdges) {
         if (this.type === TYPE.PROCESSOR) {
-            await this.runProcessor()
+            this.setValue(await this.runProcessor())
         }
         super.run(outgoingEdges, this.codeMirror.getValue())
     }
