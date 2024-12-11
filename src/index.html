@@ -65,14 +65,14 @@
             import { Edge } from "./graph/Edge.js"
             import { setupContextMenu } from "./contextmenu.js"
             import { createNode } from "./graph/nodeFactory.js"
+            import { Graph } from "./graph/Graph.js"
 
             // setInterval(checkForNewRepoCommits, 60 * 1000)
 
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
 
-            let nodesMap = {}
-            let edgesMap = {}
+            let graph = new Graph()
 
             editor.container.addEventListener("contextmenu", event => {
                 if (event.target.className !== "drawflow") return
@@ -89,7 +89,7 @@
                         name = prompt("Name of the node", command);
                         if (name == null) return
                     }
-                    let node = createNode(command, name, x, y, editor, nodesMap, originalCommand)
+                    let node = createNode(command, name, x, y, editor, graph.nodesMap, originalCommand)
                     console.log(node)
                 })
             });
@@ -137,15 +137,11 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 // TODO
             })
 
-            function getNodeByEditorId(editorId) {
-               return Object.values(nodesMap).find(node => node.editorId.toString() === editorId)
-            }
-
             editor.on("connectionCreated", connection => {
-                let outNode = getNodeByEditorId(connection.output_id)
-                let inNode = getNodeByEditorId(connection.input_id)
+                let outNode = graph.getNodeByEditorId(connection.output_id)
+                let inNode = graph.getNodeByEditorId(connection.input_id)
                 // if (!inNode.acceptedIncomingFrom(outNode, connection.output_class, connection.input_class)) TODO
-                let edge = new Edge(outNode.id, inNode.id, edgesMap, connection)
+                let edge = new Edge(outNode.id, inNode.id, graph.edgesMap, connection)
                 console.log(edge)
             })
 
