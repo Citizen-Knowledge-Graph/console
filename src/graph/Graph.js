@@ -8,7 +8,7 @@ export class Graph {
     }
 
     getNodeByEditorId(editorId) {
-        return Object.values(this.nodesMap).find(node => node.editorId.toString() === editorId)
+        return Object.values(this.nodesMap).find(node => node.editorId.toString() === editorId.toString())
     }
 
     async run() {
