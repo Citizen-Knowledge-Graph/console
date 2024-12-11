@@ -81,7 +81,7 @@
             editor.container.addEventListener("contextmenu", event => {
                 if (event.target.className !== "drawflow") return
                 event.stopPropagation()
-                setupContextMenu(event, (command, x, y) => {
+                setupContextMenu(event, (command, defaultLabel, x, y) => {
                     let originalCommand
                     y -= document.getElementById("drawflow").getBoundingClientRect().top
                     let name
@@ -90,7 +90,7 @@
                         name = command.split("_")[2]
                         command = command.split("_")[1]
                     } else {
-                        name = prompt("Name of the node", command);
+                        name = prompt("Name of the node", defaultLabel);
                         if (name == null) return
                     }
                     let node = createNode(command, name, x, y, editor, graph.nodesMap, originalCommand)

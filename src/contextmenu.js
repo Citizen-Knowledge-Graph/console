@@ -1,54 +1,30 @@
 // Adapted from ChatGPT
 
-/*const menuItems = [
-    { text: "Item A", action: "foo" },
-    {
-        text: "Item B",
-        submenu: [
-            { text: "Subitem 1", action: "foo" },
-            {
-                text: "Subitem 2",
-                submenu: [
-                    { text: "Sub-subitem A", action: "bar" },
-                    {
-                        text: "Sub-subitem B",
-                        submenu: [
-                            { text: "Level 4 Item 1", action: "bar" },
-                            { text: "Level 4 Item 2", action: "bar" }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    { text: "Item C" }
-]*/
-
 const menuItems = [
     {
-        text: "Input",
+        label: "Input",
         submenu: [
             {
-                text: "Turtle", action: "TurtleInputNode",
+                label: "Turtle Input", action: "TurtleInputNode",
                 submenu: [
-                    { text: "Example: User profile", action: "ex_TurtleInputNode_User profile" },
-                    { text: "Example: Requirement profile", action: "ex_TurtleInputNode_Requirement profile" },
+                    { label: "Example: User profile", action: "ex_TurtleInputNode_User profile" },
+                    { label: "Example: Requirement profile", action: "ex_TurtleInputNode_Requirement profile" },
                 ]
             },
-            { text: "SPARQL", action: "SparqlInputNode",
+            { label: "SPARQL Input", action: "SparqlInputNode",
                 submenu: [
-                    { text: "Example: Materialization rule", action: "ex_SparqlInputNode_Materialization rule" },
+                    { label: "Example: Materialization rule", action: "ex_SparqlInputNode_Materialization rule" },
 
                 ]
             },
         ]
     },
     {
-        text: "Processors",
+        label: "Processors",
         submenu: [
-            { text: "SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
-            { text: "Merge triples", action: "MergeTriplesNode" },
-            { text: "SHACL validation", action: "ShaclValidationNode" },
+            { label: "Run SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
+            { label: "Merge triples", action: "MergeTriplesNode" },
+            { label: "Run SHACL validation", action: "ShaclValidationNode" },
         ]
     }
 ]
@@ -56,14 +32,15 @@ const menuItems = [
 function buildMenu(items) {
     return items.map(item => {
         let hasSub = item.submenu && item.submenu.length > 0
-        let actionAttr = item.action ? ' data-action="' + item.action + '"' : ''
+        let actionAttr = item.action ? ' data-action="' + item.action + '" ' : ''
+        let labelAttr = ' data-label="' + item.label + '" '
         if (hasSub) {
-            return '<div class="sub"' + actionAttr + '>' +
-                item.text + ' >' +
+            return '<div class="sub"' + actionAttr + labelAttr + '>' +
+                item.label + ' >' +
                 '<div class="submenu">' + buildMenu(item.submenu) + '</div>' +
                 '</div>'
         } else {
-            return '<div' + actionAttr + '>' + item.text + '</div>'
+            return '<div' + actionAttr + labelAttr + '>' + item.label + '</div>'
         }
     }).join('')
 }
@@ -77,8 +54,9 @@ export function setupContextMenu(event, callback) {
         menu.innerHTML = buildMenu(menuItems)
         document.body.appendChild(menu)
         menu.addEventListener('click', (e) => {
-            const action = e.target.getAttribute('data-action')
-            if (action) callback(action, menu.pos.x, menu.pos.y)
+            let action = e.target.getAttribute('data-action')
+            let label = e.target.getAttribute('data-label')
+            if (action) callback(action, label, menu.pos.x, menu.pos.y)
             menu.style.display = 'none'
         })
         document.addEventListener('click', () => menu.style.display = 'none')
