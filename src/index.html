@@ -51,7 +51,8 @@
         <div class="top-menu">
             <span id="runBtn">Run</span> |
             <span id="stepBtn">Step</span> |
-            <span id="clearBtn">Clear</span>
+            <span id="clearBtn">Clear processors</span> |
+            <span id="resetBtn">Reset</span>
             <span id="githubBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
@@ -72,6 +73,10 @@
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
             document.getElementById("clearBtn").addEventListener("click", () => graph.clear())
+            document.getElementById("resetBtn").addEventListener("click", () => {
+                editor.clear()
+                graph = new Graph()
+            })
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
 
             editor.container.addEventListener("contextmenu", event => {
