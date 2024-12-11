@@ -60,17 +60,8 @@
     <body>
         <div id="drawflow"></div>
         <script type="module">
-            import { CodeMirror } from "./assets/bundle.js"
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
-            import { Drawflow } from "./assets/bundle.js" // import Drawflow from "./drawflow.js"
-            import {
-                runSparqlConstructQueryOnRdfString,
-                serializeStoreToTurtle,
-                serializeDatasetToTurtle,
-                addRdfStringToStore,
-                runValidationOnStore,
-            } from "./utils.js"
-            import { Store } from "./assets/bundle.js"
+            import { Drawflow } from "./assets/bundle.js"
             import { Edge } from "./nodes/Edge.js"
             import { setupContextMenu } from "./contextmenu.js"
             import { createNode } from "./nodes/nodeFactory.js"
@@ -133,30 +124,6 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 console.log(node.name, node.pos_x, node.pos_y)
             })
 
-            let components = {}
-
-            editor.on("nodeCreated", function(id) {
-                const node = editor.getNodeFromId(id)
-                const htmlNode = editor.container.querySelector(`#node-${id} .codemirror-editor`)
-                if (!htmlNode) return
-                const canEdit = ["triples", "sparql", "shacl"].includes(node.name)
-                const codeMirror = CodeMirror(htmlNode, {
-                    value: initialData[node.name] ?? "",
-                    mode: node.name === "sparql" ? "sparql" : "turtle",
-                    lineNumbers: canEdit,
-                    readOnly: !canEdit,
-                });
-                components[node.name] = {
-                    nodeId: "node-" + id,
-                    codeMirror: codeMirror
-                }
-                codeMirror.setSize('100%', '100%')
-                /*if (!["triples", "sparql", "shacl"].includes(node.name)) return
-                codeMirror.on("change", () => {
-                    compute()
-                })*/
-            })
-
             editor.on("nodeRemoved", function(id) {
                 console.log("nodeRemoved", id)
                 // TODO
@@ -196,10 +163,11 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             })
             //const infoNode = editor.addNode("info", 0, 0, 520, 10, "info-node", {}, infoNodeHtml);
 
+            //onclick="compute()"
             const playBtnHtml = `
                 <div>
                     <div class="play-node-box">
-                        <svg onclick="compute()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="cursor: pointer;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="cursor: pointer;">
                             <path d="M40 30 L70 50 L40 70 Z" style="fill: darkblue; stroke: darkblue; stroke-linejoin: round; stroke-width: 5;"/>
                         </svg>
                     </div>
@@ -318,7 +286,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
             //editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
             //editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
 
-            async function compute() {
+            /*async function compute() {
                 let userProfile = components["triples"].codeMirror.getValue()
                 let matRule = components["sparql"].codeMirror.getValue()
                 let reqProfile = components["shacl"].codeMirror.getValue()
@@ -366,7 +334,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                     editor.updateConnectionNodes(comp.nodeId)
                 }, 750)
             }
-            window.compute = compute;
+            window.compute = compute;*/
         </script>
     </body>
 </html>
