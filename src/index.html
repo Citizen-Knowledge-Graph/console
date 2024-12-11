@@ -37,18 +37,6 @@
             .view-only {
                 background-color: lightgoldenrodyellow !important;
             }
-            .info-node {
-                width: 950px !important;
-                padding: 8px !important;
-                background-color: lightcyan !important;
-            }
-            .highlighted-edge {
-                stroke: red !important;
-                stroke-width: 5px !important;
-            }
-            .highlighted-node {
-                background-color: yellow !important;
-            }
             .top-menu {
                 padding: 10px;
                 font-size: small;
@@ -129,67 +117,25 @@
                 // TODO
             })
 
-            /*function showFeatures() {
-                alert("Backend can be switched out: in-browser session (default), remote triplestore, local java server, etc.\n\n" +
-                    "Export flow graph as Turtle file, maybe in line with github.com/rdf-connect?\n\n" +
-                    "Export an entire ready-to-execute implementation in different programming languages based on the flow graph.\n\n" +
-                    "... your ideas?")
+            /*
+            .info-node {
+                width: 950px !important;
+                padding: 8px !important;
+                background-color: lightcyan !important;
             }
-
-            const infoNodeHtml = `
-                <div class="box">
-                    This is a "<a href="https://github.com/Citizen-Knowledge-Graph/console">proof of concept</a>" of a <strong>low code linked data operations flow tool</strong> (working title &#128521;, more low ops than low code actually). It shows a very simplified FörderFunke-example of checking a user's eligibility for one benefit. You can press play, change things (e.g. birthday or min age), press play again etc. But beyond that, a lot is hardcoded in the background for now. The idea is to develop this into a tool where you can drag and drop a variety of nodes and wire them up as you like. For instance, the entire matching logic of FörderFunke could be displayed like this and be shared via a link that encodes the setup. But I imagine it to be useful beyond FörderFunke - it could be neat for didactic purposes and also during the development of linked data operations to quickly prototype things and talk about them together &#129299; More feature ideas <a href="#" onclick="showFeatures()">here</a>. What do you think? <small style="color: silver">benjamin.degenhart@foerderfunke.org</small>
-                </div>
-            `
-
-            async function compute() {
-                let userProfile = components["triples"].codeMirror.getValue()
-                let matRule = components["sparql"].codeMirror.getValue()
-                let reqProfile = components["shacl"].codeMirror.getValue()
-                let constructedQuads = await runSparqlConstructQueryOnRdfString(matRule, userProfile)
-
-                // sparql exec
-                let store = new Store()
-                for (let quad of constructedQuads) {
-                    store.addQuad(quad)
-                }
-                let sparqlExecTurtle = await serializeStoreToTurtle(store)
-
-                // merge
-                store = new Store() // new store: otherwise the order of triples is not nice
-                await addRdfStringToStore(userProfile, store)
-                for (let quad of constructedQuads) {
-                    store.addQuad(quad)
-                }
-                let mergeTurtle = await serializeStoreToTurtle(store)
-
-                // validation
-                await addRdfStringToStore(reqProfile, store)
-                let result = await runValidationOnStore(store)
-                let valiTurtle = await serializeDatasetToTurtle(result.dataset)
-
-                let edgeEl = document.querySelector(`svg.node_out_${components["triples"].nodeId}.node_in_${components["sparqlExec"].nodeId} path`)
-                // edgeEl.classList.add("highlighted-edge")
-                let nodeEl = document.getElementById(components["sparqlExec"].nodeId)
-                // nodeEl.classList.add("highlighted-node")
-
-                setTimeout(() => {
-                    let comp = components["sparqlExec"]
-                    comp.codeMirror.setValue(sparqlExecTurtle)
-                    editor.updateConnectionNodes(comp.nodeId)
-                    // edgeEl.classList.remove("highlighted-edge")
-                }, 150)
-                setTimeout(() => {
-                    let comp = components["merge"]
-                    comp.codeMirror.setValue(mergeTurtle)
-                    editor.updateConnectionNodes(comp.nodeId)
-                }, 450)
-                setTimeout(() => {
-                    let comp = components["vali"]
-                    comp.codeMirror.setValue(valiTurtle)
-                    editor.updateConnectionNodes(comp.nodeId)
-                }, 750)
-            }*/
+            .highlighted-edge {
+                stroke: red !important;
+                stroke-width: 5px !important;
+            }
+            .highlighted-node {
+                background-color: yellow !important;
+            }
+            let edgeEl = document.querySelector(`svg.node_out_${components["triples"].nodeId}.node_in_${components["sparqlExec"].nodeId} path`)
+            edgeEl.classList.add("highlighted-edge")
+            edgeEl.classList.remove("highlighted-edge")
+            let nodeEl = document.getElementById(components["sparqlExec"].nodeId)
+            nodeEl.classList.add("highlighted-node")
+            */
         </script>
     </body>
 </html>
