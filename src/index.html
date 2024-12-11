@@ -114,10 +114,10 @@
             })
 
             editor.on("connectionCreated", connection => {
-                let outNode = graph.getNodeByEditorId(connection.output_id)
-                let inNode = graph.getNodeByEditorId(connection.input_id)
-                // if (!inNode.acceptedIncomingFrom(outNode, connection.output_class, connection.input_class)) TODO
-                let edge = new Edge(outNode.id, inNode.id, graph.edgesMap, connection)
+                let sourceNode = graph.getNodeByEditorId(connection.output_id)
+                let targetNode = graph.getNodeByEditorId(connection.input_id)
+                // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
+                let edge = new Edge(sourceNode.id, targetNode.id, graph.edgesMap, connection)
                 console.log(edge)
             })
 

@@ -1,13 +1,13 @@
 import { ensureUniqueId } from "../utils.js"
 
 export class Edge {
-    constructor(outNodeId, inNodeId, edgesMap, editorEdgeObj) {
-        this.outNodeId = outNodeId
-        this.inNodeId = inNodeId
+    constructor(sourceNodeId, targetNodeId, edgesMap, editorEdgeObj) {
+        this.sourceNodeId = sourceNodeId
+        this.targetNodeId = targetNodeId
         this.edgesMap = edgesMap
         this.editorEdgeObj = editorEdgeObj
-        this.id = ensureUniqueId(`${outNodeId}-${inNodeId}`, edgesMap)
+        this.id = ensureUniqueId(`${sourceNodeId}-${targetNodeId}`, edgesMap)
         this.edgesMap[this.id] = this
-        console.log("Edge added:", this.id, this.outNodeId, "-->", this.inNodeId)
+        console.log("Edge added:", this.id, this.sourceNodeId, "-->", this.targetNodeId)
     }
 }
