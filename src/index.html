@@ -51,8 +51,8 @@
         <div class="top-menu">
             <span id="runBtn">Run</span> |
             <span id="stepBtn">Step</span> |
-            <span id="clearBtn">Clear processors</span> |
-            <span id="resetBtn">Reset</span>
+            <span id="resetBtn">Reset processors</span> |
+            <span id="clearBtn">Clear</span>
             <span id="githubBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
@@ -72,8 +72,8 @@
             let graph = new Graph()
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
-            document.getElementById("clearBtn").addEventListener("click", () => graph.clear())
-            document.getElementById("resetBtn").addEventListener("click", () => {
+            document.getElementById("resetBtn").addEventListener("click", () => graph.resetProcessors())
+            document.getElementById("clearBtn").addEventListener("click", () => {
                 editor.clear()
                 graph = new Graph()
             })

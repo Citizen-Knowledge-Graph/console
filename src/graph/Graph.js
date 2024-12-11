@@ -21,7 +21,7 @@ export class Graph {
         let readyNodes = Object.values(this.nodesMap).filter(node => node.isReadyToRun())
         if (readyNodes.length === 0) {
             console.log("No nodes are ready to run, resetting graph")
-            this.reset()
+            this.resetRound()
             return false
         }
         for (let node of readyNodes) {
@@ -32,7 +32,7 @@ export class Graph {
         return true
     }
 
-    reset() {
+    resetRound() {
         for (let node of Object.values(this.nodesMap)) {
             node.ranThisRound = false
             node.incomingData = []
@@ -40,7 +40,7 @@ export class Graph {
         this.stepCounter = 0
     }
 
-    clear() {
+    resetProcessors() {
         Object.values(this.nodesMap).filter(node => node.type === TYPE.PROCESSOR).forEach(node => node.clear())
     }
 }
