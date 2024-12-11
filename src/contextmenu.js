@@ -29,12 +29,15 @@ const menuItems = [
         text: "Input",
         submenu: [
             { text: "Turtle", action: "TurtleInputNode" },
+            { text: "SPARQL", action: "SparqlInputNode" },
         ]
     },
     {
         text: "Processors",
         submenu: [
             { text: "SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
+            { text: "Merge triples", action: "MergeTriplesNode" },
+            { text: "SHACL validation", action: "ShaclValidationNode" },
         ]
     }
 ]

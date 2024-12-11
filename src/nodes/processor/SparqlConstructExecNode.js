@@ -1,5 +1,5 @@
-import { CodeNode } from "./CodeNode.js"
-import { PORT } from "./nodeFactory.js"
+import { CodeNode } from "../CodeNode.js"
+import { PORT } from "../nodeFactory.js"
 
 export class SparqlConstructExecNode extends CodeNode {
     constructor(name, x, y, editor, nodesMap) {

@@ -1,8 +1,8 @@
-import { TurtleInputNode } from "./TurtleInputNode.js"
-import { SparqlConstructExecNode } from "./SparqlConstructExecNode.js"
-import { SparqlInputNode } from "./SparqlInputNode.js"
-import { MergeTriplesNode } from "./MergeTriplesNode.js"
-import { ShaclValidationNode } from "./ShaclValidationNode.js"
+import { TurtleInputNode } from "./input/TurtleInputNode.js"
+import { SparqlInputNode } from "./input/SparqlInputNode.js"
+import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
+import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
+import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
 
 export const PORT = {
     ANY: 1,
@@ -16,8 +16,8 @@ export const PORT = {
 const nodeClasses = {
     "TurtleInputNode": TurtleInputNode,
     "SparqlInputNode": SparqlInputNode,
-    "MergeTriplesNode": MergeTriplesNode,
     "SparqlConstructExecNode": SparqlConstructExecNode,
+    "MergeTriplesNode": MergeTriplesNode,
     "ShaclValidationNode": ShaclValidationNode
 }
 
