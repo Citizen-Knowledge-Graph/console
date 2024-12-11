@@ -9,7 +9,8 @@
     "drawflow": "^0.0.60",
     "n3": "^1.23.0",
     "rdf-ext": "^2.5.2",
-    "shacl-engine": "^1.0.1"
+    "shacl-engine": "^1.0.1",
+    "slugify": "^1.6.6"
   },
   "scripts": {
     "clean": "rm -rf src/assets/",

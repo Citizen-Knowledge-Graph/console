@@ -1,4 +1,4 @@
-import { Parser, QueryEngine, rdf, Store, Validator, Writer } from "./assets/bundle.js"
+import { Parser, QueryEngine, rdf, Store, Validator, Writer, slugify } from "./assets/bundle.js"
 
 export async function fetchAsset(relPath) {
     const response = await fetch("assets/" + relPath, {
@@ -76,7 +76,8 @@ export function serializeStoreToTurtle(store) {
     return new Promise((resolve, reject) => {
         let writer = new Writer({
             prefixes: {
-                ff: "https://foerderfunke.org/default#"
+                ff: "https://foerderfunke.org/default#",
+                sh: "http://www.w3.org/ns/shacl#",
             }
         })
         store.getQuads().forEach(quad => writer.addQuad(quad))
@@ -113,4 +114,12 @@ export async function runValidationOnStore(store) {
     let dataset = rdf.dataset(store.getQuads())
     let validator = new Validator(dataset, { factory: rdf, debug: false })
     return await validator.validate({ dataset: dataset })
+}
+
+export function ensureUniqueId(name, map) {
+    let id = slugify(name, { lower: true })
+    if (!map.hasOwnProperty(id)) return id
+    let i = 1
+    while (map.hasOwnProperty(id + "-" + i)) i ++
+    return id + "-" + i
 }
