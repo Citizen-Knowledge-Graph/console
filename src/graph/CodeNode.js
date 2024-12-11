@@ -32,6 +32,15 @@ export class CodeNode extends Node {
         this.codeMirror.setSize('100%', '100%')
     }
 
+    handoverDataTo(targetNode) {
+        let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
+        targetNode.incomingData.push({
+            from: this.id,
+            dataType: outputPortType,
+            data: this.codeMirror.getValue()
+        })
+    }
+
     setValue(value) {
         this.codeMirror.setValue(value)
     }

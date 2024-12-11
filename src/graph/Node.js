@@ -4,6 +4,7 @@ export class Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
         this.name = name
         this.inputs = inputs
+        this.incomingData = []
         this.outputs = outputs
         this.x = x
         this.y = y
