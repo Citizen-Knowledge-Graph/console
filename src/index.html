@@ -119,10 +119,10 @@ ff:SimpleBenefitShape a sh:NodeShape ;
     ] .`
             }
 
-            editor.on("nodeMoved", function(id) {
+            /*editor.on("nodeMoved", function(id) {
                 const node = editor.getNodeFromId(id)
                 console.log(node.name, node.pos_x, node.pos_y)
-            })
+            })*/
 
             editor.on("nodeRemoved", function(id) {
                 console.log("nodeRemoved", id)
