@@ -36,7 +36,7 @@ function buildMenu(items) {
         let labelAttr = ' data-label="' + item.label + '" '
         if (hasSub) {
             return '<div class="sub"' + actionAttr + labelAttr + '>' +
-                item.label + ' >' +
+                item.label + ' &#8250;' +
                 '<div class="submenu">' + buildMenu(item.submenu) + '</div>' +
                 '</div>'
         } else {
