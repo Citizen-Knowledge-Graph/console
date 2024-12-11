@@ -1,12 +1,13 @@
+import { ensureUniqueId } from "../utils.js"
+
 export class Edge {
-    constructor(outNodeId, outPortId, inNodeId, inPortId, edgesMap, editorEdgeObj) {
+    constructor(outNodeId, inNodeId, edgesMap, editorEdgeObj) {
         this.outNodeId = outNodeId
-        this.outPortId = outPortId
         this.inNodeId = inNodeId
-        this.inPortId = inPortId
-        this.id = `${outNodeId}-${outPortId}-${inNodeId}-${inPortId}`
         this.edgesMap = edgesMap
-        this.edgesMap[this.id] = this
         this.editorEdgeObj = editorEdgeObj
+        this.id = ensureUniqueId(`${outNodeId}-${inNodeId}`, edgesMap)
+        this.edgesMap[this.id] = this
+        console.log("Edge added:", this.id, this.outNodeId, "-->", this.inNodeId)
     }
 }

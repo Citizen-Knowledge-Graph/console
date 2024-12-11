@@ -159,19 +159,24 @@ ff:SimpleBenefitShape a sh:NodeShape ;
 
             editor.on("nodeRemoved", function(id) {
                 console.log("nodeRemoved", id)
+                // TODO
             })
 
+            function getNodeByEditorId(editorId) {
+               return Object.values(nodesMap).find(node => node.editorId.toString() === editorId)
+            }
+
             editor.on("connectionCreated", connection => {
-                console.log("connectionCreated", connection)
-                let outNode = Object.values(nodesMap).find(node => node.editorId.toString() === connection.output_id)
-                let inNode = Object.values(nodesMap).find(node => node.editorId.toString() === connection.input_id)
-                let outPortId = connection.output_class
-                let inPortId = connection.input_class
-                new Edge(outNode.id, outPortId, inNode.id, inPortId, edgesMap, connection)
+                let outNode = getNodeByEditorId(connection.output_id)
+                let inNode = getNodeByEditorId(connection.input_id)
+                // if (!inNode.acceptedIncomingFrom(outNode, connection.output_class, connection.input_class)) TODO
+                let edge = new Edge(outNode.id, inNode.id, edgesMap, connection)
+                console.log(edge)
             })
 
             editor.on("connectionRemoved", function(connection) {
                 console.log("connectionRemoved", connection)
+                // TODO
             })
 
             function showFeatures() {
