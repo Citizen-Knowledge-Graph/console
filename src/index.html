@@ -55,9 +55,16 @@
             .highlighted-node {
                 background-color: yellow !important;
             }
+            .top-menu {
+                padding: 10px;
+                font-size: small;
+            }
         </style>
     </head>
     <body>
+        <div class="top-menu">
+            <div>Run</div>
+        </div>
         <div id="drawflow"></div>
         <script type="module">
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
