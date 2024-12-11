@@ -12,6 +12,28 @@ export class Node {
         this.nodesMap = nodesMap
         this.type = type
         this.html = ''
+        this.ranThisRound = false
+    }
+
+    run(outgoingEdges, value) {
+        let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
+        for (let edge of outgoingEdges) {
+            let targetNode = this.nodesMap[edge.targetNodeId]
+            targetNode.incomingData.push({
+                from: this.id,
+                dataType: outputPortType,
+                data: value
+            })
+        }
+        this.ranThisRound = true
+    }
+
+    isReadyToRun() {
+        return !this.ranThisRound && (this.inputs.length === 0 || this.allIncomingDataAvailable())
+    }
+
+    allIncomingDataAvailable() {
+        return this.incomingData.length === this.inputs.length
     }
 
     addNode() {

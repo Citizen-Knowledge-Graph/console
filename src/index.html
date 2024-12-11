@@ -57,7 +57,7 @@
     </head>
     <body>
         <div class="top-menu">
-            <div id="runBtn">Run</div>
+            <span id="runBtn">Run</span> | <span id="stepBtn">Step</span>
         </div>
         <div id="drawflow"></div>
         <script type="module">
@@ -75,6 +75,7 @@
 
             let graph = new Graph()
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
+            document.getElementById("stepBtn").addEventListener("click", () => graph.step())
 
             editor.container.addEventListener("contextmenu", event => {
                 if (event.target.className !== "drawflow") return

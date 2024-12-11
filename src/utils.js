@@ -76,7 +76,8 @@ export function serializeStoreToTurtle(store) {
     return new Promise((resolve, reject) => {
         let writer = new Writer({
             prefixes: {
-                ff: "https://foerderfunke.org/default#"
+                ff: "https://foerderfunke.org/default#",
+                sh: "http://www.w3.org/ns/shacl#",
             }
         })
         store.getQuads().forEach(quad => writer.addQuad(quad))
