@@ -19,6 +19,7 @@
             #drawflow {
                 width: 100%;
                 height: 100vh;
+                top: 0;
             }
             #drawflow .CodeMirror {
                 font-size: 12px;
@@ -41,11 +42,17 @@
                 padding: 10px;
                 font-size: small;
             }
+            .top-menu span {
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
         <div class="top-menu">
-            <span id="runBtn">Run</span> | <span id="stepBtn">Step</span> | <span id="clearBtn">Clear</span>
+            <span id="runBtn">Run</span> |
+            <span id="stepBtn">Step</span> |
+            <span id="clearBtn">Clear</span>
+            <span id="githubBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
         <script type="module">
@@ -65,6 +72,7 @@
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
             document.getElementById("clearBtn").addEventListener("click", () => graph.clear())
+            document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
 
             editor.container.addEventListener("contextmenu", event => {
                 if (event.target.className !== "drawflow") return
