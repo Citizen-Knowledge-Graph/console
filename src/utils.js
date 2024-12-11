@@ -1,4 +1,4 @@
-import { Parser, QueryEngine, rdf, Store, Validator, Writer } from "./assets/bundle.js"
+import { Parser, QueryEngine, rdf, Store, Validator, Writer, slugify } from "./assets/bundle.js"
 
 export async function fetchAsset(relPath) {
     const response = await fetch("assets/" + relPath, {
@@ -113,4 +113,12 @@ export async function runValidationOnStore(store) {
     let dataset = rdf.dataset(store.getQuads())
     let validator = new Validator(dataset, { factory: rdf, debug: false })
     return await validator.validate({ dataset: dataset })
+}
+
+export function ensureUniqueId(name, map) {
+    let id = slugify(name, { lower: true })
+    if (!map.hasOwnProperty(id)) return id
+    let i = 1
+    while (map.hasOwnProperty(id + "-" + i)) i ++
+    return id + "-" + i
 }
