@@ -1,7 +1,7 @@
 import { ensureUniqueId } from "../utils.js"
 
 export class Node {
-    constructor(name, inputs, outputs, x, y, editor, nodesMap) {
+    constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
         this.name = name
         this.inputs = inputs
         this.outputs = outputs
@@ -9,6 +9,7 @@ export class Node {
         this.y = y
         this.editor = editor
         this.nodesMap = nodesMap
+        this.type = type
         this.html = ''
     }
 

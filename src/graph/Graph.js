@@ -1,3 +1,4 @@
+import { TYPE } from "./nodeFactory.js"
 
 export class Graph {
     constructor() {
@@ -8,4 +9,6 @@ export class Graph {
     getNodeByEditorId(editorId) {
         return Object.values(this.nodesMap).find(node => node.editorId.toString() === editorId)
     }
+
+    run() {}
 }

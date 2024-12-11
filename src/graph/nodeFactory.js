@@ -4,6 +4,11 @@ import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
 import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
 
+export const TYPE = {
+    INPUT: 1,
+    PROCESSOR: 2
+}
+
 export const PORT = {
     ANY: 1,
     TURTLE: 2,

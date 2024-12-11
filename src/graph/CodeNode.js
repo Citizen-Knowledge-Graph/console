@@ -1,9 +1,10 @@
 import { Node } from "./Node.js"
 import { CodeMirror } from "../assets/bundle.js"
+import { TYPE } from "./nodeFactory.js"
 
 export class CodeNode extends Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, isProcessor) {
-        super(name, inputs, outputs, x, y, editor, nodesMap)
+        super(name, inputs, outputs, x, y, editor, nodesMap, isProcessor ? TYPE.PROCESSOR : TYPE.INPUT)
         this.isProcessor = isProcessor
         this.html = `
 <div>

@@ -57,7 +57,7 @@
     </head>
     <body>
         <div class="top-menu">
-            <div>Run</div>
+            <div onclick="run()">Run</div>
         </div>
         <div id="drawflow"></div>
         <script type="module">
@@ -74,6 +74,7 @@
             editor.start()
 
             let graph = new Graph()
+            window.run = graph.run
 
             editor.container.addEventListener("contextmenu", event => {
                 if (event.target.className !== "drawflow") return
