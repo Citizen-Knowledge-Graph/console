@@ -7,13 +7,14 @@ const menuItems = [
             {
                 label: "Turtle Input", action: "TurtleInputNode",
                 submenu: [
-                    { label: "Example: User profile", action: "ex_TurtleInputNode_User profile" },
-                    { label: "Example: Requirement profile", action: "ex_TurtleInputNode_Requirement profile" },
+                    { label: "Example: User profile", action: "ex_TurtleInputNode_UP" },
+                    { label: "Example: Requirement profile 1", action: "ex_TurtleInputNode_RP1" },
+                    { label: "Example: Requirement profile 2", action: "ex_TurtleInputNode_RP2" },
                 ]
             },
             { label: "SPARQL Input", action: "SparqlInputNode",
                 submenu: [
-                    { label: "Example: Materialization rule", action: "ex_SparqlInputNode_Materialization rule" },
+                    { label: "Example: Materialization rule", action: "ex_SparqlInputNode_MatRule" },
 
                 ]
             },

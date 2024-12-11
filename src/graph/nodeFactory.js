@@ -27,22 +27,33 @@ const nodeClasses = {
 }
 
 const exampleValues = {
-    "ex_TurtleInputNode_User profile": `@prefix ff: <https://foerderfunke.org/default#> .
+    "ex_TurtleInputNode_UP": `@prefix ff: <https://foerderfunke.org/default#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ff:mainPerson a ff:Citizen ;
+    ff:hasResidence "Berlin" ;
     ff:hasBirthday "1990-01-02"^^xsd:date .`,
-    "ex_TurtleInputNode_Requirement profile": `@prefix ff: <https://foerderfunke.org/default#> .
+    "ex_TurtleInputNode_RP1": `@prefix ff: <https://foerderfunke.org/default#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 
-ff:SimpleBenefitShape a sh:NodeShape ;
+ff:SimpleBenefitShape1 a sh:NodeShape ;
     sh:targetClass ff:Citizen ;
     sh:property [
         sh:path ff:hasAge ;
         sh:minCount 1 ;
         sh:minInclusive 18 ;
     ] .`,
-    "ex_SparqlInputNode_Materialization rule": `PREFIX ff: <https://foerderfunke.org/default#>
+    "ex_TurtleInputNode_RP2": `@prefix ff: <https://foerderfunke.org/default#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ff:SimpleBenefitShape2 a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasResidence ;
+        sh:minCount 1 ;
+        sh:hasValue "Berlin" ;
+    ] .`,
+    "ex_SparqlInputNode_MatRule": `PREFIX ff: <https://foerderfunke.org/default#>
 CONSTRUCT {
     ?person ff:hasAge ?age .
 } WHERE {

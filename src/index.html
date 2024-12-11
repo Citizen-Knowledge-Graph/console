@@ -82,19 +82,19 @@
             editor.container.addEventListener("contextmenu", event => {
                 if (event.target.className !== "drawflow") return
                 event.stopPropagation()
-                setupContextMenu(event, (command, defaultLabel, x, y) => {
-                    let originalCommand
+                setupContextMenu(event, (action, defaultLabel, x, y) => {
+                    let exampleId
                     y -= document.getElementById("drawflow").getBoundingClientRect().top
                     let name
-                    if (command.startsWith("ex_")) {
-                        originalCommand = command
-                        name = command.split("_")[2]
-                        command = command.split("_")[1]
+                    if (action.startsWith("ex_")) {
+                        exampleId = action
+                        name = defaultLabel
+                        action = action.split("_")[1]
                     } else {
                         name = prompt("Name of the node", defaultLabel);
                         if (name == null) return
                     }
-                    let node = createNode(command, name, x, y, editor, graph.nodesMap, originalCommand)
+                    let node = createNode(action, name, x, y, editor, graph.nodesMap, exampleId)
                     console.log(node)
                 })
             });
@@ -131,9 +131,9 @@
             })
 
             // Example graph
-            let n1 = createNode("TurtleInputNode", "User profile", 60, 60, editor, graph.nodesMap, "ex_TurtleInputNode_User profile")
-            let n2 = createNode("SparqlInputNode", "Materialization rule", 60, 270, editor, graph.nodesMap, "ex_SparqlInputNode_Materialization rule")
-            let n3 = createNode("TurtleInputNode", "Requirement profile", 630, 390, editor, graph.nodesMap, "ex_TurtleInputNode_Requirement profile")
+            let n1 = createNode("TurtleInputNode", "User profile", 60, 60, editor, graph.nodesMap, "ex_TurtleInputNode_UP")
+            let n2 = createNode("SparqlInputNode", "Materialization rule", 60, 270, editor, graph.nodesMap, "ex_SparqlInputNode_MatRule")
+            let n3 = createNode("TurtleInputNode", "Requirement profile 1", 630, 390, editor, graph.nodesMap, "ex_TurtleInputNode_RP1")
             let n4 = createNode("SparqlConstructExecNode", "Run SPARQL CONSTRUCT", 585, 170, editor, graph.nodesMap)
             let n5 = createNode("MergeTriplesNode", "Merge triples", 1060, 40, editor, graph.nodesMap)
             let n6 = createNode("ShaclValidationNode", "Run SHACL validation", 1165, 285, editor, graph.nodesMap)
