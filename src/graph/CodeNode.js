@@ -43,4 +43,8 @@ export class CodeNode extends Node {
         this.codeMirror.setValue(value)
         this.editor.updateConnectionNodes(`node-${this.editorId}`)
     }
+
+    clear() {
+        this.setValue("")
+    }
 }

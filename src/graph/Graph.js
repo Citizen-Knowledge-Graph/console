@@ -1,3 +1,4 @@
+import { TYPE } from "./nodeFactory.js"
 
 export class Graph {
     constructor() {
@@ -37,5 +38,9 @@ export class Graph {
             node.incomingData = []
         }
         this.stepCounter = 0
+    }
+
+    clear() {
+        Object.values(this.nodesMap).filter(node => node.type === TYPE.PROCESSOR).forEach(node => node.clear())
     }
 }
