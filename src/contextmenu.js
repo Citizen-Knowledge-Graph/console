@@ -28,8 +28,19 @@ const menuItems = [
     {
         text: "Input",
         submenu: [
-            { text: "Turtle", action: "TurtleInputNode" },
-            { text: "SPARQL", action: "SparqlInputNode" },
+            {
+                text: "Turtle", action: "TurtleInputNode",
+                submenu: [
+                    { text: "Example: User profile", action: "ex_TurtleInputNode_User profile" },
+                    { text: "Example: Requirement profile", action: "ex_TurtleInputNode_Requirement profile" },
+                ]
+            },
+            { text: "SPARQL", action: "SparqlInputNode",
+                submenu: [
+                    { text: "Example: Materialization rule", action: "ex_SparqlInputNode_Materialization rule" },
+
+                ]
+            },
         ]
     },
     {

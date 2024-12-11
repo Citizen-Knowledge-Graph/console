@@ -28,4 +28,8 @@ export class CodeNode extends Node {
         })
         this.codeMirror.setSize('100%', '100%')
     }
+
+    setValue(value) {
+        this.codeMirror.setValue(value)
+    }
 }

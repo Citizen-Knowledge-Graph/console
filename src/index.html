@@ -78,10 +78,18 @@
                 if (event.target.className !== "drawflow") return
                 event.stopPropagation()
                 setupContextMenu(event, (command, x, y) => {
+                    let originalCommand
                     y -= document.getElementById("drawflow").getBoundingClientRect().top
-                    let name = prompt("Name of the node", command);
-                    if (name == null) return
-                    let node = createNode(command, name, x, y, editor, nodesMap)
+                    let name
+                    if (command.startsWith("ex_")) {
+                        originalCommand = command
+                        name = command.split("_")[2]
+                        command = command.split("_")[1]
+                    } else {
+                        name = prompt("Name of the node", command);
+                        if (name == null) return
+                    }
+                    let node = createNode(command, name, x, y, editor, nodesMap, originalCommand)
                     console.log(node)
                 })
             });
