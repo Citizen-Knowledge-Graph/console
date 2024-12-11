@@ -37,12 +37,6 @@
             .view-only {
                 background-color: lightgoldenrodyellow !important;
             }
-            .play-node {
-                width: 65px !important;
-            }
-            .play-node-box {
-                height: 65px;
-            }
             .info-node {
                 width: 950px !important;
                 padding: 8px !important;
@@ -109,31 +103,6 @@
                 }, true)
             })
 
-            let initialData = {
-triples: `@prefix ff: <https://foerderfunke.org/default#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-ff:mainPerson a ff:Citizen ;
-    ff:hasBirthday "1990-01-02"^^xsd:date .`,
-sparql: `PREFIX ff: <https://foerderfunke.org/default#>
-CONSTRUCT {
-    ?person ff:hasAge ?age .
-} WHERE {
-    ?person ff:hasBirthday ?bday .
-    BIND(YEAR(NOW()) - YEAR(?bday) - IF(MONTH(NOW()) < MONTH(?bday) || (MONTH(NOW()) = MONTH(?bday) && DAY(NOW()) < DAY(?bday)), 1, 0) AS ?age) .
-}`,
-shacl: `@prefix ff: <https://foerderfunke.org/default#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-
-ff:SimpleBenefitShape a sh:NodeShape ;
-    sh:targetClass ff:Citizen ;
-    sh:property [
-        sh:path ff:hasAge ;
-        sh:minCount 1 ;
-        sh:minInclusive 18 ;
-    ] .`
-            }
-
             /*editor.on("nodeMoved", function(id) {
                 const node = editor.getNodeFromId(id)
                 console.log(node.name, node.pos_x, node.pos_y)
@@ -157,7 +126,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                 // TODO
             })
 
-            function showFeatures() {
+            /*function showFeatures() {
                 alert("Backend can be switched out: in-browser session (default), remote triplestore, local java server, etc.\n\n" +
                     "Export flow graph as Turtle file, maybe in line with github.com/rdf-connect?\n\n" +
                     "Export an entire ready-to-execute implementation in different programming languages based on the flow graph.\n\n" +
@@ -169,135 +138,8 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                     This is a "<a href="https://github.com/Citizen-Knowledge-Graph/console">proof of concept</a>" of a <strong>low code linked data operations flow tool</strong> (working title &#128521;, more low ops than low code actually). It shows a very simplified FörderFunke-example of checking a user's eligibility for one benefit. You can press play, change things (e.g. birthday or min age), press play again etc. But beyond that, a lot is hardcoded in the background for now. The idea is to develop this into a tool where you can drag and drop a variety of nodes and wire them up as you like. For instance, the entire matching logic of FörderFunke could be displayed like this and be shared via a link that encodes the setup. But I imagine it to be useful beyond FörderFunke - it could be neat for didactic purposes and also during the development of linked data operations to quickly prototype things and talk about them together &#129299; More feature ideas <a href="#" onclick="showFeatures()">here</a>. What do you think? <small style="color: silver">benjamin.degenhart@foerderfunke.org</small>
                 </div>
             `
-            editor.registerNode("info", {
-                template: infoNodeHtml,
-            })
-            //const infoNode = editor.addNode("info", 0, 0, 520, 10, "info-node", {}, infoNodeHtml);
 
-            //onclick="compute()"
-            const playBtnHtml = `
-                <div>
-                    <div class="play-node-box">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="cursor: pointer;">
-                            <path d="M40 30 L70 50 L40 70 Z" style="fill: darkblue; stroke: darkblue; stroke-linejoin: round; stroke-width: 5;"/>
-                        </svg>
-                    </div>
-                </div>
-            `;
-            editor.registerNode("play", {
-                template: playBtnHtml,
-            })
-            //const playNode = editor.addNode("play", 0, 0, 210, 485, "play-node", {}, playBtnHtml);
-
-            const triplesHtml = `
-              <div>
-                <div class="title-box">User profile</div>
-                <div class="box">
-                    <div class="codemirror-editor"></div>
-                </div>
-              </div>
-            `
-            editor.registerNode("triples", {
-                template: triplesHtml,
-                outputs: { output_1: { label: "triples" } },
-            })
-            //const triplesNode = editor.addNode("triples", 0, 1, 35, 70, "", {}, triplesHtml);
-
-            const sparqlHtml = `
-              <div>
-                <div class="title-box">Materialization rule</div>
-                <div class="box">
-                    <div class="codemirror-editor"></div>
-                </div>
-              </div>
-            `
-            editor.registerNode("sparql", {
-                template: sparqlHtml,
-                outputs: { output_1: { label: "sparql" } },
-            })
-            //const sparqlNode = editor.addNode("sparql", 0, 1, 35, 265, "", {}, sparqlHtml)
-
-            const sparqlExecHtml = `
-              <div>
-                <div class="title-box view-only">Execute SPARQL CONSTRUCT query</div>
-                <div class="box">
-                    <div class="result">Result:</div>
-                    <div class="codemirror-editor"></div>
-                </div>
-              </div>
-            `
-            editor.registerNode("sparqlExec", {
-                template: sparqlExecHtml,
-                inputs: {
-                    input_1: { label: "triples" },
-                    input_2: { label: "sparql" },
-                    outputs: { output_1: { label: "result" } },
-                }
-            })
-            //const sparqlExecNode = editor.addNode("sparqlExec", 2, 1, 535, 260, "", {}, sparqlExecHtml)
-
-            //editor.addConnection(triplesNode, sparqlExecNode, "output_1", "input_1")
-            //editor.addConnection(sparqlNode, sparqlExecNode, "output_1", "input_2")
-
-            const shaclHtml = `
-              <div>
-                <div class="title-box">Requirement profile</div>
-                <div class="box">
-                    <div class="codemirror-editor"></div>
-                </div>
-              </div>
-            `
-            editor.registerNode("shacl", {
-                template: shaclHtml,
-                outputs: { output_1: { label: "shacl" } }
-            })
-            //const shaclNode = editor.addNode("shacl", 0, 1, 540, 445, "", {}, shaclHtml)
-
-            const mergeHtml = `
-              <div>
-                <div class="title-box view-only">Merge triples</div>
-                <div class="box">
-                    <div class="result">Result:</div>
-                    <div class="codemirror-editor"></div>
-                </div>
-              </div>
-            `
-            editor.registerNode("merge", {
-                template: mergeHtml,
-                inputs: {
-                    input_1: { label: "triples1" },
-                    input_2: { label: "triples2" },
-                },
-                outputs: { output_1: { label: "merged_triples" } }
-            })
-            //const mergeNode = editor.addNode("merge", 2, 1, 1020, 200, "", {}, mergeHtml)
-
-            //editor.addConnection(triplesNode, mergeNode, "output_1", "input_1")
-            //editor.addConnection(sparqlExecNode, mergeNode, "output_1", "input_2")
-
-            const valiHtml = `
-              <div>
-                <div class="title-box view-only">SHACL validation</div>
-                <div class="box">
-                    <div class="result">Result:</div>
-                    <div class="codemirror-editor"></div>
-                </div>
-              </div>
-            `
-            editor.registerNode("vali", {
-                template: valiHtml,
-                inputs: {
-                    input_1: { label: "triples" },
-                    input_2: { label: "shacl" },
-                },
-                outputs: { output_1: { label: "result" } }
-            })
-            //const valiNode = editor.addNode("vali", 2, 1, 1100, 450, "", {}, valiHtml)
-
-            //editor.addConnection(mergeNode, valiNode, "output_1", "input_1")
-            //editor.addConnection(shaclNode, valiNode, "output_1", "input_2")
-
-            /*async function compute() {
+            async function compute() {
                 let userProfile = components["triples"].codeMirror.getValue()
                 let matRule = components["sparql"].codeMirror.getValue()
                 let reqProfile = components["shacl"].codeMirror.getValue()
@@ -344,8 +186,7 @@ ff:SimpleBenefitShape a sh:NodeShape ;
                     comp.codeMirror.setValue(valiTurtle)
                     editor.updateConnectionNodes(comp.nodeId)
                 }, 750)
-            }
-            window.compute = compute;*/
+            }*/
         </script>
     </body>
 </html>
