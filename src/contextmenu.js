@@ -62,7 +62,6 @@ export function setupContextMenu(event, callback) {
         })
         document.addEventListener('click', () => menu.style.display = 'none')
     }
-    console.log(event)
     menu.pos = { x: event.pageX, y: event.pageY }
     menu.style.left = event.pageX + 'px'
     menu.style.top = event.pageY + 'px'

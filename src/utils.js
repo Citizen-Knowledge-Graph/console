@@ -123,3 +123,11 @@ export function ensureUniqueId(name, map) {
     while (map.hasOwnProperty(id + "-" + i)) i ++
     return id + "-" + i
 }
+
+export function buildEdgeId(editorConnectionObj) {
+    let outId = editorConnectionObj.output_id
+    let outPortId = editorConnectionObj.output_class
+    let inId = editorConnectionObj.input_id
+    let inPortId = editorConnectionObj.input_class
+    return `${outId}-${outPortId}-${inId}-${inPortId}`
+}

@@ -31,7 +31,6 @@ const exampleValues = {
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ff:mainPerson a ff:Citizen ;
-    ff:hasResidence "Berlin" ;
     ff:hasBirthday "1990-01-02"^^xsd:date .`,
     "ex_TurtleInputNode_RP1": `@prefix ff: <https://foerderfunke.org/default#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
