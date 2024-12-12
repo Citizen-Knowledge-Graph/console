@@ -16,8 +16,10 @@ export class Node {
     }
 
     run(outgoingEdges, value) {
+        this.highlight(true)
         let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
         for (let edge of outgoingEdges) {
+            edge.highlight(true)
             let targetNode = this.nodesMap[edge.targetNodeId]
             targetNode.incomingData.push({
                 from: this.id,
@@ -26,6 +28,15 @@ export class Node {
             })
         }
         this.ranThisRound = true
+    }
+
+    highlight(bool) {
+        let el = document.getElementById("node-" + this.editorId)
+        if (bool) {
+            el.classList.add("highlighted-node")
+        } else {
+            el.classList.remove("highlighted-node")
+        }
     }
 
     isReadyToRun() {

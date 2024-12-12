@@ -30,6 +30,8 @@ export class Graph {
     }
 
     async step() {
+        Object.values(this.nodesMap).forEach(node => node.highlight(false))
+        Object.values(this.edgesMap).forEach(edge => edge.highlight(false))
         // nodes that have not run this round yet and have either no input ports (Type.INPUT) or have all incoming data available (Type.PROCESSOR)
         let readyNodes = Object.values(this.nodesMap).filter(node => node.isReadyToRun())
         if (readyNodes.length === 0) {

@@ -12,4 +12,17 @@ export class Edge {
         this.edgesMap[this.id] = this
         console.log("Edge added:", this.id, this.sourceNodeId, "-->", this.targetNodeId, this)
     }
+
+    highlight(bool) {
+        let nodeOut = "node_out_node-" + this.editorConnectionObj.output_id
+        let portOut = this.editorConnectionObj.output_class
+        let nodeIn = "node_in_node-" + this.editorConnectionObj.input_id
+        let portIn = this.editorConnectionObj.input_class
+        let el = document.querySelector(`svg.${nodeOut}.${nodeIn}.${portOut}.${portIn} path`)
+        if (bool) {
+            el.classList.add("highlighted-edge")
+        } else {
+            el.classList.remove("highlighted-edge")
+        }
+    }
 }
