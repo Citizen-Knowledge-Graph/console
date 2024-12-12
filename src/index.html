@@ -94,8 +94,7 @@
                         name = prompt("Name of the node", defaultLabel);
                         if (name == null) return
                     }
-                    let node = createNode(action, name, x, y, editor, graph.nodesMap, exampleId)
-                    console.log(node)
+                    createNode(action, name, x, y, editor, graph.nodesMap, exampleId)
                 })
             });
 
@@ -113,19 +112,16 @@
             })*/
 
             editor.on("nodeRemoved", function(id) {
-                console.log("nodeRemoved", id)
-                // TODO
+                graph.removeNode(id)
             })
 
             editor.on("connectionCreated", connection => {
                 // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
-                let edge = new Edge(connection, graph)
-                console.log(edge)
+                new Edge(connection, graph)
             })
 
             editor.on("connectionRemoved", function(connection) {
-                console.log("connectionRemoved", connection)
-                // TODO
+                graph.removeEdge(connection)
             })
 
             // Example graph

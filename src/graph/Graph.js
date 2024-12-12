@@ -1,4 +1,5 @@
 import { TYPE } from "./nodeFactory.js"
+import { buildEdgeId } from "../utils.js"
 
 export class Graph {
     constructor() {
@@ -11,16 +12,28 @@ export class Graph {
         return Object.values(this.nodesMap).find(node => node.editorId.toString() === editorId.toString())
     }
 
+    removeEdge(connection) {
+        let edgeId = buildEdgeId(connection)
+        delete this.edgesMap[edgeId]
+        console.log("Edge removed", edgeId)
+    }
+
+    removeNode(editorId) {
+        let nodeId = this.getNodeByEditorId(editorId).id
+        delete this.nodesMap[nodeId]
+        console.log("Node removed", nodeId)
+        // removal of attached edge gets handled by the editor and triggers removeEdge() for each
+    }
+
     async run() {
         while (await this.step()) {}
     }
 
     async step() {
-        console.log("step", this.stepCounter ++)
         // nodes that have not run this round yet and have either no input ports (Type.INPUT) or have all incoming data available (Type.PROCESSOR)
         let readyNodes = Object.values(this.nodesMap).filter(node => node.isReadyToRun())
         if (readyNodes.length === 0) {
-            console.log("No nodes are ready to run, resetting graph")
+            console.log("No more nodes are ready to run, resetting run-flags and data in ports")
             this.resetRound()
             return false
         }
@@ -28,7 +41,7 @@ export class Graph {
             let outgoingEdges = Object.values(this.edgesMap).filter(edge => edge.sourceNodeId === node.id)
             await node.run(outgoingEdges)
         }
-        console.log("nodesMap", this.nodesMap)
+        console.log("nodesMap after step", this.stepCounter ++, this.nodesMap)
         return true
     }
 

@@ -10,6 +10,6 @@ export class Edge {
         this.sourceNodeId = sourceNode.id
         this.targetNodeId = targetNode.id
         this.edgesMap[this.id] = this
-        console.log("Edge added:", this.id, this.sourceNodeId, "-->", this.targetNodeId)
+        console.log("Edge added:", this.id, this.sourceNodeId, "-->", this.targetNodeId, this)
     }
 }

@@ -41,6 +41,6 @@ export class Node {
         this.editorNodeObj = this.editor.getNodeFromId(this.editorId)
         this.id = ensureUniqueId(this.name, this.nodesMap)
         this.nodesMap[this.id] = this
-        console.log("Node added:", this.id, "\"" + this.name + "\"", "at", this.x, "/", this.y)
+        console.log("Node added:", this.id, "\"" + this.name + "\"", "at", this.x, "/", this.y, this)
     }
 }
