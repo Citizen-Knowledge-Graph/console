@@ -94,13 +94,15 @@
             })
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
 
-            editor.container.addEventListener("contextmenu", event => {
-                if (event.target.className !== "drawflow") return
+            editor.on("contextmenu", event => {
+                if (!["drawflow", "parent-drawflow"].includes(event.target.className)) return
                 event.stopPropagation()
                 setupContextMenu(event, (action, defaultLabel, x, y) => {
-                    let exampleId
-                    y -= document.getElementById("drawflow").getBoundingClientRect().top
+                    // also account for zoom TODO
+                    x -= editor.canvas_x
+                    y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
                     let name
+                    let exampleId
                     if (action.startsWith("ex_")) {
                         exampleId = action
                         name = defaultLabel
@@ -116,6 +118,7 @@
            ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
                 editor.container.addEventListener(eventType, event => {
                     if (event.button === 2 && event.target.className === "drawflow") {
+                        // otherwise mouse movement after right-click translates the canvas
                         event.stopPropagation()
                     }
                 }, true)
