@@ -51,6 +51,7 @@ export class Graph {
         for (let node of Object.values(this.nodesMap)) {
             node.ranThisRound = false
             node.incomingData = []
+            node.unhighlightAllPorts()
         }
         this.stepCounter = 0
     }

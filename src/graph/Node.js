@@ -17,10 +17,12 @@ export class Node {
 
     run(outgoingEdges, value) {
         this.highlight(true)
+        this.highlightPort("output_1")
         let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
         for (let edge of outgoingEdges) {
             edge.highlight(true)
             let targetNode = this.nodesMap[edge.targetNodeId]
+            targetNode.highlightPort(edge.editorConnectionObj.input_class)
             targetNode.incomingData.push({
                 from: this.id,
                 dataType: outputPortType,
@@ -36,6 +38,24 @@ export class Node {
             el.classList.add("highlighted-node")
         } else {
             el.classList.remove("highlighted-node")
+        }
+    }
+
+    highlightPort(portClass) {
+        let nodeEl = document.getElementById("node-" + this.editorId)
+        let inputDivs = nodeEl.querySelector(portClass.includes("input") ? ".inputs" : ".outputs").querySelectorAll("div")
+        for (let div of inputDivs) {
+            if (div.classList.contains(portClass)) {
+                div.classList.add("highlighted-port")
+            }
+        }
+    }
+
+    unhighlightAllPorts() {
+        let nodeEl = document.getElementById("node-" + this.editorId)
+        let divs = nodeEl.querySelectorAll(".inputs div, .outputs div")
+        for (let div of divs) {
+            div.classList.remove("highlighted-port")
         }
     }
 
