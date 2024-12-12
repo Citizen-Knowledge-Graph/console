@@ -29,7 +29,11 @@ export class CodeNode extends Node {
             lineNumbers: !this.isProcessor,
             readOnly: this.isProcessor,
         })
-        this.codeMirror.setSize('100%', '100%')
+        this.codeMirror.setSize("100%", "100%")
+        this.codeMirror.on("keydown", (cm, event) => {
+            // otherwise Drawflow deletes the node
+            if (event.key === "Delete") event.stopPropagation()
+        })
     }
 
     async run(outgoingEdges) {
