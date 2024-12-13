@@ -9,7 +9,7 @@ export async function fetchAsset(relPath) {
 }
 
 // type: "text/turtle"
-export async function download(content, type, filename) {
+export function download(content, type, filename) {
     let blob = new Blob([content], {type: type})
     let url = URL.createObjectURL(blob)
     let a = document.createElement("a")

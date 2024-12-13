@@ -2,6 +2,7 @@ import { ensureUniqueId } from "../utils.js"
 
 export class Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
+        this.exportId = "node" + Object.keys(nodesMap).length
         this.name = name
         this.inputs = inputs
         this.incomingData = []
@@ -21,7 +22,7 @@ export class Node {
         let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
         for (let edge of outgoingEdges) {
             edge.highlight(true)
-            let targetNode = this.nodesMap[edge.targetNodeId]
+            let targetNode = this.nodesMap[edge.targetNode.id]
             targetNode.highlightPort(edge.editorConnectionObj.input_class)
             targetNode.incomingData.push({
                 from: this.id,

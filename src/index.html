@@ -66,7 +66,7 @@
             <span id="resetBtn">Reset</span> |
             <span id="newBtn">New</span> |
             <span style="color: silver">Import</span> |
-            <span style="color: silver">Export</span> |
+            <span id="exportBtn">Export</span> |
             <span style="color: silver">Examples</span> |
             <span id="howtoBtn">HowTo</span>
             <span id="githubBtn" style="float:right;">GitHub</span>
@@ -92,6 +92,11 @@
             document.getElementById("newBtn").addEventListener("click", () => {
                 editor.clear()
                 graph = new Graph()
+            })
+            document.getElementById("exportBtn").addEventListener("click", () => {
+                let name = prompt("Name your export (optional)", "");
+                // optionally also ask for author and description TODO
+                graph.export(name)
             })
             document.getElementById("howtoBtn").addEventListener("click", () => alert("Right-click to add new nodes"))
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));

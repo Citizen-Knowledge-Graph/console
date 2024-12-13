@@ -43,6 +43,10 @@ export class CodeNode extends Node {
         super.run(outgoingEdges, this.codeMirror.getValue())
     }
 
+    getValue() {
+        return this.codeMirror.getValue()
+    }
+
     setValue(value) {
         this.codeMirror.setValue(value)
         this.editor.updateConnectionNodes(`node-${this.editorId}`)

@@ -5,13 +5,13 @@ import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
 
 export const TYPE = {
-    INPUT: 1,
-    PROCESSOR: 2
+    INPUT: 0,
+    PROCESSOR: 1
 }
 
 export const PORT = {
-    TURTLE: 1,
-    SPARQL: 2
+    TURTLE: 0,
+    SPARQL: 1
 }
 
 const nodeClasses = {

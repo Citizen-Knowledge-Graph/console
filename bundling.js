@@ -1,4 +1,4 @@
-import { Parser, Store, Writer } from "n3"
+import { Parser, Store, Writer, DataFactory } from "n3"
 import { QueryEngine } from "@comunica/query-sparql-rdfjs"
 import Validator from "shacl-engine/Validator.js"
 import rdf from "rdf-ext"
@@ -9,7 +9,7 @@ import "codemirror/mode/sparql/sparql.js"
 import slugify from "slugify"
 
 export {
-    Parser, Store, Writer,
+    Parser, Store, Writer, DataFactory,
     QueryEngine,
     Validator,
     rdf,
