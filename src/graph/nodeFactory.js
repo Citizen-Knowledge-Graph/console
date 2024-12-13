@@ -10,12 +10,8 @@ export const TYPE = {
 }
 
 export const PORT = {
-    ANY: 1,
-    TURTLE: 2,
-    SPARQL: 3,
-    SPARQL_SELECT: 4,
-    SPARQL_CONSTRUCT: 5,
-    SHACL: 6
+    TURTLE: 1,
+    SPARQL: 2
 }
 
 const nodeClasses = {

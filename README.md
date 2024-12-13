@@ -9,7 +9,7 @@ npm install
 npm run build
 ```
 
-Serve `index.html` with a local server. For instance via `npx http-server` or `python3 -m http.server`.
+Serve `index.html` with a local server. For instance via `npx http-server`, `python3 -m http.server` or a built-in server of your IDE. 
 
 
 ## Feature ideas:
