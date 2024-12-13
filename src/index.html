@@ -67,7 +67,8 @@
             <span id="newBtn">New</span> |
             <span style="color: silver">Import</span> |
             <span style="color: silver">Export</span> |
-            <span style="color: silver">Examples</span>
+            <span style="color: silver">Examples</span> |
+            <span id="howtoBtn">HowTo</span>
             <span id="githubBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
@@ -92,6 +93,7 @@
                 editor.clear()
                 graph = new Graph()
             })
+            document.getElementById("howtoBtn").addEventListener("click", () => alert("Right-click to add new nodes"))
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
 
             editor.on("contextmenu", event => {
