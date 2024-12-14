@@ -100,10 +100,13 @@ export class Graph {
         if (exportName) writer.addQuad(graph, hasName, DataFactory.literal(exportName))
         writer.addQuad(graph, this.ff("hasExportTimestamp"), DataFactory.literal(new Date().toISOString()))
 
+        // pre-run to have triples with graph as subjects nicely first -store would have sorted this automatically, but writer is a stream-writer
+        Object.values(this.nodesMap).forEach(node => writer.addQuad(graph, hasNode, this.ff(node.exportId)))
+        Object.values(this.edgesMap).forEach(edge => writer.addQuad(graph, hasEdge, this.ff(edge.exportId)))
+
         // nodes
         Object.values(this.nodesMap).forEach(node => {
             let n = this.ff(node.exportId)
-            writer.addQuad(graph, hasNode, n)
             writer.addQuad(n, a, nodeRdfClass)
             writer.addQuad(n, hasClass, this.ff(node.constructor.name))
             writer.addQuad(n, hasType, this.ff(Object.keys(TYPE)[node.type]))
@@ -125,7 +128,6 @@ export class Graph {
         // edges
         Object.values(this.edgesMap).forEach(edge => {
             let e = this.ff(edge.exportId)
-            writer.addQuad(graph, hasEdge, e)
             writer.addQuad(e, a, edgeRdfClass)
             writer.addQuad(e, hasSource, this.ff(edge.sourceNode.exportId))
             writer.addQuad(e, hasTarget, this.ff(edge.targetNode.exportId))
