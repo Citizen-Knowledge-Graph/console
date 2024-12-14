@@ -1,4 +1,4 @@
-import { PORT, TYPE } from "./nodeFactory.js"
+import { TYPE } from "./nodeFactory.js"
 import { buildEdgeId, download, runSparqlSelectQueryOnRdfString } from "../utils.js"
 import { DataFactory, slugify, Writer } from "../assets/bundle.js"
 
@@ -82,12 +82,9 @@ export class Graph {
         const nodeRdfClass = this.ff("Node")
         const hasNode = this.ff("hasNode")
         const hasClass = this.ff("hasClass") // e.g. TurtleInputNode
-        const hasType = this.ff("hasType") // INPUT or PROCESSOR
         const hasName = this.ff("hasName")
         const hasPosX = this.ff("hasPosX")
         const hasPosY = this.ff("hasPosY")
-        const hasInputType = this.ff("hasInputType")
-        const hasOutputType = this.ff("hasOutputType")
         const hasValue = this.ff("hasValue")
         // edges
         const edgeRdfClass = this.ff("Edge")
@@ -110,18 +107,9 @@ export class Graph {
             let n = this.ff(node.exportId)
             writer.addQuad(n, a, nodeRdfClass)
             writer.addQuad(n, hasClass, this.ff(node.constructor.name))
-            writer.addQuad(n, hasType, this.ff(Object.keys(TYPE)[node.type]))
             writer.addQuad(n, hasName, DataFactory.literal(node.name))
             writer.addQuad(n, hasPosX, DataFactory.literal(node.x))
             writer.addQuad(n, hasPosY, DataFactory.literal(node.y))
-            if (node.inputs.length > 0) {
-                const inputNodes = node.inputs.map(input => this.ff(Object.keys(PORT)[input]))
-                writer.addQuad(n, hasInputType, writer.list(inputNodes))
-            }
-            if (node.outputs.length > 0) {
-                const outputNodes = node.outputs.map(output => this.ff(Object.keys(PORT)[output]))
-                writer.addQuad(n, hasOutputType, writer.list(outputNodes))
-            }
             if (!node.isProcessor) {
                 writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
             }
@@ -155,23 +143,10 @@ export class Graph {
                 ?node a ff:Node ;
                     ff:hasName ?name ;
                     ff:hasClass ?class ;
-                    ff:hasType ?type ;
                     ff:hasPosX ?x ;
                     ff:hasPosY ?y .
                 OPTIONAL { 
                     ?node ff:hasValue ?value .
-                }
-                OPTIONAL {
-                    SELECT ?node (GROUP_CONCAT(?input; separator=", ") AS ?inputs) WHERE {
-                        ?node ff:hasInputType ?listInput .
-                        ?listInput rdf:rest*/rdf:first ?input .
-                    } GROUP BY ?node
-                }
-                OPTIONAL {
-                    SELECT ?node (GROUP_CONCAT(?output; separator=", ") AS ?outputs) WHERE {
-                        ?node ff:hasOutputType ?listOutput .
-                        ?listOutput rdf:rest*/rdf:first ?output .
-                    } GROUP BY ?node
                 }
             }`
         let bindings = await runSparqlSelectQueryOnRdfString(query, rdfStr)
