@@ -85,13 +85,13 @@
             const editor = new Drawflow(document.getElementById("drawflow"))
             editor.start()
 
-            let graph = new Graph()
+            let graph = new Graph(editor)
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
             document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
             document.getElementById("newBtn").addEventListener("click", () => {
                 editor.clear()
-                graph = new Graph()
+                graph = new Graph(editor)
             })
             document.getElementById("importBtn").addEventListener("click", async () => {
                 const response = await fetch("examples/foerderfunke-mini.ttl")

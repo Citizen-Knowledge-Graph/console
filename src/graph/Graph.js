@@ -3,7 +3,8 @@ import { buildEdgeId, download, runSparqlSelectQueryOnRdfString } from "../utils
 import { DataFactory, slugify, Writer } from "../assets/bundle.js"
 
 export class Graph {
-    constructor() {
+    constructor(editor) {
+        this.editor = editor
         this.nodesMap = {}
         this.edgesMap = {}
         this.stepCounter = 0
