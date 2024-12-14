@@ -115,7 +115,7 @@ export class Graph {
                 writer.addQuad(n, hasInputType, writer.list(inputNodes))
             }
             if (node.outputs.length > 0) {
-                const outputNodes = node.inputs.map(output => this.ff(Object.keys(PORT)[output]))
+                const outputNodes = node.outputs.map(output => this.ff(Object.keys(PORT)[output]))
                 writer.addQuad(n, hasOutputType, writer.list(outputNodes))
             }
             if (!node.isProcessor) {
