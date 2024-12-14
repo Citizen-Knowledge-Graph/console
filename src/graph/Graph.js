@@ -144,23 +144,4 @@ export class Graph {
             download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
         })
     }
-
-    /*buildList(items, listIdTrunk, store) {
-        const nil = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#nil")
-        const first = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#first")
-        const rest = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#rest")
-        let listHead = DataFactory.blankNode()
-        let current = listHead
-        items.forEach((item, idx) => {
-            store.addQuad(current, first, item)
-            if (idx === items.length - 1) {
-                store.addQuad(current, rest, nil)
-            } else {
-                let next = DataFactory.blankNode()
-                store.addQuad(current, rest, next)
-                current = next
-            }
-        })
-        return listHead
-    }*/
 }
