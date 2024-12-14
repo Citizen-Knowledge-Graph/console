@@ -1,6 +1,6 @@
 import { PORT, TYPE } from "./nodeFactory.js"
-import { buildEdgeId, download, serializeStoreToTurtle } from "../utils.js"
-import { Store, DataFactory, slugify } from "../assets/bundle.js"
+import { buildEdgeId, download } from "../utils.js"
+import { DataFactory, slugify, Writer } from "../assets/bundle.js"
 
 export class Graph {
     constructor() {
@@ -69,7 +69,12 @@ export class Graph {
     }
 
     async export(exportName) {
-        let store = new Store()
+        let writer = new Writer({
+            prefixes: {
+                rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                ff: "https://foerderfunke.org/default#"
+            }
+        })
         const graph = this.ff("graph")
         const a = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
         // nodes
@@ -90,50 +95,72 @@ export class Graph {
         const hasTarget = this.ff("hasTarget")
         const hasPortOut = this.ff("hasPortOut")
         const hasPortIn = this.ff("hasPortIn")
-        // both
-        // const hasId = this.ff("hasId")
 
-        store.addQuad(graph, a, this.ff("Graph"))
-        if (exportName) store.addQuad(graph, hasName, DataFactory.literal(exportName))
-        store.addQuad(graph, this.ff("hasExportTimestamp"), DataFactory.literal(new Date().toISOString()))
+        writer.addQuad(graph, a, this.ff("Graph"))
+        if (exportName) writer.addQuad(graph, hasName, DataFactory.literal(exportName))
+        writer.addQuad(graph, this.ff("hasExportTimestamp"), DataFactory.literal(new Date().toISOString()))
 
         // nodes
         Object.values(this.nodesMap).forEach(node => {
             let n = this.ff(node.exportId)
-            store.addQuad(graph, hasNode, n)
-            store.addQuad(n, a, nodeRdfClass)
-            // store.addQuad(n, hasId, DataFactory.literal(node.id))
-            store.addQuad(n, hasClass, this.ff(node.constructor.name))
-            store.addQuad(n, hasType, this.ff(Object.keys(TYPE)[node.type]))
-            store.addQuad(n, hasName, DataFactory.literal(node.name))
-            store.addQuad(n, hasPosX, DataFactory.literal(node.x))
-            store.addQuad(n, hasPosY, DataFactory.literal(node.y))
-            node.inputs.forEach(input => {
-                store.addQuad(n, hasInputType, this.ff(Object.keys(PORT)[input]))
-            })
-            node.outputs.forEach(output => {
-                store.addQuad(n, hasOutputType, this.ff(Object.keys(PORT)[output]))
-            })
+            writer.addQuad(graph, hasNode, n)
+            writer.addQuad(n, a, nodeRdfClass)
+            writer.addQuad(n, hasClass, this.ff(node.constructor.name))
+            writer.addQuad(n, hasType, this.ff(Object.keys(TYPE)[node.type]))
+            writer.addQuad(n, hasName, DataFactory.literal(node.name))
+            writer.addQuad(n, hasPosX, DataFactory.literal(node.x))
+            writer.addQuad(n, hasPosY, DataFactory.literal(node.y))
+            if (node.inputs.length > 0) {
+                const inputNodes = node.inputs.map(input => this.ff(Object.keys(PORT)[input]))
+                writer.addQuad(n, hasInputType, writer.list(inputNodes))
+            }
+            if (node.outputs.length > 0) {
+                const outputNodes = node.inputs.map(output => this.ff(Object.keys(PORT)[output]))
+                writer.addQuad(n, hasOutputType, writer.list(outputNodes))
+            }
             if (!node.isProcessor) {
-                store.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
+                writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
             }
         })
         // edges
         Object.values(this.edgesMap).forEach(edge => {
             let e = this.ff(edge.exportId)
-            store.addQuad(graph, hasEdge, e)
-            store.addQuad(e, a, edgeRdfClass)
-            // store.addQuad(e, hasId, DataFactory.literal(edge.id))
-            store.addQuad(e, hasSource, this.ff(edge.sourceNode.exportId))
-            store.addQuad(e, hasTarget, this.ff(edge.targetNode.exportId))
-            store.addQuad(e, hasPortOut, DataFactory.literal(Number(edge.portOut.split("_")[1]) - 1))
-            store.addQuad(e, hasPortIn, DataFactory.literal(Number(edge.portIn.split("_")[1]) - 1))
+            writer.addQuad(graph, hasEdge, e)
+            writer.addQuad(e, a, edgeRdfClass)
+            writer.addQuad(e, hasSource, this.ff(edge.sourceNode.exportId))
+            writer.addQuad(e, hasTarget, this.ff(edge.targetNode.exportId))
+            writer.addQuad(e, hasPortOut, DataFactory.literal(Number(edge.portOut.split("_")[1]) - 1))
+            writer.addQuad(e, hasPortIn, DataFactory.literal(Number(edge.portIn.split("_")[1]) - 1))
         })
 
-        let turtle = await serializeStoreToTurtle(store)
-        console.log(turtle)
-        const date = new Date().toISOString().split("T")[0]
-        let namePart = exportName ? `${slugify(exportName, { lower: true })}_` : ""
-        download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
+        writer.end((err, turtle) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+            console.log(turtle)
+            const date = new Date().toISOString().split("T")[0]
+            let namePart = exportName ? `${slugify(exportName, { lower: true })}_` : ""
+            download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
+        })
     }
+
+    /*buildList(items, listIdTrunk, store) {
+        const nil = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#nil")
+        const first = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#first")
+        const rest = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#rest")
+        let listHead = DataFactory.blankNode()
+        let current = listHead
+        items.forEach((item, idx) => {
+            store.addQuad(current, first, item)
+            if (idx === items.length - 1) {
+                store.addQuad(current, rest, nil)
+            } else {
+                let next = DataFactory.blankNode()
+                store.addQuad(current, rest, next)
+                current = next
+            }
+        })
+        return listHead
+    }*/
 }
