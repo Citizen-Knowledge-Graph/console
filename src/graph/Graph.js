@@ -10,6 +10,12 @@ export class Graph {
         this.stepCounter = 0
     }
 
+    clear() {
+        this.nodesMap = {}
+        this.edgesMap = {}
+        this.stepCounter = 0
+    }
+
     getNodeByEditorId(editorId) {
         return Object.values(this.nodesMap).find(node => node.editorId.toString() === editorId.toString())
     }

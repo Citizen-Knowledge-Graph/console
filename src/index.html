@@ -86,32 +86,32 @@
             editor.start()
 
             let graph = new Graph(editor)
+
+            const wipe = () => {
+                editor.clear()
+                graph.clear()
+            }
+
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
             document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
-            document.getElementById("newBtn").addEventListener("click", () => {
-                editor.clear()
-                graph = new Graph(editor)
+            document.getElementById("newBtn").addEventListener("click", () => wipe())
+            document.getElementById("fileUpload").addEventListener("change", () => {
+                const reader = new FileReader()
+                reader.onload = event => {
+                    const content = event.target.result
+                    graph.import(content)
+                }
+                const file = document.getElementById("fileUpload").files[0]
+                if (!file.name.toLowerCase().endsWith(".ttl")) {
+                    alert("Only turtle files (.ttl) are supported")
+                    return
+                }
+                if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
+                wipe()
+                reader.readAsText(file)
             })
-            document.getElementById("importBtn").addEventListener("click", () => {
-                let el = document.getElementById("fileUpload")
-                el.addEventListener("change", () => {
-                    const reader = new FileReader()
-                    reader.onload = event => {
-                        const content = event.target.result
-                        graph.import(content)
-                    }
-                    const file = el.files[0]
-                    if (!file.name.toLowerCase().endsWith(".ttl")) {
-                        alert("Only turtle files (.ttl) are supported")
-                        return
-                    }
-                    reader.readAsText(file)
-                })
-                el.click()
-                // const response = await fetch("examples/foerderfunke-mini.ttl")
-                // const rdfStr = await response.text()
-            })
+            document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
             document.getElementById("exportBtn").addEventListener("click", () => {
                 let name = prompt("Name your export (optional)", "");
                 // optionally also ask for author and description TODO
