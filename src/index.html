@@ -113,7 +113,7 @@
             })
             document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
             document.getElementById("exportBtn").addEventListener("click", () => {
-                let name = prompt("Name your export (optional)", "");
+                let name = prompt("Name your graph (optional)", "");
                 // optionally also ask for author and description TODO
                 graph.export(name)
             })
@@ -129,7 +129,7 @@
                     y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
                     let name
                     let exampleId
-                    if (action.startsWith("ex_")) {
+                    if (action.startsWith("ex_")) { // e.g. ex_TurtleInputNode_UP
                         exampleId = action
                         name = defaultLabel
                         action = action.split("_")[1]
@@ -155,55 +155,16 @@
                 console.log(node.name, node.pos_x, node.pos_y)
             })*/
 
-            editor.on("nodeRemoved", function(id) {
-                graph.removeNode(id)
-            })
+            // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
+            editor.on("connectionCreated", connection => new Edge(connection, graph))
+            editor.on("nodeRemoved", (id) => graph.removeNode(id))
+            editor.on("connectionRemoved", (connection) => graph.removeEdge(connection))
 
-            editor.on("connectionCreated", connection => {
-                // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
-                new Edge(connection, graph)
-            })
-
-            editor.on("connectionRemoved", function(connection) {
-                graph.removeEdge(connection)
-            })
-
-            // Example graph
+            // example graph
             const response = await fetch("examples/foerderfunke-mini.ttl")
             const rdfStr = await response.text()
             graph.import(rdfStr)
-            /*let n1 = createNode("TurtleInputNode", "User profile", 60, 60, editor, graph.nodesMap, "ex_TurtleInputNode_UP")
-            let n2 = createNode("SparqlInputNode", "Materialization rule", 60, 270, editor, graph.nodesMap, "ex_SparqlInputNode_MatRule")
-            let n3 = createNode("TurtleInputNode", "Requirement profile 1", 630, 390, editor, graph.nodesMap, "ex_TurtleInputNode_RP1")
-            let n4 = createNode("SparqlConstructExecNode", "Run SPARQL CONSTRUCT", 585, 170, editor, graph.nodesMap)
-            let n5 = createNode("MergeTriplesNode", "Merge triples", 1060, 40, editor, graph.nodesMap)
-            let n6 = createNode("ShaclValidationNode", "Run SHACL validation", 1165, 285, editor, graph.nodesMap)
-            editor.addConnection(n1.editorId, n4.editorId, "output_1", "input_1")
-            editor.addConnection(n2.editorId, n4.editorId, "output_1", "input_2")
-            editor.addConnection(n1.editorId, n5.editorId, "output_1", "input_1")
-            editor.addConnection(n4.editorId, n5.editorId, "output_1", "input_2")
-            editor.addConnection(n5.editorId, n6.editorId, "output_1", "input_1")
-            editor.addConnection(n3.editorId, n6.editorId, "output_1", "input_2")*/
 
-            /*
-            .info-node {
-                width: 950px !important;
-                padding: 8px !important;
-                background-color: lightcyan !important;
-            }
-            .highlighted-edge {
-                stroke: red !important;
-                stroke-width: 5px !important;
-            }
-            .highlighted-node {
-                background-color: yellow !important;
-            }
-            let edgeEl = document.querySelector(`svg.node_out_${components["triples"].nodeId}.node_in_${components["sparqlExec"].nodeId} path`)
-            edgeEl.classList.add("highlighted-edge")
-            edgeEl.classList.remove("highlighted-edge")
-            let nodeEl = document.getElementById(components["sparqlExec"].nodeId)
-            nodeEl.classList.add("highlighted-node")
-            */
         </script>
     </body>
 </html>
