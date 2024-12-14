@@ -7,8 +7,8 @@ export class Node {
         this.inputs = inputs
         this.incomingData = []
         this.outputs = outputs
-        this.x = x
-        this.y = y
+        this.x = Number(x)
+        this.y = Number(y)
         this.editor = editor
         this.nodesMap = nodesMap
         this.type = type
