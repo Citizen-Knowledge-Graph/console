@@ -120,8 +120,8 @@ export class Graph {
             writer.addQuad(e, a, edgeRdfClass)
             writer.addQuad(e, hasSource, this.ff(edge.sourceNode.exportId))
             writer.addQuad(e, hasTarget, this.ff(edge.targetNode.exportId))
-            writer.addQuad(e, hasPortOut, DataFactory.literal(Number(edge.portOut.split("_")[1]) - 1))
-            writer.addQuad(e, hasPortIn, DataFactory.literal(Number(edge.portIn.split("_")[1]) - 1))
+            writer.addQuad(e, hasPortOut, DataFactory.literal(Number(edge.portOut.split("_")[1])))
+            writer.addQuad(e, hasPortIn, DataFactory.literal(Number(edge.portIn.split("_")[1])))
         })
 
         writer.end((err, turtle) => {

@@ -2,7 +2,7 @@ import { buildEdgeId } from "../utils.js"
 
 export class Edge {
     constructor(editorConnectionObj, graph) {
-        this.exportId = "edge" + Object.keys(graph.edgesMap).length
+        this.exportId = "edge" + (Object.keys(graph.edgesMap).length + 1)
         this.editorConnectionObj = editorConnectionObj
         this.edgesMap = graph.edgesMap
         this.id = buildEdgeId(editorConnectionObj) // should be unique, no need for ensureUniqueId()

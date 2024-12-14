@@ -3,69 +3,69 @@
 
 ff:graph a ff:Graph;
          ff:hasName "FörderFunke Mini";
-         ff:hasExportTimestamp "2024-12-14T21:03:45.409Z";
-         ff:hasNode ff:node0, ff:node1, ff:node2, ff:node3, ff:node4, ff:node5;
-         ff:hasEdge ff:edge0, ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5.
-ff:node0 a ff:Node;
+         ff:hasExportTimestamp "2024-12-14T21:20:06.995Z";
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6.
+ff:node1 a ff:Node;
          ff:hasClass ff:TurtleInputNode;
          ff:hasName "User profile";
          ff:hasPosX 60;
          ff:hasPosY 60;
          ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\nff:mainPerson a ff:Citizen ;\n    ff:hasBirthday \"1990-01-02\"^^xsd:date .".
-ff:node1 a ff:Node;
+ff:node2 a ff:Node;
          ff:hasClass ff:SparqlInputNode;
          ff:hasName "Materialization rule";
          ff:hasPosX 60;
          ff:hasPosY 270;
          ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nCONSTRUCT {\n    ?person ff:hasAge ?age .\n} WHERE {\n    ?person ff:hasBirthday ?bday .\n    BIND(YEAR(NOW()) - YEAR(?bday) - IF(MONTH(NOW()) < MONTH(?bday) || (MONTH(NOW()) = MONTH(?bday) && DAY(NOW()) < DAY(?bday)), 1, 0) AS ?age) .\n}".
-ff:node2 a ff:Node;
+ff:node3 a ff:Node;
          ff:hasClass ff:TurtleInputNode;
          ff:hasName "Requirement profile 1";
          ff:hasPosX 630;
          ff:hasPosY 390;
          ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:SimpleBenefitShape1 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:minCount 1 ;\n        sh:minInclusive 18 ;\n    ] .".
-ff:node3 a ff:Node;
+ff:node4 a ff:Node;
          ff:hasClass ff:SparqlConstructExecNode;
          ff:hasName "Run SPARQL CONSTRUCT";
          ff:hasPosX 585;
          ff:hasPosY 170.
-ff:node4 a ff:Node;
+ff:node5 a ff:Node;
          ff:hasClass ff:MergeTriplesNode;
          ff:hasName "Merge triples";
          ff:hasPosX 1060;
          ff:hasPosY 40.
-ff:node5 a ff:Node;
+ff:node6 a ff:Node;
          ff:hasClass ff:ShaclValidationNode;
          ff:hasName "Run SHACL validation";
          ff:hasPosX 1165;
          ff:hasPosY 285.
-ff:edge0 a ff:Edge;
-         ff:hasSource ff:node0;
-         ff:hasTarget ff:node3;
-         ff:hasPortOut 0;
-         ff:hasPortIn 0.
 ff:edge1 a ff:Edge;
          ff:hasSource ff:node1;
-         ff:hasTarget ff:node3;
-         ff:hasPortOut 0;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
          ff:hasPortIn 1.
 ff:edge2 a ff:Edge;
-         ff:hasSource ff:node0;
+         ff:hasSource ff:node2;
          ff:hasTarget ff:node4;
-         ff:hasPortOut 0;
-         ff:hasPortIn 0.
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
 ff:edge3 a ff:Edge;
-         ff:hasSource ff:node3;
-         ff:hasTarget ff:node4;
-         ff:hasPortOut 0;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
          ff:hasPortIn 1.
 ff:edge4 a ff:Edge;
          ff:hasSource ff:node4;
          ff:hasTarget ff:node5;
-         ff:hasPortOut 0;
-         ff:hasPortIn 0.
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
 ff:edge5 a ff:Edge;
-         ff:hasSource ff:node2;
-         ff:hasTarget ff:node5;
-         ff:hasPortOut 0;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
          ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
