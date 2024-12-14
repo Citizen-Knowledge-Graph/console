@@ -1,4 +1,4 @@
-import { TYPE } from "./nodeFactory.js"
+import { createNode, TYPE } from "./nodeFactory.js"
 import { buildEdgeId, download, runSparqlSelectQueryOnRdfString } from "../utils.js"
 import { DataFactory, slugify, Writer } from "../assets/bundle.js"
 
@@ -69,6 +69,10 @@ export class Graph {
         return DataFactory.namedNode("https://foerderfunke.org/default#" + localName)
     }
 
+    localName(uri) {
+        return uri.split("#")[1]
+    }
+
     async export(exportName) {
         let writer = new Writer({
             prefixes: {
@@ -137,6 +141,7 @@ export class Graph {
     }
 
     async import(rdfStr) {
+        // nodes
         let query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             SELECT * WHERE {
@@ -149,9 +154,28 @@ export class Graph {
                     ?node ff:hasValue ?value .
                 }
             }`
-        let bindings = await runSparqlSelectQueryOnRdfString(query, rdfStr)
-        console.log(bindings)
-
-        // TODO
+        let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+        let idMap = {} // identifier in imported turtle to new node.id based on name
+        for (let row of rows) {
+            let node = createNode(this.localName(row.class), row.name, row.x, row.y, this.editor, this.nodesMap)
+            if (row.value) node.setValue(row.value)
+            idMap[this.localName(row.node)] = node.id
+        }
+        // edges
+        query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT * WHERE {
+                ?edge a ff:Edge ;
+                    ff:hasSource ?source ;
+                    ff:hasTarget ?target ;
+                    ff:hasPortOut ?portOut ;
+                    ff:hasPortIn ?portIn .
+            }`
+        rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+        for (let row of rows) {
+            let sourceNode = this.nodesMap[idMap[this.localName(row.source)]]
+            let targetNode = this.nodesMap[idMap[this.localName(row.target)]]
+            this.editor.addConnection(sourceNode.editorId, targetNode.editorId, "output_" + row.portOut, "input_" + row.portIn)
+        }
     }
 }
