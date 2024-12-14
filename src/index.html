@@ -169,7 +169,10 @@
             })
 
             // Example graph
-            let n1 = createNode("TurtleInputNode", "User profile", 60, 60, editor, graph.nodesMap, "ex_TurtleInputNode_UP")
+            const response = await fetch("examples/foerderfunke-mini.ttl")
+            const rdfStr = await response.text()
+            graph.import(rdfStr)
+            /*let n1 = createNode("TurtleInputNode", "User profile", 60, 60, editor, graph.nodesMap, "ex_TurtleInputNode_UP")
             let n2 = createNode("SparqlInputNode", "Materialization rule", 60, 270, editor, graph.nodesMap, "ex_SparqlInputNode_MatRule")
             let n3 = createNode("TurtleInputNode", "Requirement profile 1", 630, 390, editor, graph.nodesMap, "ex_TurtleInputNode_RP1")
             let n4 = createNode("SparqlConstructExecNode", "Run SPARQL CONSTRUCT", 585, 170, editor, graph.nodesMap)
@@ -180,7 +183,7 @@
             editor.addConnection(n1.editorId, n5.editorId, "output_1", "input_1")
             editor.addConnection(n4.editorId, n5.editorId, "output_1", "input_2")
             editor.addConnection(n5.editorId, n6.editorId, "output_1", "input_1")
-            editor.addConnection(n3.editorId, n6.editorId, "output_1", "input_2")
+            editor.addConnection(n3.editorId, n6.editorId, "output_1", "input_2")*/
 
             /*
             .info-node {
