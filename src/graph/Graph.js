@@ -109,12 +109,25 @@ export class Graph {
         writer.addQuad(graph, this.ff("hasExportTimestamp"), DataFactory.literal(new Date().toISOString()))
 
         // pre-run to have triples with graph as subjects nicely first -store would have sorted this automatically, but writer is a stream-writer
-        Object.values(this.nodesMap).forEach(node => writer.addQuad(graph, hasNode, this.ff(node.exportId)))
-        Object.values(this.edgesMap).forEach(edge => writer.addQuad(graph, hasEdge, this.ff(edge.exportId)))
+        // and to create id-mapping
+        let nodeIdMap = {}
+        let nodeCounter = 1
+        let edgeIdMap = {}
+        let edgeCounter = 1
+        Object.values(this.nodesMap).forEach(node => {
+            let exportId = this.ff("node" + nodeCounter ++)
+            writer.addQuad(graph, hasNode, exportId)
+            nodeIdMap[node.id] = exportId
+        })
+        Object.values(this.edgesMap).forEach(edge => {
+            let exportId = this.ff("edge" + edgeCounter ++)
+            writer.addQuad(graph, hasEdge, exportId)
+            edgeIdMap[edge.id] = exportId
+        })
 
         // nodes
         Object.values(this.nodesMap).forEach(node => {
-            let n = this.ff(node.exportId)
+            let n = nodeIdMap[node.id]
             writer.addQuad(n, a, nodeRdfClass)
             writer.addQuad(n, hasClass, this.ff(node.constructor.name))
             writer.addQuad(n, hasName, DataFactory.literal(node.name))
@@ -126,10 +139,10 @@ export class Graph {
         })
         // edges
         Object.values(this.edgesMap).forEach(edge => {
-            let e = this.ff(edge.exportId)
+            let e = edgeIdMap[edge.id]
             writer.addQuad(e, a, edgeRdfClass)
-            writer.addQuad(e, hasSource, this.ff(edge.sourceNode.exportId))
-            writer.addQuad(e, hasTarget, this.ff(edge.targetNode.exportId))
+            writer.addQuad(e, hasSource, nodeIdMap[edge.sourceNode.id])
+            writer.addQuad(e, hasTarget, nodeIdMap[edge.targetNode.id])
             writer.addQuad(e, hasPortOut, DataFactory.literal(Number(edge.portOut.split("_")[1])))
             writer.addQuad(e, hasPortIn, DataFactory.literal(Number(edge.portIn.split("_")[1])))
         })

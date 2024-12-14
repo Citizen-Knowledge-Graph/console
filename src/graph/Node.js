@@ -2,7 +2,6 @@ import { ensureUniqueId } from "../utils.js"
 
 export class Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
-        this.exportId = "node" + (Object.keys(nodesMap).length + 1)
         this.name = name
         this.inputs = inputs
         this.incomingData = []
