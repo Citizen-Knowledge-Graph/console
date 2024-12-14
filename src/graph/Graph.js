@@ -1,5 +1,5 @@
 import { PORT, TYPE } from "./nodeFactory.js"
-import { buildEdgeId, download } from "../utils.js"
+import { buildEdgeId, download, runSparqlSelectQueryOnRdfString } from "../utils.js"
 import { DataFactory, slugify, Writer } from "../assets/bundle.js"
 
 export class Graph {
@@ -145,5 +145,37 @@ export class Graph {
             let namePart = exportName ? `${slugify(exportName, { lower: true })}_` : ""
             download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
         })
+    }
+
+    async import(rdfStr) {
+        let query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT * WHERE {
+                ?node a ff:Node ;
+                    ff:hasName ?name ;
+                    ff:hasClass ?class ;
+                    ff:hasType ?type ;
+                    ff:hasPosX ?x ;
+                    ff:hasPosY ?y .
+                OPTIONAL { 
+                    ?node ff:hasValue ?value .
+                }
+                OPTIONAL {
+                    SELECT ?node (GROUP_CONCAT(?input; separator=", ") AS ?inputs) WHERE {
+                        ?node ff:hasInputType ?listInput .
+                        ?listInput rdf:rest*/rdf:first ?input .
+                    } GROUP BY ?node
+                }
+                OPTIONAL {
+                    SELECT ?node (GROUP_CONCAT(?output; separator=", ") AS ?outputs) WHERE {
+                        ?node ff:hasOutputType ?listOutput .
+                        ?listOutput rdf:rest*/rdf:first ?output .
+                    } GROUP BY ?node
+                }
+            }`
+        let bindings = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+        console.log(bindings)
+
+        // TODO
     }
 }

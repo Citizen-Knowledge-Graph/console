@@ -65,7 +65,7 @@
             <span id="stepBtn">Step</span> |
             <span id="resetBtn">Reset</span> |
             <span id="newBtn">New</span> |
-            <span style="color: silver">Import</span> |
+            <span id="importBtn" style="color: silver">Import</span> |
             <span id="exportBtn">Export</span> |
             <span style="color: silver">Examples</span> |
             <span id="howtoBtn">HowTo</span>
@@ -92,6 +92,11 @@
             document.getElementById("newBtn").addEventListener("click", () => {
                 editor.clear()
                 graph = new Graph()
+            })
+            document.getElementById("importBtn").addEventListener("click", async () => {
+                const response = await fetch("examples/foerderfunke-mini.ttl")
+                const rdfStr = await response.text()
+                graph.import(rdfStr)
             })
             document.getElementById("exportBtn").addEventListener("click", () => {
                 let name = prompt("Name your export (optional)", "");

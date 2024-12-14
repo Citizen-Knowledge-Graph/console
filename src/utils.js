@@ -44,7 +44,17 @@ export async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
     await addRdfStringToStore(rdfStr, store)
     const queryEngine = new QueryEngine()
     let bindingsStream = await queryEngine.queryBindings(query, { sources: [ store ] })
-    return await bindingsStream.toArray()
+    let bindings = await bindingsStream.toArray()
+    let results = []
+    bindings.forEach(binding => {
+        const variables = Array.from(binding.keys()).map(({ value }) => value)
+        let row = {}
+        variables.forEach(variable => {
+            row[variable] = binding.get(variable).value
+        })
+        results.push(row)
+    })
+    return results
 }
 
 export async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
@@ -76,6 +86,7 @@ export function serializeStoreToTurtle(store) {
     return new Promise((resolve, reject) => {
         let writer = new Writer({
             prefixes: {
+                rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                 ff: "https://foerderfunke.org/default#",
                 sh: "http://www.w3.org/ns/shacl#",
             }
