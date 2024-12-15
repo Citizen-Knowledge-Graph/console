@@ -17,14 +17,14 @@ export class CodeNode extends Node {
         super.addNode()
     }
 
-    initCodemirror(mode, value = "") {
+    initCodemirror(mode) {
         let container = this.editor.container.querySelector(`#node-${this.editorId} .codemirror-editor`)
         if (!container) {
             console.warn(`${this.id}: codemirror container not found`)
             return
         }
         this.codeMirror = CodeMirror(container, {
-            value: value,
+            value: "",
             mode: mode, // sparql or turtle
             lineNumbers: !this.isProcessor,
             readOnly: this.isProcessor,

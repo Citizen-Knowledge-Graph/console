@@ -27,7 +27,7 @@ export class Node {
         for (let edge of outgoingEdges) {
             edge.highlight(true)
             let targetNode = this.nodesMap[edge.targetNode.id]
-            targetNode.highlightPort(edge.editorConnectionObj.input_class)
+            targetNode.highlightPort(edge.portIn)
             targetNode.incomingData.push({
                 from: this.id,
                 dataType: outputPortType,
@@ -74,7 +74,6 @@ export class Node {
 
     addNode() {
         this.editorId = this.editor.addNode(this.name, this.inputs.length, this.outputs.length, this.x, this.y, "", {}, this.html)
-        this.editorNodeObj = this.editor.getNodeFromId(this.editorId)
         this.id = ensureUniqueId(this.name, this.nodesMap)
         this.nodesMap[this.id] = this
         console.log("Node added:", this.id, "\"" + this.name + "\"", "at", this.x, "/", this.y, this)
