@@ -15,6 +15,11 @@ export class Node {
         this.ranThisRound = false
     }
 
+    updatePos(x, y) {
+        this.x = x
+        this.y = y
+    }
+
     run(outgoingEdges, value) {
         this.highlight(true)
         this.highlightPort("output_1")

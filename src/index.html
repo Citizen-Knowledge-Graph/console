@@ -150,10 +150,10 @@
                 }, true)
             })
 
-            /*editor.on("nodeMoved", function(id) {
-                const node = editor.getNodeFromId(id)
-                console.log(node.name, node.pos_x, node.pos_y)
-            })*/
+            editor.on("nodeMoved", function(id) {
+                const editorNode = editor.getNodeFromId(id)
+                graph.getNodeByEditorId(id).updatePos(editorNode.pos_x, editorNode.pos_y)
+            })
 
             // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
             editor.on("connectionCreated", connection => new Edge(connection, graph))
