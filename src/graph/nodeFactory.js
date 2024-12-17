@@ -1,9 +1,10 @@
+import { PrefixesNode } from "./input/PrefixesNode.js"
 import { TurtleInputNode } from "./input/TurtleInputNode.js"
 import { SparqlInputNode } from "./input/SparqlInputNode.js"
+import { SparqlSelectExecNode } from "./processor/SparqlSelectExecNode.js"
 import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
 import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
-import { SparqlSelectExecNode } from "./processor/SparqlSelectExecNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -17,6 +18,7 @@ export const PORT = {
 }
 
 const nodeClasses = {
+    "PrefixesNode": PrefixesNode,
     "TurtleInputNode": TurtleInputNode,
     "SparqlInputNode": SparqlInputNode,
     "SparqlSelectExecNode": SparqlSelectExecNode,
@@ -26,6 +28,10 @@ const nodeClasses = {
 }
 
 const exampleValues = {
+    "ex_PrefixesNode_ff": `rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xsd: http://www.w3.org/2001/XMLSchema#
+ff:  https://foerderfunke.org/default#
+sh:  http://www.w3.org/ns/shacl#`,
     "ex_TurtleInputNode_UP": `@prefix ff: <https://foerderfunke.org/default#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
