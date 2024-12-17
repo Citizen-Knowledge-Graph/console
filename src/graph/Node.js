@@ -76,4 +76,14 @@ export class Node {
     allIncomingDataAvailable() {
         return this.incomingData.length === this.inputs.length
     }
+
+    initCodemirror(mode) { this.err() }
+    getValue() { this.err() }
+    setValue(value) { this.err() }
+    clear() { this.err() }
+    async runProcessor() { this.err() }
+
+    err() {
+        console.error("This 'abstract base method' should not be called")
+    }
 }
