@@ -1,11 +1,11 @@
 import { CodeNode } from "../CodeNode.js"
-import { PORT } from "../nodeFactory.js"
+import { PORT, TYPE } from "../nodeFactory.js"
 import { Store } from "../../assets/bundle.js"
 import { addRdfStringToStore, serializeStoreToTurtle } from "../../utils.js"
 
 export class MergeTriplesNode extends CodeNode {
     constructor(name, x, y, editor, nodesMap) {
-        super(name, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE ], x, y, editor, nodesMap, true)
+        super(name, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE ], x, y, editor, nodesMap, TYPE.PROCESSOR)
         super.initCodemirror("turtle")
     }
 

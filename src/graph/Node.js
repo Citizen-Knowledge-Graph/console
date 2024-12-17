@@ -1,4 +1,5 @@
 import { ensureUniqueId } from "../utils.js"
+import { TYPE } from "./nodeFactory.js"
 
 export class Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
@@ -18,6 +19,10 @@ export class Node {
     updatePos(x, y) {
         this.x = x
         this.y = y
+    }
+
+    isProcessor() {
+        return this.type === TYPE.PROCESSOR
     }
 
     run(outgoingEdges, value) {
