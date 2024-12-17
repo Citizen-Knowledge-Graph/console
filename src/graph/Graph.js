@@ -16,20 +16,15 @@ export class Graph {
         this.stepCounter = 0
     }
 
-    getNodeByEditorId(editorId) {
-        return Object.values(this.nodesMap).find(node => node.editorId.toString() === editorId.toString())
-    }
-
     removeEdge(connection) {
         let edgeId = buildEdgeId(connection)
         delete this.edgesMap[edgeId]
         console.log("Edge removed", edgeId)
     }
 
-    removeNode(editorId) {
-        let nodeId = this.getNodeByEditorId(editorId).id
-        delete this.nodesMap[nodeId]
-        console.log("Node removed", nodeId)
+    removeNode(id) {
+        delete this.nodesMap[id]
+        console.log("Node removed", id)
         // removal of attached edge gets handled by the editor and triggers removeEdge() for each
     }
 
@@ -131,10 +126,10 @@ export class Graph {
             writer.addQuad(n, a, nodeRdfClass)
             writer.addQuad(n, hasClass, this.ff(node.constructor.name))
             writer.addQuad(n, hasName, DataFactory.literal(node.name))
-            let editorNode = this.editor.getNodeFromId(node.editorId)
+            let editorNode = this.editor.getNodeFromId(node.id)
             writer.addQuad(n, hasPosX, DataFactory.literal(editorNode.pos_x))
             writer.addQuad(n, hasPosY, DataFactory.literal(editorNode.pos_y))
-            if (!node.isProcessor) {
+            if (!node.isProcessor()) {
                 writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
             }
         })
@@ -195,7 +190,7 @@ export class Graph {
         for (let row of rows) {
             let sourceNode = this.nodesMap[idMap[this.localName(row.source)]]
             let targetNode = this.nodesMap[idMap[this.localName(row.target)]]
-            this.editor.addConnection(sourceNode.editorId, targetNode.editorId, "output_" + row.portOut, "input_" + row.portIn)
+            this.editor.addConnection(sourceNode.id, targetNode.id, "output_" + row.portOut, "input_" + row.portIn)
         }
     }
 }

@@ -19,7 +19,7 @@ export class CodeNode extends Node {
     }
 
     initCodemirror(mode) {
-        let container = this.editor.container.querySelector(`#node-${this.editorId} .codemirror-editor`)
+        let container = this.editor.container.querySelector(`#node-${this.id} .codemirror-editor`)
         if (!container) {
             console.warn(`${this.id}: codemirror container not found`)
             return
@@ -50,7 +50,7 @@ export class CodeNode extends Node {
 
     setValue(value) {
         this.codeMirror.setValue(value)
-        this.editor.updateConnectionNodes(`node-${this.editorId}`)
+        this.editor.updateConnectionNodes(`node-${this.id}`)
     }
 
     clear() {
