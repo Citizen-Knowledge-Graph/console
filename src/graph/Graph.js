@@ -131,8 +131,9 @@ export class Graph {
             writer.addQuad(n, a, nodeRdfClass)
             writer.addQuad(n, hasClass, this.ff(node.constructor.name))
             writer.addQuad(n, hasName, DataFactory.literal(node.name))
-            writer.addQuad(n, hasPosX, DataFactory.literal(node.x))
-            writer.addQuad(n, hasPosY, DataFactory.literal(node.y))
+            let editorNode = this.editor.getNodeFromId(node.editorId)
+            writer.addQuad(n, hasPosX, DataFactory.literal(editorNode.pos_x))
+            writer.addQuad(n, hasPosY, DataFactory.literal(editorNode.pos_y))
             if (!node.isProcessor) {
                 writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
             }

@@ -7,8 +7,6 @@ export class Node {
         this.inputs = inputs
         this.incomingData = []
         this.outputs = outputs
-        this.x = Number(x)
-        this.y = Number(y)
         this.editor = editor
         this.nodesMap = nodesMap
         this.type = type
@@ -17,11 +15,6 @@ export class Node {
         this.id = ensureUniqueId(this.name, this.nodesMap)
         this.nodesMap[this.id] = this
         console.log("Node added:", this.id, "\"" + this.name + "\"", "at", this.x, "/", this.y, this)
-    }
-
-    updatePos(x, y) {
-        this.x = x
-        this.y = y
     }
 
     isProcessor() {

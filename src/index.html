@@ -150,11 +150,6 @@
                 }, true)
             })
 
-            editor.on("nodeMoved", function(id) {
-                const editorNode = editor.getNodeFromId(id)
-                graph.getNodeByEditorId(id).updatePos(editorNode.pos_x, editorNode.pos_y)
-            })
-
             // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
             editor.on("connectionCreated", connection => new Edge(connection, graph))
             editor.on("nodeRemoved", (id) => graph.removeNode(id))
