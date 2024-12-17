@@ -12,8 +12,11 @@ export class Node {
         this.editor = editor
         this.nodesMap = nodesMap
         this.type = type
-        this.html = ''
         this.ranThisRound = false
+        this.editorId = editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
+        this.id = ensureUniqueId(this.name, this.nodesMap)
+        this.nodesMap[this.id] = this
+        console.log("Node added:", this.id, "\"" + this.name + "\"", "at", this.x, "/", this.y, this)
     }
 
     updatePos(x, y) {
@@ -23,6 +26,10 @@ export class Node {
 
     isProcessor() {
         return this.type === TYPE.PROCESSOR
+    }
+
+    getHtml() {
+        return ""
     }
 
     run(outgoingEdges, value) {
@@ -75,12 +82,5 @@ export class Node {
 
     allIncomingDataAvailable() {
         return this.incomingData.length === this.inputs.length
-    }
-
-    addNode() {
-        this.editorId = this.editor.addNode(this.name, this.inputs.length, this.outputs.length, this.x, this.y, "", {}, this.html)
-        this.id = ensureUniqueId(this.name, this.nodesMap)
-        this.nodesMap[this.id] = this
-        console.log("Node added:", this.id, "\"" + this.name + "\"", "at", this.x, "/", this.y, this)
     }
 }

@@ -5,15 +5,17 @@ import { TYPE } from "./nodeFactory.js"
 export class CodeNode extends Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
         super(name, inputs, outputs, x, y, editor, nodesMap, type)
-        this.html = `
+    }
+
+    getHtml() {
+        return `
 <div>
-    <div class="title-box${this.isProcessor() ? " view-only" : ""}">${name}</div>
+    <div class="title-box${this.isProcessor() ? " view-only" : ""}">${this.name}</div>
     <div class="box">
         ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
         <div class="codemirror-editor"></div>
     </div>
 </div>`
-        super.addNode()
     }
 
     initCodemirror(mode) {
