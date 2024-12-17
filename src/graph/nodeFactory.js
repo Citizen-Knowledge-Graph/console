@@ -3,6 +3,7 @@ import { SparqlInputNode } from "./input/SparqlInputNode.js"
 import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
 import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
+import { SparqlSelectExecNode } from "./processor/SparqlSelectExecNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -11,12 +12,14 @@ export const TYPE = {
 
 export const PORT = {
     TURTLE: 0,
-    SPARQL: 1
+    SPARQL: 1,
+    CSV: 2
 }
 
 const nodeClasses = {
     "TurtleInputNode": TurtleInputNode,
     "SparqlInputNode": SparqlInputNode,
+    "SparqlSelectExecNode": SparqlSelectExecNode,
     "SparqlConstructExecNode": SparqlConstructExecNode,
     "MergeTriplesNode": MergeTriplesNode,
     "ShaclValidationNode": ShaclValidationNode
@@ -54,6 +57,10 @@ CONSTRUCT {
 } WHERE {
     ?person ff:hasBirthday ?bday .
     BIND(YEAR(NOW()) - YEAR(?bday) - IF(MONTH(NOW()) < MONTH(?bday) || (MONTH(NOW()) = MONTH(?bday) && DAY(NOW()) < DAY(?bday)), 1, 0) AS ?age) .
+}`,
+    "ex_SparqlInputNode_Select": `PREFIX ff: <https://foerderfunke.org/default#>
+SELECT * WHERE {
+    ?s ?p ?o.
 }`
 }
 

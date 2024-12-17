@@ -15,7 +15,7 @@ const menuItems = [
             { label: "SPARQL Input", action: "SparqlInputNode",
                 submenu: [
                     { label: "Example: Materialization rule", action: "ex_SparqlInputNode_MatRule" },
-
+                    { label: "Example: Select", action: "ex_SparqlInputNode_Select" },
                 ]
             },
         ]
@@ -23,6 +23,7 @@ const menuItems = [
     {
         label: "Processors",
         submenu: [
+            { label: "Run SPARQL SELECT", action: "SparqlSelectExecNode" },
             { label: "Run SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
             { label: "Merge triples", action: "MergeTriplesNode" },
             { label: "Run SHACL validation", action: "ShaclValidationNode" },
