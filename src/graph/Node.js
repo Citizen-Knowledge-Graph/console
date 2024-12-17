@@ -29,9 +29,8 @@ export class Node {
         let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
         for (let edge of outgoingEdges) {
             edge.highlight(true)
-            let targetNode = this.nodesMap[edge.targetNode.id]
-            targetNode.highlightPort(edge.portIn)
-            targetNode.incomingData.push({
+            edge.targetNode.highlightPort(edge.portIn)
+            edge.targetNode.incomingData.push({
                 from: this.id,
                 dataType: outputPortType,
                 data: value
