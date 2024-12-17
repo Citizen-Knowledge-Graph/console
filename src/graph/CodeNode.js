@@ -1,6 +1,5 @@
 import { Node } from "./Node.js"
 import { CodeMirror } from "../assets/bundle.js"
-import { TYPE } from "./nodeFactory.js"
 
 export class CodeNode extends Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
@@ -35,13 +34,6 @@ export class CodeNode extends Node {
             // otherwise Drawflow deletes the node
             if (event.key === "Delete") event.stopPropagation()
         })
-    }
-
-    async run(outgoingEdges) {
-        if (this.type === TYPE.PROCESSOR) {
-            this.setValue(await this.runProcessor())
-        }
-        super.run(outgoingEdges, this.codeMirror.getValue())
     }
 
     getValue() {

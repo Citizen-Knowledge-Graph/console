@@ -23,7 +23,10 @@ export class Node {
         return ""
     }
 
-    run(outgoingEdges, value) {
+    async run(outgoingEdges) {
+        if (this.type === TYPE.PROCESSOR) {
+            this.setValue(await this.runProcessor())
+        }
         this.highlight(true)
         this.highlightPort("output_1")
         let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
@@ -33,7 +36,7 @@ export class Node {
             edge.targetNode.incomingData.push({
                 from: this.id,
                 dataType: outputPortType,
-                data: value
+                data: this.getValue()
             })
         }
         this.ranThisRound = true
