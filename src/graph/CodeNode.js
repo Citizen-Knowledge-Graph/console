@@ -13,6 +13,7 @@ export class CodeNode extends Node {
     <div class="box">
         ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
         <div class="codemirror-editor"></div>
+        ${this.getBottomMenuHtml() ?? ""}
     </div>
 </div>`
     }

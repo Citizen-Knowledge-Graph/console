@@ -9,11 +9,25 @@ export class MergeTriplesNode extends CodeNode {
         super.initCodemirror("turtle")
     }
 
+    getBottomMenuHtml() {
+        return `<div class="bottom-menu"><div class="add-input">Add input port</div></div>`
+    }
+
+    postRender() {
+        document.getElementById("node-" + this.id).querySelector(".add-input").addEventListener("click", () => this.addInputPort(PORT.TURTLE))
+    }
+
     async runProcessor() {
         let store = new Store()
         for (let port of this.incomingData) {
             await addRdfStringToStore(port.data, store)
         }
         return await serializeStoreToTurtle(store)
+    }
+
+    addAdditionalNumbOfInputs(numb) {
+        for (let i = 0; i < numb; i++) {
+            this.addInputPort(PORT.TURTLE)
+        }
     }
 }

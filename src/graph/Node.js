@@ -4,14 +4,16 @@ export class Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
         this.name = name
         this.inputs = inputs
-        this.incomingData = []
+        this.numbInitialInputs = inputs.length
         this.outputs = outputs
         this.editor = editor
         this.nodesMap = nodesMap
         this.type = type
-        this.ranThisRound = false
         this.id = editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
         this.nodesMap[this.id] = this
+        this.incomingData = []
+        this.ranThisRound = false
+        this.postRender()
         console.log("Node added:", this.id, "\"" + this.name + "\"", "at", x, "/", y, this)
     }
 
@@ -77,11 +79,20 @@ export class Node {
         return this.incomingData.length === this.inputs.length
     }
 
+    addInputPort(type) {
+        this.editor.addNodeInput(this.id)
+        this.inputs.push(type)
+    }
+
+    getBottomMenuHtml() {}
+    postRender() {}
+
     initCodemirror(mode) { this.err() }
     getValue() { this.err() }
     setValue(value) { this.err() }
     clear() { this.err() }
     async runProcessor() { this.err() }
+    addAdditionalNumbOfInputs() { this.err() }
 
     err() {
         console.error("This 'abstract base method' should not be called")
