@@ -22,7 +22,15 @@ export class Node {
     }
 
     getHtml() {
-        return ""
+        return `
+            <div>
+                <div class="title-box${this.isProcessor() ? " view-only" : ""}">${this.name}</div>
+                <div class="box">
+                    ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
+                    ${this.getMainHtml() ?? ""}
+                    ${this.getBottomMenuHtml() ?? ""}
+                </div>
+            </div>`
     }
 
     async run(outgoingEdges) {
@@ -84,6 +92,7 @@ export class Node {
         this.inputs.push(type)
     }
 
+    getMainHtml() {}
     getBottomMenuHtml() {}
     postRender() {}
 

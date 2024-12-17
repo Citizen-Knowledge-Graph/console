@@ -6,16 +6,8 @@ export class CodeNode extends Node {
         super(name, inputs, outputs, x, y, editor, nodesMap, type)
     }
 
-    getHtml() {
-        return `
-<div>
-    <div class="title-box${this.isProcessor() ? " view-only" : ""}">${this.name}</div>
-    <div class="box">
-        ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
-        <div class="codemirror-editor"></div>
-        ${this.getBottomMenuHtml() ?? ""}
-    </div>
-</div>`
+    getMainHtml() {
+        return `<div class="codemirror-editor"></div>`
     }
 
     initCodemirror(mode) {
