@@ -178,7 +178,7 @@ export class Graph {
             let node = createNode(this.localName(row.class), row.name, row.x, row.y, this.editor, this.nodesMap)
             if (row.value) node.setValue(row.value)
             if (row.hasAdditionalNumbOfInputs) node.addAdditionalNumbOfInputs(row.hasAdditionalNumbOfInputs)
-            idMap[this.localName(row.node)] = node.id
+            idMap[row.node] = node.id
         }
         // edges
         query = `
@@ -192,8 +192,8 @@ export class Graph {
             }`
         rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
         for (let row of rows) {
-            let sourceNode = this.nodesMap[idMap[this.localName(row.source)]]
-            let targetNode = this.nodesMap[idMap[this.localName(row.target)]]
+            let sourceNode = this.nodesMap[idMap[row.source]]
+            let targetNode = this.nodesMap[idMap[row.target]]
             this.editor.addConnection(sourceNode.id, targetNode.id, "output_" + row.portOut, "input_" + row.portIn)
         }
     }
