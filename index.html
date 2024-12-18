@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Console</title>
+        <script src="./assets/bundle.js" type="module"></script>
+        <script src="./utils.js" type="module"></script>
+        <script src="./check-repo-updates.js" type="module"></script>
+        <script src="./contextmenu.js" type="module"></script>
+        <script src="./graph/nodeFactory.js" type="module"></script>
+        <!--<script src="./drawflow.js" type="module"></script>-->
+        <link rel="stylesheet" type="text/css" href="./assets/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="./assets/drawflow.min.css">
+        <link rel="stylesheet" type="text/css" href="./drawflow.css">
+        <link rel="stylesheet" type="text/css" href="./contextmenu.css">
+        <script defer data-domain="foerderfunke.org" src="https://plausible.io/js/script.js"></script>
+        <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+        <style>
+            #drawflow {
+                width: 100%;
+                height: 100vh;
+                top: 0;
+            }
+            #drawflow .CodeMirror {
+                font-size: 12px;
+            }
+            .drawflow-node {
+                width: 414px !important;
+            }
+            .drawflow-node .box {
+                padding-left: 14px !important;
+                padding-bottom: 7px !important;
+            }
+            .result {
+                color: silver;
+                margin-bottom: 8px;
+            }
+            .processor-node {
+                background-color: lightgoldenrodyellow !important;
+            }
+            .view-node {
+                background-color: lightcyan !important;
+            }
+            .top-menu {
+                padding: 10px;
+                font-size: small;
+            }
+            .top-menu span {
+                cursor: pointer;
+            }
+            .highlighted-edge {
+                filter: drop-shadow(0 0 1px yellow) drop-shadow(0 0 4px yellow) !important;
+                /*stroke: orange !important;*/
+            }
+            .highlighted-node {
+                box-shadow: 0 2px 20px 2px yellow !important;
+            }
+            .highlighted-port {
+                background-color: yellow !important;
+            }
+            .bottom-menu {
+                font-size: x-small;
+                color: silver;
+                cursor: pointer;
+            }
+            .result-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 10px;
+                text-align: left;
+                color: black;
+            }
+            .result-table th, .result-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+            .result-table th {
+                background-color: lightcyan;
+                font-weight: bold;
+            }
+            .result-table .prefix {
+                color: silver;
+            }
+            .result-table .literal {
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top-menu">
+            <span style="font-size: large; font-weight: bold;">semOps</span>
+            <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
+            <span id="runBtn">Run</span> |
+            <span id="stepBtn">Step</span> |
+            <span id="resetBtn">Reset</span> |
+            <span id="newBtn">New</span> |
+            <span id="importBtn">Import</span><input type="file" id="fileUpload" style="display: none;" /> |
+            <span id="exportBtn">Export</span> |
+            <span style="color: silver">Examples</span> |
+            <span id="howtoBtn">HowTo</span>
+            <span id="githubBtn" style="float:right;">GitHub</span>
+        </div>
+        <div id="drawflow"></div>
+        <script type="module">
+            import { checkForNewRepoCommits } from "./check-repo-updates.js"
+            import { Drawflow } from "./assets/bundle.js"
+            import { Edge } from "./graph/Edge.js"
+            import { setupContextMenu } from "./contextmenu.js"
+            import { createNode } from "./graph/nodeFactory.js"
+            import { Graph } from "./graph/Graph.js"
+
+            // setInterval(checkForNewRepoCommits, 60 * 1000)
+
+            const editor = new Drawflow(document.getElementById("drawflow"))
+            editor.start()
+
+            let graph = new Graph(editor)
+
+            const wipe = () => {
+                editor.clear()
+                graph.clear()
+            }
+
+            document.getElementById("runBtn").addEventListener("click", () => graph.run())
+            document.getElementById("stepBtn").addEventListener("click", () => graph.step())
+            document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
+            document.getElementById("newBtn").addEventListener("click", () => wipe())
+            document.getElementById("fileUpload").addEventListener("change", () => {
+                const reader = new FileReader()
+                reader.onload = event => {
+                    const content = event.target.result
+                    graph.import(content)
+                }
+                const file = document.getElementById("fileUpload").files[0]
+                if (!file.name.toLowerCase().endsWith(".ttl")) {
+                    alert("Only turtle files (.ttl) are supported")
+                    return
+                }
+                if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
+                wipe()
+                reader.readAsText(file)
+            })
+            document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
+            document.getElementById("exportBtn").addEventListener("click", () => {
+                let name = prompt("Name your graph (optional)", "");
+                // optionally also ask for author and description TODO
+                graph.export(name)
+            })
+            document.getElementById("howtoBtn").addEventListener("click", () => alert("Right-click to add new nodes"))
+            document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
+
+            editor.on("contextmenu", event => {
+                if (!["drawflow", "parent-drawflow"].includes(event.target.className)) return
+                event.stopPropagation()
+                setupContextMenu(event, (action, defaultLabel, x, y) => {
+                    // also account for zoom TODO
+                    x -= editor.canvas_x
+                    y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
+                    let name
+                    let exampleId
+                    if (action.startsWith("ex_")) { // e.g. ex_TurtleInputNode_UP
+                        exampleId = action
+                        name = defaultLabel
+                        action = action.split("_")[1]
+                    } else {
+                        name = prompt("Name of the node", defaultLabel);
+                        if (name == null) return
+                    }
+                    createNode(action, name, x, y, editor, graph.nodesMap, exampleId)
+                })
+            });
+
+           ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
+                editor.container.addEventListener(eventType, event => {
+                    if (event.button === 2 && event.target.className === "drawflow") {
+                        // otherwise mouse movement after right-click translates the canvas
+                        event.stopPropagation()
+                    }
+                }, true)
+            })
+
+            // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
+            editor.on("connectionCreated", connection => new Edge(connection, graph))
+            editor.on("nodeRemoved", (id) => graph.removeNode(id))
+            editor.on("connectionRemoved", (connection) => graph.removeEdge(connection))
+
+            // example graph
+            const response = await fetch("examples/foerderfunke-mini.ttl")
+            const rdfStr = await response.text()
+            graph.import(rdfStr)
+
+        </script>
+    </body>
+</html>
