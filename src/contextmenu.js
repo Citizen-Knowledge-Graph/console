@@ -29,9 +29,9 @@ const menuItems = [
     {
         label: "Processors",
         submenu: [
+            { label: "Merge triples", action: "MergeTriplesNode" },
             { label: "Run SPARQL SELECT", action: "SparqlSelectExecNode" },
             { label: "Run SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
-            { label: "Merge triples", action: "MergeTriplesNode" },
             { label: "Run SHACL validation", action: "ShaclValidationNode" },
         ]
     }
