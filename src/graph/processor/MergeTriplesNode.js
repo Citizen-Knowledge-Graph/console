@@ -14,7 +14,7 @@ export class MergeTriplesNode extends CodeNode {
     }
 
     postRender() {
-        document.getElementById("node-" + this.id).querySelector(".add-input").addEventListener("click", () => this.addInputPort(PORT.TURTLE))
+        document.getElementById("node-" + this.id).querySelector(".add-input").addEventListener("click", () => this.addInputPort())
     }
 
     async runProcessor() {
@@ -25,9 +25,7 @@ export class MergeTriplesNode extends CodeNode {
         return await serializeStoreToTurtle(store)
     }
 
-    addAdditionalNumbOfInputs(numb) {
-        for (let i = 0; i < numb; i++) {
-            this.addInputPort(PORT.TURTLE)
-        }
+    addInputPort() {
+        super.addInputPortOfType(PORT.TURTLE)
     }
 }

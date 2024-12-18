@@ -91,7 +91,6 @@ export class Graph {
         const hasPosX = this.ff("hasPosX")
         const hasPosY = this.ff("hasPosY")
         const hasValue = this.ff("hasValue")
-        const hasAdditionalNumbOfInputs = this.ff("hasAdditionalNumbOfInputs")
         // edges
         const edgeRdfClass = this.ff("Edge")
         const hasEdge = this.ff("hasEdge")
@@ -127,9 +126,6 @@ export class Graph {
             writer.addQuad(n, a, nodeRdfClass)
             writer.addQuad(n, hasClass, this.ff(node.constructor.name))
             writer.addQuad(n, hasName, DataFactory.literal(node.name))
-            if (node.inputs.length !== node.numbInitialInputs) {
-                writer.addQuad(n, hasAdditionalNumbOfInputs, DataFactory.literal(node.inputs.length - node.numbInitialInputs))
-            }
             let editorNode = this.editor.getNodeFromId(node.id)
             writer.addQuad(n, hasPosX, DataFactory.literal(editorNode.pos_x))
             writer.addQuad(n, hasPosY, DataFactory.literal(editorNode.pos_y))
@@ -170,14 +166,12 @@ export class Graph {
                     ff:hasPosX ?x ;
                     ff:hasPosY ?y .
                 OPTIONAL { ?node ff:hasValue ?value . }
-                OPTIONAL { ?node ff:hasAdditionalNumbOfInputs ?hasAdditionalNumbOfInputs . }                
             }`
         let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
-        let idMap = {} // identifier in imported turtle to new node.id based on name
+        let idMap = {} // identifier in imported turtle (exportId) to the now actually instantiated node.id
         for (let row of rows) {
             let node = createNode(this.localName(row.class), row.name, row.x, row.y, this.editor, this.nodesMap)
             if (row.value) node.setValue(row.value)
-            if (row.hasAdditionalNumbOfInputs) node.addAdditionalNumbOfInputs(row.hasAdditionalNumbOfInputs)
             idMap[row.node] = node.id
         }
         // edges
@@ -194,6 +188,10 @@ export class Graph {
         for (let row of rows) {
             let sourceNode = this.nodesMap[idMap[row.source]]
             let targetNode = this.nodesMap[idMap[row.target]]
+            let edgesWithThisTarget = Object.values(this.edgesMap).filter(edge => edge.targetNode === targetNode)
+            if (edgesWithThisTarget.length === targetNode.inputs.length) {
+                targetNode.addInputPort()
+            }
             this.editor.addConnection(sourceNode.id, targetNode.id, "output_" + row.portOut, "input_" + row.portIn)
         }
     }
