@@ -19,8 +19,8 @@ export class CodeNode extends Node {
         this.codeMirror = CodeMirror(container, {
             value: "",
             mode: mode, // sparql or turtle
-            lineNumbers: !this.isProcessor(),
-            readOnly: this.isProcessor(),
+            lineNumbers: this.isInput(),
+            readOnly: !this.isInput()
         })
         this.codeMirror.setSize("100%", "100%")
         this.codeMirror.on("mousedown", (cm, event) => event.stopPropagation())

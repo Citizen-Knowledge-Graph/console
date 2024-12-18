@@ -34,6 +34,12 @@ const menuItems = [
             { label: "Run SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
             { label: "Run SHACL validation", action: "ShaclValidationNode" },
         ]
+    },
+    {
+        label: "View",
+        submenu: [
+            { label: "Text Viewer", action: "TextViewNode" }
+        ]
     }
 ]
 

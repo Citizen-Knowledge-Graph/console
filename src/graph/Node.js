@@ -20,10 +20,14 @@ export class Node {
         return this.type === TYPE.PROCESSOR
     }
 
+    isInput() {
+        return this.type === TYPE.INPUT
+    }
+
     getHtml() {
         return `
             <div>
-                <div class="title-box${this.isProcessor() ? " view-only" : ""}">${this.name}</div>
+                <div class="title-box${this.isInput() ? "" : " view-only"}">${this.name}</div>
                 <div class="box">
                     ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
                     ${this.getMainHtml() ?? ""}
@@ -33,7 +37,7 @@ export class Node {
     }
 
     async run(outgoingEdges) {
-        if (this.type === TYPE.PROCESSOR) {
+        if (!this.isInput()) {
             this.setValue(await this.processIncomingData())
         }
         this.highlight(true)

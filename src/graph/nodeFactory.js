@@ -5,16 +5,19 @@ import { SparqlSelectExecNode } from "./processor/SparqlSelectExecNode.js"
 import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
 import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
+import { TextViewNode } from "./view/TextViewNode.js"
 
 export const TYPE = {
     INPUT: 0,
-    PROCESSOR: 1
+    PROCESSOR: 1,
+    VIEW: 2
 }
 
 export const PORT = {
-    TURTLE: 0,
-    SPARQL: 1,
-    CSV: 2
+    ANY: 0,
+    TURTLE: 1,
+    SPARQL: 2,
+    CSV: 3
 }
 
 const nodeClasses = {
@@ -24,7 +27,8 @@ const nodeClasses = {
     "SparqlSelectExecNode": SparqlSelectExecNode,
     "SparqlConstructExecNode": SparqlConstructExecNode,
     "MergeTriplesNode": MergeTriplesNode,
-    "ShaclValidationNode": ShaclValidationNode
+    "ShaclValidationNode": ShaclValidationNode,
+    "TextViewNode": TextViewNode
 }
 
 const exampleValues = {
