@@ -42,9 +42,9 @@ export class TableNode extends Node {
 
     getValue() {
         let csv = this.tableData.headers.join(",") + "\n"
-        for (let row of this.tableData.rows) {
+        for (let row of this.tableData.fullRows) {
             csv += row.join(",") + "\n"
         }
-        return csv
+        return csv.trim()
     }
 }

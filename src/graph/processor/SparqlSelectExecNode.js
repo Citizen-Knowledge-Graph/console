@@ -28,16 +28,21 @@ export class SparqlSelectExecNode extends TableNode {
         let results = await runSparqlSelectQueryOnRdfString(sparql, turtle)
         let variables = Object.keys(results[0]) // assuming they don't change between rows
         let rows = []
+        let fullRows = [] // not de-prefixed
         for (let result of results) {
             let row = []
+            let fullRow = []
             for (let variable of variables) {
                 row.push(this.dePrefix(result[variable]))
+                fullRow.push(result[variable])
             }
             rows.push(row)
+            fullRows.push(fullRow)
         }
         return {
             headers: variables,
-            rows: rows
+            rows: rows,
+            fullRows: fullRows
         }
     }
 }
