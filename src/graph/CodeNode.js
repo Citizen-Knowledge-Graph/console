@@ -23,6 +23,7 @@ export class CodeNode extends Node {
             readOnly: this.isProcessor(),
         })
         this.codeMirror.setSize("100%", "100%")
+        this.codeMirror.on("mousedown", (cm, event) => event.stopPropagation())
         this.codeMirror.on("keydown", (cm, event) => {
             // otherwise Drawflow deletes the node
             if (event.key === "Delete") event.stopPropagation()
