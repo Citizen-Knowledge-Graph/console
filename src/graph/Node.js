@@ -24,10 +24,21 @@ export class Node {
         return this.type === TYPE.INPUT
     }
 
+    getTitleBoxClass() {
+        switch (this.type) {
+            case TYPE.PROCESSOR:
+                return "processor-node"
+            case TYPE.VIEW:
+                return "view-node"
+            default:
+                return ""
+        }
+    }
+
     getHtml() {
         return `
             <div>
-                <div class="title-box${this.isInput() ? "" : " view-only"}">${this.name}</div>
+                <div class="title-box ${this.getTitleBoxClass()}">${this.name}</div>
                 <div class="box">
                     ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
                     ${this.getMainHtml() ?? ""}
