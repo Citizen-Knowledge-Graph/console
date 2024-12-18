@@ -3,6 +3,7 @@ import { Node } from "./Node.js"
 export class TableNode extends Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
         super(name, inputs, outputs, x, y, editor, nodesMap, type)
+        this.tableData = {}
     }
 
     getMainHtml() {
@@ -10,6 +11,7 @@ export class TableNode extends Node {
     }
 
     setValue(tableData) {
+        this.tableData = tableData
         let table = this.editor.container.querySelector(`#node-${this.id} .result-table`)
         table.innerHTML = ""
         let thead = document.createElement("thead")
@@ -36,5 +38,13 @@ export class TableNode extends Node {
             tbody.appendChild(tr)
         }
         table.appendChild(tbody)
+    }
+
+    getValue() {
+        let csv = this.tableData.headers.join(",") + "\n"
+        for (let row of this.tableData.rows) {
+            csv += row.join(",") + "\n"
+        }
+        return csv
     }
 }
