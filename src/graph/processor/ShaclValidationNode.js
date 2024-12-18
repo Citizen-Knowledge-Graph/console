@@ -9,7 +9,7 @@ export class ShaclValidationNode extends CodeNode {
         super.initCodemirror("turtle")
     }
 
-    async runProcessor() {
+    async processIncomingData() {
         let store = new Store()
         for (let port of this.incomingData) {
             await addRdfStringToStore(port.data, store)

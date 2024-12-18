@@ -17,7 +17,7 @@ export class MergeTriplesNode extends CodeNode {
         document.getElementById("node-" + this.id).querySelector(".add-input").addEventListener("click", () => this.addInputPort())
     }
 
-    async runProcessor() {
+    async processIncomingData() {
         let store = new Store()
         for (let port of this.incomingData) {
             await addRdfStringToStore(port.data, store)

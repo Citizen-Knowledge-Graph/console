@@ -22,7 +22,7 @@ export class SparqlSelectExecNode extends TableNode {
         return value
     }
 
-    async runProcessor() {
+    async processIncomingData() {
         let turtle = this.incomingData.filter(port => port.dataType === PORT.TURTLE)[0].data
         let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
         let results = await runSparqlSelectQueryOnRdfString(sparql, turtle)

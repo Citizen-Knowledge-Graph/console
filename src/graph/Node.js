@@ -34,7 +34,7 @@ export class Node {
 
     async run(outgoingEdges) {
         if (this.type === TYPE.PROCESSOR) {
-            this.setValue(await this.runProcessor())
+            this.setValue(await this.processIncomingData())
         }
         this.highlight(true)
         this.highlightPort("output_1")
@@ -99,7 +99,7 @@ export class Node {
     getValue() { this.err() }
     setValue(value) { this.err() }
     clear() { this.err() }
-    async runProcessor() { this.err() }
+    async processIncomingData() { this.err() }
     addInputPort() { this.err() }
 
     err() {
