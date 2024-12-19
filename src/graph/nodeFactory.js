@@ -6,6 +6,7 @@ import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
 import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
 import { TextViewNode } from "./view/TextViewNode.js"
+import { SparqlInsertDeleteExecNode } from "./processor/SparqlInsertDeleteExecNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -28,7 +29,8 @@ const nodeClasses = {
     "SparqlConstructExecNode": SparqlConstructExecNode,
     "MergeTriplesNode": MergeTriplesNode,
     "ShaclValidationNode": ShaclValidationNode,
-    "TextViewNode": TextViewNode
+    "TextViewNode": TextViewNode,
+    "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode
 }
 
 const exampleValues = {
@@ -71,6 +73,19 @@ CONSTRUCT {
     "ex_SparqlInputNode_Select": `PREFIX ff: <https://foerderfunke.org/default#>
 SELECT * WHERE {
     ?s ?p ?o.
+}`,
+    "ex_SparqlInputNode_InsertData": `PREFIX ff: <https://foerderfunke.org/default#>
+INSERT DATA {
+    ff:mainPerson ff:hasResidence "Berlin" .
+}`,
+    "ex_SparqlInputNode_DeleteInsert": `PREFIX ff: <https://foerderfunke.org/default#>
+DELETE {
+    ?user ff:hasBirthday ?bday .
+} INSERT {
+    ?user ff:hasResidence "Munich" .
+} WHERE { 
+    ?user a ff:Citizen ;
+        ff:hasBirthday ?bday .
 }`
 }
 

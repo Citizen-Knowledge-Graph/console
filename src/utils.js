@@ -65,6 +65,11 @@ export async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
     return await quadsStream.toArray()
 }
 
+export async function runSparqlInsertDeleteQueryOnStore(query, store) {
+    const queryEngine = new QueryEngine()
+    await queryEngine.queryVoid(query, { sources: [store] })
+}
+
 export function addRdfStringToStore(rdfStr, store) {
     return new Promise((resolve, reject) => {
         const parser = new Parser()

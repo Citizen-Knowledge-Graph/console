@@ -22,6 +22,8 @@ const menuItems = [
                 submenu: [
                     { label: "Example: Materialization rule", action: "ex_SparqlInputNode_MatRule" },
                     { label: "Example: Select", action: "ex_SparqlInputNode_Select" },
+                    { label: "Example: Insert Data", action: "ex_SparqlInputNode_InsertData" },
+                    { label: "Example: Delete / Insert", action: "ex_SparqlInputNode_DeleteInsert" },
                 ]
             },
         ]
@@ -32,6 +34,7 @@ const menuItems = [
             { label: "Merge triples", action: "MergeTriplesNode" },
             { label: "Run SPARQL SELECT", action: "SparqlSelectExecNode" },
             { label: "Run SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
+            { label: "Run SPARQL INSERT/DELETE", action: "SparqlInsertDeleteExecNode" },
             { label: "Run SHACL validation", action: "ShaclValidationNode" },
         ]
     },
