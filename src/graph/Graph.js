@@ -1,21 +1,19 @@
 import { createNode, TYPE } from "./nodeFactory.js"
-import { buildEdgeId, download, runSparqlSelectQueryOnRdfString } from "../utils.js"
+import { buildEdgeId, download, getTimestamp, runSparqlSelectQueryOnRdfString } from "../utils.js"
 import { DataFactory, slugify, Writer } from "../assets/bundle.js"
 
 export class Graph {
     constructor(editor) {
         this.editor = editor
-        this.nodesMap = {}
-        this.edgesMap = {}
-        this.stepCounter = 0
-        this.name = "" // for export and maybe display
+        this.clear()
     }
 
     clear() {
         this.nodesMap = {}
         this.edgesMap = {}
         this.stepCounter = 0
-        this.name = ""
+        this.id = "graph_" + getTimestamp()
+        this.name = "" // for export and maybe display
     }
 
     removeEdge(connection) {
@@ -84,9 +82,8 @@ export class Graph {
 
     async export() {
         await this.toTurtle(turtle => {
-            const date = new Date().toISOString().split("T")[0]
             let namePart = this.name ? `${slugify(this.name, {lower: true})}_` : ""
-            download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
+            download(turtle, "text/turtle", `semOps_export_${namePart}${getTimestamp()}.ttl`)
         })
     }
 
@@ -99,6 +96,8 @@ export class Graph {
         })
         const graph = this.ff("graph")
         const a = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+        const hasId = this.ff("hasId")
+        const hasExportTimestamp = this.ff("hasExportTimestamp")
         // nodes
         const nodeRdfClass = this.ff("Node")
         const hasNode = this.ff("hasNode")
@@ -116,8 +115,9 @@ export class Graph {
         const hasPortIn = this.ff("hasPortIn")
 
         writer.addQuad(graph, a, this.ff("Graph"))
+        writer.addQuad(graph, hasId, DataFactory.literal(this.id))
         if (this.name) writer.addQuad(graph, hasName, DataFactory.literal(this.name))
-        writer.addQuad(graph, this.ff("hasExportTimestamp"), DataFactory.literal(new Date().toISOString()))
+        writer.addQuad(graph, hasExportTimestamp, DataFactory.literal(new Date().toISOString()))
 
         // pre-run to have triples with graph as subjects nicely first -store would have sorted this automatically, but writer is a stream-writer
         // and to create id-mapping
@@ -174,13 +174,13 @@ export class Graph {
         let query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             SELECT * WHERE {
-                ?graph a ff:Graph ;
-                    ff:hasName ?name .
+                ?graph a ff:Graph .
+                OPTIONAL { ?graph ff:hasId ?id . }
+                OPTIONAL { ?graph ff:hasName ?name . }
             }`
-        let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
-        if (rows.length > 0) {
-            this.name = rows[0].name
-        }
+        let row = (await runSparqlSelectQueryOnRdfString(query, rdfStr))[0]
+        if (row.id) this.id = row.id
+        if (row.name) this.name = row.name
         // nodes
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>
@@ -192,7 +192,7 @@ export class Graph {
                     ff:hasPosY ?y .
                 OPTIONAL { ?node ff:hasValue ?value . }
             }`
-        rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+        let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
         let idMap = {} // identifier in imported turtle (exportId) to the now actually instantiated node.id
         for (let row of rows) {
             let node = createNode(this.localName(row.class), row.name, row.x, row.y, this.editor, this.nodesMap)
