@@ -76,7 +76,21 @@ export class Graph {
         return uri.split("#")[1]
     }
 
+    async save() {
+        await this.toTurtle(turtle => {
+            // TODO
+        })
+    }
+
     async export() {
+        await this.toTurtle(turtle => {
+            const date = new Date().toISOString().split("T")[0]
+            let namePart = this.name ? `${slugify(this.name, {lower: true})}_` : ""
+            download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
+        })
+    }
+
+    async toTurtle(callback) {
         let writer = new Writer({
             prefixes: {
                 rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -151,9 +165,7 @@ export class Graph {
                 return
             }
             console.log(turtle)
-            const date = new Date().toISOString().split("T")[0]
-            let namePart = this.name ? `${slugify(this.name, { lower: true })}_` : ""
-            download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
+            callback(turtle)
         })
     }
 
