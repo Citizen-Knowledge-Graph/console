@@ -8,12 +8,14 @@ export class Graph {
         this.nodesMap = {}
         this.edgesMap = {}
         this.stepCounter = 0
+        this.name = "" // for export and maybe display
     }
 
     clear() {
         this.nodesMap = {}
         this.edgesMap = {}
         this.stepCounter = 0
+        this.name = ""
     }
 
     removeEdge(connection) {
@@ -74,7 +76,7 @@ export class Graph {
         return uri.split("#")[1]
     }
 
-    async export(exportName) {
+    async export() {
         let writer = new Writer({
             prefixes: {
                 rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -100,7 +102,7 @@ export class Graph {
         const hasPortIn = this.ff("hasPortIn")
 
         writer.addQuad(graph, a, this.ff("Graph"))
-        if (exportName) writer.addQuad(graph, hasName, DataFactory.literal(exportName))
+        if (this.name) writer.addQuad(graph, hasName, DataFactory.literal(this.name))
         writer.addQuad(graph, this.ff("hasExportTimestamp"), DataFactory.literal(new Date().toISOString()))
 
         // pre-run to have triples with graph as subjects nicely first -store would have sorted this automatically, but writer is a stream-writer
@@ -150,14 +152,25 @@ export class Graph {
             }
             console.log(turtle)
             const date = new Date().toISOString().split("T")[0]
-            let namePart = exportName ? `${slugify(exportName, { lower: true })}_` : ""
+            let namePart = this.name ? `${slugify(this.name, { lower: true })}_` : ""
             download(turtle, "text/turtle", `semOps_export_${namePart}${date}.ttl`)
         })
     }
 
     async import(rdfStr) {
-        // nodes
+        // graph
         let query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT * WHERE {
+                ?graph a ff:Graph ;
+                    ff:hasName ?name .
+            }`
+        let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+        if (rows.length > 0) {
+            this.name = rows[0].name
+        }
+        // nodes
+        query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             SELECT * WHERE {
                 ?node a ff:Node ;
@@ -167,7 +180,7 @@ export class Graph {
                     ff:hasPosY ?y .
                 OPTIONAL { ?node ff:hasValue ?value . }
             }`
-        let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+        rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
         let idMap = {} // identifier in imported turtle (exportId) to the now actually instantiated node.id
         for (let row of rows) {
             let node = createNode(this.localName(row.class), row.name, row.x, row.y, this.editor, this.nodesMap)

@@ -142,9 +142,9 @@
             })
             document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
             document.getElementById("exportBtn").addEventListener("click", () => {
-                let name = prompt("Name your graph (optional)", "");
+                graph.name = prompt("Name your graph (optional)", "")
                 // optionally also ask for author and description TODO
-                graph.export(name)
+                graph.export()
             })
             document.getElementById("howtoBtn").addEventListener("click", () => alert("Right-click to add new nodes"))
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
