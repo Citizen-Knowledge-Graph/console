@@ -167,6 +167,9 @@
                     let nodeId = nodeDivId.split("-")[1]
                     setupNodeHeaderContextMenu(event, action => {
                         switch (action) {
+                            case "DeleteNodeAction":
+                                editor.removeNodeId(nodeDivId)
+                                break
                             case "DuplicateNodeAction":
                                 graph.duplicateNode(nodeId, false)
                                 break

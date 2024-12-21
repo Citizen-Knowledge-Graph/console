@@ -47,6 +47,7 @@ const canvasCtxMenuItems = [
 ]
 
 const nodeHeaderCtxMenuItems = [
+    { label: "Delete Node", action: "DeleteNodeAction" },
     { label: "Duplicate Node", action: "DuplicateNodeAction" },
     { label: "Duplicate Node with incoming Edges", action: "DuplicateNodeWithIncomingEdgesAction" }
 ]
