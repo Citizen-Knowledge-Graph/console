@@ -41,16 +41,34 @@ export class Node {
             <div>
                 <div class="title-box ${this.getTitleBoxClass()}">${this.name}</div>
                 <div class="box">
-                    ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
-                    ${this.getMainHtml() ?? ""}
-                    ${this.getBottomMenuHtml() ?? ""}
+                    <div class="view-mode-button-container hidden">
+                        <input type="button" class="modal-open-btn" value="Show Content">
+                    </div>
+                    <div class="view-mode-default-container">
+                        ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
+                        ${this.getMainHtml() ?? ""}
+                        ${this.getBottomMenuHtml() ?? ""}
+                    </div>
                 </div>
                 <div class="resize-handle"></div>
             </div>`
     }
 
+    postRender() {
+        let modalOpenBtn = document.querySelector(`#node-${this.id} .modal-open-btn`)
+        modalOpenBtn.addEventListener("click", () => {
+            document.getElementById("modal-container").classList.remove("hidden")
+            // TODO
+        })
+    }
+
     toggleViewMode() {
         this.viewMode = this.viewMode === VIEW_MODE.DEFAULT ? VIEW_MODE.BUTTON : VIEW_MODE.DEFAULT
+        const toggleHidden = cls => {
+            this.editor.container.querySelector(`#node-${this.id} .${cls}`).classList.toggle("hidden")
+        }
+        toggleHidden("view-mode-button-container")
+        toggleHidden("view-mode-default-container")
         // TODO
     }
 
@@ -115,7 +133,6 @@ export class Node {
 
     getMainHtml() {}
     getBottomMenuHtml() {}
-    postRender() {}
     startResizing() {}
     resizing(dy) {}
 

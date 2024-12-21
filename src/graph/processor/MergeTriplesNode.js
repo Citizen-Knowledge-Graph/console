@@ -14,6 +14,7 @@ export class MergeTriplesNode extends CodeNode {
     }
 
     postRender() {
+        super.postRender()
         document.getElementById("node-" + this.id).querySelector(".add-input").addEventListener("click", () => this.addInputPort())
     }
 

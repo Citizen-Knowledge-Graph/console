@@ -104,9 +104,41 @@
                 white-space: nowrap;
                 overflow: hidden;
             }
+            .hidden {
+                display: none;
+            }
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 9998;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .modal-window {
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                min-width: 400px;
+                z-index: 9999;
+                position: relative;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
         </style>
     </head>
     <body>
+        <div id="modal-container" class="hidden">
+            <div id="modal-overlay" class="modal-overlay">
+                <div class="modal-window">
+                    <div class="modal-window-content"></div>
+                    <input type="button" id="modal-close-btn" value="Close" />
+                </div>
+            </div>
+        </div>
         <div class="top-menu">
             <span style="font-size: large; font-weight: bold;">semOps</span>
             <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
@@ -140,6 +172,8 @@
                 editor.clear()
                 graph.clear()
             }
+
+            document.getElementById("modal-close-btn").addEventListener("click", () => document.getElementById("modal-container").classList.add("hidden"))
 
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
