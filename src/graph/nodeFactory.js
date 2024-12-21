@@ -21,6 +21,11 @@ export const PORT = {
     CSV: 3
 }
 
+export const VIEW_MODE = {
+    DEFAULT: 0, // content directly displayed on node
+    BUTTON: 1 // only a button that triggers a modal showing the content
+}
+
 const nodeClasses = {
     "PrefixesNode": PrefixesNode,
     "TurtleInputNode": TurtleInputNode,

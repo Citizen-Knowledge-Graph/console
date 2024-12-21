@@ -1,4 +1,4 @@
-import { TYPE } from "./nodeFactory.js"
+import { TYPE, VIEW_MODE } from "./nodeFactory.js"
 
 export class Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
@@ -12,6 +12,7 @@ export class Node {
         this.nodesMap[this.id] = this
         this.incomingData = []
         this.ranThisRound = false
+        this.viewMode = VIEW_MODE.DEFAULT
         this.postRender()
         console.log("Node added:", this.id, "\"" + this.name + "\"", "at", x, "/", y, this)
     }
@@ -46,6 +47,11 @@ export class Node {
                 </div>
                 <div class="resize-handle"></div>
             </div>`
+    }
+
+    toggleViewMode() {
+        this.viewMode = this.viewMode === VIEW_MODE.DEFAULT ? VIEW_MODE.BUTTON : VIEW_MODE.DEFAULT
+        // TODO
     }
 
     async run(outgoingEdges) {

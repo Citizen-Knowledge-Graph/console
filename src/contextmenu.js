@@ -47,6 +47,7 @@ const canvasCtxMenuItems = [
 ]
 
 const nodeHeaderCtxMenuItems = [
+    { label: "Toggle View Mode", action: "ToggleViewModeAction" },
     { label: "Delete Node", action: "DeleteNodeAction" },
     { label: "Duplicate Node", action: "DuplicateNodeAction",
         submenu: [

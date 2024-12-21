@@ -197,6 +197,9 @@
                             case "DuplicateNodeWithIncomingEdgesAction":
                                 graph.duplicateNode(node, true)
                                 break
+                            case "ToggleViewModeAction":
+                                node.toggleViewMode()
+                                break;
                         }
                     })
                     return
