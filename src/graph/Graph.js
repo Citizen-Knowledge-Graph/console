@@ -25,11 +25,16 @@ export class Graph {
         new Edge(connectionObj, this)
     }
 
-    duplicateNode(nodeId) {
+    duplicateNode(nodeId, includeIncomingEdges) {
         let node = this.nodesMap[nodeId]
         let editorNode = this.editor.getNodeFromId(nodeId)
         let newNode = createNode(node.constructor.name, node.name, Number(editorNode.pos_x) + 30, Number(editorNode.pos_y) + 30, this.editor, this.nodesMap)
         if (node.isInput()) newNode.setValue(node.getValue())
+        if (!includeIncomingEdges) return
+        for (let edge of Object.values(this.edgesMap).filter(edge => edge.targetNode === node)) {
+            this.editor.addConnection(edge.sourceNode.id, newNode.id, edge.portOut, edge.portIn)
+        }
+        // duplicating outgoing would lead to multiple edges going into the same port, which is not something that makes sense to have... I think
     }
 
     removeEdge(connection) {

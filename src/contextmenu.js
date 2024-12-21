@@ -47,7 +47,8 @@ const canvasCtxMenuItems = [
 ]
 
 const nodeHeaderCtxMenuItems = [
-    { label: "Duplicate Node", action: "DuplicateNodeAction" }
+    { label: "Duplicate Node", action: "DuplicateNodeAction" },
+    { label: "Duplicate Node with incoming Edges", action: "DuplicateNodeWithIncomingEdgesAction" }
 ]
 
 function buildMenu(items) {

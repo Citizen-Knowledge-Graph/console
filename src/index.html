@@ -164,10 +164,14 @@
                 if (event.target.tagName !== "DIV") return // edges are "path"
                 if (event.target.className.includes("title-box")) {
                     let nodeDivId = event.target.parentElement.parentElement.parentElement.id
-                    setupNodeHeaderContextMenu(event, (action, label, x, y) => {
+                    let nodeId = nodeDivId.split("-")[1]
+                    setupNodeHeaderContextMenu(event, action => {
                         switch (action) {
                             case "DuplicateNodeAction":
-                                graph.duplicateNode(nodeDivId.split("-")[1])
+                                graph.duplicateNode(nodeId, false)
+                                break
+                            case "DuplicateNodeWithIncomingEdgesAction":
+                                graph.duplicateNode(nodeId, true)
                                 break
                         }
                     })
