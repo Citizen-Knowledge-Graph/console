@@ -8,7 +8,7 @@ export class Node {
         this.editor = editor
         this.nodesMap = nodesMap
         this.type = type
-        this.id = editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
+        this.id = "" + editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
         this.nodesMap[this.id] = this
         this.incomingData = []
         this.ranThisRound = false
