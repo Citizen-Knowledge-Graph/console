@@ -184,18 +184,18 @@
                 if (event.target.tagName !== "DIV") return // edges are "path"
                 if (event.target.className.includes("title-box")) {
                     let nodeDivId = event.target.parentElement.parentElement.parentElement.id
-                    let nodeId = nodeDivId.split("-")[1]
-                    let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode.id === nodeId)
+                    let node = graph.nodesMap[nodeDivId.split("-")[1]]
+                    let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
                     setupNodeHeaderContextMenu(event, hasIncomingEdges, action => {
                         switch (action) {
                             case "DeleteNodeAction":
                                 editor.removeNodeId(nodeDivId)
                                 break
                             case "DuplicateNodeAction":
-                                graph.duplicateNode(nodeId, false)
+                                graph.duplicateNode(node, false)
                                 break
                             case "DuplicateNodeWithIncomingEdgesAction":
-                                graph.duplicateNode(nodeId, true)
+                                graph.duplicateNode(node, true)
                                 break
                         }
                     })

@@ -26,9 +26,8 @@ export class Graph {
         new Edge(connectionObj, this)
     }
 
-    duplicateNode(nodeId, includeIncomingEdges) {
-        let node = this.nodesMap[nodeId]
-        let editorNode = this.editor.getNodeFromId(nodeId)
+    duplicateNode(node, includeIncomingEdges) {
+        let editorNode = this.editor.getNodeFromId(node.id)
         let newNode = createNode(node.constructor.name, node.name, Number(editorNode.pos_x) + 30, Number(editorNode.pos_y) + 30, this.editor, this.nodesMap)
         if (node.isInput()) newNode.setValue(node.getValue())
         if (!includeIncomingEdges) return
