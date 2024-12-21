@@ -21,7 +21,8 @@ export class Graph {
         createNode(nodeClass, name, x, y, this.editor, this.nodesMap, exampleDataKey)
     }
 
-    createEdge(connectionObj) {
+    onEditorEdgeCreated(connectionObj) {
+        // this gets called after the editor already created a node, so we can wrap our own Edge object around it
         new Edge(connectionObj, this)
     }
 
@@ -37,13 +38,13 @@ export class Graph {
         // duplicating outgoing would lead to multiple edges going into the same port, which is not something that makes sense to have... I think
     }
 
-    removeEdge(connection) {
+    onEditorEdgeRemoved(connection) {
         let edgeId = buildEdgeId(connection)
         delete this.edgesMap[edgeId]
         console.log("Edge removed", edgeId)
     }
 
-    removeNode(id) {
+    onEditorNodeRemoved(id) {
         delete this.nodesMap[id]
         console.log("Node removed", id)
         // removal of attached edge gets handled by the editor and triggers removeEdge() for each

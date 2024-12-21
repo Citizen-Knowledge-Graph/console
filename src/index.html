@@ -205,9 +205,9 @@
             })
 
             // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
-            editor.on("connectionCreated", connection => graph.createEdge(connection))
-            editor.on("nodeRemoved", (id) => graph.removeNode(id))
-            editor.on("connectionRemoved", (connection) => graph.removeEdge(connection))
+            editor.on("connectionCreated", connection => graph.onEditorEdgeCreated(connection))
+            editor.on("nodeRemoved", (id) => graph.onEditorNodeRemoved(id))
+            editor.on("connectionRemoved", (connection) => graph.onEditorEdgeRemoved(connection))
 
             // example graph
             const response = await fetch("examples/foerderfunke-mini.ttl")
