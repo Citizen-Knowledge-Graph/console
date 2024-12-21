@@ -7,20 +7,17 @@ export class CodeNode extends Node {
     }
 
     getMainHtml() {
-        return `<div class="codemirror-editor"></div>`
+        return `<div class="codemirror-container"></div>`
     }
 
     initCodemirror(mode) {
-        let container = this.editor.container.querySelector(`#node-${this.id} .codemirror-editor`)
-        if (!container) {
-            console.warn(`${this.id}: codemirror container not found`)
-            return
-        }
-        this.codeMirror = CodeMirror(container, {
+        this.codemirrorContainer = this.editor.container.querySelector(`#node-${this.id} .codemirror-container`)
+        this.codeMirror = CodeMirror(this.codemirrorContainer, {
             value: "",
             mode: mode, // sparql or turtle
             lineNumbers: this.isInput(),
-            readOnly: !this.isInput()
+            readOnly: !this.isInput(),
+            // lineWrapping: true
         })
         this.codeMirror.setSize("100%", "100%")
         this.codeMirror.on("mousedown", (cm, event) => event.stopPropagation())
@@ -29,6 +26,15 @@ export class CodeNode extends Node {
             if (event.key === "Delete") event.stopPropagation()
         })
         // this.codeMirror.on("change", () => { this.codeMirror.lineCount() })
+    }
+
+    startResizing() {
+        this.resizeStartHeight = this.codemirrorContainer.offsetHeight
+    }
+
+    resizing(dy) {
+        this.codemirrorContainer.style.height = this.resizeStartHeight + dy + "px"
+        this.codeMirror.refresh()
     }
 
     getValue() {

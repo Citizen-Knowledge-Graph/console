@@ -110,6 +110,8 @@ export class Node {
     getMainHtml() {}
     getBottomMenuHtml() {}
     postRender() {}
+    startResizing() {}
+    resizing(dy) {}
 
     initCodemirror(mode) { this.err() }
     getValue() { this.err() }

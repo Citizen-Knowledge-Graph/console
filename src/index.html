@@ -21,6 +21,9 @@
                 height: 100vh;
                 top: 0;
             }
+            .CodeMirror {
+                overflow: auto;
+            }
             #drawflow .CodeMirror {
                 font-size: 12px;
             }
@@ -229,13 +232,14 @@
             editor.container.addEventListener("mousedown", event => {
                 if (event.button === 0 && event.target.classList.contains("resize-handle")) {
                     let nodeDomEl = event.target.parentElement.parentElement.parentElement
-                    let nodeId = nodeDomEl.id.split("-")[1]
+                    let node = graph.nodesMap[nodeDomEl.id.split("-")[1]]
+                    node.startResizing()
                     resizing = {
                         startX: event.clientX,
                         startY: event.clientY,
                         startWidth: nodeDomEl.offsetWidth,
                         startHeight: nodeDomEl.offsetHeight,
-                        node: graph.nodesMap[nodeId],
+                        node: node,
                         nodeDomEl: nodeDomEl
                     }
                 }
@@ -247,6 +251,7 @@
                 resizing.nodeDomEl.style.setProperty("width", (resizing.startWidth + dx) + "px", "important")
                 resizing.nodeDomEl.style.setProperty("height", (resizing.startHeight + dy) + "px", "important")
                 editor.updateConnectionNodes("node-" + resizing.node.id)
+                resizing.node.resizing(dy)
                 event.stopPropagation()
             }, true)
 
