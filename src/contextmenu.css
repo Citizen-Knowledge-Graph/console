@@ -1,22 +1,21 @@
 /* Adapted from ChatGPT */
 
-.ctx-menu {
+#ctx-menu {
     position: absolute;
-    display: none;
     background: #fff;
     border: 1px solid #ccc;
     font: 14px sans-serif;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
 }
 
-.ctx-menu > div {
+#ctx-menu > div {
     padding: 10px;
     margin: 5px;
     cursor: pointer;
     white-space: nowrap;
 }
 
-.ctx-menu > div:hover {
+#ctx-menu > div:hover {
     background: #ddd;
 }
 

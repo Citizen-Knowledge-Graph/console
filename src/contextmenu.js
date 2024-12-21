@@ -67,32 +67,33 @@ function buildMenu(items) {
 }
 
 export function setupCanvasContextMenu(event, callback) {
-    setupContextMenu(event, "ctx-menu-canvas", canvasCtxMenuItems, callback)
+    setupContextMenu(event, canvasCtxMenuItems, callback)
 }
 
 export function setupNodeHeaderContextMenu(event, callback) {
-    setupContextMenu(event, "ctx-menu-node", nodeHeaderCtxMenuItems, callback)
+    setupContextMenu(event, nodeHeaderCtxMenuItems, callback)
 }
 
-export function setupContextMenu(event, menuElId, menuItems, callback) {
+export function setupContextMenu(event, menuItems, callback) {
+    if (document.getElementById("ctx-menu")) return
     event.preventDefault()
-    let menu = document.getElementById(menuElId)
-    if(!menu) {
-        menu = document.createElement("div")
-        menu.id = menuElId
-        menu.classList.add("ctx-menu")
-        menu.innerHTML = buildMenu(menuItems)
-        document.body.appendChild(menu)
-        menu.addEventListener("click", (e) => {
-            let action = e.target.getAttribute("data-action")
-            let label = e.target.getAttribute("data-label")
-            if (action) callback(action, label, menu.pos.x, menu.pos.y)
-            menu.style.display = "none"
-        })
-        document.addEventListener("click", () => menu.style.display = "none")
+    let menu = document.createElement("div")
+    menu.id = "ctx-menu"
+    const del = () => {
+        menu.remove()
+        document.removeEventListener("click", clickHandler)
     }
+    const clickHandler = e => del()
+    menu.innerHTML = buildMenu(menuItems)
     menu.pos = { x: event.pageX, y: event.pageY }
     menu.style.left = event.pageX + "px"
     menu.style.top = event.pageY + "px"
-    menu.style.display = "block"
+    menu.addEventListener("click", e => {
+        let action = e.target.getAttribute("data-action")
+        let label = e.target.getAttribute("data-label")
+        if (action) callback(action, label, menu.pos.x, menu.pos.y)
+        del(menu)
+    })
+    document.body.appendChild(menu)
+    document.addEventListener("click", clickHandler)
 }
