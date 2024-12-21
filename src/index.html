@@ -106,9 +106,7 @@
         <script type="module">
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
             import { Drawflow } from "./assets/bundle.js"
-            import { Edge } from "./graph/Edge.js"
             import { setupNodeHeaderContextMenu, setupCanvasContextMenu } from "./contextmenu.js"
-            import { createNode } from "./graph/nodeFactory.js"
             import { Graph } from "./graph/Graph.js"
 
             // setInterval(checkForNewRepoCommits, 60 * 1000)
@@ -184,7 +182,7 @@
                         name = prompt("Name of the node", defaultLabel);
                         if (name == null) return
                     }
-                    createNode(action, name, x, y, editor, graph.nodesMap, exampleId)
+                    graph.createNode(action, name, x, y, exampleId)
                 })
             });
 
@@ -198,7 +196,7 @@
             })
 
             // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
-            editor.on("connectionCreated", connection => new Edge(connection, graph))
+            editor.on("connectionCreated", connection => graph.createEdge(connection))
             editor.on("nodeRemoved", (id) => graph.removeNode(id))
             editor.on("connectionRemoved", (connection) => graph.removeEdge(connection))
 

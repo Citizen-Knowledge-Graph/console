@@ -1,6 +1,7 @@
 import { createNode, TYPE } from "./nodeFactory.js"
 import { buildEdgeId, download, getTimestamp, runSparqlSelectQueryOnRdfString } from "../utils.js"
 import { DataFactory, slugify, Writer } from "../assets/bundle.js"
+import { Edge } from "./Edge.js"
 
 export class Graph {
     constructor(editor) {
@@ -14,6 +15,14 @@ export class Graph {
         this.stepCounter = 0
         this.id = "graph_" + getTimestamp()
         this.name = "" // for export and maybe display
+    }
+
+    createNode(nodeClass, name, x, y, exampleDataKey) {
+        createNode(nodeClass, name, x, y, this.editor, this.nodesMap, exampleDataKey)
+    }
+
+    createEdge(connectionObj) {
+        new Edge(connectionObj, this)
     }
 
     removeEdge(connection) {

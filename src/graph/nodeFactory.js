@@ -33,7 +33,7 @@ const nodeClasses = {
     "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode
 }
 
-const exampleValues = {
+const exampleData = {
     "ex_PrefixesNode_ff": `rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
 xsd: http://www.w3.org/2001/XMLSchema#
 ff:  https://foerderfunke.org/default#
@@ -89,12 +89,12 @@ DELETE {
 }`
 }
 
-export function createNode(command, name, x, y, editor, nodesMap, originalCommand) {
-    if (!nodeClasses[command]) {
-        console.warn(`No node class found for: ${command}`)
+export function createNode(nodeClass, name, x, y, editor, nodesMap, exampleDataKey) {
+    if (!nodeClasses[nodeClass]) {
+        console.warn(`No node class found for: ${nodeClass}`)
         return null
     }
-    let node = new nodeClasses[command](name, x, y, editor, nodesMap)
-    if (originalCommand) node.setValue(exampleValues[originalCommand])
+    let node = new nodeClasses[nodeClass](name, x, y, editor, nodesMap)
+    if (exampleDataKey) node.setValue(exampleData[exampleDataKey])
     return node
 }
