@@ -195,10 +195,14 @@
                 })
             });
 
-           ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
+            ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
                 editor.container.addEventListener(eventType, event => {
-                    if (event.button === 2 && event.target.className === "drawflow") {
-                        // otherwise mouse movement after right-click translates the canvas
+                    if (event.button === 2 && (
+                        event.target.classList.contains("drawflow") ||
+                        event.target.classList.contains("parent-drawflow") ||
+                        event.target.classList.contains("title-box")
+                    )) {
+                        // otherwise mouse movement after right-click translates the canvas or node
                         event.stopPropagation()
                     }
                 }, true)
