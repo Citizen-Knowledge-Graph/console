@@ -1,6 +1,6 @@
 // Adapted from ChatGPT
 
-const menuItems = [
+const canvasCtxMenuItems = [
     {
         label: "Input",
         submenu: [
@@ -46,6 +46,10 @@ const menuItems = [
     }
 ]
 
+const nodeHeaderCtxMenuItems = [
+    { label: "Duplicate Node", action: "DuplicateNodeAction" }
+]
+
 function buildMenu(items) {
     return items.map(item => {
         let hasSub = item.submenu && item.submenu.length > 0
@@ -62,24 +66,33 @@ function buildMenu(items) {
     }).join('')
 }
 
-export function setupContextMenu(event, callback) {
+export function setupCanvasContextMenu(event, callback) {
+    setupContextMenu(event, "ctx-menu-canvas", canvasCtxMenuItems, callback)
+}
+
+export function setupNodeHeaderContextMenu(event, callback) {
+    setupContextMenu(event, "ctx-menu-node", nodeHeaderCtxMenuItems, callback)
+}
+
+export function setupContextMenu(event, menuElId, menuItems, callback) {
     event.preventDefault()
-    let menu = document.getElementById('ctx-menu')
+    let menu = document.getElementById(menuElId)
     if(!menu) {
-        menu = document.createElement('div')
-        menu.id = 'ctx-menu'
+        menu = document.createElement("div")
+        menu.id = menuElId
+        menu.classList.add("ctx-menu")
         menu.innerHTML = buildMenu(menuItems)
         document.body.appendChild(menu)
-        menu.addEventListener('click', (e) => {
-            let action = e.target.getAttribute('data-action')
-            let label = e.target.getAttribute('data-label')
+        menu.addEventListener("click", (e) => {
+            let action = e.target.getAttribute("data-action")
+            let label = e.target.getAttribute("data-label")
             if (action) callback(action, label, menu.pos.x, menu.pos.y)
-            menu.style.display = 'none'
+            menu.style.display = "none"
         })
-        document.addEventListener('click', () => menu.style.display = 'none')
+        document.addEventListener("click", () => menu.style.display = "none")
     }
     menu.pos = { x: event.pageX, y: event.pageY }
-    menu.style.left = event.pageX + 'px'
-    menu.style.top = event.pageY + 'px'
-    menu.style.display = 'block'
+    menu.style.left = event.pageX + "px"
+    menu.style.top = event.pageY + "px"
+    menu.style.display = "block"
 }

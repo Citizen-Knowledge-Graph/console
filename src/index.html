@@ -107,7 +107,7 @@
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
             import { Drawflow } from "./assets/bundle.js"
             import { Edge } from "./graph/Edge.js"
-            import { setupContextMenu } from "./contextmenu.js"
+            import { setupNodeHeaderContextMenu, setupCanvasContextMenu } from "./contextmenu.js"
             import { createNode } from "./graph/nodeFactory.js"
             import { Graph } from "./graph/Graph.js"
 
@@ -163,10 +163,15 @@
             })
 
             editor.on("contextmenu", event => {
+                if (event.target.tagName !== "DIV") return // edges are "path"
+                if (event.target.className.includes("title-box")) {
+                    setupNodeHeaderContextMenu(event, (action, label, x, y) => {
+                        // TODO
+                    })
+                    return
+                }
                 if (!["drawflow", "parent-drawflow"].includes(event.target.className)) return
-                event.stopPropagation()
-                setupContextMenu(event, (action, defaultLabel, x, y) => {
-                    // also account for zoom TODO
+                setupCanvasContextMenu(event, (action, defaultLabel, x, y) => {
                     x -= editor.canvas_x
                     y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
                     let name
