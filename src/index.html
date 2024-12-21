@@ -163,8 +163,13 @@
             editor.on("contextmenu", event => {
                 if (event.target.tagName !== "DIV") return // edges are "path"
                 if (event.target.className.includes("title-box")) {
+                    let nodeDivId = event.target.parentElement.parentElement.parentElement.id
                     setupNodeHeaderContextMenu(event, (action, label, x, y) => {
-                        // TODO
+                        switch (action) {
+                            case "DuplicateNodeAction":
+                                graph.duplicateNode(nodeDivId.split("-")[1])
+                                break
+                        }
                     })
                     return
                 }

@@ -25,6 +25,13 @@ export class Graph {
         new Edge(connectionObj, this)
     }
 
+    duplicateNode(nodeId) {
+        let node = this.nodesMap[nodeId]
+        let editorNode = this.editor.getNodeFromId(nodeId)
+        let newNode = createNode(node.constructor.name, node.name, Number(editorNode.pos_x) + 30, Number(editorNode.pos_y) + 30, this.editor, this.nodesMap)
+        if (node.isInput()) newNode.setValue(node.getValue())
+    }
+
     removeEdge(connection) {
         let edgeId = buildEdgeId(connection)
         delete this.edgesMap[edgeId]
