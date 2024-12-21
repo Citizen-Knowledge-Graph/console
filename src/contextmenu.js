@@ -48,8 +48,11 @@ const canvasCtxMenuItems = [
 
 const nodeHeaderCtxMenuItems = [
     { label: "Delete Node", action: "DeleteNodeAction" },
-    { label: "Duplicate Node", action: "DuplicateNodeAction" },
-    { label: "Duplicate Node with incoming Edges", action: "DuplicateNodeWithIncomingEdgesAction" }
+    { label: "Duplicate Node", action: "DuplicateNodeAction",
+        submenu: [
+            { label: "including incoming Edges", action: "DuplicateNodeWithIncomingEdgesAction" }
+        ]
+    }
 ]
 
 function buildMenu(items, disabledItems) {
@@ -61,7 +64,7 @@ function buildMenu(items, disabledItems) {
         if (hasSub) {
             return '<div' + classAttr + actionAttr + labelAttr + '>' +
                 item.label + ' &#8250;' +
-                '<div class="submenu">' + buildMenu(item.submenu) + '</div>' +
+                '<div class="submenu">' + buildMenu(item.submenu, disabledItems) + '</div>' +
                 '</div>'
         } else {
             let classAttr = disabledItems.includes(item.action) ? ' class="disabled"' : ''
