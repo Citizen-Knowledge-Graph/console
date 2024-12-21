@@ -1,0 +1,54 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+
+# MATERIALIZATION RULES
+
+ff:CalculateAgeFromBirthdate a ff:MaterializationRule, ff:SparqlRule ;
+    rdfs:label "Calculate the age from the birthdate" ;
+    ff:input ff:hasBirthday ;
+    ff:output ff:hasAge ;
+    ff:suggestPermanentMaterialization true ;
+    ff:ifPermanentlyMaterializedAddPeriodicCheck "on-app-startup" ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        CONSTRUCT {
+            ?person ff:hasAge ?age .
+        } WHERE {
+            ?person ff:hasBirthday ?bday .
+            BIND(YEAR(NOW()) - YEAR(?bday) - IF(MONTH(NOW()) < MONTH(?bday) || (MONTH(NOW()) = MONTH(?bday) && DAY(NOW()) < DAY(?bday)), 1, 0) AS ?age) .
+        }
+    """ .
+
+ff:DeriveStateFromCity a ff:MaterializationRule, ff:SparqlRule ;
+    rdfs:label "Derive the federal state someone lives in based on their residence city" ;
+    ff:input ff:hasResidence ;
+    ff:output ff:residesInState ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        CONSTRUCT {
+            ?person ff:residesInState ?state .
+        } WHERE {
+            ?person ff:hasResidence ?city .
+            ff:CityStateMap ff:mappedCityToState ?mapping .
+            ?mapping ff:city ?city ;
+                ff:state ?state .
+        }
+    """ .
+
+# CONSTANTS
+
+ff:CityStateMap a ff:MapOfConstants ;
+    rdfs:comment "Mapping of German cities to their respective federal states (Bundesland)" ;
+    ff:mappedCityToState [
+        ff:city "Jena" ;
+        ff:state "Thüringen"
+    ] ;
+    ff:mappedCityToState [
+        ff:city "München" ;
+        ff:state "Bayern"
+    ] ;
+    ff:mappedCityToState [
+        ff:city "Berlin" ;
+        ff:state "Berlin"
+    ] .

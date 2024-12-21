@@ -1,0 +1,9 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:mainEntity a ff:Municipality ;
+    ff:hasScenarioProfile ff:scenarioProfile1 .
+
+ff:scenarioMunicipality1 a ff:Municipality, ff:ScenarioProfile ;
+    ff:residents 15000 ;
+    ff:fundingAmountRequired 1200000 ;
+    ff:fundingTarget ff:Jugendtreff .
