@@ -74,8 +74,9 @@ export function setupCanvasContextMenu(event, callback) {
     setupContextMenu(event, canvasCtxMenuItems, [], callback)
 }
 
-export function setupNodeHeaderContextMenu(event, callback) {
-    setupContextMenu(event, nodeHeaderCtxMenuItems, [], callback)
+export function setupNodeHeaderContextMenu(event, hasIncomingEdges, callback) {
+    let disabledItems = hasIncomingEdges ? [] : ["DuplicateNodeWithIncomingEdgesAction"]
+    setupContextMenu(event, nodeHeaderCtxMenuItems, disabledItems, callback)
 }
 
 export function setupContextMenu(event, menuItems, disabledItems, callback) {

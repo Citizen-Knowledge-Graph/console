@@ -185,7 +185,8 @@
                 if (event.target.className.includes("title-box")) {
                     let nodeDivId = event.target.parentElement.parentElement.parentElement.id
                     let nodeId = nodeDivId.split("-")[1]
-                    setupNodeHeaderContextMenu(event, action => {
+                    let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode.id === nodeId)
+                    setupNodeHeaderContextMenu(event, hasIncomingEdges, action => {
                         switch (action) {
                             case "DeleteNodeAction":
                                 editor.removeNodeId(nodeDivId)
