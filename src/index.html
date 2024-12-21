@@ -27,6 +27,9 @@
             .drawflow-node {
                 width: 414px !important;
             }
+            .drawflow_content_node {
+                height: 100%;
+            }
             .drawflow-node .box {
                 padding-left: 14px !important;
                 padding-bottom: 7px !important;
@@ -83,6 +86,16 @@
             }
             .result-table .literal {
                 color: green;
+            }
+            .resize-handle {
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-right: 12px solid #ddd;
+                border-top: 12px solid transparent;
+                right: 2px;
+                bottom: 2px;
+                cursor: se-resize;
             }
         </style>
     </head>
@@ -208,8 +221,36 @@
                         // otherwise mouse movement after right-click translates the canvas or node
                         event.stopPropagation()
                     }
-                }, true)
+                }, true) // why is this true necessary? doesn't work without it
             })
+
+            let resizing = null
+
+            editor.container.addEventListener("mousedown", event => {
+                if (event.button === 0 && event.target.classList.contains("resize-handle")) {
+                    let nodeDomEl = event.target.parentElement.parentElement.parentElement
+                    let nodeId = nodeDomEl.id.split("-")[1]
+                    resizing = {
+                        startX: event.clientX,
+                        startY: event.clientY,
+                        startWidth: nodeDomEl.offsetWidth,
+                        startHeight: nodeDomEl.offsetHeight,
+                        node: graph.nodesMap[nodeId],
+                        nodeDomEl: nodeDomEl
+                    }
+                }
+            })
+            editor.container.addEventListener("mousemove", event => {
+                if (!resizing) return
+                let dx = event.clientX - resizing.startX
+                let dy = event.clientY - resizing.startY
+                resizing.nodeDomEl.style.setProperty("width", (resizing.startWidth + dx) + "px", "important")
+                resizing.nodeDomEl.style.setProperty("height", (resizing.startHeight + dy) + "px", "important")
+                editor.updateConnectionNodes("node-" + resizing.node.id)
+                event.stopPropagation()
+            }, true)
+
+            editor.container.addEventListener("mouseup", e => resizing = null)
 
             // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
             editor.on("connectionCreated", connection => graph.onEditorEdgeCreated(connection))

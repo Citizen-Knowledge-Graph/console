@@ -44,6 +44,7 @@ export class Node {
                     ${this.getMainHtml() ?? ""}
                     ${this.getBottomMenuHtml() ?? ""}
                 </div>
+                <div class="resize-handle"></div>
             </div>`
     }
 
