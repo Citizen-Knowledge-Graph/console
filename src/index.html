@@ -202,7 +202,7 @@
                 // optionally also ask for author and description TODO
                 graph.export()
             })
-            document.getElementById("howtoBtn").addEventListener("click", () => alert("Right-click to add new nodes"))
+            document.getElementById("howtoBtn").addEventListener("click", () => alert("Right-click ...\n... on canvas to add new nodes\n... on nodes for node-options\n... on edges to delete them"))
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
 
             document.addEventListener("keydown", event => {
@@ -219,8 +219,10 @@
                 if (event.target.className.includes("title-box")) {
                     let nodeDivId = event.target.parentElement.parentElement.parentElement.id
                     let node = graph.nodesMap[nodeDivId.split("-")[1]]
+                    let disabledItems = ["ToggleViewModeAction"]
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
-                    setupNodeHeaderContextMenu(event, hasIncomingEdges, action => {
+                    if (hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
+                    setupNodeHeaderContextMenu(event, disabledItems, action => {
                         switch (action) {
                             case "DeleteNodeAction":
                                 editor.removeNodeId(nodeDivId)
