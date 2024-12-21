@@ -47,3 +47,8 @@
 .submenu > div:hover {
     background: #ddd;
 }
+
+.disabled {
+    color: #999;
+    cursor: default;
+}

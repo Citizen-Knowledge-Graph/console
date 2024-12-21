@@ -52,31 +52,33 @@ const nodeHeaderCtxMenuItems = [
     { label: "Duplicate Node with incoming Edges", action: "DuplicateNodeWithIncomingEdgesAction" }
 ]
 
-function buildMenu(items) {
+function buildMenu(items, disabledItems) {
     return items.map(item => {
         let hasSub = item.submenu && item.submenu.length > 0
         let actionAttr = item.action ? ' data-action="' + item.action + '" ' : ''
+        let classAttr = ' class="sub' + (disabledItems.includes(item.action) ? ' disabled"' : '"')
         let labelAttr = ' data-label="' + item.label + '" '
         if (hasSub) {
-            return '<div class="sub"' + actionAttr + labelAttr + '>' +
+            return '<div' + classAttr + actionAttr + labelAttr + '>' +
                 item.label + ' &#8250;' +
                 '<div class="submenu">' + buildMenu(item.submenu) + '</div>' +
                 '</div>'
         } else {
-            return '<div' + actionAttr + labelAttr + '>' + item.label + '</div>'
+            let classAttr = disabledItems.includes(item.action) ? ' class="disabled"' : ''
+            return '<div' + classAttr + actionAttr + labelAttr + '>' + item.label + '</div>'
         }
     }).join('')
 }
 
 export function setupCanvasContextMenu(event, callback) {
-    setupContextMenu(event, canvasCtxMenuItems, callback)
+    setupContextMenu(event, canvasCtxMenuItems, [], callback)
 }
 
 export function setupNodeHeaderContextMenu(event, callback) {
-    setupContextMenu(event, nodeHeaderCtxMenuItems, callback)
+    setupContextMenu(event, nodeHeaderCtxMenuItems, [], callback)
 }
 
-export function setupContextMenu(event, menuItems, callback) {
+export function setupContextMenu(event, menuItems, disabledItems, callback) {
     if (document.getElementById("ctx-menu")) return
     event.preventDefault()
     let menu = document.createElement("div")
@@ -86,14 +88,14 @@ export function setupContextMenu(event, menuItems, callback) {
         document.removeEventListener("click", clickHandler)
     }
     const clickHandler = e => del()
-    menu.innerHTML = buildMenu(menuItems)
+    menu.innerHTML = buildMenu(menuItems, disabledItems)
     menu.pos = { x: event.pageX, y: event.pageY }
     menu.style.left = event.pageX + "px"
     menu.style.top = event.pageY + "px"
     menu.addEventListener("click", e => {
         let action = e.target.getAttribute("data-action")
         let label = e.target.getAttribute("data-label")
-        if (action) callback(action, label, menu.pos.x, menu.pos.y)
+        if (action && !disabledItems.includes(action)) callback(action, label, menu.pos.x, menu.pos.y)
         del(menu)
     })
     document.body.appendChild(menu)
