@@ -104,7 +104,7 @@
             .hidden {
                 display: none;
             }
-            .modal-overlay {
+            #modal-overlay {
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -116,7 +116,7 @@
                 align-items: center;
                 justify-content: center;
             }
-            .modal-window {
+            #modal-window {
                 background: #fff;
                 padding: 20px;
                 border-radius: 8px;
@@ -130,8 +130,8 @@
     <body>
         <div id="modal-container" class="hidden">
             <div id="modal-overlay" class="modal-overlay">
-                <div class="modal-window">
-                    <div class="modal-window-content"></div>
+                <div id="modal-window">
+                    <div id="modal-window-content"></div>
                     <input type="button" id="modal-close-btn" value="Close" />
                 </div>
             </div>
@@ -216,7 +216,7 @@
                 if (event.target.className.includes("title-box")) {
                     let nodeDivId = event.target.parentElement.parentElement.parentElement.id
                     let node = graph.nodesMap[nodeDivId.split("-")[1]]
-                    let disabledItems = ["ToggleViewModeAction"]
+                    let disabledItems = []
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
                     if (hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
                     setupNodeHeaderContextMenu(event, disabledItems, action => {
