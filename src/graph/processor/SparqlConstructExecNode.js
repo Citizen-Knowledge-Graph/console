@@ -6,7 +6,6 @@ import { runSparqlConstructQueryOnRdfString, serializeStoreToTurtle } from "../.
 export class SparqlConstructExecNode extends CodeNode {
     constructor(name, x, y, editor, nodesMap) {
         super(name, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.TURTLE ], x, y, editor, nodesMap, TYPE.PROCESSOR)
-        super.initCodemirror("turtle")
     }
 
     async processIncomingData() {

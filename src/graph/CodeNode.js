@@ -1,5 +1,6 @@
 import { Node } from "./Node.js"
 import { CodeMirror } from "../assets/bundle.js"
+import { PORT } from "./nodeFactory.js"
 
 export class CodeNode extends Node {
     constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
@@ -10,11 +11,19 @@ export class CodeNode extends Node {
         return `<div class="codemirror-container"></div>`
     }
 
-    initCodemirror(mode) {
+    getMode() {
+        if (this.outputs.length === 0) return "text/plain"
+        if (this.outputs[0] === PORT.SPARQL) return "sparql"
+        if (this.outputs[0] === PORT.TURTLE) return "turtle"
+        return "text/plain"
+    }
+
+    postConstructor() {
+        super.postConstructor()
         this.codemirrorContainer = this.editor.container.querySelector(`#node-${this.id} .codemirror-container`)
         this.codeMirror = CodeMirror(this.codemirrorContainer, {
             value: "",
-            mode: mode, // sparql or turtle
+            mode: this.getMode(),
             lineNumbers: this.isInput(),
             readOnly: !this.isInput(),
             // lineWrapping: true

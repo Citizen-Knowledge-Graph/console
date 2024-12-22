@@ -13,8 +13,8 @@ export class Node {
         this.incomingData = []
         this.ranThisRound = false
         this.viewMode = VIEW_MODE.DEFAULT
-        this.postRender()
-        console.log("Node added:", this.id, "\"" + this.name + "\"", "at", x, "/", y, this)
+        console.log("Node added:", this.id, "\"" + this.name)
+        this.postConstructor()
     }
 
     isProcessor() {
@@ -54,7 +54,7 @@ export class Node {
             </div>`
     }
 
-    postRender() {
+    postConstructor() {
         let modalOpenBtn = document.querySelector(`#node-${this.id} .modal-open-btn`)
         modalOpenBtn.addEventListener("click", () => {
             document.getElementById("modal-container").classList.remove("hidden")

@@ -6,7 +6,6 @@ import { Store } from "../../assets/bundle.js"
 export class SparqlInsertDeleteExecNode extends CodeNode {
     constructor(name, x, y, editor, nodesMap) {
         super(name, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.TURTLE ], x, y, editor, nodesMap, TYPE.PROCESSOR)
-        super.initCodemirror("turtle")
     }
 
     async processIncomingData() {
