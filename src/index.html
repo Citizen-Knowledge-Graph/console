@@ -281,7 +281,7 @@
                 let resizeEvent = isResizeEvent(event)
                 if (!resizeEvent) return
                 let { nodeDomEl, node } = resizeEvent
-                // TODO
+                node.resetSize()
             })
 
             editor.container.addEventListener("mousedown", event => {

@@ -43,7 +43,12 @@ export class CodeNode extends Node {
 
     resizing(dy) {
         this.codemirrorContainer.style.height = this.resizeStartHeight + dy + "px"
-        this.codeMirror.refresh()
+        // this.codeMirror.refresh()
+    }
+
+    resetSize() {
+        super.resetSize()
+        this.codemirrorContainer.style.height = ""
     }
 
     getValue() {

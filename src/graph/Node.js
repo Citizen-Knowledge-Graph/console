@@ -9,12 +9,23 @@ export class Node {
         this.nodesMap = nodesMap
         this.type = type
         this.id = "" + editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
+        this.nodeDiv = editor.container.querySelector(`#node-${this.id}`)
         this.nodesMap[this.id] = this
         this.incomingData = []
         this.ranThisRound = false
         this.viewMode = VIEW_MODE.DEFAULT
         console.log("Node added:", this.id, "\"" + this.name)
         this.postConstructor()
+        requestAnimationFrame(() => { // otherwise the height is not correct
+            this.initialWidth = this.nodeDiv.offsetWidth
+            this.initialHeight = this.nodeDiv.offsetHeight
+        })
+    }
+
+    resetSize() {
+        this.nodeDiv.style.setProperty("width", this.initialWidth + "px", "important")
+        this.nodeDiv.style.setProperty("height", this.initialHeight + "px", "important")
+        this.editor.updateConnectionNodes("node-" + this.id)
     }
 
     isProcessor() {
