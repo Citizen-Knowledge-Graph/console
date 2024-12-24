@@ -4,8 +4,8 @@ import { addRdfStringToStore, runSparqlInsertDeleteQueryOnStore, serializeStoreT
 import { Store } from "../../assets/bundle.js"
 
 export class SparqlInsertDeleteExecNode extends CodeNode {
-    constructor(name, x, y, graph) {
-        super(name, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.TURTLE ], x, y, graph, TYPE.PROCESSOR)
+    constructor(initialValues, graph) {
+        super(initialValues, graph, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.TURTLE ], TYPE.PROCESSOR)
     }
 
     async processIncomingData() {

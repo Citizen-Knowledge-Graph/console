@@ -2,8 +2,8 @@ import { CodeNode } from "../CodeNode.js"
 import { PORT, TYPE } from "../nodeFactory.js"
 
 export class TextViewNode extends CodeNode {
-    constructor(name, x, y, graph) {
-        super(name, [ PORT.ANY ], [ PORT.ANY ], x, y, graph, TYPE.VIEW)
+    constructor(initialValues, graph) {
+        super(initialValues, graph, [ PORT.ANY ], [ PORT.ANY ], TYPE.VIEW)
     }
 
     async processIncomingData() {

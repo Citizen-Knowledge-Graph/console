@@ -1,24 +1,29 @@
 import { TYPE, VIEW_MODE } from "./nodeFactory.js"
 
 export class Node {
-    constructor(name, inputs, outputs, x, y, graph, type) {
-        this.name = name
+    constructor(initialValues, graph, inputs, outputs, type) {
+        this.name = initialValues.name
         this.inputs = inputs
         this.outputs = outputs
         this.editor = graph.editor
         this.type = type
-        this.id = "" + this.editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
+        this.id = "" + this.editor.addNode(this.name, inputs.length, outputs.length,
+            initialValues.pos[0], initialValues.pos[1], "", {}, this.getHtml())
         this.nodeDiv = this.editor.container.querySelector(`#node-${this.id}`)
         graph.nodesMap[this.id] = this
         this.incomingData = []
         this.ranThisRound = false
         this.viewMode = VIEW_MODE.DEFAULT
-        console.log("Node added:", this.id, "\"" + this.name)
         this.postConstructor()
+        if (initialValues.value) this.setValue(initialValues.value)
         requestAnimationFrame(() => { // otherwise the height is not correct
             this.initialWidth = this.nodeDiv.offsetWidth
             this.initialHeight = this.nodeDiv.offsetHeight
+            if (initialValues.size) {
+                this.setSize(initialValues.size[0], initialValues.size[1])
+            }
         })
+        console.log("Node added:", this.id, "\"" + this.name)
     }
 
     resetSize() {
@@ -168,7 +173,6 @@ export class Node {
     preResize() {}
     postResize(dy) {}
 
-    initCodemirror(mode) { this.err() }
     getValue() { this.err() }
     setValue(value) { this.err() }
     clear() { this.err() }

@@ -3,8 +3,8 @@ import { CodeMirror } from "../assets/bundle.js"
 import { PORT } from "./nodeFactory.js"
 
 export class CodeNode extends Node {
-    constructor(name, inputs, outputs, x, y, graph, type) {
-        super(name, inputs, outputs, x, y, graph, type)
+    constructor(initialValues, graph, inputs, outputs, type) {
+        super(initialValues, graph, inputs, outputs, type)
     }
 
     getMainHtml() {

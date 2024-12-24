@@ -260,17 +260,18 @@
                 setupCanvasContextMenu(event, (action, defaultLabel, x, y) => {
                     x -= editor.canvas_x
                     y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
+                    let initialValues = { pos: [x, y] }
                     let name
-                    let exampleId
                     if (action.startsWith("ex_")) { // e.g. ex_TurtleInputNode_UP
-                        exampleId = action
+                        initialValues.value = exampleData[action]
                         name = defaultLabel
                         action = action.split("_")[1]
                     } else {
                         name = prompt("Name of the node", defaultLabel);
                         if (name == null) return
                     }
-                    graph.createNode(action, name, x, y, exampleId)
+                    initialValues.name = name
+                    graph.createNode(action, initialValues)
                 })
             });
 

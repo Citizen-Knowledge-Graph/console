@@ -4,8 +4,8 @@ import { Store } from "../../assets/bundle.js"
 import { addRdfStringToStore, runValidationOnStore, serializeDatasetToTurtle } from "../../utils.js"
 
 export class ShaclValidationNode extends CodeNode {
-    constructor(name, x, y, graph) {
-        super(name, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE ], x, y, graph, TYPE.PROCESSOR)
+    constructor(initialValues, graph) {
+        super(initialValues, graph, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE ], TYPE.PROCESSOR)
     }
 
     async processIncomingData() {

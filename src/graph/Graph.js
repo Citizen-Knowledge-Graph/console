@@ -17,8 +17,8 @@ export class Graph {
         this.name = "" // for export and maybe display
     }
 
-    createNode(nodeClass, name, x, y, exampleDataKey) {
-        return factoryCreateNode(nodeClass, name, x, y, this, exampleDataKey)
+    createNode(nodeClass, initialValues) {
+        return factoryCreateNode(nodeClass, initialValues, this)
     }
 
     onEditorEdgeCreated(connectionObj) {
@@ -28,8 +28,12 @@ export class Graph {
 
     duplicateNode(node, includeIncomingEdges) {
         let editorNode = this.editor.getNodeFromId(node.id)
-        let newNode = this.createNode(node.constructor.name, node.name, Number(editorNode.pos_x) + 30, Number(editorNode.pos_y) + 30)
-        if (node.isInput()) newNode.setValue(node.getValue())
+        let initialValues = {
+            name: node.name,
+            pos: [Number(editorNode.pos_x) + 30, Number(editorNode.pos_y) + 30]
+        }
+        if (node.isInput()) initialValues.value = node.getValue()
+        let newNode = this.createNode(node.constructor.name, initialValues)
         if (!includeIncomingEdges) return
         for (let edge of Object.values(this.edgesMap).filter(edge => edge.targetNode === node)) {
             this.editor.addConnection(edge.sourceNode.id, newNode.id, edge.portOut, edge.portIn)
@@ -226,9 +230,13 @@ export class Graph {
         let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
         let idMap = {} // identifier in imported turtle (exportId) to the now actually instantiated node.id
         for (let row of rows) {
-            let node = this.createNode(this.localName(row.class), row.name, row.x, row.y)
-            if (row.value) node.setValue(row.value)
-            if (row.width) node.setSize(row.width, row.height)
+            let initialValues = {
+                name: row.name,
+                pos: [row.x, row.y]
+            }
+            if (row.value) initialValues.value = row.value
+            if (row.width) initialValues.size = [row.width, row.height]
+            let node = this.createNode(this.localName(row.class), initialValues)
             idMap[row.node] = node.id
         }
         // edges

@@ -38,7 +38,7 @@ const nodeClasses = {
     "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode
 }
 
-const exampleData = {
+export const exampleData = {
     "ex_PrefixesNode_ff": `rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
 xsd: http://www.w3.org/2001/XMLSchema#
 ff:  https://foerderfunke.org/default#
@@ -94,12 +94,10 @@ DELETE {
 }`
 }
 
-export function factoryCreateNode(nodeClass, name, x, y, graph, exampleDataKey) {
+export function factoryCreateNode(nodeClass, initialValues, graph) {
     if (!nodeClasses[nodeClass]) {
         console.warn(`No node class found for: ${nodeClass}`)
         return null
     }
-    let node = new nodeClasses[nodeClass](name, x, y, graph)
-    if (exampleDataKey) node.setValue(exampleData[exampleDataKey])
-    return node
+    return new nodeClasses[nodeClass](initialValues, graph)
 }

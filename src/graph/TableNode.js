@@ -1,8 +1,8 @@
 import { Node } from "./Node.js"
 
 export class TableNode extends Node {
-    constructor(name, inputs, outputs, x, y, graph, type) {
-        super(name, inputs, outputs, x, y, graph, type)
+    constructor(initialValues, graph, inputs, outputs, type) {
+        super(initialValues, graph, inputs, outputs, type)
         this.tableData = {}
     }
 
