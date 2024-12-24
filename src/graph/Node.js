@@ -82,6 +82,11 @@ export class Node {
             </div>`
     }
 
+    setName(name) {
+        this.name = name
+        this.nodeDiv.querySelector(".title-box").textContent = name
+    }
+
     postConstructor() {
         let modalOpenBtn = document.querySelector(`#node-${this.id} .modal-open-btn`)
         modalOpenBtn.addEventListener("click", () => {
