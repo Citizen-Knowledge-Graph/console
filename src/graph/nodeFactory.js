@@ -94,7 +94,7 @@ DELETE {
 }`
 }
 
-export function createNode(nodeClass, name, x, y, graph, exampleDataKey) {
+export function factoryCreateNode(nodeClass, name, x, y, graph, exampleDataKey) {
     if (!nodeClasses[nodeClass]) {
         console.warn(`No node class found for: ${nodeClass}`)
         return null
