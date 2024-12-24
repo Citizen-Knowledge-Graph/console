@@ -132,7 +132,7 @@
             <div id="modal-overlay" class="modal-overlay">
                 <div id="modal-window">
                     <div id="modal-window-content"></div>
-                    <input type="button" id="modal-close-btn" value="Close" />
+                    <input type="button" id="modal-close-btn" style="margin-top: 20px" value="Close" />
                 </div>
             </div>
         </div>
@@ -170,7 +170,11 @@
                 graph.clear()
             }
 
-            document.getElementById("modal-close-btn").addEventListener("click", () => document.getElementById("modal-container").classList.add("hidden"))
+            document.getElementById("modal-close-btn").addEventListener("click", () => {
+                document.getElementById("modal-container").classList.add("hidden")
+                const modalContent = document.getElementById("modal-window-content")
+                while (modalContent.firstChild) modalContent.firstChild.remove()
+            })
 
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
@@ -199,7 +203,18 @@
                 // optionally also ask for author and description TODO
                 graph.export()
             })
-            document.getElementById("howtoBtn").addEventListener("click", () => alert("Right-click ...\n... on canvas to add new nodes\n... on nodes for node-options\n... on edges to delete them"))
+            document.getElementById("howtoBtn").addEventListener("click", () => {
+                document.getElementById("modal-container").classList.remove("hidden")
+                const modalContent = document.getElementById("modal-window-content")
+                modalContent.innerHTML = `
+                    <h2>HowTo</h2>
+                    <div><strong>New nodes:</strong> right-click on the canvas</div>
+                    <div><strong>New edges:</strong> left-click and drag from port to port</div>
+                    <div><strong>Delete nodes</strong> and other options: right-click on the node</div>
+                    <div><strong>Delete edges:</strong> right-click on the edge</div>
+                    <div><strong>Resize nodes:</strong> drag the lower right corner / double click for default size</div>
+                `
+            })
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
 
             document.addEventListener("keydown", event => {
