@@ -126,6 +126,8 @@ export class Graph {
         const hasName = this.ff("hasName")
         const hasPosX = this.ff("hasPosX")
         const hasPosY = this.ff("hasPosY")
+        const hasWidth = this.ff("hasWidth")
+        const hasHeight = this.ff("hasHeight")
         const hasValue = this.ff("hasValue")
         // edges
         const edgeRdfClass = this.ff("Edge")
@@ -166,6 +168,10 @@ export class Graph {
             let editorNode = this.editor.getNodeFromId(node.id)
             writer.addQuad(n, hasPosX, DataFactory.literal(editorNode.pos_x))
             writer.addQuad(n, hasPosY, DataFactory.literal(editorNode.pos_y))
+            if (!node.hasDefaultSize()) {
+                writer.addQuad(n, hasWidth, DataFactory.literal(node.getSize().width))
+                writer.addQuad(n, hasHeight, DataFactory.literal(node.getSize().height))
+            }
             if (!node.isProcessor()) {
                 writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
             }
@@ -211,6 +217,10 @@ export class Graph {
                     ff:hasClass ?class ;
                     ff:hasPosX ?x ;
                     ff:hasPosY ?y .
+                OPTIONAL {
+                    ?node ff:hasWidth ?width ;
+                        ff:hasHeight ?height .
+                }
                 OPTIONAL { ?node ff:hasValue ?value . }
             }`
         let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
@@ -218,6 +228,7 @@ export class Graph {
         for (let row of rows) {
             let node = createNode(this.localName(row.class), row.name, row.x, row.y, this.editor, this.nodesMap)
             if (row.value) node.setValue(row.value)
+            if (row.width) node.setSize(row.width, row.height)
             idMap[row.node] = node.id
         }
         // edges

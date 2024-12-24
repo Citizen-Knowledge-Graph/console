@@ -37,11 +37,11 @@ export class CodeNode extends Node {
         // this.codeMirror.on("change", () => { this.codeMirror.lineCount() })
     }
 
-    startResizing() {
+    preResize() {
         this.resizeStartHeight = this.codemirrorContainer.offsetHeight
     }
 
-    resizing(dy) {
+    postResize(dy) {
         this.codemirrorContainer.style.height = this.resizeStartHeight + dy + "px"
         // this.codeMirror.refresh()
     }

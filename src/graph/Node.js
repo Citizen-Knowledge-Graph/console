@@ -23,8 +23,25 @@ export class Node {
     }
 
     resetSize() {
-        this.nodeDiv.style.setProperty("width", this.initialWidth + "px", "important")
-        this.nodeDiv.style.setProperty("height", this.initialHeight + "px", "important")
+        this.setSize(this.initialWidth, this.initialHeight)
+    }
+
+    hasDefaultSize() {
+        return this.nodeDiv.offsetWidth === this.initialWidth && this.nodeDiv.offsetHeight === this.initialHeight
+    }
+
+    getSize() {
+        return { width: this.nodeDiv.offsetWidth, height: this.nodeDiv.offsetHeight }
+    }
+
+    setSize(width, height, dy) {
+        if (!dy) { // then it's a one-time resize event via import, not a continuous resizing event from index.html
+            this.preResize()
+            dy = height - this.nodeDiv.offsetHeight
+        }
+        this.nodeDiv.style.setProperty("width", width + "px", "important")
+        this.nodeDiv.style.setProperty("height", height + "px", "important")
+        this.postResize(dy)
         this.editor.updateConnectionNodes("node-" + this.id)
     }
 
@@ -144,8 +161,8 @@ export class Node {
 
     getMainHtml() {}
     getBottomMenuHtml() {}
-    startResizing() {}
-    resizing(dy) {}
+    preResize() {}
+    postResize(dy) {}
 
     initCodemirror(mode) { this.err() }
     getValue() { this.err() }

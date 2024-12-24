@@ -288,7 +288,7 @@
                 let resizeEvent = isResizeEvent(event)
                 if (!resizeEvent) return
                 let { nodeDomEl, node } = resizeEvent
-                node.startResizing()
+                node.preResize()
                 resizing = {
                     startX: event.clientX,
                     startY: event.clientY,
@@ -302,10 +302,7 @@
                 if (!resizing) return
                 let dx = event.clientX - resizing.startX
                 let dy = event.clientY - resizing.startY
-                resizing.nodeDomEl.style.setProperty("width", (resizing.startWidth + dx) + "px", "important")
-                resizing.nodeDomEl.style.setProperty("height", (resizing.startHeight + dy) + "px", "important")
-                editor.updateConnectionNodes("node-" + resizing.node.id)
-                resizing.node.resizing(dy)
+                resizing.node.setSize(resizing.startWidth + dx, resizing.startHeight + dy, dy)
                 event.stopPropagation()
             }, true)
 
