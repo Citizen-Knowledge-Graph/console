@@ -233,7 +233,7 @@
                     let node = graph.nodesMap[nodeDivId.split("-")[1]]
                     let disabledItems = []
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
-                    if (hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
+                    if (!hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
                     setupNodeHeaderContextMenu(event, disabledItems, action => {
                         switch (action) {
                             case "ChangeNameAction":
