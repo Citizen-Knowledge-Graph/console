@@ -1,16 +1,15 @@
 import { TYPE, VIEW_MODE } from "./nodeFactory.js"
 
 export class Node {
-    constructor(name, inputs, outputs, x, y, editor, nodesMap, type) {
+    constructor(name, inputs, outputs, x, y, graph, type) {
         this.name = name
         this.inputs = inputs
         this.outputs = outputs
-        this.editor = editor
-        this.nodesMap = nodesMap
+        this.editor = graph.editor
         this.type = type
-        this.id = "" + editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
-        this.nodeDiv = editor.container.querySelector(`#node-${this.id}`)
-        this.nodesMap[this.id] = this
+        this.id = "" + this.editor.addNode(name, inputs.length, outputs.length, x, y, "", {}, this.getHtml())
+        this.nodeDiv = this.editor.container.querySelector(`#node-${this.id}`)
+        graph.nodesMap[this.id] = this
         this.incomingData = []
         this.ranThisRound = false
         this.viewMode = VIEW_MODE.DEFAULT

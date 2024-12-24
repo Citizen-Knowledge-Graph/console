@@ -94,12 +94,12 @@ DELETE {
 }`
 }
 
-export function createNode(nodeClass, name, x, y, editor, nodesMap, exampleDataKey) {
+export function createNode(nodeClass, name, x, y, graph, exampleDataKey) {
     if (!nodeClasses[nodeClass]) {
         console.warn(`No node class found for: ${nodeClass}`)
         return null
     }
-    let node = new nodeClasses[nodeClass](name, x, y, editor, nodesMap)
+    let node = new nodeClasses[nodeClass](name, x, y, graph)
     if (exampleDataKey) node.setValue(exampleData[exampleDataKey])
     return node
 }

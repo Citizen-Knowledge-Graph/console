@@ -18,7 +18,7 @@ export class Graph {
     }
 
     createNode(nodeClass, name, x, y, exampleDataKey) {
-        createNode(nodeClass, name, x, y, this.editor, this.nodesMap, exampleDataKey)
+        createNode(nodeClass, name, x, y, this, exampleDataKey)
     }
 
     onEditorEdgeCreated(connectionObj) {
@@ -28,7 +28,7 @@ export class Graph {
 
     duplicateNode(node, includeIncomingEdges) {
         let editorNode = this.editor.getNodeFromId(node.id)
-        let newNode = createNode(node.constructor.name, node.name, Number(editorNode.pos_x) + 30, Number(editorNode.pos_y) + 30, this.editor, this.nodesMap)
+        let newNode = createNode(node.constructor.name, node.name, Number(editorNode.pos_x) + 30, Number(editorNode.pos_y) + 30, this)
         if (node.isInput()) newNode.setValue(node.getValue())
         if (!includeIncomingEdges) return
         for (let edge of Object.values(this.edgesMap).filter(edge => edge.targetNode === node)) {
@@ -226,7 +226,7 @@ export class Graph {
         let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
         let idMap = {} // identifier in imported turtle (exportId) to the now actually instantiated node.id
         for (let row of rows) {
-            let node = createNode(this.localName(row.class), row.name, row.x, row.y, this.editor, this.nodesMap)
+            let node = createNode(this.localName(row.class), row.name, row.x, row.y, this)
             if (row.value) node.setValue(row.value)
             if (row.width) node.setSize(row.width, row.height)
             idMap[row.node] = node.id

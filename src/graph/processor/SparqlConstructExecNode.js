@@ -4,8 +4,8 @@ import { Store } from "../../assets/bundle.js"
 import { runSparqlConstructQueryOnRdfString, serializeStoreToTurtle } from "../../utils.js";
 
 export class SparqlConstructExecNode extends CodeNode {
-    constructor(name, x, y, editor, nodesMap) {
-        super(name, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.TURTLE ], x, y, editor, nodesMap, TYPE.PROCESSOR)
+    constructor(name, x, y, graph) {
+        super(name, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.TURTLE ], x, y, graph, TYPE.PROCESSOR)
     }
 
     async processIncomingData() {

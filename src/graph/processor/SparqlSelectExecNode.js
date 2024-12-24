@@ -3,8 +3,8 @@ import { PORT, TYPE } from "../nodeFactory.js"
 import { runSparqlSelectQueryOnRdfString } from "../../utils.js"
 
 export class SparqlSelectExecNode extends TableNode {
-    constructor(name, x, y, editor, nodesMap) {
-        super(name, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.CSV ], x, y, editor, nodesMap, TYPE.PROCESSOR)
+    constructor(name, x, y, graph) {
+        super(name, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.CSV ], x, y, graph, TYPE.PROCESSOR)
         this.prefixesMap = {
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "xsd": "http://www.w3.org/2001/XMLSchema#",
