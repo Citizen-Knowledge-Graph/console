@@ -7,6 +7,21 @@ export class Graph {
     constructor(editor) {
         this.editor = editor
         this.clear()
+        this.settings = {
+            defaultWidth: { label: "Default Node Width", variable: "--default-node-width", value: "414px" },
+            codeFontSize: { label: "Code Font Size", variable: "--code-font-size", value: "12px" }
+        }
+        this.applySettings()
+    }
+
+    updateCSS(name, value) {
+        document.documentElement.style.setProperty(name, value)
+    }
+
+    applySettings() {
+        for (let setting of Object.values(this.settings)) {
+            this.updateCSS(setting.variable, setting.value)
+        }
     }
 
     clear() {
