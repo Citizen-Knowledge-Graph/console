@@ -128,6 +128,14 @@
                 position: relative;
                 box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             }
+            .view-mode-button-container {
+                text-align: center;
+                padding: 4px;
+            }
+            .show-content-btn {
+                cursor: pointer;
+                line-height: normal !important;
+            }
         </style>
     </head>
     <body>
@@ -244,9 +252,8 @@
                     let disabledItems = []
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
                     if (!hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
-                    if (node.constructor.name !== "MergeTriplesNode") {
-                        disabledItems.push("AddInputPortAction")
-                    }
+                    if (node.constructor.name !== "MergeTriplesNode") disabledItems.push("AddInputPortAction")
+                    if (node.contentIsHidden()) disabledItems.push("HideContentAction")
                     setupNodeHeaderContextMenu(event, disabledItems, action => {
                         switch (action) {
                             case "RenameAction":
@@ -267,6 +274,9 @@
                                 break;
                             case "AddInputPortAction":
                                 node.addInputPort()
+                                break;
+                            case "HideContentAction":
+                                node.hideContent()
                                 break;
                         }
                     })

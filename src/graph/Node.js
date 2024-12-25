@@ -21,6 +21,7 @@ export class Node {
             this.initialWidth = this.nodeDiv.offsetWidth
             this.initialHeight = this.nodeDiv.offsetHeight
             if (initialValues.size) this.setSize(initialValues.size[0], initialValues.size[1])
+            if (initialValues.contentHidden) this.hideContent()
         })
         console.log("Node added:", this.id, "\"" + this.name)
     }
@@ -76,7 +77,7 @@ export class Node {
                 </div>
                 <div class="box">
                     <div class="view-mode-button-container hidden">
-                        <input type="button" class="modal-open-btn" value="Show Content">
+                        <input type="button" class="show-content-btn" value="Show Content">
                     </div>
                     <div class="view-mode-default-container">
                         ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
@@ -87,16 +88,25 @@ export class Node {
             </div>`
     }
 
+    hideContent() {
+        this.nodeDiv.querySelector(".view-mode-default-container").classList.add("hidden")
+        this.nodeDiv.querySelector(".view-mode-button-container").classList.remove("hidden")
+    }
+
+    contentIsHidden() {
+        return this.nodeDiv.querySelector(".view-mode-default-container").classList.contains("hidden")
+    }
+
     setName(name) {
         this.name = name
         this.nodeDiv.querySelector(".node-title").textContent = name
     }
 
     postConstructor() {
-        let modalOpenBtn = document.querySelector(`#node-${this.id} .modal-open-btn`)
-        modalOpenBtn.addEventListener("click", () => {
-            document.getElementById("modal-container").classList.remove("hidden")
-            // TODO
+        let showContentBtn = document.querySelector(`#node-${this.id} .show-content-btn`)
+        showContentBtn.addEventListener("click", () => {
+            this.nodeDiv.querySelector(".view-mode-default-container").classList.remove("hidden")
+            this.nodeDiv.querySelector(".view-mode-button-container").classList.add("hidden")
         })
     }
 

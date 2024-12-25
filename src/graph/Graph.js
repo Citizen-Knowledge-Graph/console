@@ -135,6 +135,7 @@ export class Graph {
         const hasWidth = this.ff("hasWidth")
         const hasHeight = this.ff("hasHeight")
         const hasValue = this.ff("hasValue")
+        const hasContentHidden = this.ff("hasContentHidden")
         // edges
         const edgeRdfClass = this.ff("Edge")
         const hasEdge = this.ff("hasEdge")
@@ -177,6 +178,9 @@ export class Graph {
             if (node.wasResized) {
                 writer.addQuad(n, hasWidth, DataFactory.literal(node.getSize().width))
                 writer.addQuad(n, hasHeight, DataFactory.literal(node.getSize().height))
+            }
+            if (node.contentIsHidden()) {
+                writer.addQuad(n, hasContentHidden, DataFactory.literal(true))
             }
             if (!node.isProcessor()) {
                 writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
@@ -227,6 +231,7 @@ export class Graph {
                     ?node ff:hasWidth ?width ;
                         ff:hasHeight ?height .
                 }
+                OPTIONAL { ?node ff:hasContentHidden ?contentHidden . }
                 OPTIONAL { ?node ff:hasValue ?value . }
             }`
         let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
@@ -238,6 +243,7 @@ export class Graph {
             }
             if (row.value) initialValues.value = row.value
             if (row.width) initialValues.size = [row.width, row.height]
+            if (row.contentHidden) initialValues.contentHidden = true
             let node = this.createNode(this.localName(row.class), initialValues)
             idMap[row.node] = node.id
         }
