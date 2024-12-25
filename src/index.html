@@ -192,11 +192,12 @@
                 return document.getElementById("modal-window-content")
             }
 
-            document.getElementById("modal-close-btn").addEventListener("click", () => {
+            const closeModal = () => {
                 document.getElementById("modal-container").classList.add("hidden")
                 const modalContent = document.getElementById("modal-window-content")
                 while (modalContent.firstChild) modalContent.firstChild.remove()
-            })
+            }
+            document.getElementById("modal-close-btn").addEventListener("click", () => closeModal())
 
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             document.getElementById("stepBtn").addEventListener("click", () => graph.step())
@@ -252,6 +253,7 @@
                     event.preventDefault()
                     graph.save()
                 }
+                if (event.key === "Escape") closeModal()
             })
 
             editor.on("contextmenu", event => {
