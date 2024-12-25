@@ -132,11 +132,11 @@ export async function runValidationOnStore(store) {
     return await validator.validate({ dataset: dataset })
 }
 
-export function buildEdgeId(editorConnectionObj) {
-    let outId = editorConnectionObj.output_id
-    let outPortId = editorConnectionObj.output_class
-    let inId = editorConnectionObj.input_id
-    let inPortId = editorConnectionObj.input_class
+export function buildEdgeId(conn) {
+    let outId = conn.output_id
+    let outPortId = conn.output_class
+    let inId = conn.input_id
+    let inPortId = conn.input_class
     return `${outId}-${outPortId}-${inId}-${inPortId}`
 }
 

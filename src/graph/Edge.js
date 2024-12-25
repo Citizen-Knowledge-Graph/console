@@ -1,12 +1,12 @@
 import { buildEdgeId } from "../utils.js"
 
 export class Edge {
-    constructor(editorConnectionObj, graph) {
-        this.id = buildEdgeId(editorConnectionObj) // should be unique, no need for ensureUniqueId()
-        this.sourceNode = graph.nodesMap[editorConnectionObj.output_id]
-        this.targetNode = graph.nodesMap[editorConnectionObj.input_id]
-        this.portOut = editorConnectionObj.output_class
-        this.portIn = editorConnectionObj.input_class
+    constructor(conn, graph) {
+        this.id = buildEdgeId(conn) // should be unique, no need for ensureUniqueId()
+        this.sourceNode = graph.nodesMap[conn.output_id]
+        this.targetNode = graph.nodesMap[conn.input_id]
+        this.portOut = conn.output_class
+        this.portIn = conn.input_class
         graph.edgesMap[this.id] = this
         console.log("Edge added:", this.id, this.sourceNode.id, "-->", this.targetNode.id, this)
     }
