@@ -23,6 +23,7 @@ export class Graph {
 
     onEditorEdgeCreated(connectionObj) {
         // this gets called after the editor already created a node, so we can wrap our own Edge object around it
+        if (Edge.isInvalid(connectionObj, this)) return
         new Edge(connectionObj, this)
     }
 
@@ -43,6 +44,7 @@ export class Graph {
 
     onEditorEdgeRemoved(connection) {
         let edgeId = buildEdgeId(connection)
+        if (!this.edgesMap[edgeId]) return // edge was never really created --> attempt to double-book an input port
         delete this.edgesMap[edgeId]
         console.log("Edge removed", edgeId)
     }

@@ -11,6 +11,17 @@ export class Edge {
         console.log("Edge added:", this.id, this.sourceNode.id, "-->", this.targetNode.id, this)
     }
 
+    static isInvalid(conn, graph) {
+        let targetNode = graph.nodesMap[conn.input_id]
+        let portIn = conn.input_class
+        let isInvalid =
+            Object.values(graph.edgesMap).some(edge => (edge.targetNode === targetNode && edge.portIn === portIn))
+        if (isInvalid) {
+            graph.editor.removeSingleConnection(conn.output_id, conn.input_id, conn.output_class, conn.input_class)
+        }
+        return isInvalid
+    }
+
     highlight(bool) {
         let nodeOut = "node_out_node-" + this.sourceNode.id
         let nodeIn = "node_in_node-" + this.targetNode.id
