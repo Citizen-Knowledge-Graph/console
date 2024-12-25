@@ -81,7 +81,6 @@ export class Node {
                     <div class="view-mode-default-container">
                         ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
                         ${this.getMainHtml() ?? ""}
-                        ${this.getBottomMenuHtml() ?? ""}
                     </div>
                 </div>
                 <div class="resize-handle"></div>
@@ -171,7 +170,6 @@ export class Node {
     }
 
     getMainHtml() {}
-    getBottomMenuHtml() {}
     preResize() {}
     postResize(dy) {}
 

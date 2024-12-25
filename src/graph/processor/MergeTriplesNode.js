@@ -8,15 +8,6 @@ export class MergeTriplesNode extends CodeNode {
         super(initialValues, graph, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE ], TYPE.PROCESSOR)
     }
 
-    getBottomMenuHtml() {
-        return `<div class="bottom-menu"><div class="add-input">Add input port</div></div>`
-    }
-
-    postConstructor() {
-        super.postConstructor()
-        document.getElementById("node-" + this.id).querySelector(".add-input").addEventListener("click", () => this.addInputPort())
-    }
-
     async processIncomingData() {
         let store = new Store()
         for (let port of this.incomingData) {

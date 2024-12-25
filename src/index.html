@@ -238,6 +238,9 @@
                     let disabledItems = []
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
                     if (!hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
+                    if (node.constructor.name !== "MergeTriplesNode") {
+                        disabledItems.push("AddInputPortAction")
+                    }
                     setupNodeHeaderContextMenu(event, disabledItems, action => {
                         switch (action) {
                             case "RenameAction":
@@ -255,6 +258,9 @@
                                 break
                             case "ToggleViewModeAction":
                                 node.toggleViewMode()
+                                break;
+                            case "AddInputPortAction":
+                                node.addInputPort()
                                 break;
                         }
                     })

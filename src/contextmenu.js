@@ -54,7 +54,8 @@ const nodeHeaderCtxMenuItems = [
         submenu: [
             { label: "including incoming Edges", action: "DuplicateNodeWithIncomingEdgesAction" }
         ]
-    }
+    },
+    { label: "Add input port", action: "AddInputPortAction" }
 ]
 
 function buildMenu(items, disabledItems) {
