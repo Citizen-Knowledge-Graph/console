@@ -101,7 +101,7 @@
                 white-space: nowrap;
                 overflow: hidden;
             }
-            .title {
+            .node-title {
                 display: inline-block;
             }
             .hidden {
@@ -232,8 +232,14 @@
 
             editor.on("contextmenu", event => {
                 if (event.target.tagName !== "DIV") return // edges are "path"
+                let nodeDivId
                 if (event.target.className.includes("title-box")) {
-                    let nodeDivId = event.target.parentElement.parentElement.parentElement.id
+                    nodeDivId = event.target.parentElement.parentElement.parentElement.id
+                }
+                if (event.target.className.includes("node-title")) {
+                    nodeDivId = event.target.parentElement.parentElement.parentElement.parentElement.id
+                }
+                if (nodeDivId) {
                     let node = graph.nodesMap[nodeDivId.split("-")[1]]
                     let disabledItems = []
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
@@ -290,7 +296,8 @@
                     if (event.button === 2 && (
                         event.target.classList.contains("drawflow") ||
                         event.target.classList.contains("parent-drawflow") ||
-                        event.target.classList.contains("title-box")
+                        event.target.classList.contains("title-box") ||
+                        event.target.className.includes("node-title")
                     )) {
                         // otherwise mouse movement after right-click translates the canvas or node
                         event.stopPropagation()

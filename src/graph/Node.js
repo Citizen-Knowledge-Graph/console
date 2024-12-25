@@ -72,7 +72,7 @@ export class Node {
         return `
             <div>
                 <div class="title-box ${this.getTitleBoxClass()}">
-                    <div class="title" title="${this.constructor.name}">${this.name}</div>
+                    <div class="node-title" title="${this.constructor.name}">${this.name}</div>
                 </div>
                 <div class="box">
                     <div class="view-mode-button-container hidden">
@@ -89,7 +89,7 @@ export class Node {
 
     setName(name) {
         this.name = name
-        this.nodeDiv.querySelector(".title").textContent = name
+        this.nodeDiv.querySelector(".node-title").textContent = name
     }
 
     postConstructor() {
