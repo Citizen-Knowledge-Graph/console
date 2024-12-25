@@ -14,24 +14,23 @@ export class Node {
         this.incomingData = []
         this.ranThisRound = false
         this.viewMode = VIEW_MODE.DEFAULT
+        this.wasResized = false
         this.postConstructor()
         if (initialValues.value) this.setValue(initialValues.value)
         requestAnimationFrame(() => { // otherwise the height is not correct
             this.initialWidth = this.nodeDiv.offsetWidth
             this.initialHeight = this.nodeDiv.offsetHeight
-            if (initialValues.size) {
-                this.setSize(initialValues.size[0], initialValues.size[1])
-            }
+            if (initialValues.size) this.setSize(initialValues.size[0], initialValues.size[1])
         })
         console.log("Node added:", this.id, "\"" + this.name)
     }
 
     resetSize() {
+        this.setValue(this.getValue().trim())
         this.setSize(this.initialWidth, this.initialHeight)
-    }
-
-    hasDefaultSize() {
-        return this.nodeDiv.offsetWidth === this.initialWidth && this.nodeDiv.offsetHeight === this.initialHeight
+        this.nodeDiv.style.removeProperty("width")
+        this.nodeDiv.style.removeProperty("height")
+        this.wasResized = false
     }
 
     getSize() {
@@ -47,6 +46,7 @@ export class Node {
         this.nodeDiv.style.setProperty("height", height + "px", "important")
         this.postResize(dy)
         this.editor.updateConnectionNodes("node-" + this.id)
+        this.wasResized = true
     }
 
     isProcessor() {

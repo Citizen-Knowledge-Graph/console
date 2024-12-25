@@ -172,7 +172,7 @@ export class Graph {
             let editorNode = this.editor.getNodeFromId(node.id)
             writer.addQuad(n, hasPosX, DataFactory.literal(editorNode.pos_x))
             writer.addQuad(n, hasPosY, DataFactory.literal(editorNode.pos_y))
-            if (!node.hasDefaultSize()) {
+            if (node.wasResized) {
                 writer.addQuad(n, hasWidth, DataFactory.literal(node.getSize().width))
                 writer.addQuad(n, hasHeight, DataFactory.literal(node.getSize().height))
             }
