@@ -71,7 +71,9 @@ export class Node {
     getHtml() {
         return `
             <div>
-                <div class="title-box ${this.getTitleBoxClass()}">${this.name}</div>
+                <div class="title-box ${this.getTitleBoxClass()}">
+                    <div class="title" title="${this.constructor.name}">${this.name}</div>
+                </div>
                 <div class="box">
                     <div class="view-mode-button-container hidden">
                         <input type="button" class="modal-open-btn" value="Show Content">
@@ -88,7 +90,7 @@ export class Node {
 
     setName(name) {
         this.name = name
-        this.nodeDiv.querySelector(".title-box").textContent = name
+        this.nodeDiv.querySelector(".title").textContent = name
     }
 
     postConstructor() {
