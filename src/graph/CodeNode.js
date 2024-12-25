@@ -60,6 +60,17 @@ export class CodeNode extends Node {
         this.editor.updateConnectionNodes(`node-${this.id}`)
     }
 
+    hideContent() {
+        super.hideContent()
+        this.editor.updateConnectionNodes(`node-${this.id}`)
+    }
+
+    unhideContent() {
+        super.unhideContent()
+        this.codeMirror.refresh()
+        this.editor.updateConnectionNodes(`node-${this.id}`)
+    }
+
     clear() {
         this.setValue("")
     }

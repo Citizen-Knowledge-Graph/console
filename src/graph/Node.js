@@ -93,6 +93,11 @@ export class Node {
         this.nodeDiv.querySelector(".view-mode-button-container").classList.remove("hidden")
     }
 
+    unhideContent() {
+        this.nodeDiv.querySelector(".view-mode-default-container").classList.remove("hidden")
+        this.nodeDiv.querySelector(".view-mode-button-container").classList.add("hidden")
+    }
+
     contentIsHidden() {
         return this.nodeDiv.querySelector(".view-mode-default-container").classList.contains("hidden")
     }
@@ -104,10 +109,7 @@ export class Node {
 
     postConstructor() {
         let showContentBtn = document.querySelector(`#node-${this.id} .show-content-btn`)
-        showContentBtn.addEventListener("click", () => {
-            this.nodeDiv.querySelector(".view-mode-default-container").classList.remove("hidden")
-            this.nodeDiv.querySelector(".view-mode-button-container").classList.add("hidden")
-        })
+        showContentBtn.addEventListener("click", () => this.unhideContent())
     }
 
     toggleViewMode() {
