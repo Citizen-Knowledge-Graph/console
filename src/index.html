@@ -233,10 +233,10 @@
             editor.on("contextmenu", event => {
                 if (event.target.tagName !== "DIV") return // edges are "path"
                 let nodeDivId
-                if (event.target.className.includes("title-box")) {
+                if (event.target.classList.contains("title-box")) {
                     nodeDivId = event.target.parentElement.parentElement.parentElement.id
                 }
-                if (event.target.className.includes("node-title")) {
+                if (event.target.classList.contains("node-title")) {
                     nodeDivId = event.target.parentElement.parentElement.parentElement.parentElement.id
                 }
                 if (nodeDivId) {
@@ -297,7 +297,7 @@
                         event.target.classList.contains("drawflow") ||
                         event.target.classList.contains("parent-drawflow") ||
                         event.target.classList.contains("title-box") ||
-                        event.target.className.includes("node-title")
+                        event.target.classList.contains("node-title")
                     )) {
                         // otherwise mouse movement after right-click translates the canvas or node
                         event.stopPropagation()
