@@ -57,18 +57,18 @@ export class CodeNode extends Node {
 
     setValue(value) {
         this.codeMirror.setValue(value)
-        this.editor.updateConnectionNodes(`node-${this.id}`)
+        this.rerenderConnectingEdges()
     }
 
     hideContent() {
         super.hideContent()
-        this.editor.updateConnectionNodes(`node-${this.id}`)
+        this.rerenderConnectingEdges()
     }
 
     unhideContent() {
         super.unhideContent()
         this.codeMirror.refresh()
-        this.editor.updateConnectionNodes(`node-${this.id}`)
+        this.rerenderConnectingEdges()
     }
 
     clear() {

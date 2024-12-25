@@ -46,8 +46,12 @@ export class Node {
         this.nodeDiv.style.setProperty("width", width + "px", "important")
         this.nodeDiv.style.setProperty("height", height + "px", "important")
         this.postResize(dy)
-        this.editor.updateConnectionNodes("node-" + this.id)
+        this.rerenderConnectingEdges()
         this.wasResized = true
+    }
+
+    rerenderConnectingEdges = () => {
+        this.editor.updateConnectionNodes("node-" + this.id)
     }
 
     isProcessor() {
