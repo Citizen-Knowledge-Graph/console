@@ -14,14 +14,16 @@ export class Graph {
         this.applySettings()
     }
 
-    updateCSS(name, value) {
-        document.documentElement.style.setProperty(name, value)
-    }
-
     applySettings() {
         for (let setting of Object.values(this.settings)) {
-            this.updateCSS(setting.variable, setting.value)
+            document.documentElement.style.setProperty(setting.variable, setting.value)
         }
+        Object.values(this.nodesMap).forEach(node => node.rerenderConnectingEdges())
+    }
+
+    updateSettings(newValues) {
+        for (let [key, value] of Object.entries(newValues)) this.settings[key].value = value
+        this.applySettings()
     }
 
     clear() {

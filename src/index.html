@@ -140,6 +140,9 @@
                 cursor: pointer;
                 line-height: normal !important;
             }
+            .input-without-outline {
+                border: 0;
+            }
         </style>
     </head>
     <body>
@@ -234,10 +237,35 @@
             document.getElementById("settingsBtn").addEventListener("click", () => {
                 document.getElementById("modal-close-btn").value = "Cancel"
                 let modalContent = showModal()
-                modalContent.innerHTML = `
-                    <h2>Settings</h2>
-                `
-                // TODO
+                let table = document.createElement("table")
+                table.classList.add("result-table")
+                let newSettingValues = {}
+                for (const [key, obj] of Object.entries(graph.settings)) {
+                    newSettingValues[key] = obj.value
+                    let input = document.createElement("input")
+                    input.type = "text"
+                    input.classList.add("input-without-outline")
+                    input.value = obj.value
+                    input.addEventListener("input", () => newSettingValues[key] = input.value)
+                    let tr = document.createElement("tr")
+                    let td = document.createElement("td")
+                    td.appendChild(document.createTextNode(obj.label))
+                    tr.appendChild(td)
+                    td = document.createElement("td")
+                    td.appendChild(input)
+                    tr.appendChild(td)
+                    table.appendChild(tr)
+                }
+                modalContent.appendChild(table)
+                let saveBtn = document.createElement("input")
+                saveBtn.type = "button"
+                saveBtn.style.marginTop = "20px"
+                saveBtn.value = "Save"
+                saveBtn.addEventListener("click", () => {
+                    closeModal()
+                    graph.updateSettings(newSettingValues)
+                })
+                document.getElementById("modal-button-row").appendChild(saveBtn)
             })
             document.getElementById("howtoBtn").addEventListener("click", () => {
                 let modalContent = showModal()
