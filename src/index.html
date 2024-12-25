@@ -147,7 +147,9 @@
             <div id="modal-overlay" class="modal-overlay">
                 <div id="modal-window">
                     <div id="modal-window-content"></div>
-                    <input type="button" id="modal-close-btn" style="margin-top: 20px" value="Close" />
+                    <div id="modal-button-row">
+                        <input type="button" id="modal-close-btn" style="margin-top: 20px" value="Close" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,9 +195,12 @@
             }
 
             const closeModal = () => {
+                document.getElementById("modal-close-btn").value = "Close"
                 document.getElementById("modal-container").classList.add("hidden")
                 const modalContent = document.getElementById("modal-window-content")
                 while (modalContent.firstChild) modalContent.firstChild.remove()
+                const buttonRow = document.getElementById("modal-button-row");
+                [...buttonRow.children].filter(child => child.id !== "modal-close-btn").forEach(child => child.remove())
             }
             document.getElementById("modal-close-btn").addEventListener("click", () => closeModal())
 
@@ -227,6 +232,7 @@
                 graph.export()
             })
             document.getElementById("settingsBtn").addEventListener("click", () => {
+                document.getElementById("modal-close-btn").value = "Cancel"
                 let modalContent = showModal()
                 modalContent.innerHTML = `
                     <h2>Settings</h2>
