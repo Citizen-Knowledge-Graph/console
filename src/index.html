@@ -237,7 +237,7 @@
                     if (!hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
                     setupNodeHeaderContextMenu(event, disabledItems, action => {
                         switch (action) {
-                            case "ChangeNameAction":
+                            case "RenameAction":
                                 let name = prompt("New name", node.name)
                                 if (name) node.setName(name)
                                 break
