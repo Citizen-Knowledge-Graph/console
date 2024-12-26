@@ -226,6 +226,13 @@
                 return span
             }
 
+            const loadTurtle = (turtle) => {
+                if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
+                closeModal()
+                wipe()
+                graph.import(turtle)
+            }
+
             document.getElementById("loadBtn").addEventListener("click", async () => {
                 const modalContent = showModal()
                 let title = document.createElement("h2")
@@ -260,12 +267,7 @@
                     tr.appendChild(td)
                     td = document.createElement("td")
                     td.style.textAlign = "center"
-                    td.appendChild(buildActionSpan("Load", () => {
-                        if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
-                        closeModal()
-                        wipe()
-                        graph.import(localStorage.getItem(graphId))
-                    }))
+                    td.appendChild(buildActionSpan("Load", () => loadTurtle(localStorage.getItem(graphId))))
                     td.appendChild(buildActionSpan("Delete", () => {
                         if (confirm("Really delete this graph from local storage?")) {
                             localStorage.removeItem(graphId)
@@ -402,12 +404,7 @@
                     td.appendChild(document.createTextNode(details.name ? details.name : ""))
                     tr.appendChild(td)
                     td = document.createElement("td")
-                    td.appendChild(buildActionSpan("Load", () => {
-                        if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
-                        closeModal()
-                        wipe()
-                        graph.import(turtle)
-                    }))
+                    td.appendChild(buildActionSpan("Load", () => loadTurtle(turtle)))
                     tr.appendChild(td)
                     table.appendChild(tr)
                 }
