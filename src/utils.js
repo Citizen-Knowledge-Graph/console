@@ -145,3 +145,15 @@ export function getTimestamp() {
     const pad = n => n.toString().padStart(2, "0")
     return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`
 }
+
+export async function getDetailsFromGraphTurtle(turtle) {
+    let query = `
+        PREFIX ff: <https://foerderfunke.org/default#>
+        SELECT * WHERE {
+            ff:graph ff:hasName ?name
+        }`
+    let rows = await runSparqlSelectQueryOnRdfString(query, turtle)
+    let details = {}
+    if (rows.length > 0 && rows[0].name) details.name = rows[0].name
+    return details
+}
