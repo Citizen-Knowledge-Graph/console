@@ -125,7 +125,7 @@ export class Graph {
 
     async save() {
         await this.toTurtle(turtle => {
-            // TODO
+            localStorage.setItem(this.id, turtle)
         })
     }
 
