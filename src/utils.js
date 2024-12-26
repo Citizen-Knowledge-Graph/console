@@ -1,4 +1,4 @@
-import { Parser, QueryEngine, rdf, Store, Validator, Writer } from "./assets/bundle.js"
+import { Parser, QueryEngine, rdf, Store, Validator, Writer, slugify } from "./assets/bundle.js"
 
 export async function fetchAsset(relPath) {
     const response = await fetch("assets/" + relPath, {
@@ -19,6 +19,11 @@ export function download(content, type, filename) {
     a.click()
     document.body.removeChild(a)
     window.URL.revokeObjectURL(url)
+}
+
+export function downloadGraph(name, turtle) {
+    let namePart = name ? `${slugify(name, {lower: true})}_` : ""
+    download(turtle, "text/turtle", `semOps_export_${namePart}${getTimestamp()}.ttl`)
 }
 
 /*
@@ -156,4 +161,12 @@ export async function getDetailsFromGraphTurtle(turtle) {
     let details = {}
     if (rows.length > 0 && rows[0].name) details.name = rows[0].name
     return details
+}
+
+export function ensureUniqueId(name, map) {
+    let id = slugify(name, { lower: true })
+    if (!map.hasOwnProperty(id)) return id
+    let i = 1
+    while (map.hasOwnProperty(id + "_" + i)) i ++
+    return id + "_" + i
 }

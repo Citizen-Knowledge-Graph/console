@@ -1,6 +1,6 @@
 import { factoryCreateNode, TYPE } from "./nodeFactory.js"
-import { buildEdgeId, download, getTimestamp, runSparqlSelectQueryOnRdfString } from "../utils.js"
-import { DataFactory, slugify, Writer } from "../assets/bundle.js"
+import { buildEdgeId, downloadGraph, getTimestamp, runSparqlSelectQueryOnRdfString } from "../utils.js"
+import { DataFactory, Writer } from "../assets/bundle.js"
 import { Edge } from "./Edge.js"
 
 export class Graph {
@@ -130,10 +130,7 @@ export class Graph {
     }
 
     async export() {
-        await this.toTurtle(turtle => {
-            let namePart = this.name ? `${slugify(this.name, {lower: true})}_` : ""
-            download(turtle, "text/turtle", `semOps_export_${namePart}${getTimestamp()}.ttl`)
-        })
+        await this.toTurtle(turtle => downloadGraph(this.name, turtle))
     }
 
     async toTurtle(callback) {

@@ -181,7 +181,7 @@
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
             import { Drawflow, JSZip } from "./assets/bundle.js"
             import { setupNodeHeaderContextMenu, setupCanvasContextMenu } from "./contextmenu.js"
-            import { getDetailsFromGraphTurtle, download, getTimestamp } from "./utils.js"
+            import { getDetailsFromGraphTurtle, download, getTimestamp, downloadGraph, ensureUniqueId } from "./utils.js"
             import { Graph } from "./graph/Graph.js"
             import { exampleData } from "./graph/nodeFactory.js"
 
@@ -228,23 +228,25 @@
             document.getElementById("loadBtn").addEventListener("click", async () => {
                 const modalContent = showModal()
                 // examples
+                const exTable = document.createElement("table")
                     // TODO
                 // local storage
-                const table = document.createElement("table")
-                table.classList.add("result-table")
+                const lsTable = document.createElement("table")
+                lsTable.classList.add("result-table")
                 let th = document.createElement("th")
                 th.appendChild(document.createTextNode("Graph ID"))
-                table.appendChild(th)
+                lsTable.appendChild(th)
                 th = document.createElement("th")
                 th.appendChild(document.createTextNode("Name"))
-                table.appendChild(th)
+                lsTable.appendChild(th)
                 th = document.createElement("th")
                 th.appendChild(document.createTextNode("Options"))
-                table.appendChild(th)
+                lsTable.appendChild(th)
                 let graphIds = Object.keys(localStorage).filter(key => key.startsWith("graph_"))
-                for (let graphId of graphIds) {
-                    let details = await getDetailsFromGraphTurtle(localStorage.getItem(graphId))
+                let rows = {}
+                const addRow = (table, graphId, details) => {
                     let tr = document.createElement("tr")
+                    rows[graphId] = tr
                     let td = document.createElement("td")
                     td.style.fontSize = "small"
                     let span = document.createElement("span")
@@ -256,15 +258,34 @@
                     tr.appendChild(td)
                     td = document.createElement("td")
                     td.style.textAlign = "center"
-                    td.appendChild(buildActionSpan("Load", () => {}))
-                    td.appendChild(buildActionSpan("Delete", () => {}))
-                    td.appendChild(buildActionSpan("Export", () => {}))
-                    td.appendChild(buildActionSpan("Rename", () => {}))
-                    td.appendChild(buildActionSpan("Duplicate", () => {}))
+                    td.appendChild(buildActionSpan("Load", () => {
+                        if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
+                        closeModal()
+                        wipe()
+                        graph.import(localStorage.getItem(graphId))
+                    }))
+                    td.appendChild(buildActionSpan("Delete", () => {
+                        if (confirm("Really delete this graph from local storage?")) {
+                            localStorage.removeItem(graphId)
+                            tr.remove()
+                        }
+                    }))
+                    td.appendChild(buildActionSpan("Export", () => {
+                        downloadGraph(details.name, localStorage.getItem(graphId))
+                    }))
+                    td.appendChild(buildActionSpan("Duplicate", () => {
+                        let newGraphId = ensureUniqueId(graphId, localStorage)
+                        localStorage.setItem(newGraphId, localStorage.getItem(graphId))
+                        addRow(lsTable, newGraphId, details)
+                    }))
                     tr.appendChild(td)
                     table.appendChild(tr)
                 }
-                modalContent.appendChild(table)
+                for (let graphId of graphIds) {
+                    let details = await getDetailsFromGraphTurtle(localStorage.getItem(graphId))
+                    addRow(lsTable, graphId, details)
+                }
+                modalContent.appendChild(lsTable)
                 const buttonRow = document.getElementById("modal-button-row")
                 buttonRow.appendChild(buildActionSpan("Delete-All", () => {
                     if (confirm("Really delete all graphs from local storage?")) {
