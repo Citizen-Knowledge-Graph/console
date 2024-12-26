@@ -146,17 +146,15 @@ export class Node {
     }
 
     highlight(bool) {
-        let el = document.getElementById("node-" + this.id)
         if (bool) {
-            el.classList.add("highlighted-node")
+            this.nodeDiv.classList.add("highlighted-node")
         } else {
-            el.classList.remove("highlighted-node")
+            this.nodeDiv.classList.remove("highlighted-node")
         }
     }
 
     highlightPort(portClass) {
-        let nodeEl = document.getElementById("node-" + this.id)
-        let inputDivs = nodeEl.querySelector(portClass.includes("input") ? ".inputs" : ".outputs").querySelectorAll("div")
+        let inputDivs = this.nodeDiv.querySelector(portClass.includes("input") ? ".inputs" : ".outputs").querySelectorAll("div")
         for (let div of inputDivs) {
             if (div.classList.contains(portClass)) {
                 div.classList.add("highlighted-port")
@@ -165,8 +163,7 @@ export class Node {
     }
 
     unhighlightAllPorts() {
-        let nodeEl = document.getElementById("node-" + this.id)
-        let divs = nodeEl.querySelectorAll(".inputs div, .outputs div")
+        let divs = this.nodeDiv.querySelectorAll(".inputs div, .outputs div")
         for (let div of divs) {
             div.classList.remove("highlighted-port")
         }
