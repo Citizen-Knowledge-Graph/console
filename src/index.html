@@ -233,6 +233,9 @@
                 // local storage
                 const lsTable = document.createElement("table")
                 lsTable.classList.add("result-table")
+                let title = document.createElement("h2")
+                title.appendChild(document.createTextNode("Load from local storage"))
+                modalContent.appendChild(title)
                 let th = document.createElement("th")
                 th.appendChild(document.createTextNode("Graph ID"))
                 lsTable.appendChild(th)
@@ -328,6 +331,9 @@
             document.getElementById("settingsBtn").addEventListener("click", () => {
                 document.getElementById("modal-close-btn").value = "Cancel"
                 let modalContent = showModal()
+                let title = document.createElement("h2")
+                title.appendChild(document.createTextNode("Settings"))
+                modalContent.appendChild(title)
                 let table = document.createElement("table")
                 table.classList.add("result-table")
                 let newSettingValues = {}
