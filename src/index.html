@@ -250,7 +250,9 @@
                     let td = document.createElement("td")
                     td.style.fontSize = "small"
                     let span = document.createElement("span")
-                    span.innerHTML = graphId + (graphId === graph.id ? "<br><span style='color: blue'>currently open</span>" : "")
+                    span.innerHTML = graphId + (graphId === graph.id ? "<br><span style='color: blue' " +
+                        "title='The content is only exactly the same though, if you made no edits after the last save.'>" +
+                        "currently open</span>" : "")
                     td.appendChild(span)
                     tr.appendChild(td)
                     td = document.createElement("td")
