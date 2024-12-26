@@ -150,8 +150,8 @@
             <div id="modal-overlay" class="modal-overlay">
                 <div id="modal-window">
                     <div id="modal-window-content"></div>
-                    <div id="modal-button-row">
-                        <input type="button" id="modal-close-btn" style="margin-top: 20px" value="Close" />
+                    <div id="modal-button-row" style="margin-top: 25px">
+                        <input type="button" id="modal-close-btn" style="margin-right: 3px" value="Close" />
                     </div>
                 </div>
             </div>
@@ -259,13 +259,20 @@
                 modalContent.appendChild(table)
                 let saveBtn = document.createElement("input")
                 saveBtn.type = "button"
-                saveBtn.style.marginTop = "20px"
                 saveBtn.value = "Save"
                 saveBtn.addEventListener("click", () => {
                     closeModal()
                     graph.updateSettings(newSettingValues)
                 })
                 document.getElementById("modal-button-row").appendChild(saveBtn)
+                let resetBtn = document.createElement("span")
+                resetBtn.textContent = "Reset"
+                resetBtn.style = "cursor: pointer; margin-top: 4px; font-size: small; color: gray; float: right"
+                resetBtn.addEventListener("click", () => {
+                    closeModal()
+                    graph.resetSettings()
+                })
+                document.getElementById("modal-button-row").appendChild(resetBtn)
             })
             document.getElementById("howtoBtn").addEventListener("click", () => {
                 let modalContent = showModal()
