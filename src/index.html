@@ -290,7 +290,7 @@
                 buttonRow.appendChild(buildActionSpan("Delete-All", () => {
                     if (confirm("Really delete all graphs from local storage?")) {
                         for (let graphId of graphIds) localStorage.removeItem(graphId)
-                        closeModal()
+                        Object.values(rows).forEach(row => row.remove())
                     }
                 }))
                 buttonRow.appendChild(buildActionSpan("Export-All", () => {
