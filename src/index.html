@@ -247,7 +247,9 @@
                     let tr = document.createElement("tr")
                     let td = document.createElement("td")
                     td.style.fontSize = "small"
-                    td.appendChild(document.createTextNode(graphId))
+                    let span = document.createElement("span")
+                    span.innerHTML = graphId + (graphId === graph.id ? "<br><span style='color: blue'>currently open</span>" : "")
+                    td.appendChild(span)
                     tr.appendChild(td)
                     td = document.createElement("td")
                     td.appendChild(document.createTextNode(details.name ? details.name : ""))
