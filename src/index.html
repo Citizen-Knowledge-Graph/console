@@ -233,6 +233,14 @@
                 graph.import(turtle)
             }
 
+            const buildTableHeader = (headers, table) => {
+                for (let header of headers) {
+                    let th = document.createElement("th")
+                    th.appendChild(document.createTextNode(header))
+                    table.appendChild(th)
+                }
+            }
+
             document.getElementById("loadBtn").addEventListener("click", async () => {
                 const modalContent = showModal()
                 let title = document.createElement("h2")
@@ -240,15 +248,7 @@
                 modalContent.appendChild(title)
                 const table = document.createElement("table")
                 table.classList.add("result-table")
-                let th = document.createElement("th")
-                th.appendChild(document.createTextNode("Graph ID"))
-                table.appendChild(th)
-                th = document.createElement("th")
-                th.appendChild(document.createTextNode("Name"))
-                table.appendChild(th)
-                th = document.createElement("th")
-                th.appendChild(document.createTextNode("Options"))
-                table.appendChild(th)
+                buildTableHeader(["Graph ID", "Name", "Options"], table)
                 let graphIds = Object.keys(localStorage).filter(key => key.startsWith("graph_"))
                 let rows = {}
                 const addRow = (graphId, details) => {
@@ -335,12 +335,7 @@
                 modalContent.appendChild(title)
                 let table = document.createElement("table")
                 table.classList.add("result-table")
-                let th = document.createElement("th")
-                th.appendChild(document.createTextNode("Parameter"))
-                table.appendChild(th)
-                th = document.createElement("th")
-                th.appendChild(document.createTextNode("Value"))
-                table.appendChild(th)
+                buildTableHeader(["Parameter", "Value"], table)
                 let newSettingValues = {}
                 for (const [key, obj] of Object.entries(graph.settings)) {
                     newSettingValues[key] = obj.value
@@ -394,15 +389,7 @@
                 modalContent.appendChild(title)
                 let table = document.createElement("table")
                 table.classList.add("result-table")
-                let th = document.createElement("th")
-                th.appendChild(document.createTextNode("File"))
-                table.appendChild(th)
-                th = document.createElement("th")
-                th.appendChild(document.createTextNode("Name"))
-                table.appendChild(th)
-                th = document.createElement("th")
-                th.appendChild(document.createTextNode("Options"))
-                table.appendChild(th)
+                buildTableHeader(["File", "Name", "Options"], table)
                 let response = await fetch("assets/examples-dir.txt")
                 const fileNameList = await response.text()
                 for (const fileName of fileNameList.split("\n")) {
