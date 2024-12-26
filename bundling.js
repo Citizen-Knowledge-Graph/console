@@ -7,6 +7,7 @@ import CodeMirror from "codemirror"
 import "codemirror/mode/turtle/turtle.js"
 import "codemirror/mode/sparql/sparql.js"
 import slugify from "slugify"
+import JSZip from "jszip"
 
 export {
     Parser, Store, Writer, DataFactory,
@@ -15,5 +16,6 @@ export {
     rdf,
     Drawflow,
     CodeMirror,
-    slugify
+    slugify,
+    JSZip
 }

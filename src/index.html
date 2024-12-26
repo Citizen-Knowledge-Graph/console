@@ -179,9 +179,9 @@
         <div id="drawflow"></div>
         <script type="module">
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
-            import { Drawflow } from "./assets/bundle.js"
+            import { Drawflow, JSZip } from "./assets/bundle.js"
             import { setupNodeHeaderContextMenu, setupCanvasContextMenu } from "./contextmenu.js"
-            import { getDetailsFromGraphTurtle } from "./utils.js"
+            import { getDetailsFromGraphTurtle, download, getTimestamp } from "./utils.js"
             import { Graph } from "./graph/Graph.js"
             import { exampleData } from "./graph/nodeFactory.js"
 
@@ -241,8 +241,8 @@
                 th = document.createElement("th")
                 th.appendChild(document.createTextNode("Options"))
                 table.appendChild(th)
-                for (let graphId of Object.keys(localStorage)) {
-                    if (!graphId.startsWith("graph_")) continue
+                let graphIds = Object.keys(localStorage).filter(key => key.startsWith("graph_"))
+                for (let graphId of graphIds) {
                     let details = await getDetailsFromGraphTurtle(localStorage.getItem(graphId))
                     let tr = document.createElement("tr")
                     let td = document.createElement("td")
@@ -266,8 +266,19 @@
                 }
                 modalContent.appendChild(table)
                 const buttonRow = document.getElementById("modal-button-row")
-                buttonRow.appendChild(buildActionSpan("Delete-All", () => {}))
-                buttonRow.appendChild(buildActionSpan("Export-All", () => {}))
+                buttonRow.appendChild(buildActionSpan("Delete-All", () => {
+                    if (confirm("Really delete all graphs from local storage?")) {
+                        for (let graphId of graphIds) localStorage.removeItem(graphId)
+                        closeModal()
+                    }
+                }))
+                buttonRow.appendChild(buildActionSpan("Export-All", () => {
+                    let zip = new JSZip()
+                    for (let graphId of graphIds) zip.file(graphId + ".ttl", localStorage.getItem(graphId))
+                    zip.generateAsync({ type: "blob" }).then(content => {
+                        download(content, "application/zip", `semOps_exportAllLocalStorage_${getTimestamp()}.zip`)
+                    })
+                }))
             })
             document.getElementById("newBtn").addEventListener("click", () => wipe())
             document.getElementById("fileUpload").addEventListener("change", () => {
