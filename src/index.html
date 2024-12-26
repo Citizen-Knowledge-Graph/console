@@ -335,6 +335,12 @@
                 modalContent.appendChild(title)
                 let table = document.createElement("table")
                 table.classList.add("result-table")
+                let th = document.createElement("th")
+                th.appendChild(document.createTextNode("Parameter"))
+                table.appendChild(th)
+                th = document.createElement("th")
+                th.appendChild(document.createTextNode("Value"))
+                table.appendChild(th)
                 let newSettingValues = {}
                 for (const [key, obj] of Object.entries(graph.settings)) {
                     newSettingValues[key] = obj.value
@@ -388,6 +394,15 @@
                 modalContent.appendChild(title)
                 let table = document.createElement("table")
                 table.classList.add("result-table")
+                let th = document.createElement("th")
+                th.appendChild(document.createTextNode("File"))
+                table.appendChild(th)
+                th = document.createElement("th")
+                th.appendChild(document.createTextNode("Name"))
+                table.appendChild(th)
+                th = document.createElement("th")
+                th.appendChild(document.createTextNode("Options"))
+                table.appendChild(th)
                 let response = await fetch("assets/examples-dir.txt")
                 const fileNameList = await response.text()
                 for (const fileName of fileNameList.split("\n")) {
