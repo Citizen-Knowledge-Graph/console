@@ -52,3 +52,14 @@
     color: #999;
     cursor: default;
 }
+
+.no-action-menu-item {
+    font-weight: bold;
+    color: darkblue;
+    cursor: default !important;
+    background: lightcyan;
+}
+
+.no-action-menu-item:hover {
+    background: lightcyan !important;
+}

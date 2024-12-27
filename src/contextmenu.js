@@ -59,22 +59,40 @@ const nodeHeaderCtxMenuItems = [
     { label: "Add input port", action: "AddInputPortAction" }
 ]
 
+const multipleNodesHeaderCtxMenuItems = (count) => {
+    return [
+        { label: `Action on ${count} Nodes` },
+        { label: "Hide Content of Nodes", action: "MultipleHideContentAction" },
+        { label: "Delete Nodes", action: "MultipleDeleteNodeAction" },
+        {
+            label: "Duplicate Nodes", action: "MultipleDuplicateNodeAction",
+            submenu: [
+                { label: "including Edges", action: "MultipleDuplicateNodeWithEdgesAction" }
+            ]
+        }
+    ]
+}
+
 function buildMenu(items, disabledItems) {
     return items.map(item => {
         let hasSub = item.submenu && item.submenu.length > 0
         let actionAttr = item.action ? ' data-action="' + item.action + '" ' : ''
-        let classAttr = ' class="sub' + (disabledItems.includes(item.action) ? ' disabled"' : '"')
         let labelAttr = ' data-label="' + item.label + '" '
+        let classes = []
+        if (disabledItems.includes(item.action)) classes.push("disabled")
         if (hasSub) {
+            classes.push("sub")
+            let classAttr = ' class="' + classes.join(" ") + '"'
             return '<div' + classAttr + actionAttr + labelAttr + '>' +
                 item.label + ' &#8250;' +
                 '<div class="submenu">' + buildMenu(item.submenu, disabledItems) + '</div>' +
                 '</div>'
         } else {
-            let classAttr = disabledItems.includes(item.action) ? ' class="disabled"' : ''
+            if (!item.action) classes.push("no-action-menu-item")
+            let classAttr = classes.length > 0 ? ' class="' + classes.join(" ") + '"' : ''
             return '<div' + classAttr + actionAttr + labelAttr + '>' + item.label + '</div>'
         }
-    }).join('')
+    }).join("")
 }
 
 export function setupCanvasContextMenu(event, callback) {
@@ -83,6 +101,10 @@ export function setupCanvasContextMenu(event, callback) {
 
 export function setupNodeHeaderContextMenu(event, disabledItems, callback) {
     setupContextMenu(event, nodeHeaderCtxMenuItems, disabledItems, callback)
+}
+
+export function setupMultipleNodesHeaderContextMenu(event, nodesCount, disabledItems, callback) {
+    setupContextMenu(event, multipleNodesHeaderCtxMenuItems(nodesCount), disabledItems, callback)
 }
 
 export function setupContextMenu(event, menuItems, disabledItems, callback) {

@@ -181,7 +181,7 @@
         <script type="module">
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
             import { Drawflow, JSZip } from "./assets/bundle.js"
-            import { setupNodeHeaderContextMenu, setupCanvasContextMenu } from "./contextmenu.js"
+            import { setupNodeHeaderContextMenu, setupMultipleNodesHeaderContextMenu, setupCanvasContextMenu } from "./contextmenu.js"
             import { getDetailsFromGraphTurtle, download, getTimestamp, downloadGraph, ensureUniqueId } from "./utils.js"
             import { Graph } from "./graph/Graph.js"
             import { exampleData } from "./graph/nodeFactory.js"
@@ -422,6 +422,7 @@
                     event.preventDefault()
                     graph.save()
                 }
+                // if (modifierKey && event.key === "a") {} select all nodes TODO
                 if (event.key === "Escape") closeModal()
                 if (event.key === "Shift") shiftKeyIsPressed = true
             })
@@ -440,6 +441,15 @@
                 }
                 if (nodeDivId) {
                     let node = graph.nodesMap[nodeDivId.split("-")[1]]
+                    if (selectedNodes.length > 1 && selectedNodes.includes(node.id)) {
+                        let disabledItems = []
+                        setupMultipleNodesHeaderContextMenu(event, selectedNodes.length, disabledItems, action => {
+                            switch (action) {
+                                // TODO
+                            }
+                        })
+                        return
+                    }
                     let disabledItems = []
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
                     if (!hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
