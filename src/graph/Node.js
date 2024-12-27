@@ -153,6 +153,14 @@ export class Node {
         }
     }
 
+    setSelected() {
+        this.nodeDiv.classList.add("selected")
+    }
+
+    removeSelected() {
+        this.nodeDiv.classList.remove("selected")
+    }
+
     highlightPort(portClass) {
         let inputDivs = this.nodeDiv.querySelector(portClass.includes("input") ? ".inputs" : ".outputs").querySelectorAll("div")
         for (let div of inputDivs) {

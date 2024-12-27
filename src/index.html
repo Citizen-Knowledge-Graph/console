@@ -423,6 +423,10 @@
                     graph.save()
                 }
                 if (event.key === "Escape") closeModal()
+                if (event.key === "Shift") shiftKeyIsPressed = true
+            })
+            document.addEventListener("keyup", event => {
+                if (event.key === "Shift") shiftKeyIsPressed = false
             })
 
             editor.on("contextmenu", event => {
@@ -546,6 +550,40 @@
             editor.on("connectionCreated", connection => graph.onEditorEdgeCreated(connection))
             editor.on("nodeRemoved", (id) => graph.onEditorNodeRemoved(id))
             editor.on("connectionRemoved", (connection) => graph.onEditorEdgeRemoved(connection))
+
+            let selectedNodes = []
+            let shiftKeyIsPressed = false
+            let timeSignals = []
+            // true: a node was selected and the user now clicked directly on another node
+            // false: a node was selected and the user now clicked somewhere else (like the canvas or an edge) to unselect it
+            let wasNodeSelectionJumpCase = false
+
+            function unselectSelectedNodes() {
+                for (let nodeId of selectedNodes) graph.nodesMap[nodeId].removeSelected()
+                selectedNodes = []
+            }
+
+            editor.on("nodeSelected", (id) => {
+                processTimeSignal(performance.now())
+                if (!shiftKeyIsPressed) unselectSelectedNodes()
+                selectedNodes.push(id)
+                for (let nodeId of selectedNodes) graph.nodesMap[nodeId].setSelected()
+            })
+
+            editor.on("nodeUnselected", () => {
+                processTimeSignal(performance.now())
+                setTimeout(() => {
+                    if (!wasNodeSelectionJumpCase) unselectSelectedNodes()
+                }, 30)
+            })
+
+            function processTimeSignal(t) {
+                timeSignals.push(t)
+                if (timeSignals.length > 1) {
+                    let timeDiff = timeSignals[timeSignals.length - 1] - timeSignals[timeSignals.length - 2]
+                    wasNodeSelectionJumpCase = timeDiff < 15
+                }
+            }
 
             // example graph
             const response = await fetch("examples/foerderfunke-mini.ttl")
