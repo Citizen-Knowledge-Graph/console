@@ -153,6 +153,11 @@
                 font-family: monospace;
                 color: gray;
             }
+            #resetZoomBtn {
+                color: blue;
+                margin-left: 20px;
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -181,6 +186,7 @@
             <span id="examplesBtn">Examples</span><span class="separator-span">|</span>
             <span id="howtoBtn">HowTo</span>
             <span id="graphTitle"></span>
+            <span id="resetZoomBtn" title="otherwise code editors won't work properly">reset zoom</span>
             <span id="githubBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
@@ -418,6 +424,10 @@
                 let name = prompt("Name your graph", graph.name)
                 if (name) graph.setName(name)
             })
+            document.getElementById("resetZoomBtn").addEventListener("click", () => {
+                editor.zoom_reset()
+                document.getElementById("resetZoomBtn").style.display = "none"
+            })
 
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
 
@@ -434,6 +444,10 @@
             })
             document.addEventListener("keyup", event => {
                 if (event.key === "Shift") shiftKeyIsPressed = false
+            })
+
+            editor.on("zoom", level => {
+                document.getElementById("resetZoomBtn").style.display = level === 1 ? "none": "inline"
             })
 
             editor.on("contextmenu", event => {
