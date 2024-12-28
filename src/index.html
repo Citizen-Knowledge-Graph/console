@@ -438,6 +438,10 @@
                     event.preventDefault()
                     graph.save()
                 }
+                if (modifierKey && event.key === "e") {
+                    event.preventDefault()
+                    graph.run()
+                }
                 // if (modifierKey && event.key === "a") {} select all nodes TODO
                 if (event.key === "Escape") closeModal()
                 if (event.key === "Shift") shiftKeyIsPressed = true
