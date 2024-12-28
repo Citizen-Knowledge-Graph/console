@@ -584,7 +584,10 @@
             let wasNodeSelectionJumpCase = false
 
             function unselectSelectedNodes() {
-                for (let nodeId of selectedNodes) graph.nodesMap[nodeId].removeSelected()
+                for (let nodeId of selectedNodes) {
+                    let node = graph.nodesMap[nodeId]
+                    if (node) node.removeSelected()
+                }
                 selectedNodes = []
             }
 
