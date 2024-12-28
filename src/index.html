@@ -253,7 +253,7 @@
                 }
             }
 
-            document.getElementById("loadBtn").addEventListener("click", async () => {
+            const openLoadModal = async () => {
                 const modalContent = showModal()
                 let title = document.createElement("h2")
                 title.appendChild(document.createTextNode("Load from local storage"))
@@ -316,7 +316,8 @@
                         download(content, "application/zip", `semOps_exportAllLocalStorage_${getTimestamp()}.zip`)
                     })
                 }))
-            })
+            }
+            document.getElementById("loadBtn").addEventListener("click", () => openLoadModal())
             document.getElementById("newBtn").addEventListener("click", () => wipe())
             document.getElementById("fileUpload").addEventListener("change", () => {
                 const reader = new FileReader()
@@ -441,6 +442,10 @@
                 if (modifierKey && event.key === "e") {
                     event.preventDefault()
                     graph.run()
+                }
+                if (modifierKey && event.key === "l") {
+                    event.preventDefault()
+                    openLoadModal()
                 }
                 // if (modifierKey && event.key === "a") {} select all nodes TODO
                 if (event.key === "Escape") closeModal()
