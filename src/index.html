@@ -145,8 +145,13 @@
             }
             .separator-span {
                 color: silver;
-                margin-left: 5px;
-                margin-right: 3px;
+                margin-left: 4px;
+                margin-right: 1px;
+            }
+            #graphTitle {
+                margin-left: 40px;
+                font-family: monospace;
+                color: gray;
             }
         </style>
     </head>
@@ -175,6 +180,7 @@
             <span id="settingsBtn">Settings</span><span class="separator-span">|</span>
             <span id="examplesBtn">Examples</span><span class="separator-span">|</span>
             <span id="howtoBtn">HowTo</span>
+            <span id="graphTitle"></span>
             <span id="githubBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
@@ -322,11 +328,7 @@
                 reader.readAsText(file)
             })
             document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
-            document.getElementById("exportBtn").addEventListener("click", () => {
-                graph.name = prompt("Name your graph (optional)", graph.name)
-                // optionally also ask for author and description TODO
-                graph.export()
-            })
+            document.getElementById("exportBtn").addEventListener("click", () => graph.export())
             document.getElementById("settingsBtn").addEventListener("click", () => {
                 document.getElementById("modal-close-btn").value = "Cancel"
                 let modalContent = showModal()
@@ -411,6 +413,10 @@
                     <div><strong>Delete edges:</strong> right-click on the edge</div>
                     <div><strong>Resize nodes:</strong> drag the lower right corner / double click for default size</div>
                 `
+            })
+            document.getElementById("graphTitle").addEventListener("click", () => {
+                let name = prompt("Name your graph", graph.name)
+                if (name) graph.setName(name)
             })
 
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));

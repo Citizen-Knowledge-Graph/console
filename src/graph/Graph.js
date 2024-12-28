@@ -36,7 +36,23 @@ export class Graph {
         this.edgesMap = {}
         this.stepCounter = 0
         this.id = "graph_" + getTimestamp()
-        this.name = "" // for export and maybe display
+        this.setName("")
+    }
+
+    setName(name) {
+        this.name = name
+        this.updateGraphTitle()
+    }
+
+    updateGraphTitle() {
+        let el = document.getElementById("graphTitle")
+        if (this.name) {
+            el.textContent = this.name
+            el.title = "the name of your graph - click to rename"
+        } else {
+            el.textContent = this.id
+            el.title = "the automatic ID of your graph - click to give it a name"
+        }
     }
 
     createNode(nodeClass, initialValues) {
@@ -236,7 +252,7 @@ export class Graph {
             }`
         let row = (await runSparqlSelectQueryOnRdfString(query, rdfStr))[0]
         if (row.id) this.id = row.id
-        if (row.name) this.name = row.name
+        if (row.name) this.setName(row.name)
         // nodes
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>
