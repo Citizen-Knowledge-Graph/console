@@ -442,10 +442,19 @@
                 if (nodeDivId) {
                     let node = graph.nodesMap[nodeDivId.split("-")[1]]
                     if (selectedNodes.length > 1 && selectedNodes.includes(node.id)) {
-                        let disabledItems = []
+                        let disabledItems = ["MultipleDeleteNodeAction", "MultipleDuplicateNodeAction", "MultipleDuplicateNodeWithEdgesAction"]
                         setupMultipleNodesHeaderContextMenu(event, selectedNodes.length, disabledItems, action => {
+                            let nodes = selectedNodes.map(nodeId => graph.nodesMap[nodeId])
                             switch (action) {
-                                // TODO
+                                case "MultipleHideContentAction":
+                                    nodes.forEach(node => node.hideContent())
+                                    break;
+                                case "MultipleDeleteNodeAction":
+                                    break;
+                                case "MultipleDuplicateNodeAction":
+                                    break;
+                                case "MultipleDuplicateNodeWithEdgesAction":
+                                    break;
                             }
                         })
                         return
