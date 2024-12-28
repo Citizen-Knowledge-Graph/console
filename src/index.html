@@ -371,17 +371,6 @@
                 })
                 document.getElementById("modal-button-row").appendChild(resetBtn)
             })
-            document.getElementById("howtoBtn").addEventListener("click", () => {
-                let modalContent = showModal()
-                modalContent.innerHTML = `
-                    <h2>HowTo</h2>
-                    <div><strong>New nodes:</strong> right-click on the canvas</div>
-                    <div><strong>New edges:</strong> left-click and drag from port to port</div>
-                    <div><strong>Delete nodes</strong> and other options: right-click on the node</div>
-                    <div><strong>Delete edges:</strong> right-click on the edge</div>
-                    <div><strong>Resize nodes:</strong> drag the lower right corner / double click for default size</div>
-                `
-            })
             document.getElementById("examplesBtn").addEventListener("click", async () => {
                 let modalContent = showModal()
                 let title = document.createElement("h2")
@@ -411,6 +400,17 @@
                     table.appendChild(tr)
                 }
                 modalContent.appendChild(table)
+            })
+            document.getElementById("howtoBtn").addEventListener("click", () => {
+                let modalContent = showModal()
+                modalContent.innerHTML = `
+                    <h2>HowTo</h2>
+                    <div><strong>New nodes:</strong> right-click on the canvas</div>
+                    <div><strong>New edges:</strong> left-click and drag from port to port</div>
+                    <div><strong>Delete nodes</strong> and other options: right-click on the node</div>
+                    <div><strong>Delete edges:</strong> right-click on the edge</div>
+                    <div><strong>Resize nodes:</strong> drag the lower right corner / double click for default size</div>
+                `
             })
 
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
