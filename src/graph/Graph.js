@@ -108,7 +108,7 @@ export class Graph {
             return false
         }
         for (let node of readyNodes) {
-            let outgoingEdges = Object.values(this.edgesMap).filter(edge => edge.sourceNode.id === node.id)
+            let outgoingEdges = Object.values(this.edgesMap).filter(edge => edge.sourceNode === node)
             await node.run(outgoingEdges)
         }
         console.log("nodesMap after step", this.stepCounter ++, this.nodesMap)
@@ -217,7 +217,7 @@ export class Graph {
             if (node.contentIsHidden()) {
                 writer.addQuad(n, hasContentHidden, DataFactory.literal(true))
             }
-            if (!node.isProcessor()) {
+            if (node.isInput()) {
                 writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
             }
         })
