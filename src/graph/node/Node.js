@@ -163,9 +163,20 @@ export class Node {
         this.nodeDiv.classList.remove("selected")
     }
 
+    getPortDivs(io) {
+        return this.nodeDiv.querySelector(io === "input" ? ".inputs" : ".outputs").querySelectorAll("div")
+    }
+
+    assignTitlesToPorts(io, titles) {
+        let portDivs = this.getPortDivs(io)
+        for (let i = 0; i < titles.length; i++) {
+            portDivs[i].title = titles[i]
+        }
+    }
+
     highlightPort(portClass) {
-        let inputDivs = this.nodeDiv.querySelector(portClass.includes("input") ? ".inputs" : ".outputs").querySelectorAll("div")
-        for (let div of inputDivs) {
+        let portDivs = this.getPortDivs(portClass.includes("input") ? "input" : "output")
+        for (let div of portDivs) {
             if (div.classList.contains(portClass)) {
                 div.classList.add("highlighted-port")
             }

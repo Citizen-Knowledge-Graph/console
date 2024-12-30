@@ -3,7 +3,7 @@ import { PORT, TYPE } from "../../nodeFactory.js"
 
 export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE ], TYPE.EDIT)
+        super(initialValues, graph, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE ], TYPE.EDIT)
     }
 
     getMainHtml() {
@@ -23,7 +23,13 @@ export class ShaclFormNode extends Node {
                 sh:path ff:dev ;
             ] .`
         this.form.setAttribute("data-shapes", dataShape)
+
+        this.assignTitlesToPorts("input", ["SHACL", "Turtle: form values (optional)"])
     }
 
     async processIncomingData() {}
+
+    getValue() { return "" }
+
+    setValue(value) {}
 }
