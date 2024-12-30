@@ -101,8 +101,8 @@ function buildMenu(items, disabledItems) {
     }).join("")
 }
 
-export function setupCanvasContextMenu(event, callback) {
-    setupContextMenu(event, canvasCtxMenuItems, [], callback)
+export function setupCanvasContextMenu(event, disabledItems, callback) {
+    setupContextMenu(event, canvasCtxMenuItems, disabledItems, callback)
 }
 
 export function setupNodeHeaderContextMenu(event, disabledItems, callback) {
