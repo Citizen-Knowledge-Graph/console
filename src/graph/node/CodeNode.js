@@ -1,6 +1,6 @@
 import { Node } from "./Node.js"
-import { CodeMirror } from "../assets/bundle.js"
-import { PORT } from "./nodeFactory.js"
+import { CodeMirror } from "../../assets/bundle.js"
+import { PORT } from "../nodeFactory.js"
 
 export class CodeNode extends Node {
     constructor(initialValues, graph, inputs, outputs, type) {

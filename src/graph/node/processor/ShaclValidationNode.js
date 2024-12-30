@@ -1,7 +1,7 @@
 import { CodeNode } from "../CodeNode.js"
-import { PORT, TYPE } from "../nodeFactory.js"
-import { Store } from "../../assets/bundle.js"
-import { addRdfStringToStore, runValidationOnStore, serializeDatasetToTurtle } from "../../utils.js"
+import { PORT, TYPE } from "../../nodeFactory.js"
+import { Store } from "../../../assets/bundle.js"
+import { addRdfStringToStore, runValidationOnStore, serializeDatasetToTurtle } from "../../../utils.js"
 
 export class ShaclValidationNode extends CodeNode {
     constructor(initialValues, graph) {

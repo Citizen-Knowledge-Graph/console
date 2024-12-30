@@ -1,4 +1,4 @@
-import { TYPE, VIEW_MODE } from "./nodeFactory.js"
+import { TYPE, VIEW_MODE } from "../nodeFactory.js"
 
 export class Node {
     constructor(initialValues, graph, inputs, outputs, type) {

@@ -1,6 +1,6 @@
 import { TableNode } from "../TableNode.js"
-import { PORT, TYPE } from "../nodeFactory.js"
-import { runSparqlSelectQueryOnRdfString } from "../../utils.js"
+import { PORT, TYPE } from "../../nodeFactory.js"
+import { runSparqlSelectQueryOnRdfString } from "../../../utils.js"
 
 export class SparqlSelectExecNode extends TableNode {
     constructor(initialValues, graph) {

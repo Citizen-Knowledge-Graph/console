@@ -1,12 +1,12 @@
-import { PrefixesNode } from "./input/PrefixesNode.js"
-import { TurtleInputNode } from "./input/TurtleInputNode.js"
-import { SparqlInputNode } from "./input/SparqlInputNode.js"
-import { SparqlSelectExecNode } from "./processor/SparqlSelectExecNode.js"
-import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
-import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
-import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
-import { OutputViewNode } from "./view/OutputViewNode.js"
-import { SparqlInsertDeleteExecNode } from "./processor/SparqlInsertDeleteExecNode.js"
+import { PrefixesNode } from "./node/input/PrefixesNode.js"
+import { TurtleInputNode } from "./node/input/TurtleInputNode.js"
+import { SparqlInputNode } from "./node/input/SparqlInputNode.js"
+import { SparqlSelectExecNode } from "./node/processor/SparqlSelectExecNode.js"
+import { SparqlConstructExecNode } from "./node/processor/SparqlConstructExecNode.js"
+import { MergeTriplesNode } from "./node/processor/MergeTriplesNode.js"
+import { ShaclValidationNode } from "./node/processor/ShaclValidationNode.js"
+import { OutputViewNode } from "./node/view/OutputViewNode.js"
+import { SparqlInsertDeleteExecNode } from "./node/processor/SparqlInsertDeleteExecNode.js"
 
 export const TYPE = {
     INPUT: 0,

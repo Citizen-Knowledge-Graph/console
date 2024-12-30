@@ -1,7 +1,7 @@
 import { CodeNode } from "../CodeNode.js"
-import { PORT, TYPE } from "../nodeFactory.js"
-import { Store } from "../../assets/bundle.js"
-import { addRdfStringToStore, serializeStoreToTurtle } from "../../utils.js"
+import { PORT, TYPE } from "../../nodeFactory.js"
+import { Store } from "../../../assets/bundle.js"
+import { addRdfStringToStore, serializeStoreToTurtle } from "../../../utils.js"
 
 export class MergeTriplesNode extends CodeNode {
     constructor(initialValues, graph) {
