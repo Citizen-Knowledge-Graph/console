@@ -5,7 +5,7 @@ import { SparqlSelectExecNode } from "./processor/SparqlSelectExecNode.js"
 import { SparqlConstructExecNode } from "./processor/SparqlConstructExecNode.js"
 import { MergeTriplesNode } from "./processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./processor/ShaclValidationNode.js"
-import { TextViewNode } from "./view/TextViewNode.js"
+import { OutputViewNode } from "./view/OutputViewNode.js"
 import { SparqlInsertDeleteExecNode } from "./processor/SparqlInsertDeleteExecNode.js"
 
 export const TYPE = {
@@ -34,7 +34,7 @@ const nodeClasses = {
     "SparqlConstructExecNode": SparqlConstructExecNode,
     "MergeTriplesNode": MergeTriplesNode,
     "ShaclValidationNode": ShaclValidationNode,
-    "TextViewNode": TextViewNode,
+    "OutputViewNode": OutputViewNode,
     "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode
 }
 

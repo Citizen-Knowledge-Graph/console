@@ -41,7 +41,7 @@ const canvasCtxMenuItems = [
     {
         label: "View",
         submenu: [
-            { label: "Text Viewer", action: "TextViewNode" }
+            { label: "Output Viewer", action: "OutputViewNode" }
         ]
     }
 ]
