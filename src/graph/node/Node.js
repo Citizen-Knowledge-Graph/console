@@ -11,6 +11,7 @@ export class Node {
             initialValues.pos[0], initialValues.pos[1], "", {}, this.getHtml())
         this.nodeDiv = this.editor.container.querySelector(`#node-${this.id}`)
         graph.nodesMap[this.id] = this
+        this.graph = graph
         this.incomingData = []
         this.ranThisRound = false
         this.viewMode = VIEW_MODE.DEFAULT
@@ -128,6 +129,10 @@ export class Node {
         // TODO
     }
 
+    countIncomingEdges() {
+        return Object.values(this.graph.edgesMap).filter(edge => edge.targetNode === this).length
+    }
+
     async run(outgoingEdges) {
         if (!this.isInput()) {
             this.setValue(await this.processIncomingData())
@@ -191,10 +196,10 @@ export class Node {
     }
 
     isReadyToRun() {
-        return !this.ranThisRound && (this.inputs.length === 0 || this.allIncomingDataAvailable())
+        return !this.ranThisRound && (this.inputs.length === 0 || this.enoughIncomingDataAvailable())
     }
 
-    allIncomingDataAvailable() {
+    enoughIncomingDataAvailable() {
         return this.incomingData.length === this.inputs.length
     }
 
