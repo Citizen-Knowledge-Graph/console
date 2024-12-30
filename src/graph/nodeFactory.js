@@ -7,11 +7,13 @@ import { MergeTriplesNode } from "./node/processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./node/processor/ShaclValidationNode.js"
 import { OutputViewNode } from "./node/view/OutputViewNode.js"
 import { SparqlInsertDeleteExecNode } from "./node/processor/SparqlInsertDeleteExecNode.js"
+import { ShaclFormNode } from "./node/edit/ShaclFormNode.js"
 
 export const TYPE = {
     INPUT: 0,
     PROCESSOR: 1,
-    VIEW: 2
+    VIEW: 2,
+    EDIT: 3
 }
 
 export const PORT = {
@@ -35,7 +37,8 @@ const nodeClasses = {
     "MergeTriplesNode": MergeTriplesNode,
     "ShaclValidationNode": ShaclValidationNode,
     "OutputViewNode": OutputViewNode,
-    "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode
+    "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode,
+    "ShaclFormNode": ShaclFormNode
 }
 
 export const exampleData = {

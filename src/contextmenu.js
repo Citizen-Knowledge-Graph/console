@@ -43,6 +43,12 @@ const canvasCtxMenuItems = [
         submenu: [
             { label: "Output Viewer", action: "OutputViewNode" }
         ]
+    },
+    {
+        label: "Edit",
+        submenu: [
+            { label: "SHACL Form Editor", action: "ShaclFormNode" }
+        ]
     }
 ]
 

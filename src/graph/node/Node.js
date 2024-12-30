@@ -68,6 +68,8 @@ export class Node {
                 return "processor-node"
             case TYPE.VIEW:
                 return "view-node"
+            case TYPE.EDIT:
+                return "edit-node"
             default:
                 return ""
         }
