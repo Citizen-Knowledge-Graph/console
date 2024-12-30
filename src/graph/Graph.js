@@ -252,7 +252,8 @@ export class Graph {
             }`
         let row = (await runSparqlSelectQueryOnRdfString(query, rdfStr))[0]
         if (row.id) this.id = row.id
-        if (row.name) this.setName(row.name)
+        if (row.name) this.name = row.name
+        this.updateGraphTitle()
         // nodes
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>

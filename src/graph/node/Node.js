@@ -23,7 +23,7 @@ export class Node {
             if (initialValues.size) this.setSize(initialValues.size[0], initialValues.size[1])
             if (initialValues.contentHidden) this.hideContent()
         })
-        console.log("Node added:", this.id, "\"" + this.name)
+        console.log("Node added:", this.id, "\"" + this.name + "\"")
     }
 
     resetSize() {
