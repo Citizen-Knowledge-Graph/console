@@ -641,11 +641,21 @@
                 }
             }
 
-            // example graph
-            const response = await fetch("examples/foerderfunke-mini.ttl")
-            const rdfStr = await response.text()
-            graph.import(rdfStr)
-
+            // load initial graph
+            const urlParams = new URLSearchParams(window.location.search)
+            if (urlParams.has("load")) {
+                let graphId = urlParams.get("load")
+                let turtle = localStorage.getItem(graphId)
+                if (turtle) {
+                    loadTurtle(turtle)
+                } else {
+                    console.log(`No graph with id ${graphId} found in local storage`)
+                }
+            } else {
+                const response = await fetch("examples/foerderfunke-mini.ttl")
+                const rdfStr = await response.text()
+                graph.import(rdfStr)
+            }
         </script>
     </body>
 </html>
