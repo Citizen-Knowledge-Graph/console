@@ -107,10 +107,7 @@ export class Graph {
             this.endRound()
             return false
         }
-        for (let node of readyNodes) {
-            let outgoingEdges = Object.values(this.edgesMap).filter(edge => edge.sourceNode === node)
-            await node.run(outgoingEdges)
-        }
+        for (let node of readyNodes) await node.run()
         console.log("nodesMap after step", this.stepCounter ++, this.nodesMap)
         return true
     }

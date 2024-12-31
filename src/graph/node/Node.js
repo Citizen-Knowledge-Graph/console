@@ -133,13 +133,14 @@ export class Node {
         return Object.values(this.graph.edgesMap).filter(edge => edge.targetNode === this).length
     }
 
-    async run(outgoingEdges) {
+    async run() {
         if (!this.isInput()) {
             this.setValue(await this.processIncomingData())
         }
         this.highlight(true)
         this.highlightPort("output_1")
         let outputPortType = this.outputs[0] // assuming only one type of output port per node for now
+        let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
         for (let edge of outgoingEdges) {
             edge.highlight(true)
             edge.targetNode.highlightPort(edge.portIn)
