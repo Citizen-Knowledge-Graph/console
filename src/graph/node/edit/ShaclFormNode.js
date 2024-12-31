@@ -1,5 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
+import { runSparqlSelectQueryOnRdfString } from "../../../utils.js"
 
 export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
@@ -17,30 +18,45 @@ export class ShaclFormNode extends Node {
     }
 
     async processIncomingData() {
-        // rebuilding it every time is not very elegant
-        let container = this.nodeDiv.querySelector(".shacl-form-container")
-        while (container.firstChild) container.firstChild.remove()
-        this.form = document.createElement("shacl-form")
-        this.form.setAttribute("data-values-subject", "https://foerderfunke.org/default#sub")
-        this.form.addEventListener("change", event => {
-            console.log(event.detail?.valid, this.form.serialize())
-        })
-        container.appendChild(this.form)
-        let shacl = this.incomingData[0].data
-        this.form.setAttribute("data-shapes", shacl)
-        if (this.incomingData.length > 1) {
-            let dataValues = this.incomingData[1].data
-            this.form.setAttribute("data-values", dataValues)
-            try {
-                const serialized = await this.waitForFormSerialization()
-                this.rerenderConnectingEdges()
-                return serialized
-            } catch (error) {
-                console.error(error)
-                return null
+        return new Promise(async (resolve, reject) => {
+            // rebuilding it every time is not very elegant
+            let container = this.nodeDiv.querySelector(".shacl-form-container")
+            while (container.firstChild) container.firstChild.remove()
+            this.form = document.createElement("shacl-form")
+            this.form.addEventListener("change", event => {
+                if (event.detail?.valid) {
+                    // TODO
+                    this.value = this.form.serialize()
+                }
+            })
+            container.appendChild(this.form)
+            let shacl = this.incomingData[0].data
+            let query = `
+                PREFIX sh: <http://www.w3.org/ns/shacl#>
+                SELECT * WHERE {
+                    ?shape sh:targetNode ?targetNode .
+                }`
+            let results = await runSparqlSelectQueryOnRdfString(query, shacl)
+            if (results.length > 0 && results[0].targetNode) {
+                this.form.setAttribute("data-values-subject", results[0].targetNode)
             }
-        }
-        return this.form.serialize()
+            this.form.setAttribute("data-shapes", shacl)
+            if (this.incomingData.length > 1) {
+                let dataValues = this.incomingData[1].data
+                this.form.setAttribute("data-values", dataValues)
+                try {
+                    const serialized = await this.waitForFormSerialization()
+                    this.rerenderConnectingEdges()
+                    return serialized
+                } catch (error) {
+                    console.error(error)
+                    return null
+                }
+            }
+            setTimeout(() => { // find a better solution TODO
+                resolve(this.form.serialize())
+            }, 600)
+        })
     }
 
     waitForFormSerialization(interval = 50, timeout = 2000) {
