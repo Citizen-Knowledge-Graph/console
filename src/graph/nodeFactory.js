@@ -7,6 +7,7 @@ import { MergeTriplesNode } from "./node/processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./node/processor/ShaclValidationNode.js"
 import { OutputViewNode } from "./node/view/OutputViewNode.js"
 import { SparqlInsertDeleteExecNode } from "./node/processor/SparqlInsertDeleteExecNode.js"
+import { ShaclFormLibNode } from "./node/edit/ShaclFormLibNode.js"
 import { ShaclFormNode } from "./node/edit/ShaclFormNode.js"
 
 export const TYPE = {
@@ -38,6 +39,7 @@ const nodeClasses = {
     "ShaclValidationNode": ShaclValidationNode,
     "OutputViewNode": OutputViewNode,
     "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode,
+    "ShaclFormLibNode": ShaclFormLibNode,
     "ShaclFormNode": ShaclFormNode
 }
 

@@ -526,7 +526,7 @@
                     return
                 }
                 if (!["drawflow", "parent-drawflow"].includes(event.target.className)) return
-                let disabledItems = ["ShaclFormNode"]
+                let disabledItems = ["ShaclFormLibNode", "ShaclFormNode"]
                 setupCanvasContextMenu(event, disabledItems, (action, defaultLabel, x, y) => {
                     x -= editor.canvas_x
                     y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
