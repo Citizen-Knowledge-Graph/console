@@ -202,6 +202,7 @@
             import { Graph } from "./graph/Graph.js"
             import { exampleData } from "./graph/nodeFactory.js"
 
+            if (window.innerWidth <= 767) alert("semOps is not (yet) optimized for mobile devices. Please use a desktop browser.")
             // setInterval(checkForNewRepoCommits, 60 * 1000)
 
             const editor = new Drawflow(document.getElementById("drawflow"))
