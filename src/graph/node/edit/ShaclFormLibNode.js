@@ -9,7 +9,7 @@ export class ShaclFormLibNode extends Node {
     }
 
     getMainHtml() {
-        return `<div class="shacl-form-container"/>`
+        return `<div class="shacl-form-lib-container"/>`
     }
 
     postConstructor() {
@@ -20,7 +20,7 @@ export class ShaclFormLibNode extends Node {
     async processIncomingData() {
         return new Promise(async (resolve, reject) => {
             // rebuilding it every time is not very elegant
-            let container = this.nodeDiv.querySelector(".shacl-form-container")
+            let container = this.nodeDiv.querySelector(".shacl-form-lib-container")
             while (container.firstChild) container.firstChild.remove()
             this.form = document.createElement("shacl-form")
             this.form.addEventListener("change", event => {
