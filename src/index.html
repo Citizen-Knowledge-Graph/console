@@ -179,7 +179,7 @@
             <span style="font-size: large; font-weight: bold;">semOps</span>
             <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
             <span id="runBtn">Run</span><span class="separator-span">|</span>
-            <span id="stepBtn">Step</span><span class="separator-span">|</span>
+            <!--<span id="stepBtn">Step</span><span class="separator-span">|</span>-->
             <span id="resetBtn">Reset</span><span class="separator-span">|</span>
             <span id="saveBtn">Save</span><span class="separator-span">|</span>
             <span id="loadBtn">Load</span><span class="separator-span">|</span>
@@ -230,7 +230,7 @@
             document.getElementById("modal-close-btn").addEventListener("click", () => closeModal())
 
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
-            document.getElementById("stepBtn").addEventListener("click", () => graph.step())
+            // document.getElementById("stepBtn").addEventListener("click", () => graph.step())
             document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
             document.getElementById("saveBtn").addEventListener("click", () => graph.save())
 
