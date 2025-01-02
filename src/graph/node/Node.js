@@ -204,6 +204,10 @@ export class Node {
         return this.incomingData.length === this.inputs.length
     }
 
+    ensureNumberOfInputPorts(numb) {
+        if (this.inputs.length < numb) for (let i = this.inputs.length; i < numb; i++) this.addInputPort()
+    }
+
     addInputPortOfType(type) {
         this.editor.addNodeInput(this.id)
         this.inputs.push(type)

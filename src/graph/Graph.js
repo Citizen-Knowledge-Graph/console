@@ -291,14 +291,18 @@ export class Graph {
                     ff:hasPortIn ?portIn .
             }`
         rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
+        let edges = []
+        let highestPortInPerNode = {}
         for (let row of rows) {
-            let sourceNode = this.nodesMap[idMap[row.source]]
-            let targetNode = this.nodesMap[idMap[row.target]]
-            let edgesWithThisTarget = Object.values(this.edgesMap).filter(edge => edge.targetNode === targetNode)
-            if (edgesWithThisTarget.length === targetNode.inputs.length) {
-                targetNode.addInputPort()
+            let targetNodeId = idMap[row.target]
+            if (!highestPortInPerNode[targetNodeId] || highestPortInPerNode[targetNodeId] < row.portIn) {
+                highestPortInPerNode[targetNodeId] = row.portIn
             }
-            this.editor.addConnection(sourceNode.id, targetNode.id, "output_" + row.portOut, "input_" + row.portIn)
+            edges.push([idMap[row.source], targetNodeId, "output_" + row.portOut, "input_" + row.portIn])
         }
+        for (let [nodeId, maxPortIn] of Object.entries(highestPortInPerNode)) {
+            this.nodesMap[nodeId].ensureNumberOfInputPorts(maxPortIn)
+        }
+        for (let edge of edges) this.editor.addConnection(edge[0], edge[1], edge[2], edge[3])
     }
 }
