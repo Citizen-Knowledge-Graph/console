@@ -7,7 +7,6 @@ export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
         super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE ], TYPE.EDIT)
         this.value = ""
-        this.classConnectors = []
         this.data = {}
         this.currentShacl = ""
     }
@@ -16,18 +15,12 @@ export class ShaclFormNode extends Node {
         return `<div class="shacl-form-container" style="margin: 0 0 10px 10px"/>`
     }
 
-    linkIndividuals(targetNode, store) {
-        // this is a bit awkward, there must be a better solution
-        // do we have individuals whose class has a classConnector registered with this class?
-        let classHit = this.classConnectors.find(cc => cc.childClass === this.data[targetNode].class)
-        if (!classHit) return
-        let individualHit = Object.keys(this.data).find(individual => this.data[individual].class === classHit.parentClass)
-        if (!individualHit) return
-        store.addQuad({
-            subject: DataFactory.namedNode(individualHit),
-            predicate: DataFactory.namedNode(classHit.path),
-            object: DataFactory.namedNode(targetNode)
-        })
+    determineObjectType(value, propertyShape) {
+        let datatype = propertyShape[expand("sh", "datatype")]
+        if (!datatype) return DataFactory.literal(value)
+        if (datatype.endsWith("integer")) return DataFactory.literal(Number(value))
+        if (datatype.endsWith("anyURI") || value.startsWith("http")) return DataFactory.namedNode(value)
+        return DataFactory.literal(value)
     }
 
     async serializeData() {
@@ -38,7 +31,26 @@ export class ShaclFormNode extends Node {
                 predicate: DataFactory.namedNode(expand("rdf", "type")),
                 object: DataFactory.namedNode(this.data[targetNode].class)
             })
-            this.linkIndividuals(targetNode, store)
+            for (let propertyShape of Object.values(this.data[targetNode].propertyShapes)) {
+                let propertyName = propertyShape[expand("sh", "path")]
+                let value = propertyShape[expand("ff", "value")]
+                if (!value) continue
+                if (Array.isArray(value)) {
+                    for (let v of value) {
+                        store.addQuad({
+                            subject: DataFactory.namedNode(targetNode),
+                            predicate: DataFactory.namedNode(propertyName),
+                            object: this.determineObjectType(v, propertyShape)
+                        })
+                    }
+                } else {
+                    store.addQuad({
+                        subject: DataFactory.namedNode(targetNode),
+                        predicate: DataFactory.namedNode(propertyName),
+                        object: this.determineObjectType(value, propertyShape)
+                    })
+                }
+            }
         }
         return await serializeStoreToTurtle(store)
     }
@@ -51,21 +63,7 @@ export class ShaclFormNode extends Node {
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         while (container.firstChild) container.firstChild.remove()
 
-
         let query = `
-            PREFIX ff: <https://foerderfunke.org/default#>
-            PREFIX sh: <http://www.w3.org/ns/shacl#>
-            SELECT ?parentClass ?path ?childClass WHERE {
-                ?nodeShape ff:instanceOf ?parentClass .
-                ?nodeShape sh:property ?propertyShape .
-                ?propertyShape ff:pointsToInstancesOf ?childClass .
-                ?propertyShape sh:path ?path .
-            }`
-        let rows = await runSparqlSelectQueryOnRdfString(query, shacl)
-        for (let row of rows) {
-            this.classConnectors.push({ parentClass: row.parentClass, path: row.path, childClass: row.childClass })
-        }
-        query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             PREFIX sh: <http://www.w3.org/ns/shacl#>
             SELECT * WHERE {
@@ -74,7 +72,7 @@ export class ShaclFormNode extends Node {
                     sh:property ?propertyShape .
                 ?propertyShape ?property ?value .
             }`
-        rows = await runSparqlSelectQueryOnRdfString(query, shacl)
+        let rows = await runSparqlSelectQueryOnRdfString(query, shacl)
 
         // prepare data structure
         this.data = {}
@@ -87,7 +85,13 @@ export class ShaclFormNode extends Node {
                 targetNode.propertyShapes[row.propertyShape] = {}
             }
             let propertyShape = targetNode.propertyShapes[row.propertyShape]
-            propertyShape[row.property] = row.value
+            let ffValue = expand("ff", "value")
+            if (row.property === ffValue) {
+                if (!propertyShape[row.property]) propertyShape[row.property] = []
+                propertyShape[row.property].push(row.value)
+            } else {
+                propertyShape[row.property] = row.value
+            }
         }
 
         // build form
@@ -124,7 +128,7 @@ export class ShaclFormNode extends Node {
                 container.appendChild(input)
 
                 input.addEventListener("change", event => {
-                    // TODO
+                    propertyShape[expand("ff", "value")] = event.target.value
                 })
             }
         }
