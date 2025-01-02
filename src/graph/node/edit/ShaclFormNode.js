@@ -9,6 +9,7 @@ export class ShaclFormNode extends Node {
         this.value = ""
         this.classConnectors = []
         this.data = {}
+        this.currentShacl = ""
     }
 
     getMainHtml() {
@@ -43,10 +44,13 @@ export class ShaclFormNode extends Node {
     }
 
     async processIncomingData() {
+        let shacl = this.incomingData[0].data
+        if (shacl === this.currentShacl) return await this.serializeData()
+        this.currentShacl = shacl
+
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         while (container.firstChild) container.firstChild.remove()
 
-        let shacl = this.incomingData[0].data
 
         let query = `
             PREFIX ff: <https://foerderfunke.org/default#>
