@@ -63,38 +63,49 @@ export class ShaclFormNode extends Node {
             query = `
                 PREFIX ff: <https://foerderfunke.org/default#>
                 PREFIX sh: <http://www.w3.org/ns/shacl#>
-                SELECT ?propertyShape WHERE {
+                SELECT ?propertyShape ?pointsToInstancesOf WHERE {
                     ?nodeShape sh:targetNode <${targetNode}> ;
                         sh:property ?propertyShape .
-                    FILTER NOT EXISTS { ?propertyShape ff:pointsToInstancesOf ?someClass . }
+                    OPTIONAL { ?propertyShape ff:pointsToInstancesOf ?pointsToInstancesOf . }
                 }`
-            let propertyShapes = (await runSparqlSelectQueryOnStore(query, this.store)).map(result => result.propertyShape)
-            for (let propertyShape of propertyShapes) {
+
+            let propertyShapes = (await runSparqlSelectQueryOnStore(query, this.store)).map(result => [result.propertyShape, result.pointsToInstancesOf])
+            for (let [propertyShape, pointsToInstancesOf] of propertyShapes) {
                 query = `
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
                     SELECT * WHERE {
                         <${propertyShape}> a sh:PropertyShape ;
                             ?key ?value .
                     }`
+                let properties = {};
+                (await runSparqlSelectQueryOnStore(query, this.store)).forEach(result => properties[result.key] = result.value)
 
+                if (pointsToInstancesOf) {
+                    let btn = document.createElement("input")
+                    btn.style.marginTop = "10px"
+                    btn.setAttribute("type", "button")
+                    btn.setAttribute("value", `+ ${properties[expand("sh", "description")]}`)
+                    btn.addEventListener("click", () => {
+                        // TODO
+                    })
+                    container.appendChild(btn)
+                    continue
+                }
+
+                let label = document.createElement("label")
+                label.textContent = properties[expand("sh", "name")]
+                label.style.marginRight = "10px"
+                container.appendChild(label)
+
+                let input = document.createElement("input")
+                let value = properties[expand("ff", "value")]
+                if (value) input.setAttribute("value", value)
+                container.appendChild(input)
+
+                input.addEventListener("change", event => {
+                    // event.target.value TODO
+                })
             }
-
-            let properties = {};
-            (await runSparqlSelectQueryOnStore(query, this.store)).forEach(result => properties[result.key] = result.value)
-
-            let label = document.createElement("label")
-            label.textContent = properties[expand("sh", "name")]
-            label.style.marginRight = "10px"
-            container.appendChild(label)
-
-            let input = document.createElement("input")
-            let value = properties[expand("ff", "value")]
-            if (value) input.setAttribute("value", value)
-            container.appendChild(input)
-
-            input.addEventListener("change", event => {
-                // event.target.value TODO
-            })
         }
         return "dev"
     }
