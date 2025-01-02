@@ -44,9 +44,7 @@ document.getElementById("fileUpload").addEventListener("change", function() {
 })
 */
 
-export async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
-    let store = new Store()
-    await addRdfStringToStore(rdfStr, store)
+export async function runSparqlSelectQueryOnStore(query, store) {
     const queryEngine = new QueryEngine()
     let bindingsStream = await queryEngine.queryBindings(query, { sources: [ store ] })
     let bindings = await bindingsStream.toArray()
@@ -60,6 +58,12 @@ export async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
         results.push(row)
     })
     return results
+}
+
+export async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
+    let store = new Store()
+    await addRdfStringToStore(rdfStr, store)
+    return await runSparqlSelectQueryOnStore(query, store)
 }
 
 export async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
