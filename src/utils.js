@@ -172,3 +172,19 @@ export function ensureUniqueId(name, map) {
     while (map.hasOwnProperty(id + "_" + i)) i ++
     return id + "_" + i
 }
+
+const prefixes = {
+    rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    ff: "https://foerderfunke.org/default#",
+    sh: "http://www.w3.org/ns/shacl#",
+    rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+    xsd: "http://www.w3.org/2001/XMLSchema#"
+}
+
+export function expand(prefix, localName) {
+    return prefixes[prefix] + localName
+}
+
+export function localName(uri) {
+    return uri.split("#").pop()
+}
