@@ -1,0 +1,2 @@
+.:
+foerderfunke-mini.ttl
