@@ -160,6 +160,11 @@
                 font-family: monospace;
                 color: gray;
             }
+            #msgSpan {
+                color: blue;
+                margin-left: 30px;
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -188,6 +193,7 @@
             <span id="examplesBtn" class="spanBtn">Examples</span><span class="separator-span">|</span>
             <span id="howtoBtn" class="spanBtn">HowTo</span>
             <span id="graphTitle" class="spanBtn"></span>
+            <span id="msgSpan" class="spanBtn"></span>
             <span style="float:right">
                 <span id="versionBtn" style="color:silver; margin-right: 4px" class="spanBtn" title="benjamin.degenhart@foerderfunke.org">alpha version | feedback welcome</span>
                 <span id="githubBtn" class="spanBtn">GitHub</span>
@@ -368,8 +374,8 @@
                         let url = new URL(window.location)
                         url.searchParams.set("base64", encodeURIComponent(btoa(turtle)))
                         navigator.clipboard.writeText(url.href)
-                        msgDiv.style.display = "block"
-                        setTimeout(() => closeModal(), 1500)
+                        msgDiv.style.display = "inline"
+                        setTimeout(() => closeModal(), 2000)
                     })
                 })
                 td = document.createElement("td")
@@ -674,6 +680,16 @@
                 }
             }
 
+            function showMessage(msg) {
+                let msgSpan = document.getElementById("msgSpan")
+                msgSpan.innerHTML = msg
+                msgSpan.style.display = "inline"
+                setTimeout(() => {
+                    msgSpan.style.display = "none"
+                    msgSpan.innerHTML = ""
+                }, 2000)
+            }
+
             async function loadExample(filename) {
                 let response = await fetch(`examples/${filename}`)
                 if (response.ok) {
@@ -699,6 +715,7 @@
             } else if (urlParams.has("base64")) {
                 graph.import(atob(decodeURIComponent(urlParams.get("base64"))))
                 window.history.replaceState({}, "", window.location.pathname)
+                showMessage("&#10003; Graph loaded from URL")
             } else {
                 loadExample("foerderfunke-mini.ttl")
             }
