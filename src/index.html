@@ -160,11 +160,6 @@
                 font-family: monospace;
                 color: gray;
             }
-            #resetZoomBtn {
-                color: blue;
-                margin-left: 20px;
-                display: none;
-            }
         </style>
     </head>
     <body>
@@ -194,7 +189,6 @@
             <span id="examplesBtn" class="spanBtn">Examples</span><span class="separator-span">|</span>
             <span id="howtoBtn" class="spanBtn">HowTo</span>
             <span id="graphTitle" class="spanBtn"></span>
-            <span id="resetZoomBtn" class="spanBtn" title="otherwise code editors won't work properly">reset zoom</span>
             <span id="githubBtn" class="spanBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
@@ -210,6 +204,9 @@
             // setInterval(checkForNewRepoCommits, 60 * 1000)
 
             const editor = new Drawflow(document.getElementById("drawflow"))
+            // disabling editor zoom, user should use browser zoom instead
+            editor.zoom_max = 1
+            editor.zoom_min = 1
             editor.start()
 
             let graph = new Graph(editor)
@@ -425,18 +422,18 @@
                     <h2>HowTo</h2>
                     <div><strong>New nodes:</strong> right-click on the canvas</div>
                     <div><strong>New edges:</strong> left-click and drag from port to port</div>
-                    <div><strong>Delete nodes</strong> and other options: right-click on the node</div>
+                    <div><strong>Node options:</strong> right-click on the node</div>
                     <div><strong>Delete edges:</strong> right-click on the edge</div>
                     <div><strong>Resize nodes:</strong> drag the lower right corner / double click for default size</div>
+                    <br/>
+                    <div>Use the browser zoom to zoom in and out if needed</div>
+                    <br/>
+                    <div>Select multiple nodes by holding shift while clicking \t&rarr; options via right-click on one of them</div>
                 `
             })
             document.getElementById("graphTitle").addEventListener("click", () => {
                 let name = prompt("Name your graph", graph.name)
                 if (name) graph.setName(name)
-            })
-            document.getElementById("resetZoomBtn").addEventListener("click", () => {
-                editor.zoom_reset()
-                document.getElementById("resetZoomBtn").style.display = "none"
             })
 
             document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"))
@@ -463,10 +460,6 @@
             })
             document.addEventListener("keyup", event => {
                 if (event.key === "Shift") shiftKeyIsPressed = false
-            })
-
-            editor.on("zoom", level => {
-                document.getElementById("resetZoomBtn").style.display = level === 1 ? "none": "inline"
             })
 
             editor.on("contextmenu", event => {
