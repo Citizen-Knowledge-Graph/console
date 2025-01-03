@@ -344,7 +344,44 @@
                 reader.readAsText(file)
             })
             document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
-            document.getElementById("exportBtn").addEventListener("click", () => graph.export())
+            document.getElementById("exportBtn").addEventListener("click", () => {
+                let modalContent = showModal("Export")
+                let table = document.createElement("table")
+                table.classList.add("result-table")
+                let turtleDiv = document.createElement("div")
+                turtleDiv.style = "cursor: pointer; color: blue"
+                turtleDiv.append(document.createTextNode("Turtle format"))
+                turtleDiv.addEventListener("click", () => {
+                    closeModal()
+                    graph.export()
+                })
+                let tr = document.createElement("tr")
+                let td = document.createElement("td")
+                td.appendChild(turtleDiv)
+                tr.appendChild(td)
+                table.appendChild(tr)
+                let base64Div = document.createElement("div")
+                base64Div.style = "cursor: pointer; color: blue"
+                base64Div.append(document.createTextNode("Copy shareable link"))
+                base64Div.addEventListener("click", async () => {
+                    await graph.toTurtle(turtle => {
+                        let url = new URL(window.location)
+                        url.searchParams.set("base64", encodeURIComponent(btoa(turtle)))
+                        navigator.clipboard.writeText(url.href)
+                        msgDiv.style.display = "block"
+                        setTimeout(() => closeModal(), 1500)
+                    })
+                })
+                td = document.createElement("td")
+                td.appendChild(base64Div)
+                tr.appendChild(td)
+                table.appendChild(tr)
+                modalContent.appendChild(table)
+                let msgDiv = document.createElement("div")
+                msgDiv.style = "color: green; display: none"
+                msgDiv.innerHTML = `&#10003; Link copied to clipboard`
+                modalContent.appendChild(msgDiv)
+            })
             document.getElementById("settingsBtn").addEventListener("click", () => {
                 document.getElementById("modal-close-btn").value = "Cancel"
                 let modalContent = showModal("Settings")
@@ -659,6 +696,9 @@
                 }
             } else if (urlParams.has("example")) {
                 loadExample(urlParams.get("example"))
+            } else if (urlParams.has("base64")) {
+                graph.import(atob(decodeURIComponent(urlParams.get("base64"))))
+                window.history.replaceState({}, "", window.location.pathname)
             } else {
                 loadExample("foerderfunke-mini.ttl")
             }
