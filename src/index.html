@@ -56,7 +56,7 @@
                 padding: 10px;
                 font-size: small;
             }
-            .top-menu span {
+            .spanBtn {
                 cursor: pointer;
             }
             .highlighted-edge {
@@ -177,21 +177,22 @@
         </div>
         <div class="top-menu">
             <span style="font-size: large; font-weight: bold;">semOps</span>
-            <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
-            <span id="runBtn">Run</span><span class="separator-span">|</span>
+            <span id="versionBtn" style="font-size: x-small; color:silver; margin-left: 2px" class="spanBtn">alpha version</span>
+            <span style="color: gray; margin: 0 35px 0 2px">linked data operations flow tool</span>
+            <span id="runBtn" class="spanBtn">Run</span><span class="separator-span">|</span>
             <!--<span id="stepBtn">Step</span><span class="separator-span">|</span>-->
-            <span id="resetBtn">Reset</span><span class="separator-span">|</span>
-            <span id="saveBtn">Save</span><span class="separator-span">|</span>
-            <span id="loadBtn">Load</span><span class="separator-span">|</span>
-            <span id="newBtn">New</span><span class="separator-span">|</span>
-            <span id="importBtn">Import</span><input type="file" id="fileUpload" style="display: none;" /><span class="separator-span">|</span>
-            <span id="exportBtn">Export</span><span class="separator-span">|</span>
-            <span id="settingsBtn">Settings</span><span class="separator-span">|</span>
-            <span id="examplesBtn">Examples</span><span class="separator-span">|</span>
-            <span id="howtoBtn">HowTo</span>
-            <span id="graphTitle"></span>
-            <span id="resetZoomBtn" title="otherwise code editors won't work properly">reset zoom</span>
-            <span id="githubBtn" style="float:right;">GitHub</span>
+            <span id="resetBtn" class="spanBtn">Reset</span><span class="separator-span">|</span>
+            <span id="saveBtn" class="spanBtn">Save</span><span class="separator-span">|</span>
+            <span id="loadBtn" class="spanBtn">Load</span><span class="separator-span">|</span>
+            <span id="newBtn" class="spanBtn">New</span><span class="separator-span">|</span>
+            <span id="importBtn" class="spanBtn">Import</span><input type="file" id="fileUpload" style="display: none;" /><span class="separator-span">|</span>
+            <span id="exportBtn" class="spanBtn">Export</span><span class="separator-span">|</span>
+            <span id="settingsBtn" class="spanBtn">Settings</span><span class="separator-span">|</span>
+            <span id="examplesBtn" class="spanBtn">Examples</span><span class="separator-span">|</span>
+            <span id="howtoBtn" class="spanBtn">HowTo</span>
+            <span id="graphTitle" class="spanBtn"></span>
+            <span id="resetZoomBtn" class="spanBtn" title="otherwise code editors won't work properly">reset zoom</span>
+            <span id="githubBtn" class="spanBtn" style="float:right;">GitHub</span>
         </div>
         <div id="drawflow"></div>
         <script type="module">
@@ -435,7 +436,8 @@
                 document.getElementById("resetZoomBtn").style.display = "none"
             })
 
-            document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"));
+            document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"))
+            document.getElementById("versionBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console/issues", "_blank"))
 
             document.addEventListener("keydown", event => {
                 const isMac = navigator.platform.toLowerCase().includes("mac")
