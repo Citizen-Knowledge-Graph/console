@@ -71,6 +71,8 @@ export class Node {
                 return "view-node"
             case TYPE.EDIT:
                 return "edit-node"
+            case TYPE.VIEW_LEAF:
+                return "view-leaf-node"
             default:
                 return ""
         }
@@ -219,6 +221,7 @@ export class Node {
 
     getValue() { this.err() }
     setValue(value) { this.err() }
+    justShowValue(value, mode) { this.err() }
     clear() { this.err() }
     async processIncomingData() { this.err() }
     addInputPort() { this.err() }

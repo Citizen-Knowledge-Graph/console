@@ -1,11 +1,11 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle } from "../../../utils.js"
+import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore } from "../../../utils.js"
 import { DataFactory, Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE ], TYPE.EDIT)
+        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = new Store()
         this.value = ""
         this.currentShacl = ""
@@ -13,6 +13,11 @@ export class ShaclFormNode extends Node {
 
     getMainHtml() {
         return `<div class="shacl-form-container" style="margin: 0 0 10px 10px"/>`
+    }
+
+    postConstructor() {
+        super.postConstructor()
+        this.assignTitlesToPorts("output", ["Form output", "Internal form state"])
     }
 
     determineObjectType(value, propertyShape) {
@@ -34,6 +39,12 @@ export class ShaclFormNode extends Node {
             // TODO
         }
         return await serializeStoreToTurtle(store)
+    }
+
+    async updateInternalStateOutput() {
+        let edge = Object.values(this.graph.edgesMap).find(edge => edge.sourceNode === this && edge.portOut === "output_2")
+        if (!edge) return
+        edge.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
     }
 
     async processIncomingData() {
@@ -107,6 +118,8 @@ export class ShaclFormNode extends Node {
                 })
             }
         }
+        await this.updateInternalStateOutput()
+        this.rerenderConnectingEdges()
         return "dev"
     }
 
