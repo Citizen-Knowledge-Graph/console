@@ -51,8 +51,12 @@ export class Node {
         this.wasResized = true
     }
 
-    rerenderConnectingEdges = () => {
+    rerenderConnectingEdges() {
         this.editor.updateConnectionNodes("node-" + this.id)
+    }
+
+    refreshAfterAppliedSettings() {
+        this.rerenderConnectingEdges()
     }
 
     isProcessor() {

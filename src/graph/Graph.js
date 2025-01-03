@@ -18,7 +18,7 @@ export class Graph {
         for (let setting of Object.values(this.settings)) {
             document.documentElement.style.setProperty(setting.variable, setting.value)
         }
-        Object.values(this.nodesMap).forEach(node => node.rerenderConnectingEdges())
+        Object.values(this.nodesMap).forEach(node => node.refreshAfterAppliedSettings())
     }
 
     updateSettings(newValues) {

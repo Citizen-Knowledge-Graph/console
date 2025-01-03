@@ -71,6 +71,11 @@ export class CodeNode extends Node {
         this.rerenderConnectingEdges()
     }
 
+    refreshAfterAppliedSettings() {
+        super.refreshAfterAppliedSettings()
+        this.codeMirror.refresh()
+    }
+
     clear() {
         this.setValue("")
     }
