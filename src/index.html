@@ -218,9 +218,13 @@
                 graph.clear()
             }
 
-            const showModal = () => {
+            const showModal = title => {
                 document.getElementById("modal-container").classList.remove("hidden")
-                return document.getElementById("modal-window-content")
+                const modalContent = document.getElementById("modal-window-content")
+                let h2 = document.createElement("h2")
+                h2.appendChild(document.createTextNode(title))
+                modalContent.appendChild(h2)
+                return modalContent
             }
 
             const closeModal = () => {
@@ -262,10 +266,7 @@
             }
 
             const openLoadModal = async () => {
-                const modalContent = showModal()
-                let title = document.createElement("h2")
-                title.appendChild(document.createTextNode("Load from local storage"))
-                modalContent.appendChild(title)
+                const modalContent = showModal("Load from local storage")
                 const table = document.createElement("table")
                 table.classList.add("result-table")
                 buildTableHeader(["Graph ID", "Name", "Options"], table)
@@ -346,10 +347,7 @@
             document.getElementById("exportBtn").addEventListener("click", () => graph.export())
             document.getElementById("settingsBtn").addEventListener("click", () => {
                 document.getElementById("modal-close-btn").value = "Cancel"
-                let modalContent = showModal()
-                let title = document.createElement("h2")
-                title.appendChild(document.createTextNode("Settings"))
-                modalContent.appendChild(title)
+                let modalContent = showModal("Settings")
                 let table = document.createElement("table")
                 table.classList.add("result-table")
                 buildTableHeader(["Parameter", "Value"], table)
@@ -388,10 +386,7 @@
                 document.getElementById("modal-button-row").appendChild(resetBtn)
             })
             document.getElementById("examplesBtn").addEventListener("click", async () => {
-                let modalContent = showModal()
-                let title = document.createElement("h2")
-                title.appendChild(document.createTextNode("Examples"))
-                modalContent.appendChild(title)
+                let modalContent = showModal("Examples")
                 let table = document.createElement("table")
                 table.classList.add("result-table")
                 buildTableHeader(["File", "Name", "Options"], table)
@@ -418,9 +413,9 @@
                 modalContent.appendChild(table)
             })
             document.getElementById("howtoBtn").addEventListener("click", () => {
-                let modalContent = showModal()
-                modalContent.innerHTML = `
-                    <h2>HowTo</h2>
+                let modalContent = showModal("HowTo")
+                let div = document.createElement("div")
+                div.innerHTML = `
                     <div><strong>New nodes:</strong> right-click on the canvas</div>
                     <div><strong>New edges:</strong> left-click and drag from port to port</div>
                     <div><strong>Node options:</strong> right-click on the node</div>
@@ -431,6 +426,7 @@
                     <br/>
                     <div>Select multiple nodes by holding shift while clicking \t&rarr; options via right-click on one of them</div>
                 `
+                modalContent.appendChild(div)
             })
             document.getElementById("graphTitle").addEventListener("click", () => {
                 let name = prompt("Name your graph", graph.name)
