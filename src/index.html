@@ -515,11 +515,19 @@
                     let node = graph.nodesMap[nodeDivId.split("-")[1]]
                     if (selectedNodes.length > 1 && selectedNodes.includes(node.id)) {
                         let disabledItems = ["MultipleDeleteNodeAction", "MultipleDuplicateNodeAction", "MultipleDuplicateNodeWithEdgesAction"]
-                        setupMultipleNodesHeaderContextMenu(event, selectedNodes.length, disabledItems, action => {
+                        setupMultipleNodesHeaderContextMenu(event, selectedNodes.length, disabledItems, async action => {
                             let nodes = selectedNodes.map(nodeId => graph.nodesMap[nodeId])
                             switch (action) {
                                 case "MultipleHideContentAction":
                                     nodes.forEach(node => node.hideContent())
+                                    break;
+                                case "SubgraphBase64":
+                                    await graph.toTurtle(turtle => {
+                                        let url = new URL(window.location)
+                                        url.searchParams.set("base64", encodeURIComponent(btoa(turtle)))
+                                        navigator.clipboard.writeText(url.href)
+                                        showMessage("&#10003; Link copied to clipboard")
+                                    }, nodes)
                                     break;
                                 case "MultipleDeleteNodeAction":
                                     break;

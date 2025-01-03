@@ -154,7 +154,7 @@ export class Graph {
         await this.toTurtle(turtle => downloadGraph(this.name, turtle))
     }
 
-    async toTurtle(callback) {
+    async toTurtle(callback, onlyTheseNodes = []) {
         let writer = new Writer({
             prefixes: {
                 rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -201,19 +201,26 @@ export class Graph {
         let nodeCounter = 1
         let edgeIdMap = {}
         let edgeCounter = 1
-        Object.values(this.nodesMap).forEach(node => {
+        let nodesToProcess = onlyTheseNodes.length > 0 ? onlyTheseNodes : Object.values(this.nodesMap)
+        let edgesToProcess = []
+
+        nodesToProcess.forEach(node => {
             let exportId = this.ff("node" + nodeCounter ++)
             writer.addQuad(graph, hasNode, exportId)
             nodeIdMap[node.id] = exportId
         })
         Object.values(this.edgesMap).forEach(edge => {
+            if (onlyTheseNodes.length > 0) {
+                if (nodesToProcess.includes(edge.sourceNode) && nodesToProcess.includes(edge.targetNode)) edgesToProcess.push(edge)
+                else return
+            }
             let exportId = this.ff("edge" + edgeCounter ++)
             writer.addQuad(graph, hasEdge, exportId)
             edgeIdMap[edge.id] = exportId
         })
 
         // nodes
-        Object.values(this.nodesMap).forEach(node => {
+        nodesToProcess.forEach(node => {
             let n = nodeIdMap[node.id]
             writer.addQuad(n, a, nodeRdfClass)
             writer.addQuad(n, hasClass, this.ff(node.constructor.name))
@@ -233,7 +240,7 @@ export class Graph {
             }
         })
         // edges
-        Object.values(this.edgesMap).forEach(edge => {
+        edgesToProcess.forEach(edge => {
             let e = edgeIdMap[edge.id]
             writer.addQuad(e, a, edgeRdfClass)
             writer.addQuad(e, hasSource, nodeIdMap[edge.sourceNode.id])

@@ -71,6 +71,7 @@ const multipleNodesHeaderCtxMenuItems = (count) => {
     return [
         { label: `Action on ${count} Nodes` },
         { label: "Hide Content of Nodes", action: "MultipleHideContentAction" },
+        { label: "Copy subgraph as shareable link", action: "SubgraphBase64" },
         { label: "Delete Nodes", action: "MultipleDeleteNodeAction" },
         {
             label: "Duplicate Nodes", action: "MultipleDuplicateNodeAction",
