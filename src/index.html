@@ -175,21 +175,23 @@
         </div>
         <div class="top-menu">
             <span style="font-size: large; font-weight: bold;">semOps</span>
-            <span id="versionBtn" style="font-size: x-small; color:silver; margin-left: 2px" class="spanBtn">alpha version</span>
-            <span style="color: gray; margin: 0 35px 0 2px">linked data operations flow tool</span>
+            <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
             <span id="runBtn" class="spanBtn">Run</span><span class="separator-span">|</span>
             <!--<span id="stepBtn">Step</span><span class="separator-span">|</span>-->
-            <span id="resetBtn" class="spanBtn">Reset</span><span class="separator-span">|</span>
-            <span id="saveBtn" class="spanBtn">Save</span><span class="separator-span">|</span>
-            <span id="loadBtn" class="spanBtn">Load</span><span class="separator-span">|</span>
+            <span id="resetBtn" class="spanBtn" title="clear the value of all processor nodes">Reset</span><span class="separator-span">|</span>
+            <span id="saveBtn" class="spanBtn" title="to the local storage of your browser">Save</span><span class="separator-span">|</span>
+            <span id="loadBtn" class="spanBtn" title="from the local storage of your browser">Load</span><span class="separator-span">|</span>
             <span id="newBtn" class="spanBtn">New</span><span class="separator-span">|</span>
-            <span id="importBtn" class="spanBtn">Import</span><input type="file" id="fileUpload" style="display: none;" /><span class="separator-span">|</span>
-            <span id="exportBtn" class="spanBtn">Export</span><span class="separator-span">|</span>
+            <span id="importBtn" class="spanBtn" title="has to be semOps turtle format">Import</span><input type="file" id="fileUpload" style="display: none" /><span class="separator-span">|</span>
+            <span id="exportBtn" class="spanBtn" title="as semOps turtle format">Export</span><span class="separator-span">|</span>
             <span id="settingsBtn" class="spanBtn">Settings</span><span class="separator-span">|</span>
             <span id="examplesBtn" class="spanBtn">Examples</span><span class="separator-span">|</span>
             <span id="howtoBtn" class="spanBtn">HowTo</span>
             <span id="graphTitle" class="spanBtn"></span>
-            <span id="githubBtn" class="spanBtn" style="float:right;">GitHub</span>
+            <span style="float:right">
+                <span id="versionBtn" style="color:silver; margin-right: 4px" class="spanBtn" title="benjamin.degenhart@foerderfunke.org">alpha version | feedback welcome</span>
+                <span id="githubBtn" class="spanBtn">GitHub</span>
+            </span>
         </div>
         <div id="drawflow"></div>
         <script type="module">
