@@ -11,6 +11,10 @@ export class Graph {
             defaultWidth: { label: "Default Node Width", variable: "--default-node-width", value: "414px", defaultValue: "414px" },
             codeFontSize: { label: "Code Font Size", variable: "--code-font-size", value: "12px", defaultValue: "12px" },
         }
+        Object.keys(this.settings).forEach(key => {
+            let value = localStorage.getItem(key)
+            if (value) this.settings[key].value = value
+        })
         this.applySettings()
     }
 
@@ -22,12 +26,16 @@ export class Graph {
     }
 
     updateSettings(newValues) {
-        for (let [key, value] of Object.entries(newValues)) this.settings[key].value = value
+        for (let [key, value] of Object.entries(newValues)) {
+            localStorage.setItem(key, value)
+            this.settings[key].value = value
+        }
         this.applySettings()
     }
 
     resetSettings() {
         for (let setting of Object.values(this.settings)) setting.value = setting.defaultValue
+        Object.keys(this.settings).forEach(key => localStorage.removeItem(key))
         this.applySettings()
     }
 

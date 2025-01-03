@@ -353,7 +353,6 @@
                 buildTableHeader(["Parameter", "Value"], table)
                 let newSettingValues = {}
                 for (const [key, obj] of Object.entries(graph.settings)) {
-                    newSettingValues[key] = obj.value
                     let input = document.createElement("input")
                     input.type = "text"
                     input.classList.add("input-without-outline")
