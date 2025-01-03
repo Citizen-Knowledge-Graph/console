@@ -113,8 +113,19 @@ export class ShaclFormNode extends Node {
                 if (value) input.setAttribute("value", value)
                 container.appendChild(input)
 
-                input.addEventListener("change", event => {
-                    // event.target.value TODO
+                input.addEventListener("change", async event => {
+                    query = `
+                        PREFIX ff: <https://foerderfunke.org/default#>
+                        PREFIX sh: <http://www.w3.org/ns/shacl#>
+                        DELETE {
+                          <${propertyShape}> ff:value ?oldValue .
+                        } INSERT {
+                          <${propertyShape}> ff:value ${event.target.value} .
+                        } WHERE {
+                          <${propertyShape}> ff:value ?oldValue .
+                        }`
+                    await runSparqlInsertDeleteQueryOnStore(query, this.store)
+                    await this.updateInternalStateOutput()
                 })
             }
         }
