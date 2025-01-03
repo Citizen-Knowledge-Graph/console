@@ -153,10 +153,13 @@ export class Graph {
                 ff: "https://foerderfunke.org/default#"
             }
         })
+        // graph
         const graph = this.ff("graph")
         const a = DataFactory.namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
         const hasId = this.ff("hasId")
         const hasExportTimestamp = this.ff("hasExportTimestamp")
+        const hasTranslateX = this.ff("hasTranslateX")
+        const hasTranslateY = this.ff("hasTranslateY")
         // nodes
         const nodeRdfClass = this.ff("Node")
         const hasNode = this.ff("hasNode")
@@ -180,6 +183,9 @@ export class Graph {
         writer.addQuad(graph, hasId, DataFactory.literal(this.id))
         if (this.name) writer.addQuad(graph, hasName, DataFactory.literal(this.name))
         writer.addQuad(graph, hasExportTimestamp, DataFactory.literal(new Date().toISOString()))
+        let matrix = new DOMMatrix(document.querySelector("#drawflow .drawflow").style.transform)
+        writer.addQuad(graph, hasTranslateX, DataFactory.literal(matrix.e))
+        writer.addQuad(graph, hasTranslateY, DataFactory.literal(matrix.f))
 
         // pre-run to have triples with graph as subjects nicely first -store would have sorted this automatically, but writer is a stream-writer
         // and to create id-mapping
@@ -243,13 +249,19 @@ export class Graph {
         let query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             SELECT * WHERE {
-                ?graph a ff:Graph .
-                OPTIONAL { ?graph ff:hasId ?id . }
+                ?graph a ff:Graph ;
+                    ff:hasId ?id .
                 OPTIONAL { ?graph ff:hasName ?name . }
+                OPTIONAL {
+                    ?graph ff:hasTranslateX ?x ;
+                        ff:hasTranslateY ?y .
+                }
             }`
         let row = (await runSparqlSelectQueryOnRdfString(query, rdfStr))[0]
         if (row.id) this.id = row.id
         if (row.name) this.name = row.name
+        // if we need to preserve other elements of transform (e.g. scale, rotate), we should use DOMMatrix
+        if (row.x) document.querySelector("#drawflow .drawflow").style.transform = `translate(${row.x}px, ${row.y}px)`
         this.updateGraphTitle()
         // nodes
         query = `
