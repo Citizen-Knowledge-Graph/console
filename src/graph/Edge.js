@@ -14,6 +14,7 @@ export class Edge {
     static isInvalid(conn, graph) {
         let targetNode = graph.nodesMap[conn.input_id]
         let portIn = conn.input_class
+        // max one edge per input port is allowed
         let isInvalid =
             Object.values(graph.edgesMap).some(edge => (edge.targetNode === targetNode && edge.portIn === portIn))
         if (isInvalid) {

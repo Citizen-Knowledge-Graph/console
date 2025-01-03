@@ -640,20 +640,30 @@
                 }
             }
 
+            async function loadExample(filename) {
+                let response = await fetch(`examples/${filename}`)
+                if (response.ok) {
+                    let turtle = await response.text()
+                    await graph.import(turtle)
+                } else {
+                    console.error(`Failed to fetch example ${filename}`)
+                }
+            }
+
             // load initial graph
             const urlParams = new URLSearchParams(window.location.search)
             if (urlParams.has("load")) {
                 let graphId = urlParams.get("load")
                 let turtle = localStorage.getItem(graphId)
                 if (turtle) {
-                    loadTurtle(turtle)
+                    graph.import(turtle)
                 } else {
                     console.log(`No graph with id ${graphId} found in local storage`)
                 }
+            } else if (urlParams.has("example")) {
+                loadExample(urlParams.get("example"))
             } else {
-                const response = await fetch("examples/foerderfunke-mini.ttl")
-                const rdfStr = await response.text()
-                graph.import(rdfStr)
+                loadExample("foerderfunke-mini.ttl")
             }
         </script>
     </body>
