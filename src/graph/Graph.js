@@ -202,7 +202,7 @@ export class Graph {
         let edgeIdMap = {}
         let edgeCounter = 1
         let nodesToProcess = onlyTheseNodes.length > 0 ? onlyTheseNodes : Object.values(this.nodesMap)
-        let edgesToProcess = []
+        let edgesToProcess = onlyTheseNodes.length === 0 ? Object.values(this.edgesMap) : []
 
         nodesToProcess.forEach(node => {
             let exportId = this.ff("node" + nodeCounter ++)
