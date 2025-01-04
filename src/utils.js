@@ -196,3 +196,13 @@ export function expand(prefix, localName) {
 export function localName(uri) {
     return uri.split("#").pop()
 }
+
+export function formatLiteral(val) {
+    if (!val) return
+    return isNumber(val) ? val : `"${val}"`
+}
+
+export function isNumber(val) {
+    val += ""
+    return !isNaN(val) && !isNaN(parseFloat(val))
+}

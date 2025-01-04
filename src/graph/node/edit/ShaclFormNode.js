@@ -1,12 +1,12 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore } from "../../../utils.js"
+import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatLiteral } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
         super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
-        this.store = new Store()
+        this.store = null
         this.value = ""
         this.currentShacl = ""
     }
@@ -25,14 +25,11 @@ export class ShaclFormNode extends Node {
             PREFIX ff: <https://foerderfunke.org/default#>
             PREFIX sh: <http://www.w3.org/ns/shacl#>
             CONSTRUCT {
-                ?targetNode a ?targetNodeClass ;
-                    ?path ?value .
+                ?individual ?p ?o .
             } WHERE {
-                ?nodeShape sh:targetNode ?targetNode ;
-                    ff:instanceOf ?targetNodeClass ;
-                    sh:property ?propertyShape .
-                ?propertyShape sh:path ?path .
-                OPTIONAL { ?propertyShape ff:value ?value . }
+                ?individual a ?class .
+                FILTER(?class NOT IN (sh:NodeShape, sh:PropertyShape))
+                ?individual ?p ?o .
             }`
         let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
         let store = new Store()
@@ -49,11 +46,11 @@ export class ShaclFormNode extends Node {
     async processIncomingData() {
         let shacl = this.incomingData[0].data
         if (shacl === this.currentShacl) return await this.serializeData()
-        this.currentShacl = shacl
 
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         while (container.firstChild) container.firstChild.remove()
-
+        this.currentShacl = shacl
+        this.store = new Store()
         await addRdfStringToStore(shacl, this.store)
 
         let query = `
@@ -78,25 +75,44 @@ export class ShaclFormNode extends Node {
                         sh:property ?propertyShape .
                     OPTIONAL { ?propertyShape ff:pointsToInstancesOf ?pointsToInstancesOf . }
                 }`
-
             let propertyShapes = (await runSparqlSelectQueryOnStore(query, this.store)).map(result => [result.propertyShape, result.pointsToInstancesOf])
+
             for (let [propertyShape, pointsToInstancesOf] of propertyShapes) {
                 query = `
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
+                    PREFIX ff: <https://foerderfunke.org/default#>
                     SELECT * WHERE {
                         <${propertyShape}> a sh:PropertyShape ;
-                            ?key ?value .
+                            ?propKey ?propValue ;
+                            sh:path ?path .
+                      OPTIONAL { <${targetNode}> ?path ?value } .
                     }`
                 let properties = {};
-                (await runSparqlSelectQueryOnStore(query, this.store)).forEach(result => properties[result.key] = result.value)
+                let results = await runSparqlSelectQueryOnStore(query, this.store)
+                results.forEach(result => properties[result.propKey] = result.propValue)
+                let value = results[0].value
+
+                let path = properties[expand("sh", "path")] // datafield
 
                 if (pointsToInstancesOf) {
                     let btn = document.createElement("input")
                     btn.style.marginTop = "10px"
                     btn.setAttribute("type", "button")
                     btn.setAttribute("value", `+ ${properties[expand("sh", "description")]}`)
-                    btn.addEventListener("click", () => {
-                        // TODO
+                    btn.addEventListener("click", async () => {
+                        let query = `
+                            SELECT (COUNT(?existingIndividual) AS ?count) WHERE {
+                                <${targetNode}> <${path}> ?existingIndividual .
+                            }`
+                        let count = (await runSparqlSelectQueryOnStore(query, this.store))[0].count
+                        let newIndividual = pointsToInstancesOf.toLowerCase() + count
+                        query = `
+                            INSERT DATA {
+                              <${targetNode}> <${path}> <${newIndividual}> .
+                              <${newIndividual}> a <${pointsToInstancesOf}> .
+                            }`
+                        await runSparqlInsertDeleteQueryOnStore(query, this.store)
+                        await this.updateInternalStateOutput()
                     })
                     container.appendChild(btn)
                     continue
@@ -108,21 +124,23 @@ export class ShaclFormNode extends Node {
                 container.appendChild(label)
 
                 let input = document.createElement("input")
-                let value = properties[expand("ff", "value")]
                 if (value) input.setAttribute("value", value)
                 container.appendChild(input)
 
                 input.addEventListener("change", async event => {
-                    query = `
-                        PREFIX ff: <https://foerderfunke.org/default#>
-                        PREFIX sh: <http://www.w3.org/ns/shacl#>
-                        DELETE {
-                          <${propertyShape}> ff:value ?oldValue .
-                        } INSERT {
-                          <${propertyShape}> ff:value ${event.target.value} .
-                        } WHERE {
-                          <${propertyShape}> ff:value ?oldValue .
-                        }`
+                    let query = `SELECT * WHERE { <${targetNode}> <${path}> ?oldValue . }`
+                    let valueBeforeChange = formatLiteral((await runSparqlSelectQueryOnStore(query, this.store))[0]?.oldValue)
+                    let valueAfterChange = formatLiteral(event.target.value)
+                    if (valueAfterChange) {
+                        if (valueBeforeChange) {
+                            query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . };
+                                INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
+                        } else {
+                            query = `INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
+                        }
+                    } else {
+                        query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . }`
+                    }
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
                     await this.updateInternalStateOutput()
                 })
