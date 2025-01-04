@@ -1,7 +1,7 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore } from "../../../utils.js"
-import { DataFactory, Store } from "../../../assets/bundle.js"
+import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore } from "../../../utils.js"
+import { Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
@@ -20,24 +20,23 @@ export class ShaclFormNode extends Node {
         this.assignTitlesToPorts("output", ["Form output", "Internal form state"])
     }
 
-    determineObjectType(value, propertyShape) {
-        let datatype = propertyShape[expand("sh", "datatype")]
-        if (!datatype) return DataFactory.literal(value)
-        if (datatype.endsWith("integer")) return DataFactory.literal(Number(value))
-        if (datatype.endsWith("anyURI") || value.startsWith("http")) return DataFactory.namedNode(value)
-        return DataFactory.literal(value)
-    }
-
     async serializeData() {
+        let query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            CONSTRUCT {
+                ?targetNode a ?targetNodeClass ;
+                    ?path ?value .
+            } WHERE {
+                ?nodeShape sh:targetNode ?targetNode ;
+                    ff:instanceOf ?targetNodeClass ;
+                    sh:property ?propertyShape .
+                ?propertyShape sh:path ?path .
+                OPTIONAL { ?propertyShape ff:value ?value . }
+            }`
+        let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
         let store = new Store()
-        for (let targetNode of Object.keys(this.data)) {
-            store.addQuad({
-                subject: DataFactory.namedNode(targetNode),
-                predicate: DataFactory.namedNode(expand("rdf", "type")),
-                object: DataFactory.namedNode(this.data[targetNode].class)
-            })
-            // TODO
-        }
+        for (let quad of constructedQuads) store.addQuad(quad)
         return await serializeStoreToTurtle(store)
     }
 
@@ -49,7 +48,7 @@ export class ShaclFormNode extends Node {
 
     async processIncomingData() {
         let shacl = this.incomingData[0].data
-        if (shacl === this.currentShacl) return "still dev" // await this.serializeData()
+        if (shacl === this.currentShacl) return await this.serializeData()
         this.currentShacl = shacl
 
         let container = this.nodeDiv.querySelector(".shacl-form-container")
@@ -131,7 +130,7 @@ export class ShaclFormNode extends Node {
         }
         await this.updateInternalStateOutput()
         this.rerenderConnectingEdges()
-        return "dev"
+        return this.serializeData()
     }
 
     getValue() {

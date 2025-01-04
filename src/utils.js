@@ -66,12 +66,16 @@ export async function runSparqlSelectQueryOnRdfString(query, rdfStr) {
     return await runSparqlSelectQueryOnStore(query, store)
 }
 
-export async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
-    let store = new Store()
-    await addRdfStringToStore(rdfStr, store)
+export async function runSparqlConstructQueryOnStore(query, store) {
     const queryEngine = new QueryEngine()
     let quadsStream = await queryEngine.queryQuads(query, { sources: [ store ] })
     return await quadsStream.toArray()
+}
+
+export async function runSparqlConstructQueryOnRdfString(query, rdfStr) {
+    let store = new Store()
+    await addRdfStringToStore(rdfStr, store)
+    return await runSparqlConstructQueryOnStore(query, store)
 }
 
 export async function runSparqlInsertDeleteQueryOnStore(query, store) {
