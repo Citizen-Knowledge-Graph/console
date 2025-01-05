@@ -106,7 +106,8 @@ export function serializeStoreToTurtle(store) {
             prefixes: {
                 ff: "https://foerderfunke.org/default#",
                 sh: "http://www.w3.org/ns/shacl#",
-                xsd: "http://www.w3.org/2001/XMLSchema#"
+                xsd: "http://www.w3.org/2001/XMLSchema#",
+                rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             }
         })
         store.getQuads().forEach(quad => writer.addQuad(quad))

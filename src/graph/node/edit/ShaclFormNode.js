@@ -27,7 +27,7 @@ export class ShaclFormNode extends Node {
                 ?individual ?p ?o .
             } WHERE {
                 ?individual a ?class .
-                FILTER(?class NOT IN (sh:NodeShape, sh:PropertyShape))
+                FILTER(?class NOT IN (sh:NodeShape, sh:PropertyShape, ff:RequirementProfile, ff:AnswerOption))
                 ?individual ?p ?o .
             }`
         let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
@@ -141,6 +141,36 @@ export class ShaclFormNode extends Node {
                 label.textContent = properties[expand("sh", "name")]
                 label.style.marginRight = "10px"
                 container.appendChild(label)
+
+                if (properties[expand("sh", "in")]) {
+                    let query = `
+                        PREFIX ff: <https://foerderfunke.org/default#>
+                        PREFIX sh: <http://www.w3.org/ns/shacl#>
+                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                        SELECT * WHERE {
+                            <${propertyShape}> a sh:PropertyShape ;
+                                sh:in ?rootList .
+                            ?rootList rdf:rest* ?listNode .
+                            ?listNode rdf:first ?listItem .
+                            ?listItem ff:title ?title .
+                        }`
+                    let options = (await runSparqlSelectQueryOnStore(query, this.store)).map(result => [result.listItem, result.title])
+                    let select = document.createElement("select")
+                    for (let [value, label] of options) {
+                        let option = document.createElement("option")
+                        option.value = value
+                        option.textContent = label
+                        select.appendChild(option)
+                    }
+                    select.addEventListener("change", async event => {
+                        console.log(event.target.value)
+                        // TODO
+                    })
+                    container.appendChild(select)
+                    container.appendChild(document.createElement("br"))
+                    container.appendChild(document.createElement("br"))
+                    continue
+                }
 
                 let input = document.createElement("input")
                 if (value) input.setAttribute("value", value)
