@@ -38,13 +38,11 @@ export class CodeNode extends Node {
     }
 
     onCodeMirrorChange() {
-        let copyPasteReceivers = Object.values(this.graph.edgesMap)
+        let copyPasteReceiverNodes = Object.values(this.graph.edgesMap)
             .filter(edge => edge.sourceNode === this)
             .filter(edge => edge.targetNode.constructor.name === "TurtleInputNodeWithCopyPasteInPort")
             .map(edge => edge.targetNode)
-        for (let receiver of copyPasteReceivers) {
-            receiver.setValue(this.getValue())
-        }
+        for (let node of copyPasteReceiverNodes) node.receiveCopyPasteValue(this.getValue())
     }
 
     preResize() {

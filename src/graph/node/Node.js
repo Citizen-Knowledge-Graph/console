@@ -224,6 +224,10 @@ export class Node {
         this.inputs.push(type)
     }
 
+    receiveCopyPasteValue(value) {
+        this.setValue(value)
+    }
+
     getMainHtml() {}
     preResize() {}
     postResize(dy) {}
