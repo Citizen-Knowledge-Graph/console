@@ -11,7 +11,7 @@ export class ShaclFormNode extends Node {
     }
 
     getMainHtml() {
-        return `<div class="shacl-form-container" style="margin: 0 0 10px 10px"/>`
+        return `<div class="shacl-form-container" style="margin: 0 0 20px 10px"/>`
     }
 
     postConstructor() {
@@ -50,10 +50,7 @@ export class ShaclFormNode extends Node {
 
     async processIncomingData() {
         let shacl = this.incomingData[0].data
-        if (shacl === this.currentShacl) {
-            await this.updateLiveOutputs()
-            return null
-        }
+        if (shacl === this.currentShacl) return null
 
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         while (container.firstChild) container.firstChild.remove()
