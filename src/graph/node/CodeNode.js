@@ -34,8 +34,10 @@ export class CodeNode extends Node {
             // otherwise Drawflow deletes the node
             if (event.key === "Delete") event.stopPropagation()
         })
-        // this.codeMirror.on("change", () => { this.codeMirror.lineCount() })
+        this.codeMirror.on("change", () => this.onCodeMirrorChange())
     }
+
+    onCodeMirrorChange() {}
 
     preResize() {
         this.resizeStartHeight = this.codemirrorContainer.offsetHeight

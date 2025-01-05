@@ -236,7 +236,7 @@ export class Graph {
                 writer.addQuad(n, hasContentHidden, DataFactory.literal(true))
             }
             if (node.isInput()) {
-                writer.addQuad(n, hasValue, DataFactory.literal(node.getValue().trim()))
+                writer.addQuad(n, hasValue, DataFactory.literal(node.getValue(true).trim()))
             }
         })
         // edges

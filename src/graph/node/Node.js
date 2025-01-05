@@ -140,7 +140,7 @@ export class Node {
     }
 
     async run() {
-        if (!this.isInput()) {
+        if (!this.isInput() || this.constructor.name === "OutputViewNodeWithInitialInput") {
             this.setValue(await this.processIncomingData())
         }
         this.highlight(true)
@@ -229,6 +229,7 @@ export class Node {
     clear() { this.err() }
     async processIncomingData() { this.err() }
     addInputPort() { this.err() }
+    onCodeMirrorChange() { this.err() }
 
     err() {
         console.error("This 'abstract base method' should not be called")

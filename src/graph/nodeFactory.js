@@ -11,6 +11,7 @@ import { ShaclFormLibNode } from "./node/edit/ShaclFormLibNode.js"
 import { ShaclFormNode } from "./node/edit/ShaclFormNode.js"
 import { OutputViewLeafNode } from "./node/view/OutputViewLeafNode.js"
 import { MultiplexerLogicNode } from "./node/logic/MultiplexerLogicNode.js"
+import { OutputViewNodeWithInitialInput } from "./node/input/OutputViewNodeWithInitialInput.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -46,7 +47,8 @@ const nodeClasses = {
     "ShaclFormLibNode": ShaclFormLibNode,
     "ShaclFormNode": ShaclFormNode,
     "OutputViewLeafNode": OutputViewLeafNode,
-    "MultiplexerLogicNode": MultiplexerLogicNode
+    "MultiplexerLogicNode": MultiplexerLogicNode,
+    "OutputViewNodeWithInitialInput": OutputViewNodeWithInitialInput
 }
 
 export const exampleData = {
