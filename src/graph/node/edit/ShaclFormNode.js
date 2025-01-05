@@ -1,11 +1,11 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatLiteral } from "../../../utils.js"
+import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatLiteral, runValidationOnStore, serializeDatasetToTurtle } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
+        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = null
         this.currentShacl = ""
     }
@@ -16,10 +16,10 @@ export class ShaclFormNode extends Node {
 
     postConstructor() {
         super.postConstructor()
-        this.assignTitlesToPorts("output", ["Form output", "Internal form state"])
+        this.assignTitlesToPorts("output", ["Form output", "Internal form state", "Validation result"])
     }
 
-    async serializeData() {
+    async serializeFormOutput() {
         let query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             PREFIX sh: <http://www.w3.org/ns/shacl#>
@@ -36,12 +36,16 @@ export class ShaclFormNode extends Node {
         return await serializeStoreToTurtle(store)
     }
 
-    async updateLiveOutputs() {
+    async update() {
         let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
-        let out1 = outgoingEdges.find(edge => edge.portOut === "output_1")
-        if (out1) out1.targetNode.justShowValue(await this.serializeData(), "turtle")
-        let out2 = outgoingEdges.find(edge => edge.portOut === "output_2")
-        if (out2) out2.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
+        let edge = outgoingEdges.find(edge => edge.portOut === "output_1")
+        if (edge) edge.targetNode.justShowValue(await this.serializeFormOutput(), "turtle")
+        edge = outgoingEdges.find(edge => edge.portOut === "output_2")
+        if (edge) edge.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
+        let result = await runValidationOnStore(this.store)
+        // TODO
+        edge = outgoingEdges.find(edge => edge.portOut === "output_3")
+        if (edge) edge.targetNode.justShowValue(await serializeDatasetToTurtle(result.dataset), "turtle")
     }
 
     async processIncomingData() {
@@ -116,7 +120,7 @@ export class ShaclFormNode extends Node {
                               <${newIndividual}> a <${pointsToInstancesOf}> .
                             }`
                         await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                        await this.updateLiveOutputs()
+                        await this.update()
                         this.graph.run() // workaround
                     })
                     container.appendChild(btn)
@@ -147,11 +151,11 @@ export class ShaclFormNode extends Node {
                         query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . }`
                     }
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                    await this.updateLiveOutputs()
+                    await this.update()
                 })
             }
         }
-        await this.updateLiveOutputs()
+        await this.update()
         this.rerenderConnectingEdges()
         return null
     }
