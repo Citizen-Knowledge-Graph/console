@@ -117,6 +117,7 @@ export class ShaclFormNode extends Node {
                             }`
                         await runSparqlInsertDeleteQueryOnStore(query, this.store)
                         await this.updateLiveOutputs()
+                        this.graph.run() // workaround
                     })
                     container.appendChild(btn)
                     continue
