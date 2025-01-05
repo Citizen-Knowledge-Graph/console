@@ -108,7 +108,7 @@ export class ShaclFormNode extends Node {
                 let properties = {};
                 let results = await runSparqlSelectQueryOnStore(query, this.store)
                 results.forEach(result => properties[result.propKey] = result.propValue)
-                let value = results[0].value
+                let datafieldValue = results[0].value
 
                 let path = properties[expand("sh", "path")] // datafield
 
@@ -174,12 +174,15 @@ export class ShaclFormNode extends Node {
                         }`
                     let options = (await runSparqlSelectQueryOnStore(query, this.store)).map(result => [result.listItem, result.title])
                     let select = document.createElement("select")
-                    for (let [value, label] of options) {
+                    const appendOption = (value, label, selected) => {
                         let option = document.createElement("option")
                         option.value = value
                         option.textContent = label
+                        option.selected = value === datafieldValue || selected
                         select.appendChild(option)
                     }
+                    appendOption("", "-", true)
+                    for (let [value, label] of options) appendOption(value, label, false)
                     select.addEventListener("change", async event => await handleChange(event.target.value))
                     container.appendChild(select)
                     container.appendChild(document.createElement("br"))
@@ -188,7 +191,7 @@ export class ShaclFormNode extends Node {
                 }
 
                 let input = document.createElement("input")
-                if (value) input.setAttribute("value", value)
+                if (datafieldValue) input.setAttribute("value", datafieldValue)
                 input.addEventListener("change", async event => await handleChange(event.target.value))
                 container.appendChild(input)
             }
