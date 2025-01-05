@@ -8,6 +8,10 @@ export class MergeTriplesNode extends CodeNode {
         super(initialValues, graph, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE ], TYPE.PROCESSOR)
     }
 
+    enoughIncomingDataAvailable() {
+        return this.hasAsMuchIncomingDataAvailableAsIncomingEdges()
+    }
+
     async processIncomingData() {
         let store = new Store()
         for (let port of this.incomingData) {
