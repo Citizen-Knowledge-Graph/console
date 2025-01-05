@@ -123,9 +123,8 @@ export class Graph {
     endRound() {
         for (let node of Object.values(this.nodesMap)) {
             node.ranThisRound = false
-            if (node.constructor.name !== "OutputViewNodeWithInitialInput") {
-                node.incomingData = []
-            }
+            node.incomingData = []
+            // if (node.constructor.name !== "OutputViewNodeWithInitialInput") { node.incomingData = [] }
             node.unhighlightAllPorts()
         }
         this.stepCounter = 0

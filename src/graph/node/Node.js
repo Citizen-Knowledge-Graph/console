@@ -140,7 +140,7 @@ export class Node {
     }
 
     async run() {
-        if (!this.isInput() || this.constructor.name === "OutputViewNodeWithInitialInput") {
+        if (!this.isInput()) { // || this.constructor.name === "OutputViewNodeWithInitialInput"
             this.setValue(await this.processIncomingData())
         }
         this.highlight(true)

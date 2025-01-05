@@ -26,7 +26,7 @@ const canvasCtxMenuItems = [
                     { label: "Example: Delete / Insert", action: "ex_SparqlInputNode_DeleteInsert" },
                 ]
             },
-            { label: "Output Viewer with initial input", action: "OutputViewNodeWithInitialInput" },
+            // { label: "Output Viewer with initial input", action: "OutputViewNodeWithInitialInput" },
         ]
     },
     {
@@ -53,12 +53,12 @@ const canvasCtxMenuItems = [
             { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
         ]
     },
-    {
+    /*{
         label: "Logic",
         submenu: [
             { label: "Multiplexer (dev)", action: "MultiplexerLogicNode" },
         ]
-    }
+    }*/
 ]
 
 const nodeHeaderCtxMenuItems = [
