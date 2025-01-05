@@ -10,7 +10,7 @@ export class MultiplexerLogicNode extends CodeNode {
     }
 
     enoughIncomingDataAvailable() {
-        return this.countIncomingEdges() === this.incomingData.length
+        return this.hasAsMuchIncomingDataAvailableAsIncomingEdges()
     }
 
     async processIncomingData() {

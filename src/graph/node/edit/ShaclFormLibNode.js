@@ -77,7 +77,7 @@ export class ShaclFormLibNode extends Node {
     }
 
     enoughIncomingDataAvailable() {
-        return this.countIncomingEdges() === this.incomingData.length
+        return this.hasAsMuchIncomingDataAvailableAsIncomingEdges()
     }
 
     getValue() {
