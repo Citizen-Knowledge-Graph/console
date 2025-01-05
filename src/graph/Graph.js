@@ -70,7 +70,11 @@ export class Graph {
     onEditorEdgeCreated(connectionObj) {
         // this gets called after the editor already created a node, so we can wrap our own Edge object around it
         if (Edge.isInvalid(connectionObj, this)) return
-        new Edge(connectionObj, this)
+        let edge = new Edge(connectionObj, this)
+        if (edge.targetNode.constructor.name === "TurtleInputNodeWithCopyPasteInPort") {
+            let value = edge.sourceNode.getValue()
+            if (value) edge.targetNode.receiveCopyPasteValue(value)
+        }
     }
 
     duplicateNode(node, includeIncomingEdges) {
