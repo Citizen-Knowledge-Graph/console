@@ -542,9 +542,8 @@
                     let disabledItems = []
                     let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
                     if (!hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
-                    if (node.constructor.name !== "MergeTriplesNode") disabledItems.push("AddInputPortAction")
                     if (node.contentIsHidden()) disabledItems.push("HideContentAction")
-                    setupNodeHeaderContextMenu(event, disabledItems, action => {
+                    setupNodeHeaderContextMenu(event, node.constructor.name, disabledItems, action => {
                         switch (action) {
                             case "RenameAction":
                                 let name = prompt("New name", node.name)
@@ -573,7 +572,7 @@
                     return
                 }
                 if (!["drawflow", "parent-drawflow"].includes(event.target.className)) return
-                let disabledItems = [] // ["ShaclFormLibNode", "ShaclFormNode"]
+                let disabledItems = []
                 setupCanvasContextMenu(event, disabledItems, (action, defaultLabel, x, y) => {
                     x -= editor.canvas_x
                     y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
