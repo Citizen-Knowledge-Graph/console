@@ -4,12 +4,12 @@ const canvasCtxMenuItems = [
     {
         label: "Input",
         submenu: [
-            {
+            /*{
                 label: "Prefixes", action: "PrefixesNode",
                 submenu: [
                     { label: "Example: Prefixes", action: "ex_PrefixesNode_ff" }
                 ]
-            },
+            },*/
             {
                 label: "Turtle Input", action: "TurtleInputNode",
                 submenu: [
