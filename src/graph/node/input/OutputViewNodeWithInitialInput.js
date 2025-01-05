@@ -36,7 +36,7 @@ export class OutputViewNodeWithInitialInput extends CodeNode {
         this.disregardNextChangeEvent = false
     }
 
-    getValue(isForExport = false) {
+    /*getValue(isForExport = false) { // TODO
         return isForExport ? this.latestManualInput : this.codeMirror.getValue()
-    }
+    }*/
 }

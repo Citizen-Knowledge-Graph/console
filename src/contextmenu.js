@@ -73,6 +73,7 @@ const nodeHeaderCtxMenuItems = [
         ]
     },
     { label: "Add input port", action: "AddInputPortAction", onlyVisibleFor: [ "MergeTriplesNode" ] },
+    { label: "Save current as initial value", action: "SaveInitialValueAction", onlyVisibleFor: [ "TurtleInputNodeWithCopyPasteInPort" ] }
 ]
 
 const multipleNodesHeaderCtxMenuItems = (count) => {

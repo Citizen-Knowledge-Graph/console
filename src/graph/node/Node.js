@@ -232,6 +232,10 @@ export class Node {
         this.setValue(value)
     }
 
+    getValueForExport() {
+        return this.getValue()
+    }
+
     getMainHtml() {}
     preResize() {}
     postResize(dy) {}
@@ -243,6 +247,7 @@ export class Node {
     async processIncomingData() { this.err() }
     addInputPort() { this.err() }
     onCodeMirrorChange() { this.err() }
+    saveInitialValue() { this.err() }
 
     err() {
         console.error("This 'abstract base method' should not be called")
