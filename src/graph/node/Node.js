@@ -149,14 +149,19 @@ export class Node {
         let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
         for (let edge of outgoingEdges) {
             edge.highlight(true)
-            edge.targetNode.highlightPort(edge.portIn)
-            edge.targetNode.incomingData.push({
-                from: this.id,
+            edge.targetNode.receiveDataPackage({
+                from: this,
                 dataType: outputPortType,
+                viaEdge: edge,
                 data: this.getValue()
             })
         }
         this.ranThisRound = true
+    }
+
+    receiveDataPackage(dataPackage) {
+        this.highlightPort(dataPackage.viaEdge.portIn)
+        this.incomingData.push(dataPackage)
     }
 
     highlight(bool) {
