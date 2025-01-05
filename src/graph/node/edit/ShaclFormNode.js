@@ -7,7 +7,6 @@ export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
         super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = null
-        this.value = ""
         this.currentShacl = ""
     }
 
@@ -37,15 +36,20 @@ export class ShaclFormNode extends Node {
         return await serializeStoreToTurtle(store)
     }
 
-    async updateInternalStateOutput() {
-        let edge = Object.values(this.graph.edgesMap).find(edge => edge.sourceNode === this && edge.portOut === "output_2")
-        if (!edge) return
-        edge.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
+    async updateLiveOutputs() {
+        let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
+        let out1 = outgoingEdges.find(edge => edge.portOut === "output_1")
+        if (out1) out1.targetNode.justShowValue(await this.serializeData(), "turtle")
+        let out2 = outgoingEdges.find(edge => edge.portOut === "output_2")
+        if (out2) out2.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
     }
 
     async processIncomingData() {
         let shacl = this.incomingData[0].data
-        if (shacl === this.currentShacl) return await this.serializeData()
+        if (shacl === this.currentShacl) {
+            await this.updateLiveOutputs()
+            return null
+        }
 
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         while (container.firstChild) container.firstChild.remove()
@@ -112,7 +116,7 @@ export class ShaclFormNode extends Node {
                               <${newIndividual}> a <${pointsToInstancesOf}> .
                             }`
                         await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                        await this.updateInternalStateOutput()
+                        await this.updateLiveOutputs()
                     })
                     container.appendChild(btn)
                     continue
@@ -142,20 +146,15 @@ export class ShaclFormNode extends Node {
                         query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . }`
                     }
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                    await this.updateInternalStateOutput()
+                    await this.updateLiveOutputs()
                 })
             }
         }
-        await this.updateInternalStateOutput()
+        await this.updateLiveOutputs()
         this.rerenderConnectingEdges()
-        return this.serializeData()
+        return null
     }
 
-    getValue() {
-        return this.value
-    }
-
-    setValue(value) {
-        this.value = value
-    }
+    getValue() { return null }
+    setValue(value) {}
 }
