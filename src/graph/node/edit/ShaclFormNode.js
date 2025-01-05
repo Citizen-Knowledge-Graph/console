@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatLiteral, runValidationOnStore, serializeDatasetToTurtle } from "../../../utils.js"
+import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatObject, runValidationOnStore, serializeDatasetToTurtle } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
@@ -142,6 +142,24 @@ export class ShaclFormNode extends Node {
                 label.style.marginRight = "10px"
                 container.appendChild(label)
 
+                const handleChange = async (newValue) => {
+                    let query = `SELECT * WHERE { <${targetNode}> <${path}> ?oldValue . }`
+                    let valueBeforeChange = formatObject((await runSparqlSelectQueryOnStore(query, this.store))[0]?.oldValue)
+                    let valueAfterChange = formatObject(newValue)
+                    if (valueAfterChange) {
+                        if (valueBeforeChange) {
+                            query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . };
+                                INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
+                        } else {
+                            query = `INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
+                        }
+                    } else {
+                        query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . }`
+                    }
+                    await runSparqlInsertDeleteQueryOnStore(query, this.store)
+                    await this.update()
+                }
+
                 if (properties[expand("sh", "in")]) {
                     let query = `
                         PREFIX ff: <https://foerderfunke.org/default#>
@@ -162,10 +180,7 @@ export class ShaclFormNode extends Node {
                         option.textContent = label
                         select.appendChild(option)
                     }
-                    select.addEventListener("change", async event => {
-                        console.log(event.target.value)
-                        // TODO
-                    })
+                    select.addEventListener("change", async event => await handleChange(event.target.value))
                     container.appendChild(select)
                     container.appendChild(document.createElement("br"))
                     container.appendChild(document.createElement("br"))
@@ -174,25 +189,8 @@ export class ShaclFormNode extends Node {
 
                 let input = document.createElement("input")
                 if (value) input.setAttribute("value", value)
+                input.addEventListener("change", async event => await handleChange(event.target.value))
                 container.appendChild(input)
-
-                input.addEventListener("change", async event => {
-                    let query = `SELECT * WHERE { <${targetNode}> <${path}> ?oldValue . }`
-                    let valueBeforeChange = formatLiteral((await runSparqlSelectQueryOnStore(query, this.store))[0]?.oldValue)
-                    let valueAfterChange = formatLiteral(event.target.value)
-                    if (valueAfterChange) {
-                        if (valueBeforeChange) {
-                            query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . };
-                                INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
-                        } else {
-                            query = `INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
-                        }
-                    } else {
-                        query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . }`
-                    }
-                    await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                    await this.update()
-                })
             }
         }
         await this.update()

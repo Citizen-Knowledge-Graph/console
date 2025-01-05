@@ -196,8 +196,9 @@ export function localName(uri) {
     return uri.split("#").pop()
 }
 
-export function formatLiteral(val) {
+export function formatObject(val) {
     if (!val) return
+    if (val.startsWith("http")) return `<${val}>`
     return isNumber(val) ? val : `"${val}"`
 }
 
