@@ -38,6 +38,7 @@ export class TableNode extends Node {
             tbody.appendChild(tr)
         }
         table.appendChild(tbody)
+        this.rerenderConnectingEdges()
     }
 
     getValue() {
