@@ -51,6 +51,12 @@ const canvasCtxMenuItems = [
             { label: "SHACL Form Editor (dev)", action: "ShaclFormNode" },
             { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
         ]
+    },
+    {
+        label: "Logic",
+        submenu: [
+            { label: "Multiplexer (dev)", action: "MultiplexerLogicNode" },
+        ]
     }
 ]
 

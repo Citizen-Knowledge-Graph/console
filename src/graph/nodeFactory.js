@@ -10,13 +10,15 @@ import { SparqlInsertDeleteExecNode } from "./node/processor/SparqlInsertDeleteE
 import { ShaclFormLibNode } from "./node/edit/ShaclFormLibNode.js"
 import { ShaclFormNode } from "./node/edit/ShaclFormNode.js"
 import { OutputViewLeafNode } from "./node/view/OutputViewLeafNode.js"
+import { MultiplexerLogicNode } from "./node/logic/MultiplexerLogicNode.js"
 
 export const TYPE = {
     INPUT: 0,
     PROCESSOR: 1,
     VIEW: 2,
     VIEW_LEAF: 3,
-    EDIT: 4
+    EDIT: 4,
+    LOGIC: 5
 }
 
 export const PORT = {
@@ -43,7 +45,8 @@ const nodeClasses = {
     "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode,
     "ShaclFormLibNode": ShaclFormLibNode,
     "ShaclFormNode": ShaclFormNode,
-    "OutputViewLeafNode": OutputViewLeafNode
+    "OutputViewLeafNode": OutputViewLeafNode,
+    "MultiplexerLogicNode": MultiplexerLogicNode
 }
 
 export const exampleData = {
