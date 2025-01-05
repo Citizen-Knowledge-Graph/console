@@ -3,7 +3,7 @@ import { PORT, TYPE } from "../../nodeFactory.js"
 
 export class OutputViewLeafNode extends CodeNode {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.ANY ], [], TYPE.VIEW_LEAF)
+        super(initialValues, graph, [ PORT.ANY ], [ PORT.ANY ], TYPE.VIEW_LEAF)
     }
 
     justShowValue(value, mode) {
