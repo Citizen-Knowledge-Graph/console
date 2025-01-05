@@ -58,7 +58,20 @@ export class ShaclFormNode extends Node {
         this.store = new Store()
         await addRdfStringToStore(shacl, this.store)
 
+        // requirement profile metadata
         let query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT * WHERE {
+                ?rp a ff:RequirementProfile ;
+                    ff:title ?title .
+                FILTER(LANGMATCHES(LANG(?title), "en"))
+            }`
+        let title = (await runSparqlSelectQueryOnStore(query, this.store))[0].title
+        let h2 = document.createElement("h2")
+        h2.textContent = title
+        container.appendChild(h2)
+
+        query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             PREFIX sh: <http://www.w3.org/ns/shacl#>
             SELECT ?targetNode ?class WHERE {
