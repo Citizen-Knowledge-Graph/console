@@ -12,6 +12,7 @@ import { ShaclFormNode } from "./node/edit/ShaclFormNode.js"
 import { OutputViewLeafNode } from "./node/view/OutputViewLeafNode.js"
 import { MultiplexerLogicNode } from "./node/logic/MultiplexerLogicNode.js"
 import { OutputViewNodeWithInitialInput } from "./node/input/OutputViewNodeWithInitialInput.js"
+import { TurtleInputNodeWithCopyPasteInPort } from "./node/input/TurtleInputNodeWithCopyPasteInPort.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -48,7 +49,8 @@ const nodeClasses = {
     "ShaclFormNode": ShaclFormNode,
     "OutputViewLeafNode": OutputViewLeafNode,
     "MultiplexerLogicNode": MultiplexerLogicNode,
-    "OutputViewNodeWithInitialInput": OutputViewNodeWithInitialInput
+    "OutputViewNodeWithInitialInput": OutputViewNodeWithInitialInput,
+    "TurtleInputNodeWithCopyPasteInPort": TurtleInputNodeWithCopyPasteInPort,
 }
 
 export const exampleData = {

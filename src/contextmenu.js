@@ -16,6 +16,7 @@ const canvasCtxMenuItems = [
                     { label: "Example: User profile", action: "ex_TurtleInputNode_UP" },
                     { label: "Example: Requirement profile 1", action: "ex_TurtleInputNode_RP1" },
                     { label: "Example: Requirement profile 2", action: "ex_TurtleInputNode_RP2" },
+                    { label: "with copy-paste input port", action: "TurtleInputNodeWithCopyPasteInPort" },
                 ]
             },
             { label: "SPARQL Input", action: "SparqlInputNode",

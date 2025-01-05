@@ -37,7 +37,15 @@ export class CodeNode extends Node {
         this.codeMirror.on("change", () => this.onCodeMirrorChange())
     }
 
-    onCodeMirrorChange() {}
+    onCodeMirrorChange() {
+        let copyPasteReceivers = Object.values(this.graph.edgesMap)
+            .filter(edge => edge.sourceNode === this)
+            .filter(edge => edge.targetNode.constructor.name === "TurtleInputNodeWithCopyPasteInPort")
+            .map(edge => edge.targetNode)
+        for (let receiver of copyPasteReceivers) {
+            receiver.setValue(this.getValue())
+        }
+    }
 
     preResize() {
         this.resizeStartHeight = this.codemirrorContainer.offsetHeight
