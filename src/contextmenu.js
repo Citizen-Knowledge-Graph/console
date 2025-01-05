@@ -44,14 +44,14 @@ const canvasCtxMenuItems = [
         label: "View",
         submenu: [
             { label: "Output Viewer", action: "OutputViewNode" },
-            { label: "Output Viewer (no out-port)", action: "OutputViewLeafNode" }
+            { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" }
         ]
     },
     {
         label: "Edit",
         submenu: [
             { label: "SHACL Form Editor (dev)", action: "ShaclFormNode" },
-            { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
+            // { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
         ]
     },
     /*{
