@@ -84,6 +84,21 @@ export class ShaclFormNode extends Node {
             let name = localName(targetNode)
             let h3 = document.createElement("h3")
             h3.textContent = name
+            if (!targetNode.endsWith("mainPerson")) {
+                let del = document.createElement("span")
+                del.innerHTML = "&#10005;"
+                del.style = "font-weight: normal; color: silver; font-size: x-small; margin-left: 5px; cursor: pointer;"
+                del.addEventListener("click", async () => {
+                    let query = `
+                        DELETE { ?s ?p ?o } WHERE {
+                            ?s ?p ?o . FILTER(?s = <${targetNode}> || ?o = <${targetNode}>)
+                        }`
+                    await runSparqlInsertDeleteQueryOnStore(query, this.store)
+                    await this.update()
+                    this.graph.run()
+                })
+                h3.appendChild(del)
+            }
             container.appendChild(h3)
             query = `
                 PREFIX ff: <https://foerderfunke.org/default#>
@@ -123,6 +138,7 @@ export class ShaclFormNode extends Node {
                                 <${targetNode}> <${path}> ?existingIndividual .
                             }`
                         let count = (await runSparqlSelectQueryOnStore(query, this.store))[0].count
+                        // this is not a stable solution, if child0 gets deleted, child1 is already there TODO
                         let newIndividual = pointsToInstancesOf.toLowerCase() + count
                         query = `
                             INSERT DATA {
