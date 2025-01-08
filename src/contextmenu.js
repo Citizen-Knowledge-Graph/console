@@ -16,7 +16,6 @@ const canvasCtxMenuItems = [
                     { label: "Example: User profile", action: "ex_TurtleInputNode_UP" },
                     { label: "Example: Requirement profile 1", action: "ex_TurtleInputNode_RP1" },
                     { label: "Example: Requirement profile 2", action: "ex_TurtleInputNode_RP2" },
-                    { label: "with copy-paste input port", action: "TurtleInputNodeWithCopyPasteInPort" },
                 ]
             },
             { label: "SPARQL Input", action: "SparqlInputNode",
@@ -44,13 +43,14 @@ const canvasCtxMenuItems = [
         label: "View",
         submenu: [
             { label: "Output Viewer", action: "OutputViewNode" },
-            { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" }
         ]
     },
     {
-        label: "Edit",
+        label: "experimental",
         submenu: [
-            { label: "SHACL Form Editor (dev)", action: "ShaclFormNode" },
+            { label: "SHACL Form Editor", action: "ShaclFormNode" },
+            { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" },
+            { label: "Turtle Input with copy-paste in-port", action: "TurtleInputNodeWithCopyPasteInPort" },
             // { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
         ]
     },
