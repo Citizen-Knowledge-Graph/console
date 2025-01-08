@@ -17,6 +17,9 @@ export class ShaclFormNode extends Node {
     postConstructor() {
         super.postConstructor()
         this.assignTitlesToPorts("output", ["Form output", "Internal form state", "Validation result"])
+        let container = this.nodeDiv.querySelector(".shacl-form-container")
+        container.style.cursor = "default"
+        container.addEventListener("mousedown", event => event.stopPropagation())
     }
 
     async serializeFormOutput() {
@@ -236,6 +239,6 @@ export class ShaclFormNode extends Node {
         return null
     }
 
-    getValue() { return null }
+    getValue() { return "" }
     setValue(value) {}
 }
