@@ -100,16 +100,19 @@ export function addRdfStringToStore(rdfStr, store) {
     })
 }
 
+const prefixes = {
+    ff: "https://foerderfunke.org/default#",
+    sh: "http://www.w3.org/ns/shacl#",
+    xsd: "http://www.w3.org/2001/XMLSchema#",
+    rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    foaf: "http://xmlns.com/foaf/0.1/",
+    // rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+    // schema: "http://schema.org/"
+}
+
 export function serializeStoreToTurtle(store) {
     return new Promise((resolve, reject) => {
-        let writer = new Writer({
-            prefixes: {
-                ff: "https://foerderfunke.org/default#",
-                sh: "http://www.w3.org/ns/shacl#",
-                xsd: "http://www.w3.org/2001/XMLSchema#",
-                rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-            }
-        })
+        let writer = new Writer({ prefixes: prefixes })
         store.getQuads().forEach(quad => writer.addQuad(quad))
         writer.end((error, result) => {
             if (error) {
@@ -123,12 +126,7 @@ export function serializeStoreToTurtle(store) {
 
 export function serializeDatasetToTurtle(dataset) {
     return new Promise((resolve, reject) => {
-        let writer = new Writer({
-            prefixes: {
-                ff: "https://foerderfunke.org/default#",
-                sh: "http://www.w3.org/ns/shacl#",
-            }
-        })
+        let writer = new Writer({ prefixes: prefixes })
         dataset.forEach(quad => writer.addQuad(quad))
         writer.end((error, result) => {
             if (error) {
@@ -178,14 +176,6 @@ export function ensureUniqueId(name, map) {
     let i = 1
     while (map.hasOwnProperty(id + "_" + i)) i ++
     return id + "_" + i
-}
-
-const prefixes = {
-    rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    ff: "https://foerderfunke.org/default#",
-    sh: "http://www.w3.org/ns/shacl#",
-    rdfs: "http://www.w3.org/2000/01/rdf-schema#",
-    xsd: "http://www.w3.org/2001/XMLSchema#"
 }
 
 export function expand(prefix, localName) {

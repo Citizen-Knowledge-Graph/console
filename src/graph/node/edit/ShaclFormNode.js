@@ -113,7 +113,6 @@ export class ShaclFormNode extends Node {
             for (let [propertyShape, pointsToInstancesOf] of propertyShapes) {
                 query = `
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
-                    PREFIX ff: <https://foerderfunke.org/default#>
                     SELECT * WHERE {
                         <${propertyShape}> a sh:PropertyShape ;
                             ?propKey ?propValue ;
