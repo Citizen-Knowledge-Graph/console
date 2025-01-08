@@ -127,10 +127,10 @@ export class ShaclFormNode extends Node {
                 let path = properties[expand("sh", "path")] // datafield
 
                 if (pointsToInstancesOf) {
-                    let btn = document.createElement("input")
-                    btn.style.marginTop = "10px"
-                    btn.setAttribute("type", "button")
-                    btn.setAttribute("value", `+ ${properties[expand("sh", "description")]}`)
+                    let btn = document.createElement("div")
+                    btn.style = "margin-top: 10px; cursor: pointer; color: blue"
+                    btn.style.marginLeft = indentation
+                    btn.innerHTML = `+ ${properties[expand("sh", "description")]}`
                     btn.addEventListener("click", async () => {
                         let query = `
                             SELECT (COUNT(?existingIndividual) AS ?count) WHERE {
