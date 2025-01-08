@@ -74,24 +74,34 @@ export class ShaclFormNode extends Node {
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             PREFIX sh: <http://www.w3.org/ns/shacl#>
-            SELECT ?targetNode ?class WHERE {
-                ?nodeShape sh:targetNode ?targetNode ;
-                    ff:instanceOf ?class .
+            SELECT * WHERE {
+                ?nodeShape sh:targetNode ?individual ;
+                    ff:instanceOf ?individualClass .
+                OPTIONAL { ?nodeShape ff:hasParent ?parentIndividual . }
             }`
-        let targetNodes = (await runSparqlSelectQueryOnStore(query, this.store)).map(result => [result.targetNode, result.class])
+        let root
+        let individualsTree = {}
+        let rows = await runSparqlSelectQueryOnStore(query, this.store)
+        for (let row of rows) {
+            individualsTree[row.individual] = { class: row.individualClass, children: [] }
+            if (!row.parentIndividual) root = row.individual
+            else individualsTree[row.parentIndividual].children.push(row.individual)
+        }
 
-        for (let [targetNode, targetNodeClass] of targetNodes) {
-            let name = localName(targetNode)
+        const buildFormElementsForIndividual = async (individual, individualClass, depth) => {
+            let indentation = `${depth * 50}px`
+            let name = localName(individual)
             let h3 = document.createElement("h3")
             h3.textContent = name
-            if (!targetNode.endsWith("mainPerson")) {
+            h3.style.marginLeft = indentation
+            if (!individual.endsWith("mainPerson")) {
                 let del = document.createElement("span")
                 del.innerHTML = "&#10005;"
                 del.style = "font-weight: normal; color: silver; font-size: x-small; margin-left: 5px; cursor: pointer;"
                 del.addEventListener("click", async () => {
                     let query = `
                         DELETE { ?s ?p ?o } WHERE {
-                            ?s ?p ?o . FILTER(?s = <${targetNode}> || ?o = <${targetNode}>)
+                            ?s ?p ?o . FILTER(?s = <${individual}> || ?o = <${individual}>) 
                         }`
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
                     await this.update()
@@ -104,7 +114,7 @@ export class ShaclFormNode extends Node {
                 PREFIX ff: <https://foerderfunke.org/default#>
                 PREFIX sh: <http://www.w3.org/ns/shacl#>
                 SELECT ?propertyShape ?pointsToInstancesOf WHERE {
-                    ?nodeShape sh:targetNode <${targetNode}> ;
+                    ?nodeShape sh:targetNode <${individual}> ;
                         sh:property ?propertyShape .
                     OPTIONAL { ?propertyShape ff:pointsToInstancesOf ?pointsToInstancesOf . }
                 }`
@@ -117,7 +127,7 @@ export class ShaclFormNode extends Node {
                         <${propertyShape}> a sh:PropertyShape ;
                             ?propKey ?propValue ;
                             sh:path ?path .
-                      OPTIONAL { <${targetNode}> ?path ?value } .
+                      OPTIONAL { <${individual}> ?path ?value } .
                     }`
                 let properties = {};
                 let results = await runSparqlSelectQueryOnStore(query, this.store)
@@ -134,14 +144,14 @@ export class ShaclFormNode extends Node {
                     btn.addEventListener("click", async () => {
                         let query = `
                             SELECT (COUNT(?existingIndividual) AS ?count) WHERE {
-                                <${targetNode}> <${path}> ?existingIndividual .
+                                <${individual}> <${path}> ?existingIndividual .
                             }`
                         let count = (await runSparqlSelectQueryOnStore(query, this.store))[0].count
                         // this is not a stable solution, if child0 gets deleted, child1 is already there TODO
                         let newIndividual = pointsToInstancesOf.toLowerCase() + (Number(count) + 1)
                         query = `
                             INSERT DATA {
-                              <${targetNode}> <${path}> <${newIndividual}> .
+                              <${individual}> <${path}> <${newIndividual}> .
                               <${newIndividual}> a <${pointsToInstancesOf}> .
                             }`
                         await runSparqlInsertDeleteQueryOnStore(query, this.store)
@@ -156,21 +166,22 @@ export class ShaclFormNode extends Node {
                 label.textContent = properties[expand("sh", "name")]
                 label.title = path
                 label.style.marginRight = "10px"
+                label.style.marginLeft = indentation
                 container.appendChild(label)
 
                 const handleChange = async (newValue) => {
-                    let query = `SELECT * WHERE { <${targetNode}> <${path}> ?oldValue . }`
+                    let query = `SELECT * WHERE { <${individual}> <${path}> ?oldValue . }`
                     let valueBeforeChange = formatObject((await runSparqlSelectQueryOnStore(query, this.store))[0]?.oldValue)
                     let valueAfterChange = formatObject(newValue)
                     if (valueAfterChange) {
                         if (valueBeforeChange) {
-                            query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . };
-                                INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
+                            query = `DELETE DATA { <${individual}> <${path}> ${valueBeforeChange} . };
+                                INSERT DATA { <${individual}> <${path}> ${valueAfterChange} . }`
                         } else {
-                            query = `INSERT DATA { <${targetNode}> <${path}> ${valueAfterChange} . }`
+                            query = `INSERT DATA { <${individual}> <${path}> ${valueAfterChange} . }`
                         }
                     } else {
-                        query = `DELETE DATA { <${targetNode}> <${path}> ${valueBeforeChange} . }`
+                        query = `DELETE DATA { <${individual}> <${path}> ${valueBeforeChange} . }`
                     }
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
                     await this.update()
@@ -212,6 +223,14 @@ export class ShaclFormNode extends Node {
                 container.appendChild(input)
             }
         }
+
+        const walkTreeRecursively = async (individualId, depth) => {
+            let individual = individualsTree[individualId]
+            await buildFormElementsForIndividual(individualId, individual.class, depth)
+            for (let child of individual.children) await walkTreeRecursively(child, depth + 1)
+        }
+        await walkTreeRecursively(root, 0)
+
         await this.update()
         this.rerenderConnectingEdges()
         return null
