@@ -97,7 +97,8 @@ export class ShaclFormNode extends Node {
                     ff:title ?title .
                 FILTER(LANGMATCHES(LANG(?title), "en"))
             }`
-        let title = (await runSparqlSelectQueryOnStore(query, this.store))[0].title
+        let rows = await runSparqlSelectQueryOnStore(query, this.store)
+        let title = rows.map(row => row.title).join(" & ")
         let h2 = document.createElement("h2")
         h2.textContent = title
         container.appendChild(h2)
@@ -112,7 +113,7 @@ export class ShaclFormNode extends Node {
             }`
         let root
         let individualsTree = {}
-        let rows = await runSparqlSelectQueryOnStore(query, this.store)
+        rows = await runSparqlSelectQueryOnStore(query, this.store)
         for (let row of rows) {
             individualsTree[row.individual] = { class: row.individualClass, children: [] }
             if (!row.parentIndividual) root = row.individual
