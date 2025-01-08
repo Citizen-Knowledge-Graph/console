@@ -138,7 +138,7 @@ export class ShaclFormNode extends Node {
                             }`
                         let count = (await runSparqlSelectQueryOnStore(query, this.store))[0].count
                         // this is not a stable solution, if child0 gets deleted, child1 is already there TODO
-                        let newIndividual = pointsToInstancesOf.toLowerCase() + count
+                        let newIndividual = pointsToInstancesOf.toLowerCase() + (Number(count) + 1)
                         query = `
                             INSERT DATA {
                               <${targetNode}> <${path}> <${newIndividual}> .
