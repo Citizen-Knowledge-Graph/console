@@ -154,6 +154,7 @@ export class ShaclFormNode extends Node {
 
                 let label = document.createElement("label")
                 label.textContent = properties[expand("sh", "name")]
+                label.title = path
                 label.style.marginRight = "10px"
                 container.appendChild(label)
 
