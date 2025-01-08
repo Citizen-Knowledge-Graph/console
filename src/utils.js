@@ -100,6 +100,12 @@ export function addRdfStringToStore(rdfStr, store) {
     })
 }
 
+export function datasetToStore(dataset) {
+    let store = new Store()
+    dataset.forEach(quad => store.add(quad))
+    return store
+}
+
 const prefixes = {
     ff: "https://foerderfunke.org/default#",
     sh: "http://www.w3.org/ns/shacl#",

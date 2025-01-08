@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatObject, runValidationOnStore, serializeDatasetToTurtle } from "../../../utils.js"
+import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatObject, runValidationOnStore, serializeDatasetToTurtle, datasetToStore } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
@@ -8,6 +8,7 @@ export class ShaclFormNode extends Node {
         super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = null
         this.currentShacl = ""
+        this.elementsMap = {} // DOM elements that will be shown red in case of validation errors
     }
 
     getMainHtml() {
@@ -46,9 +47,36 @@ export class ShaclFormNode extends Node {
         edge = outgoingEdges.find(edge => edge.portOut === "output_2")
         if (edge) edge.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
         let result = await runValidationOnStore(this.store)
-        // TODO
         edge = outgoingEdges.find(edge => edge.portOut === "output_3")
         if (edge) edge.targetNode.justShowValue(await serializeDatasetToTurtle(result.dataset), "turtle")
+        // reset errors
+        for (let element of Object.values(this.elementsMap)) {
+            element.label.style.color = "black"
+            element.input.style.border = ""
+            element.label.title = ""
+            element.input.title = ""
+        }
+        // set errors
+        let query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            SELECT * WHERE {
+                ?result a sh:ValidationResult ;
+                    sh:focusNode ?individual ;
+                    sh:resultPath ?path ;
+                    sh:sourceConstraintComponent ?constraintComponent ;
+                    sh:resultMessage ?message . 
+            }`
+        let rows = await runSparqlSelectQueryOnStore(query, datasetToStore(result.dataset))
+        for (let row of rows) {
+            let element = this.elementsMap[`${row.individual}-${row.path}`]
+            if (!element) continue
+            element.label.style.color = "red"
+            element.input.style.border = "2px solid red"
+            let msg = row.message.split("^^")[0]
+            element.label.title = msg
+            element.input.title = msg
+        }
     }
 
     async processIncomingData() {
@@ -141,7 +169,7 @@ export class ShaclFormNode extends Node {
 
                 if (pointsToInstancesOf) {
                     let btn = document.createElement("div")
-                    btn.style = "margin-top: 10px; cursor: pointer; color: blue"
+                    btn.style = "margin-top: 10px; cursor: pointer; color: gray; font-size: small"
                     btn.style.marginLeft = indentation
                     btn.innerHTML = `+ ${properties[expand("sh", "description")]}`
                     btn.addEventListener("click", async () => {
@@ -165,12 +193,16 @@ export class ShaclFormNode extends Node {
                     continue
                 }
 
+                let elementIdentifier = `${individual}-${path}`
+                this.elementsMap[elementIdentifier] = {}
+
                 let label = document.createElement("label")
                 label.textContent = properties[expand("sh", "name")]
                 label.title = path
                 label.style.marginRight = "10px"
                 label.style.marginLeft = indentation
                 container.appendChild(label)
+                this.elementsMap[elementIdentifier].label = label
 
                 const handleChange = async (newValue) => {
                     let query = `SELECT * WHERE { <${individual}> <${path}> ?oldValue . }`
@@ -215,6 +247,7 @@ export class ShaclFormNode extends Node {
                     for (let [value, label] of options) appendOption(value, label, false)
                     select.addEventListener("change", async event => await handleChange(event.target.value))
                     container.appendChild(select)
+                    this.elementsMap[elementIdentifier].input = select
                     container.appendChild(document.createElement("br"))
                     container.appendChild(document.createElement("br"))
                     continue
@@ -224,6 +257,7 @@ export class ShaclFormNode extends Node {
                 if (datafieldValue) input.setAttribute("value", datafieldValue)
                 input.addEventListener("change", async event => await handleChange(event.target.value))
                 container.appendChild(input)
+                this.elementsMap[elementIdentifier].input = input
             }
         }
 
