@@ -612,7 +612,8 @@
 
             export function isResizeEvent(event) {
                 if (!(event.button === 0 && event.target.classList.contains("resize-handle"))) return
-                let nodeDomEl = event.target.parentElement.parentElement.parentElement
+                let nodeDomEl = event.target
+                while (!nodeDomEl.classList.contains("drawflow-node")) nodeDomEl = nodeDomEl.parentElement
                 let node = graph.nodesMap[nodeDomEl.id.split("-")[1]]
                 return { nodeDomEl, node }
             }
