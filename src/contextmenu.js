@@ -51,6 +51,7 @@ const canvasCtxMenuItems = [
             { label: "SHACL Form Editor", action: "ShaclFormNode" },
             { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" },
             { label: "Turtle Input with copy-paste in-port", action: "TurtleInputNodeWithCopyPasteInPort" },
+            { label: "SHACL Wizard", action: "ShaclWizardNode" },
             // { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
         ]
     },

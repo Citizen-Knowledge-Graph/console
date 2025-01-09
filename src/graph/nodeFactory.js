@@ -13,6 +13,7 @@ import { OutputViewLeafNode } from "./node/view/OutputViewLeafNode.js"
 import { MultiplexerLogicNode } from "./node/logic/MultiplexerLogicNode.js"
 import { OutputViewNodeWithInitialInput } from "./node/input/OutputViewNodeWithInitialInput.js"
 import { TurtleInputNodeWithCopyPasteInPort } from "./node/input/TurtleInputNodeWithCopyPasteInPort.js"
+import { ShaclWizardNode } from "./node/edit/ShaclWizardNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -51,6 +52,7 @@ const nodeClasses = {
     "MultiplexerLogicNode": MultiplexerLogicNode,
     "OutputViewNodeWithInitialInput": OutputViewNodeWithInitialInput,
     "TurtleInputNodeWithCopyPasteInPort": TurtleInputNodeWithCopyPasteInPort,
+    "ShaclWizardNode": ShaclWizardNode
 }
 
 export const exampleData = {
