@@ -156,6 +156,7 @@ export class Graph {
     async save() {
         await this.toTurtle(turtle => {
             localStorage.setItem(this.id, turtle)
+            this.showMessage("&#10003; Saved to local storage")
         })
     }
 

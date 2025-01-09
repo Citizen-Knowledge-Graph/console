@@ -245,10 +245,7 @@
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             // document.getElementById("stepBtn").addEventListener("click", () => graph.step())
             // document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
-            document.getElementById("saveBtn").addEventListener("click", () => {
-                graph.save()
-                showMessage("&#10003; Saved to local storage")
-            })
+            document.getElementById("saveBtn").addEventListener("click", () => graph.save())
 
             const buildActionSpan = (label, callback) => {
                 let span = document.createElement("span")
