@@ -9,11 +9,15 @@ export class SparqlInsertDeleteExecNode extends CodeNode {
     }
 
     async processIncomingData() {
-        let turtle = this.incomingData.filter(port => port.dataType === PORT.TURTLE)[0].data
-        let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
-        let store = new Store()
-        await addRdfStringToStore(turtle, store)
-        await runSparqlInsertDeleteQueryOnStore(sparql, store)
-        return await serializeStoreToTurtle(store)
+        try {
+            let turtle = this.incomingData.filter(port => port.dataType === PORT.TURTLE)[0].data
+            let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
+            let store = new Store()
+            await addRdfStringToStore(turtle, store)
+            await runSparqlInsertDeleteQueryOnStore(sparql, store)
+            return await serializeStoreToTurtle(store)
+        } catch (err) {
+            return this.handleError(err.message)
+        }
     }
 }

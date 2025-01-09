@@ -9,11 +9,13 @@ export class ShaclValidationNode extends CodeNode {
     }
 
     async processIncomingData() {
-        let store = new Store()
-        for (let port of this.incomingData) {
-            await addRdfStringToStore(port.data, store)
+        try {
+            let store = new Store()
+            for (let port of this.incomingData) await addRdfStringToStore(port.data, store)
+            let result = await runValidationOnStore(store)
+            return await serializeDatasetToTurtle(result.dataset)
+        } catch (err) {
+            return this.handleError(err.message)
         }
-        let result = await runValidationOnStore(store)
-        return await serializeDatasetToTurtle(result.dataset)
     }
 }

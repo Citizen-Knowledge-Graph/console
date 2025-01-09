@@ -7,6 +7,7 @@ export class Graph {
     constructor(editor, showMessage) {
         this.showMessage = showMessage
         this.editor = editor
+        this.nodesInErrorState = []
         this.clear()
         this.settings = {
             defaultWidth: { label: "Default Node Width", variable: "--default-node-width", value: "414px", defaultValue: "414px" },
@@ -107,6 +108,8 @@ export class Graph {
     }
 
     async run() {
+        for (let node of this.nodesInErrorState) node.resetError()
+        this.nodesInErrorState = []
         while (await this.step()) {}
     }
 
@@ -154,6 +157,12 @@ export class Graph {
         await this.toTurtle(turtle => {
             localStorage.setItem(this.id, turtle)
         })
+    }
+
+    handleNodeError(node) {
+        this.showMessage(`Error in node "${node.name}"`, "red")
+        this.nodesInErrorState.push(node)
+        this.endRound()
     }
 
     async export() {

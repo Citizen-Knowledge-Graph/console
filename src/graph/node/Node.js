@@ -27,6 +27,22 @@ export class Node {
         console.log("Node added:", this.id, "\"" + this.name + "\"")
     }
 
+    handleError(msg) {
+        let el = this.nodeDiv.querySelector(".result")
+        if (el) el.style.display = "none"
+        this.nodeDiv.style.border = "2px solid red"
+        this.nodeDiv.querySelector(".errorMsg").innerHTML = `Error: ${msg}`
+        this.graph.handleNodeError(this)
+        return ""
+    }
+
+    resetError() {
+        let el = this.nodeDiv.querySelector(".result")
+        if (el) el.style.display = ""
+        this.nodeDiv.style.border = ""
+        this.nodeDiv.querySelector(".errorMsg").innerHTML = ""
+    }
+
     resetSize() {
         this.setValue(this.getValue().trim())
         this.setSize(this.initialWidth, this.initialHeight)
@@ -89,6 +105,7 @@ export class Node {
                     <div class="node-title" title="${this.constructor.name}">${this.name}</div>
                 </div>
                 <div class="box">
+                    <div class="errorMsg" style="color: red"></div>
                     <div class="view-mode-button-container hidden">
                         <input type="button" class="show-content-btn" value="Show Content">
                     </div>

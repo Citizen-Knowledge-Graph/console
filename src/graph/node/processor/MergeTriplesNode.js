@@ -13,11 +13,13 @@ export class MergeTriplesNode extends CodeNode {
     }
 
     async processIncomingData() {
-        let store = new Store()
-        for (let port of this.incomingData) {
-            await addRdfStringToStore(port.data, store)
+        try {
+            let store = new Store()
+            for (let port of this.incomingData) await addRdfStringToStore(port.data, store)
+            return await serializeStoreToTurtle(store)
+        } catch (err) {
+            return this.handleError(err.message)
         }
-        return await serializeStoreToTurtle(store)
     }
 
     addInputPort() {

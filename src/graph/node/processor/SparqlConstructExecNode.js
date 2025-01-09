@@ -9,13 +9,15 @@ export class SparqlConstructExecNode extends CodeNode {
     }
 
     async processIncomingData() {
-        let turtle = this.incomingData.filter(port => port.dataType === PORT.TURTLE)[0].data
-        let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
-        let constructedQuads = await runSparqlConstructQueryOnRdfString(sparql, turtle) // reuse the store being created there? TODO
-        let store = new Store()
-        for (let quad of constructedQuads) {
-            store.addQuad(quad)
+        try {
+            let turtle = this.incomingData.filter(port => port.dataType === PORT.TURTLE)[0].data
+            let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
+            let constructedQuads = await runSparqlConstructQueryOnRdfString(sparql, turtle) // reuse the store being created there?
+            let store = new Store()
+            for (let quad of constructedQuads) store.addQuad(quad)
+            return await serializeStoreToTurtle(store)
+        } catch (err) {
+            return this.handleError(err.message)
         }
-        return await serializeStoreToTurtle(store)
     }
 }
