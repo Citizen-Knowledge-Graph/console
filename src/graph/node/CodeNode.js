@@ -8,7 +8,9 @@ export class CodeNode extends Node {
     }
 
     getMainHtml() {
-        return `<div class="codemirror-container"></div>`
+        return `
+            <div class="result">Result:</div>
+            <div class="codemirror-container"></div>`
     }
 
     getMode() {

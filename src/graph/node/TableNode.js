@@ -7,7 +7,9 @@ export class TableNode extends Node {
     }
 
     getMainHtml() {
-        return `<table class="result-table"></table>`
+        return `
+            <div class="result">Result:</div>
+            <table class="result-table"></table>`
     }
 
     setValue(tableData) {

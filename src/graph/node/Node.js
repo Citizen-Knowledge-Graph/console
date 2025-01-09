@@ -93,7 +93,6 @@ export class Node {
                         <input type="button" class="show-content-btn" value="Show Content">
                     </div>
                     <div class="view-mode-default-container">
-                        ${this.isProcessor() ? '<div class="result">Result:</div>' : ""}
                         ${this.getMainHtml() ?? ""}
                     </div>
                 </div>
