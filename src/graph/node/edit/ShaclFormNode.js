@@ -115,12 +115,29 @@ export class ShaclFormNode extends Node {
         let individualsTree = {}
         rows = await runSparqlSelectQueryOnStore(query, this.store)
         for (let row of rows) {
-            individualsTree[row.individual] = { class: row.individualClass, children: [] }
+            individualsTree[row.individual] = { class: row.individualClass, children: [], propertyShapes: [] }
             if (!row.parentIndividual) root = row.individual
             else individualsTree[row.parentIndividual].children.push(row.individual)
+            query = `
+                PREFIX ff: <https://foerderfunke.org/default#>
+                PREFIX sh: <http://www.w3.org/ns/shacl#>
+                SELECT * WHERE {
+                    ?nodeShape sh:targetNode <${row.individual}> ;
+                        sh:property ?propertyShape .
+                    OPTIONAL { ?propertyShape sh:order ?order . }
+                }`
+            let psRows = await runSparqlSelectQueryOnStore(query, this.store)
+            let orderMap = {}
+            let unordered = []
+            for (let psRow of psRows) {
+                if (psRow.order) orderMap[psRow.propertyShape] = psRow.order
+                else unordered.push(psRow.propertyShape)
+            }
+            const sortedOrderMap = Object.fromEntries(Object.entries(orderMap).sort(([, v1], [, v2]) => Number(v1) - Number(v2)))
+            individualsTree[row.individual].propertyShapes = Object.keys(sortedOrderMap).concat(unordered)
         }
 
-        const buildFormElementsForIndividual = async (individual, individualClass, depth) => {
+        const buildFormElementsForIndividual = async (individual, propertyShapes, depth) => {
             let indentation = `${depth * 50}px`
             let name = localName(individual)
             let h3 = document.createElement("h3")
@@ -142,17 +159,8 @@ export class ShaclFormNode extends Node {
                 h3.appendChild(del)
             }
             container.appendChild(h3)
-            query = `
-                PREFIX ff: <https://foerderfunke.org/default#>
-                PREFIX sh: <http://www.w3.org/ns/shacl#>
-                SELECT ?propertyShape ?pointsToInstancesOf WHERE {
-                    ?nodeShape sh:targetNode <${individual}> ;
-                        sh:property ?propertyShape .
-                    OPTIONAL { ?propertyShape ff:pointsToInstancesOf ?pointsToInstancesOf . }
-                }`
-            let propertyShapes = (await runSparqlSelectQueryOnStore(query, this.store)).map(result => [result.propertyShape, result.pointsToInstancesOf])
 
-            for (let [propertyShape, pointsToInstancesOf] of propertyShapes) {
+            for (let propertyShape of propertyShapes) {
                 query = `
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
                     SELECT * WHERE {
@@ -167,6 +175,7 @@ export class ShaclFormNode extends Node {
                 let datafieldValue = results[0].value
 
                 let path = properties[expand("sh", "path")] // datafield
+                let pointsToInstancesOf = properties[expand("ff", "pointsToInstancesOf")]
 
                 if (pointsToInstancesOf) {
                     let btn = document.createElement("div")
@@ -259,13 +268,15 @@ export class ShaclFormNode extends Node {
                 input.addEventListener("change", async event => await handleChange(event.target.value))
                 container.appendChild(input)
                 this.elementsMap[elementIdentifier].input = input
+                container.appendChild(document.createElement("br"))
+                container.appendChild(document.createElement("br"))
             }
         }
 
-        const walkTreeRecursively = async (individualId, depth) => {
-            let individual = individualsTree[individualId]
-            await buildFormElementsForIndividual(individualId, individual.class, depth)
-            for (let child of individual.children) await walkTreeRecursively(child, depth + 1)
+        const walkTreeRecursively = async (individual, depth) => {
+            let individualObj = individualsTree[individual]
+            await buildFormElementsForIndividual(individual, individualObj.propertyShapes, depth)
+            for (let child of individualObj.children) await walkTreeRecursively(child, depth + 1)
         }
         await walkTreeRecursively(root, 0)
 
