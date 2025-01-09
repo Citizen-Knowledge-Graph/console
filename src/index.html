@@ -183,7 +183,7 @@
             <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
             <span id="runBtn" class="spanBtn">Run</span><span class="separator-span">|</span>
             <!--<span id="stepBtn">Step</span><span class="separator-span">|</span>-->
-            <span id="resetBtn" class="spanBtn" title="clear the value of all processor nodes">Reset</span><span class="separator-span">|</span>
+            <!--<span id="resetBtn" class="spanBtn" title="clear the value of all processor nodes">Reset</span><span class="separator-span">|</span>-->
             <span id="saveBtn" class="spanBtn" title="to the local storage of your browser">Save</span><span class="separator-span">|</span>
             <span id="loadBtn" class="spanBtn" title="from the local storage of your browser">Load</span><span class="separator-span">|</span>
             <span id="newBtn" class="spanBtn">New</span><span class="separator-span">|</span>
@@ -245,8 +245,11 @@
 
             document.getElementById("runBtn").addEventListener("click", () => graph.run())
             // document.getElementById("stepBtn").addEventListener("click", () => graph.step())
-            document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
-            document.getElementById("saveBtn").addEventListener("click", () => graph.save())
+            // document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
+            document.getElementById("saveBtn").addEventListener("click", () => {
+                graph.save()
+                showMessage("&#10003; Saved to local storage")
+            })
 
             const buildActionSpan = (label, callback) => {
                 let span = document.createElement("span")
