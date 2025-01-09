@@ -161,7 +161,6 @@
                 color: gray;
             }
             #msgSpan {
-                color: blue;
                 margin-left: 30px;
                 display: none;
             }
@@ -217,7 +216,7 @@
             editor.zoom_min = 1
             editor.start()
 
-            let graph = new Graph(editor)
+            let graph = new Graph(editor, showMessage)
 
             const wipe = () => {
                 editor.clear()
@@ -694,10 +693,11 @@
                 }
             }
 
-            function showMessage(msg) {
+            function showMessage(msg, color = "blue") {
                 let msgSpan = document.getElementById("msgSpan")
                 msgSpan.innerHTML = msg
                 msgSpan.style.display = "inline"
+                msgSpan.style.color = color
                 setTimeout(() => {
                     msgSpan.style.display = "none"
                     msgSpan.innerHTML = ""

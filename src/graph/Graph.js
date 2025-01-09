@@ -4,7 +4,8 @@ import { DataFactory, Writer } from "../assets/bundle.js"
 import { Edge } from "./Edge.js"
 
 export class Graph {
-    constructor(editor) {
+    constructor(editor, showMessage) {
+        this.showMessage = showMessage
         this.editor = editor
         this.clear()
         this.settings = {
