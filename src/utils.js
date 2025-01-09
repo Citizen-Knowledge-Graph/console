@@ -106,7 +106,7 @@ export function datasetToStore(dataset) {
     return store
 }
 
-const prefixes = {
+export const prefixes = {
     ff: "https://foerderfunke.org/default#",
     sh: "http://www.w3.org/ns/shacl#",
     xsd: "http://www.w3.org/2001/XMLSchema#",

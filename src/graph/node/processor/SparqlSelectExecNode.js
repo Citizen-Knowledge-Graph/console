@@ -1,20 +1,14 @@
 import { TableNode } from "../TableNode.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { runSparqlSelectQueryOnRdfString } from "../../../utils.js"
+import { prefixes, runSparqlSelectQueryOnRdfString } from "../../../utils.js"
 
 export class SparqlSelectExecNode extends TableNode {
     constructor(initialValues, graph) {
         super(initialValues, graph, [ PORT.TURTLE, PORT.SPARQL ], [ PORT.CSV ], TYPE.PROCESSOR)
-        this.prefixesMap = {
-            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-            "xsd": "http://www.w3.org/2001/XMLSchema#",
-            "ff":  "https://foerderfunke.org/default#",
-            "sh":  "http://www.w3.org/ns/shacl#",
-        }
     }
 
     dePrefix(value) {
-        for (let [key, val] of Object.entries(this.prefixesMap)) {
+        for (let [key, val] of Object.entries(prefixes)) {
             if (value.startsWith(val)) {
                 return value.replace(val, key + ":")
             }
