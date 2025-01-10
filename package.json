@@ -6,6 +6,7 @@
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.0.2",
     "@ulb-darmstadt/shacl-form": "^1.6.5",
+    "awesomplete": "^1.1.7",
     "codemirror": "^5.65.18",
     "drawflow": "^0.0.60",
     "jszip": "^3.10.1",

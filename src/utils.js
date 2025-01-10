@@ -188,6 +188,15 @@ export function expand(prefix, localName) {
     return prefixes[prefix] + localName
 }
 
+export function shrink(uri) {
+    for (let prefix in prefixes) {
+        if (uri.startsWith(prefixes[prefix])) {
+            return `${prefix}:${uri.replace(prefixes[prefix], "")}`
+        }
+    }
+    return uri
+}
+
 export function localName(uri) {
     return uri.split("#").pop().split("/").pop()
 }

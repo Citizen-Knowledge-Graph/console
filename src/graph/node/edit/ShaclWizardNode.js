@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore } from "../../../utils.js"
+import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore, runSparqlConstructQueryOnStore, serializeStoreToTurtle, shrink } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclWizardNode extends Node {
@@ -71,7 +71,24 @@ export class ShaclWizardNode extends Node {
 
         container.appendChild(document.createElement("hr"))
         buildAddBtn("+ add class constraint", async () => {
-            // TODO
+            query = `
+                PREFIX ff: <https://foerderfunke.org/default#>
+                SELECT * WHERE { ?class a ff:Class . }`
+            let classes = (await runSparqlSelectQueryOnStore(query, this.store)).map(row => {
+                return { value: row.class, label: shrink(row.class) }
+            })
+            let input = document.createElement("input")
+            container.appendChild(input)
+            new Awesomplete(input, {
+                minChars: 0,
+                list: classes,
+                replace: (suggestion) => {
+                    input.value = suggestion.label
+                }
+            })
+            input.addEventListener("awesomplete-selectcomplete", async (obj) => {
+                // TODO
+            })
         })
 
         return null

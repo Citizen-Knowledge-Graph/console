@@ -29,6 +29,14 @@ export default {
                     from: path.resolve("node_modules/@ulb-darmstadt/shacl-form/dist/form-default.js"),
                     to: path.resolve("src/assets"),
                 },
+                {
+                    from: path.resolve("node_modules/awesomplete/awesomplete.min.js"),
+                    to: path.resolve("src/assets"),
+                },
+                {
+                    from: path.resolve("node_modules/awesomplete/awesomplete.css"),
+                    to: path.resolve("src/assets"),
+                },
             ],
         }),
     ],
