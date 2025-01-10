@@ -189,7 +189,7 @@ export function expand(prefix, localName) {
 }
 
 export function localName(uri) {
-    return uri.split("#").pop()
+    return uri.split("#").pop().split("/").pop()
 }
 
 export function formatObject(val) {
