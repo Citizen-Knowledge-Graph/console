@@ -5,7 +5,7 @@ import { Store } from "../../../assets/bundle.js"
 
 export class ShaclWizardNode extends Node {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE ], TYPE.EDIT)
+        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = null
     }
 
@@ -15,8 +15,8 @@ export class ShaclWizardNode extends Node {
 
     postConstructor() {
         super.postConstructor()
-        this.assignTitlesToPorts("input", ["datafield definitions"])
-        this.assignTitlesToPorts("output", ["SHACL shapes"])
+        this.assignTitlesToPorts("input", ["Datafield definitions and existing SHACL shapes"])
+        this.assignTitlesToPorts("output", ["Output", "Internal state"])
         let container = this.nodeDiv.querySelector(".shacl-wizard-container")
         container.style.cursor = "default"
         container.addEventListener("mousedown", event => event.stopPropagation())
@@ -24,6 +24,35 @@ export class ShaclWizardNode extends Node {
 
     enoughIncomingDataAvailable() {
         return this.hasAsMuchIncomingDataAvailableAsIncomingEdges()
+    }
+
+    async serializeOutput() {
+        let query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            CONSTRUCT {
+                ?nodeShape a sh:NodeShape ;
+                    sh:targetClass ?targetClass ;
+                    sh:property ?propertyShape .
+                ?propertyShape ?p ?o .
+            } WHERE {
+                ?nodeShape a sh:NodeShape ;
+                    sh:targetClass ?targetClass ;
+                    sh:property ?propertyShape .
+                ?propertyShape ?p ?o .
+            }`
+        let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
+        let store = new Store()
+        for (let quad of constructedQuads) store.addQuad(quad)
+        return await serializeStoreToTurtle(store)
+    }
+
+    async update() {
+        let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
+        let edge = outgoingEdges.find(edge => edge.portOut === "output_1")
+        if (edge) edge.targetNode.justShowValue(await this.serializeOutput(), "turtle")
+        edge = outgoingEdges.find(edge => edge.portOut === "output_2")
+        if (edge) edge.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
     }
 
     async processIncomingData() {
@@ -91,6 +120,7 @@ export class ShaclWizardNode extends Node {
             })
         })
 
+        await this.update()
         return null
     }
 
