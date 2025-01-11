@@ -114,7 +114,9 @@ export class ShaclFormNode extends Node {
         for (let row of rows) {
             individualsTree[row.individual] = { class: row.individualClass, children: [], propertyShapes: [] }
             if (!row.parentIndividual) root = row.individual
-            else individualsTree[row.parentIndividual].children.push(row.individual)
+        }
+        for (let row of rows) {
+            if (row.parentIndividual) individualsTree[row.parentIndividual].children.push(row.individual)
             query = `
                 PREFIX ff: <https://foerderfunke.org/default#>
                 PREFIX sh: <http://www.w3.org/ns/shacl#>
