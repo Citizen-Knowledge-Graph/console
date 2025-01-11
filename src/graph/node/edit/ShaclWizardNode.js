@@ -127,7 +127,15 @@ export class ShaclWizardNode extends Node {
                 }
             })
             input.addEventListener("awesomplete-selectcomplete", async (obj) => {
-                // TODO
+                let targetClass = obj.text.value
+                query = `
+                    PREFIX sh: <http://www.w3.org/ns/shacl#>
+                    INSERT DATA {
+                        <${targetClass}Shape> a sh:NodeShape ;
+                            sh:targetClass <${targetClass}> .
+                    }`
+                await runSparqlInsertDeleteQueryOnStore(query, this.store)
+                await this.rebuildForm()
             })
         })
 
