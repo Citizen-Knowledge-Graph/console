@@ -88,20 +88,38 @@ export class ShaclWizardNode extends Node {
                     sh:targetClass ?targetClass .
             }`
         for (let [targetClass, nodeShape] of (await runSparqlSelectQueryOnStore(query, this.store)).map(row => [row.targetClass, row.nodeShape])) {
-            let h3 = document.createElement("h3")
-            h3.textContent = localName(targetClass)
-            container.appendChild(h3)
+            let h2 = document.createElement("h2")
+            h2.textContent = localName(targetClass)
+            container.appendChild(h2)
 
             query = `
                 PREFIX ff: <https://foerderfunke.org/default#>
                 PREFIX sh: <http://www.w3.org/ns/shacl#>
-                SELECT * WHERE {
+                SELECT ?datafield ?name WHERE {
                     <${nodeShape}> sh:property ?propertyShape .
-                    ?propertyShape ?p ?o .
+                    ?propertyShape sh:path ?datafield .
+                    ?datafield a ff:DataField ;
+                        ff:shaclShape ?shaclShape .
+                    ?shaclShape sh:name ?name .
                 }`
-            let properties = {};
-            let rows = await runSparqlSelectQueryOnStore(query, this.store)
-            rows.forEach(result => properties[result.p] = result.o)
+            let datafields = await runSparqlSelectQueryOnStore(query, this.store)
+            for (let datafieldObj of datafields) {
+                query = `
+                    PREFIX ff: <https://foerderfunke.org/default#>
+                    PREFIX sh: <http://www.w3.org/ns/shacl#>
+                    SELECT ?p ?o WHERE {
+                        <${nodeShape}> sh:property ?propertyShape .
+                        ?propertyShape sh:path <${datafieldObj.datafield}> ;
+                            ?p ?o .
+                    }`
+                let properties = {}
+                let rows = await runSparqlSelectQueryOnStore(query, this.store)
+                for (let row of rows) properties[row.p] = row.o
+
+                let h4 = document.createElement("h4")
+                h4.textContent = datafieldObj.name
+                container.appendChild(h4)
+            }
 
             buildAddBtn("+ add property constraint", async () => {
                 // TODO
