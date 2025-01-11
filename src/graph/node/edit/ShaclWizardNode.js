@@ -5,9 +5,9 @@ import { Store } from "../../../assets/bundle.js"
 
 export class ShaclWizardNode extends Node {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
+        super(initialValues, graph, [ PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = null
-        this.currentInput = null
+        this.currentInput = {}
     }
 
     getMainHtml() {
@@ -16,8 +16,8 @@ export class ShaclWizardNode extends Node {
 
     postConstructor() {
         super.postConstructor()
-        this.assignTitlesToPorts("input", ["Datafield definitions and existing SHACL shapes"])
-        this.assignTitlesToPorts("output", ["Output", "Internal state"])
+        this.assignTitlesToPorts("input", ["Datafield definitions", "Existing SHACL shapes (optional)"])
+        this.assignTitlesToPorts("output", ["SHACL shapes", "Internal state"])
         let container = this.nodeDiv.querySelector(".shacl-wizard-container")
         container.style.cursor = "default"
         container.addEventListener("mousedown", event => event.stopPropagation())
@@ -56,11 +56,13 @@ export class ShaclWizardNode extends Node {
     }
 
     async processIncomingData() {
-        let input = this.incomingData[0].data
-        if (input !== this.currentInput) {
-            this.currentInput = input
+        let datafields = this.incomingData[0].data
+        let shacl = this.incomingData[1]?.data
+        if (this.currentInput.datafields !== datafields || this.currentInput.shacl !== shacl) {
+            this.currentInput = { datafields, shacl }
             this.store = new Store()
-            await addRdfStringToStore(input, this.store)
+            await addRdfStringToStore(datafields, this.store)
+            if (shacl) await addRdfStringToStore(shacl, this.store)
             await this.rebuildForm()
         }
         return ""
@@ -136,6 +138,7 @@ export class ShaclWizardNode extends Node {
             })
         })
 
+        this.rerenderConnectingEdges()
         await this.update()
     }
 
