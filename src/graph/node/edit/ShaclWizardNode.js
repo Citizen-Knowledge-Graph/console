@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore, runSparqlConstructQueryOnStore, serializeStoreToTurtle, shrink, runSparqlInsertDeleteQueryOnStore } from "../../../utils.js"
+import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore, runSparqlConstructQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclWizardNode extends Node {
@@ -110,9 +110,12 @@ export class ShaclWizardNode extends Node {
         buildAddBtn("+ add class constraint", async () => {
             query = `
                 PREFIX ff: <https://foerderfunke.org/default#>
-                SELECT * WHERE { ?class a ff:Class . }`
+                SELECT * WHERE {
+                    ?class a ff:Class ;
+                        ff:title ?label .
+                }`
             let classes = (await runSparqlSelectQueryOnStore(query, this.store)).map(row => {
-                return { value: row.class, label: shrink(row.class) }
+                return { value: row.class, label: row.label }
             })
             let input = document.createElement("input")
             container.appendChild(input)
