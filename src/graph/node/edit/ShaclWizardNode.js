@@ -1,12 +1,13 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore, runSparqlConstructQueryOnStore, serializeStoreToTurtle, shrink } from "../../../utils.js"
+import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore, runSparqlConstructQueryOnStore, serializeStoreToTurtle, shrink, runSparqlInsertDeleteQueryOnStore } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclWizardNode extends Node {
     constructor(initialValues, graph) {
         super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = null
+        this.currentInput = null
     }
 
     getMainHtml() {
@@ -56,11 +57,19 @@ export class ShaclWizardNode extends Node {
     }
 
     async processIncomingData() {
+        let input = this.incomingData[0].data
+        if (input !== this.currentInput) {
+            this.currentInput = input
+            this.store = new Store()
+            await addRdfStringToStore(input, this.store)
+            await this.rebuildForm()
+        }
+        return ""
+    }
+
+    async rebuildForm() {
         let container = this.nodeDiv.querySelector(".shacl-wizard-container")
         while (container.firstChild) container.firstChild.remove()
-        this.store = new Store()
-        let input = this.incomingData[0].data
-        await addRdfStringToStore(input, this.store)
 
         const buildAddBtn = (text, onClick) => {
             let btn = document.createElement("div")
@@ -121,7 +130,6 @@ export class ShaclWizardNode extends Node {
         })
 
         await this.update()
-        return null
     }
 
     // can this be moved to Node and be a fallback there? check for unforeseen consequences
