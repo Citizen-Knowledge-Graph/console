@@ -34,20 +34,18 @@ export class ShaclWizardNode extends Node {
             CONSTRUCT {
                 ?nodeShape a sh:NodeShape ;
                     sh:targetClass ?targetClass ;
-                    sh:property ?classDatafieldPropertyShape .
-                ?classDatafieldPropertyShape ?p ?o .
+                    sh:property ?propertyShape .
+                ?propertyShape ?p ?o .
             } WHERE {
                 ?nodeShape a sh:NodeShape ;
                     sh:targetClass ?targetClass ;
                     sh:property ?propertyShape .
-                ?propertyShape sh:path ?datafield ;
-                    ?p ?o .
-                BIND(IRI(CONCAT(STR(?nodeShape), "_", REPLACE(STR(?datafield), "^.*[#/]", ""), "PropShape")) AS ?classDatafieldPropertyShape)
+                ?propertyShape ?p ?o .
             }`
         let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
         let store = new Store()
         for (let quad of constructedQuads) store.addQuad(quad)
-        return await serializeStoreToTurtle(store) // ensure pretty blank node serialization TODO
+        return await serializeStoreToTurtle(store)
     }
 
     async update() {
