@@ -121,14 +121,24 @@ export class ShaclWizardNode extends Node {
             })
             let input = document.createElement("input")
             container.appendChild(input)
-            new Awesomplete(input, {
+            const awesomplete = new Awesomplete(input, {
                 minChars: 0,
                 list: classes,
                 replace: (suggestion) => {
-                    input.value = suggestion.label
+                    input.value = suggestion?.label
                 }
             })
+            input.addEventListener("input", () => {
+                if (awesomplete.suggestions && awesomplete.suggestions.length > 0) return
+                let item = document.createElement("li")
+                item.textContent = "+ Create new class"
+                item.addEventListener("click", () => alert("TODO"))
+                awesomplete.ul.appendChild(item)
+                awesomplete.open()
+            })
+            input.addEventListener("blur", () => input.remove())
             input.addEventListener("awesomplete-selectcomplete", async (obj) => {
+                if (!obj.text) return
                 let targetClass = obj.text.value
                 query = `
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
