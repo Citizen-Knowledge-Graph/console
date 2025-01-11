@@ -6,7 +6,7 @@ export class OutputViewLeafNode extends CodeNode {
         super(initialValues, graph, [ PORT.ANY ], [ PORT.ANY ], TYPE.VIEW_LEAF)
     }
 
-    justShowValue(value, mode) {
+    instantShowValue(value, mode) {
         this.codeMirror.setOption("mode", mode)
         this.setValue(value)
     }

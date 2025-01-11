@@ -252,13 +252,20 @@ export class Node {
         return this.getValue()
     }
 
+    sendInstantShowValue(portOut, content) {
+        let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
+        let edge = outgoingEdges.find(edge => edge.portOut === portOut)
+        if (!edge || edge.targetNode.constructor.name !== "OutputViewLeafNode") return
+        edge.targetNode.instantShowValue(content, "turtle")
+    }
+
     getMainHtml() {}
     preResize() {}
     postResize(dy) {}
 
     getValue() { this.err() }
     setValue(value) { this.err() }
-    justShowValue(value, mode) { this.err() }
+    instantShowValue(value, mode) { this.err() }
     clear() { this.err() }
     async processIncomingData() { this.err() }
     addInputPort() { this.err() }

@@ -51,11 +51,8 @@ export class ShaclWizardNode extends Node {
     }
 
     async update() {
-        let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
-        let edge = outgoingEdges.find(edge => edge.portOut === "output_1")
-        if (edge) edge.targetNode.justShowValue(await this.serializeOutput(), "turtle")
-        edge = outgoingEdges.find(edge => edge.portOut === "output_2")
-        if (edge) edge.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
+        this.sendInstantShowValue("output_1", await this.serializeOutput())
+        this.sendInstantShowValue("output_2", await serializeStoreToTurtle(this.store))
     }
 
     async processIncomingData() {

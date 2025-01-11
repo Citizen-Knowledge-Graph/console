@@ -23,7 +23,7 @@ export class ShaclFormNode extends Node {
         container.addEventListener("mousedown", event => event.stopPropagation())
     }
 
-    async serializeFormOutput() {
+    async serializeOutput() {
         let query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             PREFIX sh: <http://www.w3.org/ns/shacl#>
@@ -41,14 +41,11 @@ export class ShaclFormNode extends Node {
     }
 
     async update() {
-        let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
-        let edge = outgoingEdges.find(edge => edge.portOut === "output_1")
-        if (edge) edge.targetNode.justShowValue(await this.serializeFormOutput(), "turtle")
-        edge = outgoingEdges.find(edge => edge.portOut === "output_2")
-        if (edge) edge.targetNode.justShowValue(await serializeStoreToTurtle(this.store), "turtle")
         let result = await runValidationOnStore(this.store)
-        edge = outgoingEdges.find(edge => edge.portOut === "output_3")
-        if (edge) edge.targetNode.justShowValue(await serializeDatasetToTurtle(result.dataset), "turtle")
+        this.sendInstantShowValue("output_1", await this.serializeOutput())
+        this.sendInstantShowValue("output_2", await serializeStoreToTurtle(this.store))
+        this.sendInstantShowValue("output_3", await serializeDatasetToTurtle(result.dataset))
+
         // reset errors
         for (let element of Object.values(this.elementsMap)) {
             element.label.style.color = "black"
