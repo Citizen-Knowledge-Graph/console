@@ -2,6 +2,7 @@ import { Parser, Store, Writer, DataFactory } from "n3"
 import { QueryEngine } from "@comunica/query-sparql-rdfjs"
 import Validator from "shacl-engine/Validator.js"
 import rdf from "rdf-ext"
+import formatsPretty from "@rdfjs/formats/pretty.js"
 import Drawflow from "drawflow"
 import CodeMirror from "codemirror"
 import "codemirror/mode/turtle/turtle.js"
@@ -14,6 +15,7 @@ export {
     QueryEngine,
     Validator,
     rdf,
+    formatsPretty,
     Drawflow,
     CodeMirror,
     slugify,

@@ -171,6 +171,7 @@ export class Graph {
     }
 
     async toTurtle(callback, onlyTheseNodes = []) {
+        // use rdf.io.dataset.toText() here too TODO
         let writer = new Writer({
             prefixes: {
                 rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",

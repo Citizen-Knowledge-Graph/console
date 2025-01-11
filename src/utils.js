@@ -1,4 +1,4 @@
-import { Parser, QueryEngine, rdf, Store, Validator, Writer, slugify } from "./assets/bundle.js"
+import { Parser, QueryEngine, rdf, Store, Validator, slugify, formatsPretty } from "./assets/bundle.js"
 
 export async function fetchAsset(relPath) {
     const response = await fetch("assets/" + relPath, {
@@ -116,32 +116,17 @@ export const prefixes = {
     // schema: "http://schema.org/"
 }
 
-export function serializeStoreToTurtle(store) {
-    return new Promise((resolve, reject) => {
-        let writer = new Writer({ prefixes: prefixes })
-        store.getQuads().forEach(quad => writer.addQuad(quad))
-        writer.end((error, result) => {
-            if (error) {
-                reject(error)
-            } else {
-                resolve(result)
-            }
-        })
-    })
+export async function serializeStoreToTurtle(store) {
+    let ds = rdf.dataset(store.getQuads())
+    return await serializeDatasetToTurtle(ds)
 }
 
-export function serializeDatasetToTurtle(dataset) {
-    return new Promise((resolve, reject) => {
-        let writer = new Writer({ prefixes: prefixes })
-        dataset.forEach(quad => writer.addQuad(quad))
-        writer.end((error, result) => {
-            if (error) {
-                reject(error)
-            } else {
-                resolve(result)
-            }
-        })
-    })
+export async function serializeDatasetToTurtle(dataset) {
+    rdf.formats.import(formatsPretty)
+    const prefixesArr = Object.entries(prefixes).map(
+        ([prefix, iri]) => [prefix, rdf.namedNode(iri)]
+    )
+    return await rdf.io.dataset.toText("text/turtle", dataset, { prefixes: prefixesArr })
 }
 
 export async function runValidationOnStore(store) {
