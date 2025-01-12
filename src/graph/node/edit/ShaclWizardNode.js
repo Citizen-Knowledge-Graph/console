@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore, runSparqlConstructQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore } from "../../../utils.js"
+import { addRdfStringToStore, localName, runSparqlSelectQueryOnStore, runSparqlConstructQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, expand } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclWizardNode extends Node {
@@ -116,9 +116,44 @@ export class ShaclWizardNode extends Node {
                 let rows = await runSparqlSelectQueryOnStore(query, this.store)
                 for (let row of rows) properties[row.p] = row.o
 
-                let h4 = document.createElement("h4")
-                h4.textContent = datafieldObj.name
-                container.appendChild(h4)
+                let div = document.createElement("div")
+                div.textContent = datafieldObj.name
+                div.style = "margin-left: 30px; font-size: large"
+                container.appendChild(div)
+
+                const buildSelectElement = (predicate, objectValue) => {
+                    let select = document.createElement("select")
+                    select.style.width = "40px"
+                    // these are not all for now
+                    let options = [
+                        { value: "hasValue", label: "&equals;" },
+                        { value: "valueShape", label: "&rarr;" },
+                        { value: "minExclusive", label: "&lt;" },
+                        { value: "minInclusive", label: "&le;" },
+                        { value: "maxExclusive", label: "&gt;" },
+                        { value: "maxInclusive", label: "&ge;" },
+                    ]
+                    for (let option of options) {
+                        let optionEl = document.createElement("option")
+                        optionEl.value = option.value
+                        optionEl.innerHTML = option.label
+                        optionEl.selected = option.value === localName(predicate)
+                        select.appendChild(optionEl)
+                    }
+                    return select
+                }
+
+                let skipList = [ expand("sh", "path"), expand("sh", "minCount") ]
+                for (let property of Object.keys(properties)) {
+                    if (skipList.includes(property)) continue
+                    console.log(nodeShape, datafieldObj.datafield, property)
+                    let select = buildSelectElement(property, properties[property])
+                    container.appendChild(select)
+                    let input = document.createElement("input")
+                    input.style = "width: 100px; margin-left: 10px"
+                    input.value = properties[property]
+                    container.appendChild(input)
+                }
             }
 
             buildAddBtn("+ add property constraint", async () => {
@@ -154,6 +189,7 @@ export class ShaclWizardNode extends Node {
                 awesomplete.ul.appendChild(item)
                 awesomplete.open()
             })
+            // input.addEventListener("focus", () => awesomplete.open())
             input.addEventListener("blur", () => input.remove())
             input.addEventListener("awesomplete-selectcomplete", async (obj) => {
                 if (!obj.text) return

@@ -122,6 +122,7 @@ export async function serializeStoreToTurtle(store) {
 }
 
 export async function serializeDatasetToTurtle(dataset) {
+    // do both of the next steps once initially? TODO
     rdf.formats.import(formatsPretty)
     const prefixesArr = Object.entries(prefixes).map(
         ([prefix, iri]) => [prefix, rdf.namedNode(iri)]
