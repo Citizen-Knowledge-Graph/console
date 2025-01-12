@@ -68,6 +68,50 @@ export class ShaclWizardNode extends Node {
         return ""
     }
 
+    buildSelectElement = (predicate) => {
+        let select = document.createElement("select")
+        select.style.width = "40px"
+        // these are not all for now
+        let options = [
+            { value: expand("sh", "hasValue"), label: "&equals;" },
+            { value: expand("sh", "minExclusive"), label: "&lt;" },
+            { value: expand("sh", "minInclusive"), label: "&le;" },
+            { value: expand("sh", "maxExclusive"), label: "&gt;" },
+            { value: expand("sh", "maxInclusive"), label: "&ge;" },
+        ]
+        if (predicate === expand("sh", "valueShape")) {
+            options = [
+                { value: expand("sh", "valueShape"), label: "&rarr;" }
+            ]
+            select.disabled = true
+        }
+        for (let option of options) {
+            let optionEl = document.createElement("option")
+            optionEl.value = option.value
+            optionEl.innerHTML = option.label
+            optionEl.selected = option.value === predicate
+            select.appendChild(optionEl)
+        }
+        return select
+    }
+
+    buildInputElement = (buildQuery) => {
+        let input = document.createElement("input")
+        let inputChanged = false
+        const applyValue = async () => {
+            if (!inputChanged) return
+            inputChanged = false
+            await runSparqlInsertDeleteQueryOnStore(buildQuery(input.value), this.store)
+            await this.rebuildForm()
+        }
+        input.addEventListener("input", () => inputChanged = true)
+        input.addEventListener("blur", async () => await applyValue())
+        input.addEventListener("keyup", async (event) => {
+            if (event.key === "Enter") await applyValue()
+        })
+        return input
+    }
+
     wireUpAutocompleteElement = (input, list, fallbackItemText, buildQuery) => {
         const awesomplete = new Awesomplete(input, {
             minChars: 0,
@@ -163,55 +207,11 @@ export class ShaclWizardNode extends Node {
                 tr.appendChild(td)
                 table.appendChild(tr)
 
-                const buildSelectElement = (predicate) => {
-                    let select = document.createElement("select")
-                    select.style.width = "40px"
-                    // these are not all for now
-                    let options = [
-                        { value: expand("sh", "hasValue"), label: "&equals;" },
-                        { value: expand("sh", "minExclusive"), label: "&lt;" },
-                        { value: expand("sh", "minInclusive"), label: "&le;" },
-                        { value: expand("sh", "maxExclusive"), label: "&gt;" },
-                        { value: expand("sh", "maxInclusive"), label: "&ge;" },
-                    ]
-                    if (predicate === expand("sh", "valueShape")) {
-                        options = [
-                            { value: expand("sh", "valueShape"), label: "&rarr;" }
-                        ]
-                        select.disabled = true
-                    }
-                    for (let option of options) {
-                        let optionEl = document.createElement("option")
-                        optionEl.value = option.value
-                        optionEl.innerHTML = option.label
-                        optionEl.selected = option.value === predicate
-                        select.appendChild(optionEl)
-                    }
-                    return select
-                }
-
-                const buildInputElement = (buildQuery) => {
-                    let input = document.createElement("input")
-                    let inputChanged = false
-                    const applyValue = async () => {
-                        if (!inputChanged) return
-                        inputChanged = false
-                        await runSparqlInsertDeleteQueryOnStore(buildQuery(input.value), this.store)
-                        await this.rebuildForm()
-                    }
-                    input.addEventListener("input", () => inputChanged = true)
-                    input.addEventListener("blur", async () => await applyValue())
-                    input.addEventListener("keyup", async (event) => {
-                        if (event.key === "Enter") await applyValue()
-                    })
-                    return input
-                }
-
                 let skipList = [ expand("sh", "path"), expand("sh", "minCount") ]
                 let predicateMemory = {}
                 for (let predicate of Object.keys(properties)) {
                     if (skipList.includes(predicate)) continue
-                    let select = buildSelectElement(predicate)
+                    let select = this.buildSelectElement(predicate)
                     tr = document.createElement("tr")
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
@@ -238,7 +238,7 @@ export class ShaclWizardNode extends Node {
                         await this.update()
                     })
 
-                    let input = buildInputElement((inputValue) => {
+                    let input = this.buildInputElement((inputValue) => {
                         return `
                             PREFIX sh: <http://www.w3.org/ns/shacl#>
                             DELETE {
@@ -271,11 +271,11 @@ export class ShaclWizardNode extends Node {
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
                     td = document.createElement("td")
-                    let select = buildSelectElement()
+                    let select = this.buildSelectElement()
                     td.appendChild(select)
                     tr.appendChild(td)
                     td = document.createElement("td")
-                    let input = buildInputElement((inputValue) => {
+                    let input = this.buildInputElement((inputValue) => {
                         return `
                             PREFIX sh: <http://www.w3.org/ns/shacl#>
                             INSERT {
