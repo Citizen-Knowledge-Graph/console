@@ -75,10 +75,6 @@ export class Node {
         this.rerenderConnectingEdges()
     }
 
-    isProcessor() {
-        return this.type === TYPE.PROCESSOR
-    }
-
     isInput() {
         return this.type === TYPE.INPUT
     }

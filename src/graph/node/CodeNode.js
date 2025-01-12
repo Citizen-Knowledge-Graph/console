@@ -23,7 +23,7 @@ export class CodeNode extends Node {
 
     postConstructor() {
         super.postConstructor()
-        this.codemirrorContainer = this.editor.container.querySelector(`#node-${this.id} .codemirror-container`)
+        this.codemirrorContainer = this.nodeDiv.querySelector(".codemirror-container")
         this.codeMirror = CodeMirror(this.codemirrorContainer, {
             value: "",
             mode: this.getMode(),
