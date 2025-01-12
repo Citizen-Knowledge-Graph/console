@@ -73,12 +73,12 @@ export class ShaclWizardNode extends Node {
         while (container.firstChild) container.firstChild.remove()
 
         let table = document.createElement("table")
-        table.classList.add("result-table")
+        table.classList.add("form-table")
         let tr, td
 
-        const buildAddBtn = (text, onClick) => {
+        const buildAddBtn = (text, fontSize, onClick) => {
             let btn = document.createElement("div")
-            btn.style = "cursor: pointer; color: gray; font-size: small"
+            btn.style = `cursor: pointer; color: gray; font-size: ${fontSize}`
             btn.textContent = text
             btn.addEventListener("click", async () => onClick())
             return btn
@@ -167,6 +167,7 @@ export class ShaclWizardNode extends Node {
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
                     td = document.createElement("td")
+                    td.style.width = "40px"
                     td.appendChild(select)
                     tr.appendChild(td)
 
@@ -184,7 +185,7 @@ export class ShaclWizardNode extends Node {
                 }
 
                 if (Object.keys(properties).includes(expand("sh", "valueShape"))) continue
-                let btn = buildAddBtn(`+ add new constraint to '${datafieldObj.name}'`, async () => {
+                let btn = buildAddBtn(`+ add new constraint to '${datafieldObj.name}'`, "small", async () => {
                     tr = document.createElement("tr")
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
@@ -205,7 +206,7 @@ export class ShaclWizardNode extends Node {
                 table.appendChild(tr)
             }
 
-            let btn = buildAddBtn(`+ add new property to '${localName(targetClass)}'`, async () => {
+            let btn = buildAddBtn(`+ add new property to '${localName(targetClass)}'`, "normal", async () => {
                 tr = document.createElement("tr")
                 tr.appendChild(document.createElement("td"))
                 td = document.createElement("td")
@@ -219,12 +220,13 @@ export class ShaclWizardNode extends Node {
             tr.appendChild(document.createElement("td"))
             td = document.createElement("td")
             td.colSpan = 3
+            btn.style.marginTop = "8px"
             td.appendChild(btn)
             tr.appendChild(td)
             table.appendChild(tr)
         }
 
-        let btn = buildAddBtn("+ describe another class", async () => {
+        let btn = buildAddBtn("+ add another class", "large",async () => {
             query = `
                 PREFIX ff: <https://foerderfunke.org/default#>
                 SELECT * WHERE {
