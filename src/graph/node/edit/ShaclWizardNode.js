@@ -171,7 +171,7 @@ export class ShaclWizardNode extends Node {
                         if (!inputChanged) return
                         inputChanged = false
                         await runSparqlInsertDeleteQueryOnStore(buildQuery(input.value), this.store)
-                        await this.update()
+                        await this.rebuildForm()
                     }
                     input.addEventListener("input", () => inputChanged = true)
                     input.addEventListener("blur", async () => await applyValue())
@@ -199,7 +199,6 @@ export class ShaclWizardNode extends Node {
                         predicateMemory[path] = predicateNow
                         query = `
                             PREFIX sh: <http://www.w3.org/ns/shacl#>
-                            PREFIX ff: <https://foerderfunke.org/default#>
                             DELETE {
                                 ?propertyShape <${predicateBefore}> ?value .
                             } INSERT {
@@ -216,7 +215,6 @@ export class ShaclWizardNode extends Node {
                     let input = buildInputElement((inputValue) => {
                         return `
                             PREFIX sh: <http://www.w3.org/ns/shacl#>
-                            PREFIX ff: <https://foerderfunke.org/default#>
                             DELETE {
                                 ?propertyShape <${predicate}> ?value .
                             } INSERT {
@@ -247,8 +245,21 @@ export class ShaclWizardNode extends Node {
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
                     td = document.createElement("td")
-                    td.colSpan = 2
-                    td.textContent = "TODO"
+                    let select = buildSelectElement()
+                    td.appendChild(select)
+                    tr.appendChild(td)
+                    td = document.createElement("td")
+                    let input = buildInputElement((inputValue) => {
+                        return `
+                            PREFIX sh: <http://www.w3.org/ns/shacl#>
+                            INSERT {
+                                ?propertyShape <${select.value}> ${formatObject(inputValue)} .
+                            } WHERE { 
+                                <${nodeShape}> sh:property ?propertyShape .
+                                ?propertyShape sh:path <${path}> .
+                            }`
+                    })
+                    td.appendChild(input)
                     tr.appendChild(td)
                     rowToInsertBefore.parentNode.insertBefore(tr, rowToInsertBefore)
                 })
