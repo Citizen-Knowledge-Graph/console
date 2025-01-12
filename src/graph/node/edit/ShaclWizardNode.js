@@ -164,6 +164,23 @@ export class ShaclWizardNode extends Node {
                     return select
                 }
 
+                const buildInputElement = (buildQuery) => {
+                    let input = document.createElement("input")
+                    let inputChanged = false
+                    const applyValue = async () => {
+                        if (!inputChanged) return
+                        inputChanged = false
+                        await runSparqlInsertDeleteQueryOnStore(buildQuery(input.value), this.store)
+                        await this.update()
+                    }
+                    input.addEventListener("input", () => inputChanged = true)
+                    input.addEventListener("blur", async () => await applyValue())
+                    input.addEventListener("keyup", async (event) => {
+                        if (event.key === "Enter") await applyValue()
+                    })
+                    return input
+                }
+
                 let skipList = [ expand("sh", "path"), expand("sh", "minCount") ]
                 let predicateMemory = {}
                 for (let predicate of Object.keys(properties)) {
@@ -196,7 +213,20 @@ export class ShaclWizardNode extends Node {
                         await this.update()
                     })
 
-                    let input = document.createElement("input")
+                    let input = buildInputElement((inputValue) => {
+                        return `
+                            PREFIX sh: <http://www.w3.org/ns/shacl#>
+                            PREFIX ff: <https://foerderfunke.org/default#>
+                            DELETE {
+                                ?propertyShape <${predicate}> ?value .
+                            } INSERT {
+                                ?propertyShape <${predicate}> ${formatObject(inputValue)} .
+                            } WHERE { 
+                                <${nodeShape}> sh:property ?propertyShape .
+                                ?propertyShape sh:path <${path}> ;
+                                    <${predicate}> ?value .
+                            }`
+                    })
                     if (predicate === expand("sh", "valueShape")) {
                         input.value = localName(properties[predicate]).replace("Shape", "")
                         input.disabled = true
@@ -207,30 +237,6 @@ export class ShaclWizardNode extends Node {
                     td.appendChild(input)
                     tr.appendChild(td)
                     table.appendChild(tr)
-                    let inputChanged = false
-                    const applyNewValue = async () => {
-                        if (!inputChanged) return
-                        inputChanged = false
-                        query = `
-                            PREFIX sh: <http://www.w3.org/ns/shacl#>
-                            PREFIX ff: <https://foerderfunke.org/default#>
-                            DELETE {
-                                ?propertyShape <${predicate}> ?value .
-                            } INSERT {
-                                ?propertyShape <${predicate}> ${formatObject(input.value)} .
-                            } WHERE { 
-                                <${nodeShape}> sh:property ?propertyShape .
-                                ?propertyShape sh:path <${path}> ;
-                                    <${predicate}> ?value .
-                            }`
-                        await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                        await this.update()
-                    }
-                    input.addEventListener("input", () => inputChanged = true)
-                    input.addEventListener("blur", async () => await applyNewValue())
-                    input.addEventListener("keyup", async (event) => {
-                        if (event.key === "Enter") await applyNewValue()
-                    })
 
                     predicateMemory[path] = predicate
                 }
