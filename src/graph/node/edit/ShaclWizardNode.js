@@ -185,9 +185,17 @@ export class ShaclWizardNode extends Node {
 
                 if (Object.keys(properties).includes(expand("sh", "valueShape"))) continue
                 let btn = buildAddBtn(`+ add new constraint to '${datafieldObj.name}'`, async () => {
-                    // TODO
+                    tr = document.createElement("tr")
+                    tr.appendChild(document.createElement("td"))
+                    tr.appendChild(document.createElement("td"))
+                    td = document.createElement("td")
+                    td.colSpan = 2
+                    td.textContent = "TODO"
+                    tr.appendChild(td)
+                    rowToInsertBefore.parentNode.insertBefore(tr, rowToInsertBefore)
                 })
                 tr = document.createElement("tr")
+                let rowToInsertBefore = tr
                 tr.appendChild(document.createElement("td"))
                 tr.appendChild(document.createElement("td"))
                 td = document.createElement("td")
@@ -198,9 +206,16 @@ export class ShaclWizardNode extends Node {
             }
 
             let btn = buildAddBtn(`+ add new property to '${localName(targetClass)}'`, async () => {
-                // TODO
+                tr = document.createElement("tr")
+                tr.appendChild(document.createElement("td"))
+                td = document.createElement("td")
+                td.colSpan = 3
+                td.textContent = "TODO"
+                tr.appendChild(td)
+                rowToInsertBefore.parentNode.insertBefore(tr, rowToInsertBefore)
             })
             tr = document.createElement("tr")
+            let rowToInsertBefore = tr
             tr.appendChild(document.createElement("td"))
             td = document.createElement("td")
             td.colSpan = 3
@@ -220,7 +235,12 @@ export class ShaclWizardNode extends Node {
                 return { value: row.class, label: row.label }
             })
             let input = document.createElement("input")
-            container.appendChild(input)
+            tr = document.createElement("tr")
+            td = document.createElement("td")
+            td.colSpan = 4
+            td.appendChild(input)
+            tr.appendChild(td)
+            rowToInsertBefore.parentNode.insertBefore(tr, rowToInsertBefore)
             const awesomplete = new Awesomplete(input, {
                 minChars: 0,
                 list: classes,
@@ -252,6 +272,7 @@ export class ShaclWizardNode extends Node {
             })
         })
         tr = document.createElement("tr")
+        let rowToInsertBefore = tr
         td = document.createElement("td")
         td.colSpan = 4
         td.appendChild(btn)
