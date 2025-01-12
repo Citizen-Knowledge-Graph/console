@@ -298,9 +298,32 @@ export class ShaclWizardNode extends Node {
                 tr.appendChild(document.createElement("td"))
                 td = document.createElement("td")
                 td.colSpan = 3
-                td.textContent = "TODO"
+                query = `
+                    PREFIX ff: <https://foerderfunke.org/default#>
+                    PREFIX sh: <http://www.w3.org/ns/shacl#>
+                    SELECT ?datafield ?name WHERE {
+                        ?datafield a ff:DataField ;
+                            ff:shaclShape ?shaclShape .
+                        ?shaclShape sh:name ?name .
+                    }`
+                let list = (await runSparqlSelectQueryOnStore(query, this.store)).map(row => {
+                    return { value: row.datafield, label: row.name }
+                })
+                let input = document.createElement("input")
+                td.appendChild(input)
+                this.wireUpAutocompleteElement(input, list, "+ create new property", (datafield) => {
+                    return `
+                    PREFIX sh: <http://www.w3.org/ns/shacl#>
+                    INSERT DATA {
+                        <${nodeShape}> sh:property [
+                            sh:path <${datafield}> ;
+                            sh:minCount 1 ;
+                        ] .
+                    }`
+                })
                 tr.appendChild(td)
                 rowToInsertBefore.parentNode.insertBefore(tr, rowToInsertBefore)
+                rowToInsertBefore.remove()
             })
             tr = document.createElement("tr")
             let rowToInsertBefore = tr
