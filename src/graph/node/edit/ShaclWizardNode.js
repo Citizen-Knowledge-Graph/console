@@ -155,6 +155,7 @@ export class ShaclWizardNode extends Node {
                         optionEl.selected = option.value === localName(predicate)
                         select.appendChild(optionEl)
                     }
+                    select.disabled = localName(predicate) === "valueShape"
                     return select
                 }
 
@@ -170,13 +171,19 @@ export class ShaclWizardNode extends Node {
                     tr.appendChild(td)
 
                     let input = document.createElement("input")
-                    input.value = properties[property]
+                    if (localName(property) === "valueShape") {
+                        input.value = localName(properties[property]).replace("Shape", "")
+                        input.disabled = true
+                    } else {
+                        input.value = properties[property]
+                    }
                     td = document.createElement("td")
                     td.appendChild(input)
                     tr.appendChild(td)
                     table.appendChild(tr)
                 }
 
+                if (Object.keys(properties).includes(expand("sh", "valueShape"))) continue
                 let btn = buildAddBtn(`+ add new constraint to '${datafieldObj.name}'`, async () => {
                     // TODO
                 })
