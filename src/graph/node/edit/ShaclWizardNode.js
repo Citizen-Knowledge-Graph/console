@@ -113,12 +113,13 @@ export class ShaclWizardNode extends Node {
                 }`
             let datafields = await runSparqlSelectQueryOnStore(query, this.store)
             for (let datafieldObj of datafields) {
+                let path = datafieldObj.datafield
                 query = `
                     PREFIX ff: <https://foerderfunke.org/default#>
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
                     SELECT ?p ?o WHERE {
                         <${nodeShape}> sh:property ?propertyShape .
-                        ?propertyShape sh:path <${datafieldObj.datafield}> ;
+                        ?propertyShape sh:path <${path}> ;
                             ?p ?o .
                     }`
                 let properties = {}
@@ -136,20 +137,20 @@ export class ShaclWizardNode extends Node {
                 tr.appendChild(td)
                 table.appendChild(tr)
 
-                const buildSelectElement = (predicate, objectValue) => {
+                const buildSelectElement = (predicate) => {
                     let select = document.createElement("select")
                     select.style.width = "40px"
                     // these are not all for now
                     let options = [
-                        { value: "hasValue", label: "&equals;" },
-                        { value: "minExclusive", label: "&lt;" },
-                        { value: "minInclusive", label: "&le;" },
-                        { value: "maxExclusive", label: "&gt;" },
-                        { value: "maxInclusive", label: "&ge;" },
+                        { value: expand("sh", "hasValue"), label: "&equals;" },
+                        { value: expand("sh", "minExclusive"), label: "&lt;" },
+                        { value: expand("sh", "minInclusive"), label: "&le;" },
+                        { value: expand("sh", "maxExclusive"), label: "&gt;" },
+                        { value: expand("sh", "maxInclusive"), label: "&ge;" },
                     ]
-                    if (localName(predicate) === "valueShape") {
+                    if (predicate === expand("sh", "valueShape")) {
                         options = [
-                            { value: "valueShape", label: "&rarr;" }
+                            { value: expand("sh", "valueShape"), label: "&rarr;" }
                         ]
                         select.disabled = true
                     }
@@ -157,16 +158,17 @@ export class ShaclWizardNode extends Node {
                         let optionEl = document.createElement("option")
                         optionEl.value = option.value
                         optionEl.innerHTML = option.label
-                        optionEl.selected = option.value === localName(predicate)
+                        optionEl.selected = option.value === predicate
                         select.appendChild(optionEl)
                     }
                     return select
                 }
 
                 let skipList = [ expand("sh", "path"), expand("sh", "minCount") ]
-                for (let property of Object.keys(properties)) {
-                    if (skipList.includes(property)) continue
-                    let select = buildSelectElement(property, properties[property])
+                let predicateMemory = {}
+                for (let predicate of Object.keys(properties)) {
+                    if (skipList.includes(predicate)) continue
+                    let select = buildSelectElement(predicate)
                     tr = document.createElement("tr")
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
@@ -174,18 +176,27 @@ export class ShaclWizardNode extends Node {
                     td.style.width = "40px"
                     td.appendChild(select)
                     tr.appendChild(td)
+                    select.addEventListener("change", async () => {
+                        let predicateBefore = predicateMemory[path]
+                        let predicateNow = select.value
+                        console.log(predicateBefore, predicateNow)
+                        // TODO
+                        predicateMemory[path] = predicateNow
+                    })
 
                     let input = document.createElement("input")
-                    if (localName(property) === "valueShape") {
-                        input.value = localName(properties[property]).replace("Shape", "")
+                    if (localName(predicate) === "valueShape") {
+                        input.value = localName(properties[predicate]).replace("Shape", "")
                         input.disabled = true
                     } else {
-                        input.value = properties[property]
+                        input.value = properties[predicate]
                     }
                     td = document.createElement("td")
                     td.appendChild(input)
                     tr.appendChild(td)
                     table.appendChild(tr)
+
+                    predicateMemory[path] = predicate
                 }
 
                 if (Object.keys(properties).includes(expand("sh", "valueShape"))) continue
