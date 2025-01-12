@@ -208,10 +208,24 @@ export class ShaclWizardNode extends Node {
                 table.appendChild(tr)
 
                 let skipList = [ expand("sh", "path"), expand("sh", "minCount") ]
-                let predicateMemory = {}
                 for (let predicate of Object.keys(properties)) {
                     if (skipList.includes(predicate)) continue
+                    let object = properties[predicate]
                     let select = this.buildSelectElement(predicate)
+                    select.addEventListener("change", async () => {
+                        query = `
+                            PREFIX sh: <http://www.w3.org/ns/shacl#>
+                            DELETE {
+                                ?propertyShape <${predicate}> ${formatObject(object)} .
+                            } INSERT {
+                                ?propertyShape <${select.value}> ${formatObject(object)} .
+                            } WHERE { 
+                                <${nodeShape}> sh:property ?propertyShape .
+                                ?propertyShape sh:path <${path}> .
+                            }`
+                        await runSparqlInsertDeleteQueryOnStore(query, this.store)
+                        await this.rebuildForm()
+                    })
                     tr = document.createElement("tr")
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
@@ -219,25 +233,6 @@ export class ShaclWizardNode extends Node {
                     td.style.width = "40px"
                     td.appendChild(select)
                     tr.appendChild(td)
-                    select.addEventListener("change", async () => {
-                        let predicateBefore = predicateMemory[path]
-                        let predicateNow = select.value
-                        predicateMemory[path] = predicateNow
-                        query = `
-                            PREFIX sh: <http://www.w3.org/ns/shacl#>
-                            DELETE {
-                                ?propertyShape <${predicateBefore}> ?value .
-                            } INSERT {
-                                ?propertyShape <${predicateNow}> ?value .
-                            } WHERE { 
-                                <${nodeShape}> sh:property ?propertyShape .
-                                ?propertyShape sh:path <${path}> ;
-                                    <${predicateBefore}> ?value .
-                            }`
-                        await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                        await this.update()
-                    })
-
                     let input = this.buildInputElement((inputValue) => {
                         return `
                             PREFIX sh: <http://www.w3.org/ns/shacl#>
@@ -252,17 +247,15 @@ export class ShaclWizardNode extends Node {
                             }`
                     })
                     if (predicate === expand("sh", "valueShape")) {
-                        input.value = localName(properties[predicate]).replace("Shape", "")
+                        input.value = localName(object).replace("Shape", "")
                         input.disabled = true
                     } else {
-                        input.value = properties[predicate]
+                        input.value = object
                     }
                     td = document.createElement("td")
                     td.appendChild(input)
                     tr.appendChild(td)
                     table.appendChild(tr)
-
-                    predicateMemory[path] = predicate
                 }
 
                 if (Object.keys(properties).includes(expand("sh", "valueShape"))) continue
