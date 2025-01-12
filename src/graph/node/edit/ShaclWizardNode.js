@@ -68,6 +68,32 @@ export class ShaclWizardNode extends Node {
         return ""
     }
 
+    wireUpAutocompleteElement = (input, list, fallbackItemText, buildQuery) => {
+        const awesomplete = new Awesomplete(input, {
+            minChars: 0,
+            list: list,
+            replace: (suggestion) => {
+                input.value = suggestion?.label
+            }
+        })
+        input.addEventListener("input", () => {
+            if (awesomplete.suggestions && awesomplete.suggestions.length > 0) return
+            let item = document.createElement("li")
+            item.textContent = fallbackItemText
+            item.addEventListener("click", () => alert("TODO"))
+            awesomplete.ul.appendChild(item)
+            awesomplete.open()
+        })
+        // input.addEventListener("focus", () => awesomplete.open())
+        input.addEventListener("blur", async () => await this.rebuildForm())
+        input.addEventListener("awesomplete-selectcomplete", async (obj) => {
+            if (!obj.text) return
+            await runSparqlInsertDeleteQueryOnStore(buildQuery(obj.text.value), this.store)
+            await this.rebuildForm()
+        })
+        return input
+    }
+
     async rebuildForm() {
         let container = this.nodeDiv.querySelector(".shacl-wizard-container")
         while (container.firstChild) container.firstChild.remove()
@@ -309,40 +335,20 @@ export class ShaclWizardNode extends Node {
             td = document.createElement("td")
             td.colSpan = 4
             td.appendChild(input)
-            tr.appendChild(td)
-            rowToInsertBefore.parentNode.insertBefore(tr, rowToInsertBefore)
-            const awesomplete = new Awesomplete(input, {
-                minChars: 0,
-                list: classes,
-                replace: (suggestion) => {
-                    input.value = suggestion?.label
-                }
-            })
-            input.addEventListener("input", () => {
-                if (awesomplete.suggestions && awesomplete.suggestions.length > 0) return
-                let item = document.createElement("li")
-                item.textContent = "+ Create new class"
-                item.addEventListener("click", () => alert("TODO"))
-                awesomplete.ul.appendChild(item)
-                awesomplete.open()
-            })
-            // input.addEventListener("focus", () => awesomplete.open())
-            input.addEventListener("blur", () => tr.remove())
-            input.addEventListener("awesomplete-selectcomplete", async (obj) => {
-                if (!obj.text) return
-                let targetClass = obj.text.value
-                query = `
+            this.wireUpAutocompleteElement(input, classes, "+ create new class", (targetClass) => {
+                return `
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
                     INSERT DATA {
                         <${targetClass}Shape> a sh:NodeShape ;
                             sh:targetClass <${targetClass}> .
                     }`
-                await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                await this.rebuildForm()
             })
+            tr.appendChild(td)
+            btnRow.remove()
+            table.appendChild(tr)
         })
         tr = document.createElement("tr")
-        let rowToInsertBefore = tr
+        let btnRow = tr
         td = document.createElement("td")
         td.colSpan = 4
         td.appendChild(btn)
