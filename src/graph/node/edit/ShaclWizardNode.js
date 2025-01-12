@@ -142,12 +142,17 @@ export class ShaclWizardNode extends Node {
                     // these are not all for now
                     let options = [
                         { value: "hasValue", label: "&equals;" },
-                        { value: "valueShape", label: "&rarr;" },
                         { value: "minExclusive", label: "&lt;" },
                         { value: "minInclusive", label: "&le;" },
                         { value: "maxExclusive", label: "&gt;" },
                         { value: "maxInclusive", label: "&ge;" },
                     ]
+                    if (localName(predicate) === "valueShape") {
+                        options = [
+                            { value: "valueShape", label: "&rarr;" }
+                        ]
+                        select.disabled = true
+                    }
                     for (let option of options) {
                         let optionEl = document.createElement("option")
                         optionEl.value = option.value
@@ -155,7 +160,6 @@ export class ShaclWizardNode extends Node {
                         optionEl.selected = option.value === localName(predicate)
                         select.appendChild(optionEl)
                     }
-                    select.disabled = localName(predicate) === "valueShape"
                     return select
                 }
 
@@ -259,7 +263,7 @@ export class ShaclWizardNode extends Node {
                 awesomplete.open()
             })
             // input.addEventListener("focus", () => awesomplete.open())
-            input.addEventListener("blur", () => input.remove())
+            input.addEventListener("blur", () => tr.remove())
             input.addEventListener("awesomplete-selectcomplete", async (obj) => {
                 if (!obj.text) return
                 let targetClass = obj.text.value
