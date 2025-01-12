@@ -259,7 +259,7 @@ export class ShaclWizardNode extends Node {
                 }
 
                 if (Object.keys(properties).includes(expand("sh", "valueShape"))) continue
-                let btn = buildAddBtn(`+ add new constraint to '${datafieldObj.name}'`, "small", async () => {
+                let btn = buildAddBtn("+ add new constraint", "small", async () => {
                     tr = document.createElement("tr")
                     tr.appendChild(document.createElement("td"))
                     tr.appendChild(document.createElement("td"))
@@ -293,7 +293,7 @@ export class ShaclWizardNode extends Node {
                 table.appendChild(tr)
             }
 
-            let btn = buildAddBtn(`+ add new property to '${localName(targetClass)}'`, "normal", async () => {
+            let btn = buildAddBtn("+ add new property", "normal", async () => {
                 tr = document.createElement("tr")
                 tr.appendChild(document.createElement("td"))
                 td = document.createElement("td")
@@ -336,7 +336,7 @@ export class ShaclWizardNode extends Node {
             table.appendChild(tr)
         }
 
-        let btn = buildAddBtn("+ add another class", "large",async () => {
+        let btn = buildAddBtn("+ add new class", "large",async () => {
             query = `
                 PREFIX ff: <https://foerderfunke.org/default#>
                 SELECT * WHERE {
