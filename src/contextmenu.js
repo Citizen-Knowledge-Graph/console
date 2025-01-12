@@ -43,6 +43,7 @@ const canvasCtxMenuItems = [
         label: "View",
         submenu: [
             { label: "Output Viewer", action: "OutputViewNode" },
+            { label: "Markdown Editor/Viewer", action: "MarkdownNode" },
         ]
     },
     {

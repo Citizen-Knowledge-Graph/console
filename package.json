@@ -10,6 +10,7 @@
     "codemirror": "^5.65.18",
     "drawflow": "^0.0.60",
     "jszip": "^3.10.1",
+    "marked": "^15.0.6",
     "n3": "^1.23.0",
     "rdf-ext": "^2.5.2",
     "shacl-engine": "^1.0.1",

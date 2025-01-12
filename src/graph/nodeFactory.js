@@ -14,6 +14,7 @@ import { MultiplexerLogicNode } from "./node/logic/MultiplexerLogicNode.js"
 import { OutputViewNodeWithInitialInput } from "./node/input/OutputViewNodeWithInitialInput.js"
 import { TurtleInputNodeWithCopyPasteInPort } from "./node/input/TurtleInputNodeWithCopyPasteInPort.js"
 import { ShaclWizardNode } from "./node/edit/ShaclWizardNode.js"
+import { MarkdownNode } from "./node/input/MarkdownNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -28,7 +29,8 @@ export const PORT = {
     ANY: 0,
     TURTLE: 1,
     SPARQL: 2,
-    CSV: 3
+    CSV: 3,
+    MARKDOWN: 4
 }
 
 export const VIEW_MODE = {
@@ -52,7 +54,8 @@ const nodeClasses = {
     "MultiplexerLogicNode": MultiplexerLogicNode,
     "OutputViewNodeWithInitialInput": OutputViewNodeWithInitialInput,
     "TurtleInputNodeWithCopyPasteInPort": TurtleInputNodeWithCopyPasteInPort,
-    "ShaclWizardNode": ShaclWizardNode
+    "ShaclWizardNode": ShaclWizardNode,
+    "MarkdownNode": MarkdownNode
 }
 
 export const exampleData = {

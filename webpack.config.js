@@ -37,6 +37,10 @@ export default {
                     from: path.resolve("node_modules/awesomplete/awesomplete.css"),
                     to: path.resolve("src/assets"),
                 },
+                {
+                    from: path.resolve("node_modules/marked/marked.min.js"),
+                    to: path.resolve("src/assets"),
+                },
             ],
         }),
     ],
