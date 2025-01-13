@@ -5,13 +5,19 @@ import { slugify } from "../../../assets/bundle.js"
 
 export class GraphVisuNode extends Node {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.TURTLE ], [], TYPE.VIEW)
+        super(initialValues, graph, [ PORT.ANY ], [], TYPE.VIEW)
+        this.NODE_TYPE = {
+            URI: "",
+            LITERAL: "green",
+            BLANK: "gray",
+            VARIABLE: "orange"
+        }
     }
 
     getMainHtml() {
         return `<div class="graph-visu-container"></div>`
     }
-    
+
     async processTurtleData(turtle) {
         let query = `SELECT * WHERE { ?s ?p ?o . }`
         let triples = await runSparqlSelectQueryOnRdfString(query, turtle)
@@ -22,14 +28,14 @@ export class GraphVisuNode extends Node {
 
         for (let triple of triples) {
             let sub = triple.s
-            if (!nodes[sub]) nodes[sub] = { id: sub, label: shrink(sub), isLiteral: false }
+            if (!nodes[sub]) nodes[sub] = { id: sub, label: shrink(sub), type: this.NODE_TYPE.URI }
             let pred = triple.p
             let obj = triple.o
             if (obj.startsWith("http") || obj.startsWith("bc_")) {
-                if (!nodes[obj]) nodes[obj] = { id: obj, label: shrink(obj), isLiteral: false }
+                if (!nodes[obj]) nodes[obj] = { id: obj, label: shrink(obj), type: obj.startsWith("http") ? this.NODE_TYPE.URI : this.NODE_TYPE.BLANK }
             } else {
                 let id = `${randStr()}_${slugify(obj, { lower: true })}`
-                nodes[id] = { id, label: obj, isLiteral: true }
+                nodes[id] = { id, label: obj, type: this.NODE_TYPE.LITERAL }
                 obj = id
             }
             edges.push({ source: sub, target: obj, label: shrink(pred) })
@@ -57,7 +63,7 @@ export class GraphVisuNode extends Node {
             .height(300)
             .nodeLabel("label")
             .linkLabel("label")
-            .nodeColor(node => node.isLiteral ? "green" : "")
+            .nodeColor(node => node.type)
             .graphData(graphData)
 
         this.rerenderConnectingEdges()
