@@ -96,18 +96,31 @@ export class GraphVisuNode extends Node {
                 graphData = await this.processSparqlData(this.incomingData[0].data)
                 break
         }
-        ForceGraph()(container)
-            .width(400)
-            .height(300)
+
+        let width = 450
+        let height = 450
+        this.widthMinus = 25
+        this.heightMinus = 70
+        this.nodeDiv.style.setProperty("width", width + "px", "important")
+        this.nodeDiv.style.setProperty("height", height + "px", "important")
+
+        this.forceGraph = ForceGraph()(container)
+            .width(width - this.widthMinus)
+            .height(height - this.heightMinus)
             .nodeLabel("label")
             .linkLabel("label")
             .linkDirectionalArrowLength(6)
             .linkDirectionalArrowRelPos(1)
             .nodeColor(node => node.type)
             .graphData(graphData)
+            // .backgroundColor("#f9f9f9")
 
         this.rerenderConnectingEdges()
         return ""
+    }
+
+    postResize(dy, width, height) {
+        this.forceGraph.width(width - this.widthMinus).height(height - this.heightMinus)
     }
 
     getValue() { return "" }

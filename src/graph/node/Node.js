@@ -64,7 +64,7 @@ export class Node {
         }
         this.nodeDiv.style.setProperty("width", width + "px", "important")
         this.nodeDiv.style.setProperty("height", height + "px", "important")
-        this.postResize(dy)
+        this.postResize(dy, width, height)
         this.rerenderConnectingEdges()
         this.wasResized = true
     }
