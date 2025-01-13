@@ -15,6 +15,7 @@ import { OutputViewNodeWithInitialInput } from "./node/input/OutputViewNodeWithI
 import { TurtleInputNodeWithCopyPasteInPort } from "./node/input/TurtleInputNodeWithCopyPasteInPort.js"
 import { ShaclWizardNode } from "./node/edit/ShaclWizardNode.js"
 import { MarkdownNode } from "./node/input/MarkdownNode.js"
+import { GraphVisuNode } from "./node/view/GraphVisuNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -55,7 +56,8 @@ const nodeClasses = {
     "OutputViewNodeWithInitialInput": OutputViewNodeWithInitialInput,
     "TurtleInputNodeWithCopyPasteInPort": TurtleInputNodeWithCopyPasteInPort,
     "ShaclWizardNode": ShaclWizardNode,
-    "MarkdownNode": MarkdownNode
+    "MarkdownNode": MarkdownNode,
+    "GraphVisuNode": GraphVisuNode,
 }
 
 export const exampleData = {
