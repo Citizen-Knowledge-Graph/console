@@ -10,7 +10,7 @@ export class GraphVisuNode extends Node {
         this.NODE_TYPE = {
             URI: "",
             LITERAL: "green",
-            BLANK: "gray",
+            BLANK: "silver",
             VARIABLE: "orange"
         }
     }
@@ -25,18 +25,26 @@ export class GraphVisuNode extends Node {
         let nodes = {}
         let edges = []
         for (let triple of triples) {
-            let sub = triple.s
-            if (!nodes[sub]) nodes[sub] = { id: sub, label: shrink(sub), type: this.NODE_TYPE.URI }
-            let pred = triple.p
-            let obj = triple.o
-            if (obj.startsWith("http") || obj.startsWith("bc_")) {
-                if (!nodes[obj]) nodes[obj] = { id: obj, label: shrink(obj), type: obj.startsWith("http") ? this.NODE_TYPE.URI : this.NODE_TYPE.BLANK }
-            } else {
-                let id = `${randStr()}_${slugify(obj, { lower: true })}`
-                nodes[id] = { id, label: obj, type: this.NODE_TYPE.LITERAL }
-                obj = id
+            const processTerm = (value, type) => {
+                switch (type) {
+                    case this.NODE_TYPE.URI:
+                        return { id: value, label: shrink(value), type: type }
+                    case this.NODE_TYPE.LITERAL:
+                        let id = `${randStr()}_${slugify(value, { lower: true })}`
+                        return { id, label: `"${value}"`, type: type }
+                    case this.NODE_TYPE.BLANK:
+                        return { id: value, label: "[ ]", type: type }
+                }
             }
-            edges.push({ source: sub, target: obj, label: shrink(pred) })
+            let sub = processTerm(triple.s, triple.s.startsWith("http") ? this.NODE_TYPE.URI : this.NODE_TYPE.BLANK)
+            let pred = triple.p
+            let objType = this.NODE_TYPE.LITERAL
+            if (triple.o.startsWith("http")) objType = this.NODE_TYPE.URI
+            if (triple.o.startsWith("bc_")) objType = this.NODE_TYPE.BLANK
+            let obj = processTerm(triple.o, objType)
+            nodes[sub.id] = sub
+            nodes[obj.id] = obj
+            edges.push({ source: sub.id, target: obj.id, label: shrink(pred) })
         }
         return { nodes: Object.values(nodes), links: edges }
     }
@@ -60,11 +68,11 @@ export class GraphVisuNode extends Node {
                         return { id: term.value, label: shrink(term.value), type: this.NODE_TYPE.URI }
                     case "Literal":
                         let id = `${randStr()}_${slugify(term.value, { lower: true })}`
-                        return { id, label: term.value, type: this.NODE_TYPE.LITERAL }
+                        return { id, label: `"${term.value}"`, type: this.NODE_TYPE.LITERAL }
                     case "BlankNode":
-                        return { id: term.value, label: term.value, type: this.NODE_TYPE.BLANK }
+                        return { id: term.value, label: "[ ]", type: this.NODE_TYPE.BLANK }
                     case "Variable":
-                        return { id: term.value, label: term.value, type: this.NODE_TYPE.VARIABLE }
+                        return { id: term.value, label: "?" + term.value, type: this.NODE_TYPE.VARIABLE }
                 }
             }
             let sub = processTerm(triple.subject)
