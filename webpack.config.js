@@ -41,6 +41,10 @@ export default {
                     from: path.resolve("node_modules/marked/marked.min.js"),
                     to: path.resolve("src/assets"),
                 },
+                {
+                    from: path.resolve("node_modules/force-graph/dist/force-graph.min.js"),
+                    to: path.resolve("src/assets"),
+                },
             ],
         }),
     ],

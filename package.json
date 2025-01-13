@@ -9,6 +9,7 @@
     "awesomplete": "^1.1.7",
     "codemirror": "^5.65.18",
     "drawflow": "^0.0.60",
+    "force-graph": "^1.47.2",
     "jszip": "^3.10.1",
     "marked": "^15.0.6",
     "n3": "^1.23.0",
