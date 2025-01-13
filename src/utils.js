@@ -197,3 +197,7 @@ export function isNumber(val) {
     val += ""
     return !isNaN(val) && !isNaN(parseFloat(val))
 }
+
+export function randStr(length = 4) {
+    return Math.random().toString(36).substring(2, 2 + length)
+}

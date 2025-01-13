@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { runSparqlSelectQueryOnRdfString, shrink } from "../../../utils.js"
+import { randStr, runSparqlSelectQueryOnRdfString, shrink } from "../../../utils.js"
 import { slugify } from "../../../assets/bundle.js"
 
 export class GraphVisuNode extends Node {
@@ -22,7 +22,6 @@ export class GraphVisuNode extends Node {
         let query = `SELECT * WHERE { ?s ?p ?o . }`
         let triples = await runSparqlSelectQueryOnRdfString(query, turtle)
 
-        const randStr = () => Math.random().toString(36).substring(2, 6)
         let nodes = {}
         let edges = []
 
