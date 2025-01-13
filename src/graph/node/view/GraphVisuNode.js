@@ -11,10 +11,8 @@ export class GraphVisuNode extends Node {
     getMainHtml() {
         return `<div class="graph-visu-container"></div>`
     }
-
-    async processIncomingData() {
-        let container = this.nodeDiv.querySelector(".graph-visu-container")
-        let turtle = this.incomingData[0].data
+    
+    async processTurtleData(turtle) {
         let query = `SELECT * WHERE { ?s ?p ?o . }`
         let triples = await runSparqlSelectQueryOnRdfString(query, turtle)
 
@@ -36,14 +34,31 @@ export class GraphVisuNode extends Node {
             }
             edges.push({ source: sub, target: obj, label: shrink(pred) })
         }
+        return { nodes: Object.values(nodes), links: edges }
+    }
 
+    async processSparqlData(sparql) {
+
+    }
+
+    async processIncomingData() {
+        let container = this.nodeDiv.querySelector(".graph-visu-container")
+        let graphData = {}
+        switch (this.incomingData[0].dataType) {
+            case PORT.TURTLE:
+                graphData = await this.processTurtleData(this.incomingData[0].data)
+                break
+            case PORT.SPARQL:
+                graphData = await this.processSparqlData(this.incomingData[0].data)
+                break
+        }
         ForceGraph()(container)
             .width(400)
             .height(300)
             .nodeLabel("label")
             .linkLabel("label")
             .nodeColor(node => node.isLiteral ? "green" : "")
-            .graphData({ nodes: Object.values(nodes), links: edges })
+            .graphData(graphData)
 
         this.rerenderConnectingEdges()
         return ""
