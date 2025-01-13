@@ -1,6 +1,6 @@
 import { Node } from "./Node.js"
 import { CodeMirror } from "../../assets/bundle.js"
-import { PORT } from "../nodeFactory.js"
+import { PORT, TYPE } from "../nodeFactory.js"
 
 export class CodeNode extends Node {
     constructor(initialValues, graph, inputs, outputs, type) {
@@ -9,7 +9,7 @@ export class CodeNode extends Node {
 
     getMainHtml() {
         return `
-            <div class="result">Result:</div>
+            ${this.type === TYPE.PROCESSOR ? '<div class="result">Result:</div>' : ""}
             <div class="codemirror-container"></div>`
     }
 
