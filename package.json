@@ -15,7 +15,8 @@
     "n3": "^1.23.0",
     "rdf-ext": "^2.5.2",
     "shacl-engine": "^1.0.1",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "sparqljs": "^3.7.3"
   },
   "scripts": {
     "clean": "rm -rf src/assets/",

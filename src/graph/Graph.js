@@ -109,8 +109,8 @@ export class Graph {
 
     async run() {
         for (let node of this.nodesInErrorState) node.resetError()
-        this.nodesInErrorState = []
-        while (await this.step()) {}
+        this.nodesInErrorState = [] // actually support multiple ones simultaneously, not just one TODO
+        while (this.nodesInErrorState.length === 0 && await this.step()) {}
     }
 
     async step() {

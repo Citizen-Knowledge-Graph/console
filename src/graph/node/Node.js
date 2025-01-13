@@ -27,11 +27,13 @@ export class Node {
         console.log("Node added:", this.id, "\"" + this.name + "\"")
     }
 
-    handleError(msg) {
+    handleError(msg, tooltip = "") {
         let el = this.nodeDiv.querySelector(".result")
         if (el) el.style.display = "none"
         this.nodeDiv.style.border = "2px solid red"
-        this.nodeDiv.querySelector(".errorMsg").innerHTML = `Error: ${msg}`
+        let errEl = this.nodeDiv.querySelector(".errorMsg")
+        errEl.innerHTML = msg
+        errEl.title = tooltip
         this.graph.handleNodeError(this)
         return ""
     }
@@ -152,7 +154,9 @@ export class Node {
     }
 
     async run() {
-        if (!this.isInput()) { // || this.constructor.name === "OutputViewNodeWithInitialInput"
+        if (this.isInput()) {
+            this.checkSyntax()
+        } else {
             this.setValue(await this.processIncomingData())
         }
         this.highlight(true)
@@ -258,6 +262,7 @@ export class Node {
     getMainHtml() {}
     preResize() {}
     postResize(dy) {}
+    checkSyntax() {}
 
     getValue() { this.err() }
     setValue(value) { this.err() }
