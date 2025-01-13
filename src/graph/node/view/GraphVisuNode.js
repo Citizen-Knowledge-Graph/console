@@ -101,6 +101,8 @@ export class GraphVisuNode extends Node {
             .height(300)
             .nodeLabel("label")
             .linkLabel("label")
+            .linkDirectionalArrowLength(6)
+            .linkDirectionalArrowRelPos(1)
             .nodeColor(node => node.type)
             .graphData(graphData)
 
