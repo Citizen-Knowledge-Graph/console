@@ -2,6 +2,7 @@ import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
 import { randStr, runSparqlSelectQueryOnRdfString, shrink } from "../../../utils.js"
 import { slugify } from "../../../assets/bundle.js"
+import { SparqlParser } from "../../../assets/bundle.js"
 
 export class GraphVisuNode extends Node {
     constructor(initialValues, graph) {
@@ -21,10 +22,8 @@ export class GraphVisuNode extends Node {
     async processTurtleData(turtle) {
         let query = `SELECT * WHERE { ?s ?p ?o . }`
         let triples = await runSparqlSelectQueryOnRdfString(query, turtle)
-
         let nodes = {}
         let edges = []
-
         for (let triple of triples) {
             let sub = triple.s
             if (!nodes[sub]) nodes[sub] = { id: sub, label: shrink(sub), type: this.NODE_TYPE.URI }
@@ -43,7 +42,39 @@ export class GraphVisuNode extends Node {
     }
 
     async processSparqlData(sparql) {
-
+        let ast = new SparqlParser().parse(sparql) // abstract syntax tree
+        if (ast.queryType !== "SELECT") {
+            this.handleError("Only SPARQL SELECT queries are supported for now")
+            return { nodes: [], links: [] }
+        }
+        if (ast.where.length > 1) {
+            this.handleError("Only basic graph patterns are supported for now, no FILTER etc.")
+            return { nodes: [], links: [] }
+        }
+        let nodes = {}
+        let edges = []
+        for (let triple of ast.where[0].triples) {
+            const processTerm = (term) => {
+                switch (term.termType) {
+                    case "NamedNode":
+                        return { id: term.value, label: shrink(term.value), type: this.NODE_TYPE.URI }
+                    case "Literal":
+                        let id = `${randStr()}_${slugify(term.value, { lower: true })}`
+                        return { id, label: term.value, type: this.NODE_TYPE.LITERAL }
+                    case "BlankNode":
+                        return { id: term.value, label: term.value, type: this.NODE_TYPE.BLANK }
+                    case "Variable":
+                        return { id: term.value, label: term.value, type: this.NODE_TYPE.VARIABLE }
+                }
+            }
+            let sub = processTerm(triple.subject)
+            let pred = processTerm(triple.predicate)
+            let obj = processTerm(triple.object)
+            nodes[sub.id] = sub
+            nodes[obj.id] = obj
+            edges.push({ source: sub.id, target: obj.id, label: pred.label })
+        }
+        return { nodes: Object.values(nodes), links: edges }
     }
 
     async processIncomingData() {
