@@ -18,7 +18,7 @@ ff:node2 a ff:Node;
          ff:hasName "Requirement profile 1";
          ff:hasPosX 630;
          ff:hasPosY 390;
-         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:SimpleBenefitShape1 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:minCount 1 ;\n        sh:minInclusive 18 ;\n    ] .".
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:SimpleBenefit1 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:minCount 1 ;\n        sh:minInclusive 18 ;\n    ] .".
 ff:node3 a ff:Node;
          ff:hasClass ff:SparqlInputNode;
          ff:hasName "Materialization rule";

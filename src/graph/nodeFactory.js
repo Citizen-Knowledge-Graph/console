@@ -73,7 +73,7 @@ ff:mainPerson a ff:Citizen ;
     "ex_TurtleInputNode_RP1": `@prefix ff: <https://foerderfunke.org/default#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 
-ff:SimpleBenefitShape1 a sh:NodeShape ;
+ff:SimpleBenefit1 a sh:NodeShape ;
     sh:targetClass ff:Citizen ;
     sh:property [
         sh:path ff:hasAge ;
@@ -83,12 +83,12 @@ ff:SimpleBenefitShape1 a sh:NodeShape ;
     "ex_TurtleInputNode_RP2": `@prefix ff: <https://foerderfunke.org/default#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 
-ff:SimpleBenefitShape2 a sh:NodeShape ;
+ff:SimpleBenefit2 a sh:NodeShape ;
     sh:targetClass ff:Citizen ;
     sh:property [
         sh:path ff:hasResidence ;
         sh:minCount 1 ;
-        sh:hasValue "Berlin" ;
+        sh:in ("Berlin") ;
     ] .`,
     "ex_SparqlInputNode_MatRule": `PREFIX ff: <https://foerderfunke.org/default#>
 CONSTRUCT {
