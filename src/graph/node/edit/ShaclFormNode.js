@@ -10,6 +10,7 @@ export class ShaclFormNode extends Node {
         this.inputTurtles = {}
         this.materializationRules = {}
         this.elementsMap = {} // DOM elements that will be shown red in case of validation errors
+        this.evalSubjectSpecific = false
     }
 
     getMainHtml() {
@@ -58,14 +59,17 @@ export class ShaclFormNode extends Node {
         this.inputTurtles.currentUp = await this.serializeOutput()
         this.sendInstantShowValue("output_1", this.inputTurtles.currentUp)
         this.sendInstantShowValue("output_2", await serializeStoreToTurtle(this.store))
-        let plausibilityResult = await runValidationOnStore(this.store)
-        this.sendInstantShowValue("output_3", await serializeDatasetToTurtle(plausibilityResult.dataset))
+        let result = await runValidationOnStore(this.store) // could be just plausibility, or also subject-specific if checkbox is set
+        this.sendInstantShowValue("output_3", await serializeDatasetToTurtle(result.dataset))
         let store = new Store()
         await addRdfStringToStore(this.inputTurtles.rp, store)
         await addRdfStringToStore(this.inputTurtles.currentUp, store)
         let subjectSpecificResult = await runValidationOnStore(store)
         this.sendInstantShowValue("output_4", await serializeDatasetToTurtle(subjectSpecificResult.dataset))
+        await this.highlightErrors(result)
+    }
 
+    async highlightErrors(validationResult) {
         // reset errors
         for (let element of Object.values(this.elementsMap)) {
             element.label.style.color = "black"
@@ -84,7 +88,7 @@ export class ShaclFormNode extends Node {
                     sh:sourceConstraintComponent ?constraintComponent ;
                     sh:resultMessage ?message . 
             }`
-        let rows = await runSparqlSelectQueryOnStore(query, datasetToStore(plausibilityResult.dataset))
+        let rows = await runSparqlSelectQueryOnStore(query, datasetToStore(validationResult.dataset))
         for (let row of rows) {
             let element = this.elementsMap[`${row.individual}-${row.path}`]
             if (!element) continue
@@ -129,7 +133,7 @@ export class ShaclFormNode extends Node {
                 ?individualDatafieldPropertyShape ?dfP ?dfO ;
                     sh:order ?order .
                 # optionally also include requirement profile constraints
-                #?individualDatafieldPropertyShape ?rpP ?rpO .
+                ${this.evalSubjectSpecific ? "?individualDatafieldPropertyShape ?rpP ?rpO ." : ""}
                 #<< ?individualDatafieldPropertyShape ?rpP ?rpO >> ff:viaRequirementProfile ?reqProf .
             
                 # add user profile
@@ -205,6 +209,7 @@ export class ShaclFormNode extends Node {
         constructedQuads = await runSparqlConstructQueryOnStore(query, inputStore)
         for (let quad of constructedQuads) this.store.addQuad(quad)
 
+        // materialization rules
         this.materializationRules = {}
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>
@@ -221,6 +226,24 @@ export class ShaclFormNode extends Node {
     async rebuildForm() {
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         while (container.firstChild) container.firstChild.remove()
+
+        let div = document.createElement("div")
+        div.style.float = "right"
+        let label = document.createElement("label")
+        label.textContent = "Evaluate subject-specific constraints:"
+        label.style = "font-size: x-small; color: gray"
+        div.appendChild(label)
+        let checkbox = document.createElement("input")
+        checkbox.type = "checkbox"
+        checkbox.checked = this.evalSubjectSpecific
+        checkbox.style = "width: 12px; height: 12px"
+        checkbox.addEventListener("change", async event => {
+            this.evalSubjectSpecific = !this.evalSubjectSpecific
+            await this.rebuildInternalState()
+        })
+        div.appendChild(checkbox)
+        container.appendChild(div)
+        container.appendChild(document.createElement("br"))
 
         // requirement profile metadata
         let query = `
@@ -417,6 +440,21 @@ export class ShaclFormNode extends Node {
             for (let child of individualObj.children) await walkTreeRecursively(child, depth + 1)
         }
         await walkTreeRecursively(root, 0)
+
+        if (!this.evalSubjectSpecific) {
+            container.appendChild(document.createElement("br"))
+            let btn = document.createElement("input")
+            btn.type = "button"
+            btn.value = "Submit"
+            btn.addEventListener("click", async () => {
+                let store = new Store()
+                await addRdfStringToStore(this.inputTurtles.rp, store)
+                await addRdfStringToStore(this.inputTurtles.currentUp, store)
+                let result = await runValidationOnStore(store)
+                await this.highlightErrors(result)
+            })
+            container.appendChild(btn)
+        }
 
         this.rerenderConnectingEdges()
         await this.update()
