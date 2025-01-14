@@ -80,10 +80,15 @@ const nodeHeaderCtxMenuItems = [
 ]
 
 const multipleNodesHeaderCtxMenuItems = (count) => {
+    let processorsSubmenu = canvasCtxMenuItems[1].submenu
+    let wireIntoNewNodeSubmenu = processorsSubmenu.map(item => {
+        return { label: item.label, action: "WireIntoNew_" + item.action }
+    })
     return [
         { label: `Action on ${count} Nodes` },
         { label: "Hide Content of Nodes", action: "MultipleHideContentAction" },
         { label: "Copy subgraph as shareable link", action: "SubgraphBase64" },
+        { label: "Wire these into a new processor node", submenu: wireIntoNewNodeSubmenu },
         { label: "Delete Nodes", action: "MultipleDeleteNodeAction" },
         {
             label: "Duplicate Nodes", action: "MultipleDuplicateNodeAction",

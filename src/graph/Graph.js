@@ -94,6 +94,27 @@ export class Graph {
         // duplicating outgoing would lead to multiple edges going into the same port, which is not something that makes sense to have... I think
     }
 
+    wireIntoNewNode(nodes, nodeClass, label) {
+        if (nodeClass !== "MergeTriplesNode" && nodes.length > 2) {
+            this.showMessage(`Only the "Merge Triples" node accepts more than 2 inputs`, "red")
+            return
+        }
+        let bb = { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity } // bounding box
+        for (let nodeDiv of nodes.map(node => node.nodeDiv)) {
+            if (nodeDiv.offsetLeft < bb.minX) bb.minX = nodeDiv.offsetLeft
+            if (nodeDiv.offsetTop < bb.minY) bb.minY = nodeDiv.offsetTop
+            if (nodeDiv.offsetLeft + nodeDiv.offsetWidth > bb.maxX) bb.maxX = nodeDiv.offsetLeft + nodeDiv.offsetWidth
+            if (nodeDiv.offsetTop + nodeDiv.offsetHeight > bb.maxY) bb.maxY = nodeDiv.offsetTop + nodeDiv.offsetHeight
+        }
+        let newNodePos = [bb.maxX + 150, bb.minY + (bb.maxY - bb.minY) / 2 - 100]
+        let initialValues = { pos: newNodePos, name: label }
+        let newNode = factoryCreateNode(nodeClass, initialValues, this)
+        newNode.ensureNumberOfInputPorts(nodes.length)
+        for (let i = 0; i < nodes.length; i++) {
+            this.editor.addConnection(nodes[i].id, newNode.id, "output_1", "input_" + (i + 1))
+        }
+    }
+
     onEditorEdgeRemoved(connection) {
         let edgeId = buildEdgeId(connection)
         if (!this.edgesMap[edgeId]) return // edge was never really created --> attempt to double-book an input port
