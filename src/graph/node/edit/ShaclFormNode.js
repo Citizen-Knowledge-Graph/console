@@ -8,6 +8,7 @@ export class ShaclFormNode extends Node {
         super(initialValues, graph, [ PORT.TURTLE, PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE, PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
         this.store = null // internal state
         this.inputTurtles = {}
+        this.materializationRules = {}
         this.elementsMap = {} // DOM elements that will be shown red in case of validation errors
     }
 
@@ -25,22 +26,32 @@ export class ShaclFormNode extends Node {
     }
 
     async serializeOutput() {
+        let stateStoreWithDfs = new Store()
+        this.store.getQuads().forEach(quad => stateStoreWithDfs.addQuad(quad))
+        await addRdfStringToStore(this.inputTurtles.dfs, stateStoreWithDfs) // to include the ff:MapOfConstants
+
+        let outputStore = new Store()
+
         let query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             PREFIX sh: <http://www.w3.org/ns/shacl#>
             CONSTRUCT {
                 ?individual ?p ?o .
             } WHERE {
-                ?individual a ?class .
-                FILTER(?class NOT IN (sh:NodeShape, sh:PropertyShape, ff:RequirementProfile, ff:AnswerOption))
-                ?individual ?p ?o .
+                ?individual a ?class ;
+                    ?p ?o .
+                ?class a ff:Class .
             }`
-        let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
-        let store = new Store()
-        for (let quad of constructedQuads) store.addQuad(quad)
+        let constructedQuads = await runSparqlConstructQueryOnStore(query, stateStoreWithDfs)
+        for (let quad of constructedQuads) outputStore.addQuad(quad)
 
+        for (let [rule, query] of Object.entries(this.materializationRules)) {
+            constructedQuads = await runSparqlConstructQueryOnStore(query, stateStoreWithDfs)
+            for (let quad of constructedQuads) outputStore.addQuad(quad)
+            // tag those quads with their rule via rdf-star TODO
+        }
 
-        return await serializeStoreToTurtle(store)
+        return await serializeStoreToTurtle(outputStore)
     }
 
     async update() {
@@ -194,6 +205,16 @@ export class ShaclFormNode extends Node {
         constructedQuads = await runSparqlConstructQueryOnStore(query, inputStore)
         for (let quad of constructedQuads) this.store.addQuad(quad)
 
+        this.materializationRules = {}
+        query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT * WHERE {
+                ?rule a ff:MaterializationRule ;
+                    ff:sparqlConstructQuery ?query .
+            }`
+        let rows = await runSparqlSelectQueryOnStore(query, inputStore)
+        for (let row of rows) this.materializationRules[row.rule] = row.query.trim()
+
         await this.rebuildForm()
     }
 
@@ -343,8 +364,10 @@ export class ShaclFormNode extends Node {
                     } else {
                         query = `DELETE DATA { <${individual}> <${path}> ${valueBeforeChange} . }`
                     }
+                    // related materialized triples might also have to get deleted TODO
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                    await this.update()
+                    this.inputTurtles.currentUp = await this.serializeOutput()
+                    await this.rebuildInternalState()
                 }
 
                 if (properties[expand("sh", "in")]) {
