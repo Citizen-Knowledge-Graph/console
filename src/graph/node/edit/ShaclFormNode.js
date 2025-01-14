@@ -5,9 +5,9 @@ import { Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
-        this.store = null
-        this.currentShacl = ""
+        super(initialValues, graph, [ PORT.TURTLE, PORT.TURTLE, PORT.TURTLE ], [ PORT.TURTLE, PORT.TURTLE, PORT.TURTLE, PORT.TURTLE ], TYPE.EDIT)
+        this.store = null // internal state
+        this.inputTurtles = {}
         this.elementsMap = {} // DOM elements that will be shown red in case of validation errors
     }
 
@@ -17,7 +17,8 @@ export class ShaclFormNode extends Node {
 
     postConstructor() {
         super.postConstructor()
-        this.assignTitlesToPorts("output", ["Form output", "Internal form state", "Validation result"])
+        this.assignTitlesToPorts("input", ["Datafield definitions", "Requirement profile(s)", "Existing profile"])
+        this.assignTitlesToPorts("output", ["Profile", "Internal state", "Validation result: plausibility", "Validation result: subject-specific"])
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         container.style.cursor = "default"
         container.addEventListener("mousedown", event => event.stopPropagation())
@@ -37,14 +38,22 @@ export class ShaclFormNode extends Node {
         let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
         let store = new Store()
         for (let quad of constructedQuads) store.addQuad(quad)
+
+
         return await serializeStoreToTurtle(store)
     }
 
     async update() {
-        let result = await runValidationOnStore(this.store)
-        this.sendInstantShowValue("output_1", await this.serializeOutput())
+        this.inputTurtles.currentUp = await this.serializeOutput()
+        this.sendInstantShowValue("output_1", this.inputTurtles.currentUp)
         this.sendInstantShowValue("output_2", await serializeStoreToTurtle(this.store))
-        this.sendInstantShowValue("output_3", await serializeDatasetToTurtle(result.dataset))
+        let plausibilityResult = await runValidationOnStore(this.store)
+        this.sendInstantShowValue("output_3", await serializeDatasetToTurtle(plausibilityResult.dataset))
+        let store = new Store()
+        await addRdfStringToStore(this.inputTurtles.rp, store)
+        await addRdfStringToStore(this.inputTurtles.currentUp, store)
+        let subjectSpecificResult = await runValidationOnStore(store)
+        this.sendInstantShowValue("output_4", await serializeDatasetToTurtle(subjectSpecificResult.dataset))
 
         // reset errors
         for (let element of Object.values(this.elementsMap)) {
@@ -64,7 +73,7 @@ export class ShaclFormNode extends Node {
                     sh:sourceConstraintComponent ?constraintComponent ;
                     sh:resultMessage ?message . 
             }`
-        let rows = await runSparqlSelectQueryOnStore(query, datasetToStore(result.dataset))
+        let rows = await runSparqlSelectQueryOnStore(query, datasetToStore(plausibilityResult.dataset))
         for (let row of rows) {
             let element = this.elementsMap[`${row.individual}-${row.path}`]
             if (!element) continue
@@ -77,14 +86,120 @@ export class ShaclFormNode extends Node {
     }
 
     async processIncomingData() {
-        let shacl = this.incomingData[0].data
-        if (shacl === this.currentShacl) return null
+        let dfs = this.incomingData[0].data
+        let rp = this.incomingData[1].data
+        let up = this.incomingData[2].data
+        if (this.inputTurtles.dfs !== dfs || this.inputTurtles.rp !== rp || this.inputTurtles.up !== up) {
+            this.inputTurtles = { dfs, rp, up, currentUp: up }
+            await this.rebuildInternalState()
+        }
+        return ""
+    }
 
+    async rebuildInternalState() {
+        let inputStore = new Store()
+        await addRdfStringToStore(this.inputTurtles.dfs, inputStore)
+        await addRdfStringToStore(this.inputTurtles.rp, inputStore)
+        await addRdfStringToStore(this.inputTurtles.currentUp, inputStore)
+
+        // multiply out the individuals: create the internal form state
+        this.store = new Store()
+
+        let query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            CONSTRUCT {
+                # multiply out form fields
+                ?individualNodeShape a sh:NodeShape ;
+                    sh:targetNode ?individual ;
+                    ff:hasParent ?parentIndividual ;
+                    ff:instanceOf ?class ;
+                    sh:property ?individualDatafieldPropertyShape .
+                ?individualDatafieldPropertyShape ?dfP ?dfO ;
+                    sh:order ?order .
+                # optionally also include requirement profile constraints
+                #?individualDatafieldPropertyShape ?rpP ?rpO .
+                #<< ?individualDatafieldPropertyShape ?rpP ?rpO >> ff:viaRequirementProfile ?reqProf .
+            
+                # add user profile
+                ?individual ?upP ?upO .
+              
+                # add requirement profile metadata
+                ?reqProf ?rpMetaP ?rpMetaO .
+            } WHERE {
+                # from user profile
+                ?individual a ?class ;
+                    ?upP ?upO .
+                ?class a ff:Class .
+                BIND(IRI(CONCAT(STR(?individual), "_NodeShape")) AS ?individualNodeShape)
+              
+                OPTIONAL {
+                    ?parentIndividual a ?otherClass .
+                    ?otherClass a ff:Class .
+                    ?parentIndividual ?predicate ?individual .
+                }
+              
+                # from requirement profile
+                ?reqProf a ff:RequirementProfile ;
+                      ?rpMetaP ?rpMetaO .         
+                ?classNodeShape sh:targetClass ?class ;
+                    sh:property ?classNodeShapeProperty .
+                ?classNodeShapeProperty sh:path ?datafield ;
+                    ?rpP ?rpO .
+                FILTER(?rpP != sh:path)
+                OPTIONAL { ?classNodeShapeProperty sh:order ?order }
+            
+                # from datafields.ttl
+                ?datafield a ff:DataField ;
+                    ff:shaclShape ?datafieldPropertyShape .
+                ?datafieldPropertyShape ?dfP ?dfO .
+              
+                FILTER(?dfP != sh:in)
+            
+                BIND(IRI(CONCAT(STR(?individual), "_", REPLACE(STR(?datafield), "^.*[#/]", ""), "PropShape")) AS ?individualDatafieldPropertyShape)
+            }`
+        let constructedQuads = await runSparqlConstructQueryOnStore(query, inputStore)
+        for (let quad of constructedQuads) this.store.addQuad(quad)
+
+        // separate query for lists and AnswerOptions
+        query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            CONSTRUCT {
+                ?individualDatafieldPropertyShape sh:in ?rootList .
+                ?listNode rdf:first ?head ;
+                    rdf:rest  ?tail .
+                ?ao ?aoP ?aoO .
+            } WHERE {
+                ?individual a ?class .
+                ?class a ff:Class .
+                ?classNodeShape sh:targetClass ?class ;
+                    sh:property ?classNodeShapeProperty .
+                ?classNodeShapeProperty sh:path ?datafield .
+                
+                ?datafield a ff:DataField ;
+                    ff:shaclShape ?datafieldPropertyShape .
+            
+                BIND(IRI(CONCAT(STR(?individual), "_", REPLACE(STR(?datafield), "^.*[#/]", ""), "PropShape")) AS ?individualDatafieldPropertyShape)
+            
+                ?datafieldPropertyShape sh:in ?rootList .
+                ?rootList rdf:rest* ?listNode .
+                ?listNode rdf:first ?head ;
+                    rdf:rest  ?tail .
+            
+                ?ao a ff:AnswerOption ;
+                    ?aoP ?aoO .
+            }`
+        constructedQuads = await runSparqlConstructQueryOnStore(query, inputStore)
+        for (let quad of constructedQuads) this.store.addQuad(quad)
+
+        await this.rebuildForm()
+    }
+
+    async rebuildForm() {
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         while (container.firstChild) container.firstChild.remove()
-        this.currentShacl = shacl
-        this.store = new Store()
-        await addRdfStringToStore(shacl, this.store)
 
         // requirement profile metadata
         let query = `
@@ -152,8 +267,8 @@ export class ShaclFormNode extends Node {
                             ?s ?p ?o . FILTER(?s = <${individual}> || ?o = <${individual}>) 
                         }`
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                    await this.update()
-                    this.graph.run()
+                    this.inputTurtles.currentUp = await this.serializeOutput()
+                    await this.rebuildInternalState()
                 })
                 h3.appendChild(del)
             }
@@ -195,8 +310,9 @@ export class ShaclFormNode extends Node {
                               <${newIndividual}> a <${pointsToInstancesOf}> .
                             }`
                         await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                        await this.update()
-                        this.graph.run() // workaround
+                        this.inputTurtles.currentUp = await this.serializeOutput()
+                        await this.rebuildInternalState()
+
                     })
                     container.appendChild(btn)
                     continue
@@ -279,9 +395,8 @@ export class ShaclFormNode extends Node {
         }
         await walkTreeRecursively(root, 0)
 
-        await this.update()
         this.rerenderConnectingEdges()
-        return null
+        await this.update()
     }
 
     getValue() { return "" }
