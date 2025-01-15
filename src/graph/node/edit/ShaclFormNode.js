@@ -49,13 +49,13 @@ export class ShaclFormNode extends Node {
         for (let [rule, query] of Object.entries(this.materializationRules)) {
             constructedQuads = await runSparqlConstructQueryOnStore(query, stateStoreWithDfs)
             for (let quad of constructedQuads) {
+                outputStore.addQuad(quad)
                 let individual = quad.subject.id ?? quad.subject.value
                 let path = quad.predicate.id ?? quad.predicate.value
                 let obj = quad.object.id ?? quad.object.value
                 let element = this.elementsMap[`${individual}-${path}`]
                 if (!element) continue
                 element.input.value = stripQuotes(obj)
-                outputStore.addQuad(quad)
             }
             // tag those quads with the applied rule via rdf-star TODO
         }
