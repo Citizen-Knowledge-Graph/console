@@ -1,0 +1,97 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-01-09_11-56-19";
+         ff:hasName "Form demo: SHACL Wizard";
+         ff:hasExportTimestamp "2025-01-15T11:16:27.530Z";
+         ff:hasTranslateX -641;
+         ff:hasTranslateY -342;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Initial requirement profile";
+         ff:hasPosX "479";
+         ff:hasPosY "636";
+         ff:hasWidth 420;
+         ff:hasHeight 369;
+         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:solarSubsidy a ff:RequirementProfile ;\n    ff:title \"Solar subsidy\" ;\n    ff:hasMainPersonShape ff:CitizenShape .\n\nff:CitizenShape a sh:NodeShape ;\n\tsh:targetClass ff:Citizen ;\n\tsh:property [\n      \tsh:path ff:income ;\n        sh:maxExclusive 3000 ;\n        sh:minCount 1 ;\n  \t] .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Knowledge base";
+         ff:hasPosX "-31";
+         ff:hasPosY "-63";
+         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\n# DATAFIELDS\n\nff:income a ff:DataField ;\n    ff:shaclShape [\n    \ta sh:PropertyShape ;\n        sh:path ff:income ;\n        sh:name \"Income\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n        sh:minCount 1 ;\n        sh:maxCount 1 ;\n\t] .\n\nff:ownsHouse a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:ownsHouse ;\n        sh:name \"owns house\" ;\n        sh:nodeKind sh:IRI ;\n        sh:description \"add house\" ;\n        ff:pointsToInstancesOf ff:House ;\n    ] .\n\nff:hasYearOfConstruction a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:hasYearOfConstruction ;\n        sh:name \"year of construction\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n        sh:maxCount 1 ;\n    ] .\n\nff:hasRoof a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:hasRoof ;\n        sh:name \"has roof\" ;\n        sh:nodeKind sh:IRI ;\n        sh:description \"add roof\" ;\n        ff:pointsToInstancesOf ff:Roof ;\n    ] .\n\nff:hasRoofArea a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:hasRoofArea ;\n        sh:name \"roof area\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n        sh:maxCount 1 ;\n    ] .\n\n# CLASSES\n\nff:Citizen a ff:Class ; ff:title \"Citizen\" .\nff:House a ff:Class ; ff:title \"House\" .\nff:Roof a ff:Class ; ff:title \"Roof\" .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Turtle Input";
+         ff:hasPosX "2652";
+         ff:hasPosY "542";
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#>.\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\n@prefix sh: <http://www.w3.org/ns/shacl#>.\n\nff:CitizenShape a sh:NodeShape;\n  sh:property [\n      sh:hasValue \"Berlin\";\n      sh:minCount 1;\n      sh:path ff:hasResidence\n    ], [\n      sh:minCount 1;\n      sh:path ff:ownsHouse;\n      sh:valueShape ff:HouseShape\n    ];\n  sh:targetClass ff:Citizen.".
+ff:node4 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Example target requirement profile";
+         ff:hasPosX "195";
+         ff:hasPosY "1072";
+         ff:hasWidth 434;
+         ff:hasHeight 730;
+         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:solarSubsidy a ff:RequirementProfile ;\n    ff:title \"Solar subsidy\" ;\n    ff:hasMainPersonShape ff:CitizenShape .\n\nff:CitizenShape a sh:NodeShape ;\n\tsh:targetClass ff:Citizen ;\n\tsh:property [\n      \tsh:path ff:income ;\n        sh:maxExclusive 3000 ;\n        sh:minCount 1 ;\n  \t] ;\n    sh:property [\n        sh:path ff:ownsHouse ;\n        sh:valueShape ff:HouseShape;\n        sh:minCount 1;\n    ] .\n\nff:HouseShape a sh:NodeShape ;\n\tsh:targetClass ff:House ;\n\tsh:property [\n        sh:path ff:hasYearOfConstruction ;\n        sh:minInclusive 1980 ;\n        sh:maxInclusive 2020 ;\n        sh:minCount 1 ;\n    ] ;\n\tsh:property [\n        sh:path ff:hasRoof ;\n        sh:valueShape ff:RoofShape;\n        sh:minCount 1;\n    ] .\n\nff:RoofShape a sh:NodeShape ;\n\tsh:targetClass ff:Roof ;\n\tsh:property [\n        sh:path ff:hasRoofArea ;\n        sh:minExclusive 50 ;\n        sh:minCount 1 ;\n    ] .".
+ff:node5 a ff:Node;
+         ff:hasClass ff:ShaclWizardNode;
+         ff:hasName "SHACL Wizard";
+         ff:hasPosX "1225";
+         ff:hasPosY "455".
+ff:node6 a ff:Node;
+         ff:hasClass ff:OutputViewLeafNode;
+         ff:hasName "Output";
+         ff:hasPosX "1835";
+         ff:hasPosY "409";
+         ff:hasWidth 503;
+         ff:hasHeight 655.
+ff:node7 a ff:Node;
+         ff:hasClass ff:OutputViewLeafNode;
+         ff:hasName "Internal state";
+         ff:hasPosX "1775";
+         ff:hasPosY "1124".
+ff:node8 a ff:Node;
+         ff:hasClass ff:SparqlInsertDeleteExecNode;
+         ff:hasName "Run SPARQL INSERT/DELETE";
+         ff:hasPosX "3238";
+         ff:hasPosY "799".
+ff:node9 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Example: Delete / Insert";
+         ff:hasPosX "2684";
+         ff:hasPosY "935";
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\nINSERT {\n    ?nodeShape sh:property [\n      sh:path ff:dings ;\n      sh:minCount 1;\n    ] .\n} WHERE { \n    ?nodeShape a sh:NodeShape .\n}".
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 2;
+         ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node9;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
