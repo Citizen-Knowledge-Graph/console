@@ -365,23 +365,35 @@
             document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
             document.getElementById("exportBtn").addEventListener("click", () => {
                 let modalContent = showModal("Export")
-                let table = document.createElement("table")
-                table.classList.add("result-table")
-                let turtleDiv = document.createElement("div")
-                turtleDiv.style = "cursor: pointer; color: blue"
-                turtleDiv.append(document.createTextNode("Turtle format"))
-                turtleDiv.addEventListener("click", () => {
+                let ul = document.createElement("ul")
+                let li = document.createElement("li")
+                li.appendChild(document.createTextNode("Turtle format"))
+                let innerUl = document.createElement("ul")
+                let innerLi = document.createElement("li")
+                let div = document.createElement("div")
+                div.style = "cursor: pointer; color: blue"
+                div.append(document.createTextNode("Download"))
+                div.addEventListener("click", () => {
                     closeModal()
                     graph.export()
                 })
-                let tr = document.createElement("tr")
-                let td = document.createElement("td")
-                td.appendChild(turtleDiv)
-                tr.appendChild(td)
-                table.appendChild(tr)
+                innerLi.appendChild(div)
+                innerUl.appendChild(innerLi)
+                innerLi = document.createElement("li")
+                div = document.createElement("div")
+                div.style = "cursor: pointer; color: blue"
+                div.append(document.createTextNode("Copy to clipboard"))
+                div.addEventListener("click", async () => {
+                    closeModal()
+                    await graph.toTurtle(turtle => navigator.clipboard.writeText(turtle))
+                })
+                innerLi.appendChild(div)
+                innerUl.appendChild(innerLi)
+                li.appendChild(innerUl)
+                ul.appendChild(li)
                 let base64Div = document.createElement("div")
                 base64Div.style = "cursor: pointer; color: blue"
-                base64Div.append(document.createTextNode("Copy shareable link"))
+                base64Div.append(document.createTextNode("Copy shareable link to clipboard"))
                 base64Div.addEventListener("click", async () => {
                     await graph.toTurtle(turtle => {
                         let url = new URL(window.location)
@@ -391,11 +403,10 @@
                         setTimeout(() => closeModal(), 2000)
                     })
                 })
-                td = document.createElement("td")
-                td.appendChild(base64Div)
-                tr.appendChild(td)
-                table.appendChild(tr)
-                modalContent.appendChild(table)
+                li = document.createElement("li")
+                li.appendChild(base64Div)
+                ul.appendChild(li)
+                modalContent.appendChild(ul)
                 let msgDiv = document.createElement("div")
                 msgDiv.style = "color: green; display: none"
                 msgDiv.innerHTML = `&#10003; Link copied to clipboard`
