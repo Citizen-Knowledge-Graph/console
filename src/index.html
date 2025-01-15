@@ -379,8 +379,8 @@
                 div.style = "cursor: pointer; color: blue"
                 div.append(document.createTextNode("Download"))
                 div.addEventListener("click", () => {
-                    closeModal()
                     graph.export()
+                    showMsg("Turtle downloaded")
                 })
                 innerLi.appendChild(div)
                 innerUl.appendChild(innerLi)
@@ -389,8 +389,8 @@
                 div.style = "cursor: pointer; color: blue"
                 div.append(document.createTextNode("Copy to clipboard"))
                 div.addEventListener("click", async () => {
-                    closeModal()
                     await graph.toTurtle(turtle => navigator.clipboard.writeText(turtle))
+                    showMsg("Turtle copied to clipboard")
                 })
                 innerLi.appendChild(div)
                 innerUl.appendChild(innerLi)
@@ -404,8 +404,7 @@
                         let url = new URL(window.location)
                         url.searchParams.set("base64", encodeURIComponent(btoa(turtle)))
                         navigator.clipboard.writeText(url.href)
-                        msgDiv.style.display = "inline"
-                        setTimeout(() => closeModal(), 2000)
+                        showMsg("Link copied to clipboard")
                     })
                 })
                 li = document.createElement("li")
@@ -414,7 +413,11 @@
                 modalContent.appendChild(ul)
                 let msgDiv = document.createElement("div")
                 msgDiv.style = "color: green; display: none"
-                msgDiv.innerHTML = `&#10003; Link copied to clipboard`
+                const showMsg = (msg) => {
+                    msgDiv.style.display = "inline"
+                    msgDiv.innerHTML = `&#10003; ${msg}`
+                    setTimeout(() => closeModal(), 2000)
+                }
                 modalContent.appendChild(msgDiv)
             })
             document.getElementById("settingsBtn").addEventListener("click", () => {
