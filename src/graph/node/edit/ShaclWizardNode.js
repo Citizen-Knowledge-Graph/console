@@ -74,10 +74,10 @@ export class ShaclWizardNode extends Node {
         // these are not all for now
         let options = [
             { value: expand("sh", "hasValue"), label: "&equals;" },
-            { value: expand("sh", "minExclusive"), label: "&lt;" },
-            { value: expand("sh", "minInclusive"), label: "&le;" },
-            { value: expand("sh", "maxExclusive"), label: "&gt;" },
-            { value: expand("sh", "maxInclusive"), label: "&ge;" },
+            { value: expand("sh", "minExclusive"), label: "&gt;" },
+            { value: expand("sh", "minInclusive"), label: "&ge;" },
+            { value: expand("sh", "maxExclusive"), label: "&lt;" },
+            { value: expand("sh", "maxInclusive"), label: "&le;" },
         ]
         if (predicate === expand("sh", "valueShape")) {
             options = [
