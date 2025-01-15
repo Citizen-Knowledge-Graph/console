@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, datasetToStore, formatObject, localName, runSparqlConstructQueryOnStore, runSparqlInsertDeleteQueryOnStore, runSparqlSelectQueryOnStore, runValidationOnStore, serializeStoreToTurtle } from "../../../utils.js"
+import { addRdfStringToStore, datasetToStore, formatObject, localName, runSparqlConstructQueryOnStore, runSparqlInsertDeleteQueryOnStore, runSparqlSelectQueryOnStore, runValidationOnStore, serializeStoreToTurtle, expand } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclQuizFormNode extends Node {
@@ -248,14 +248,18 @@ export class ShaclQuizFormNode extends Node {
         await addRdfStringToStore(this.inputTurtles.dfs, datafieldsStore)
         query = `
             PREFIX sh: <http://www.w3.org/ns/shacl#>
-            SELECT ?question WHERE {
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT ?question ?class WHERE {
                 ?propertyShape sh:path <${datafield}> ;
                     sh:description ?question .
+                OPTIONAL { ?propertyShape ff:pointsToInstancesOf ?class . }
             }`
-        let question = (await runSparqlSelectQueryOnStore(query, datafieldsStore))[0].question
+        let row = (await runSparqlSelectQueryOnStore(query, datafieldsStore))[0]
         let h2 = document.createElement("h2")
-        h2.textContent = question
+        h2.textContent = row.question
         container.appendChild(h2)
+
+        let createIndividualsOfClass = row.class
 
         let input = document.createElement("input")
         input.type = "text"
@@ -268,10 +272,22 @@ export class ShaclQuizFormNode extends Node {
         const submit = async () => {
             let upStore = new Store()
             await addRdfStringToStore(this.inputTurtles.currentUp, upStore)
-            let query = `
-                INSERT DATA {
-                    <${subject}> <${datafield}> ${formatObject(input.value)} .
-                }`
+            let query
+            if (createIndividualsOfClass) {
+                query = `INSERT DATA {`
+                for (let i = 0; i < Number(input.value); i++) {
+                    let individualUri = expand("ff", `${localName(createIndividualsOfClass).toLowerCase()}${i + 1}`)
+                    query += `
+                        <${subject}> <${datafield}> <${individualUri}> .
+                        <${individualUri}> a <${createIndividualsOfClass}> .`
+                }
+                query += `}`
+            } else {
+                query = `
+                    INSERT DATA {
+                        <${subject}> <${datafield}> ${formatObject(input.value)} .
+                    }`
+            }
             await runSparqlInsertDeleteQueryOnStore(query, upStore)
             this.inputTurtles.currentUp = await serializeStoreToTurtle(upStore)
             await this.rebuild()
