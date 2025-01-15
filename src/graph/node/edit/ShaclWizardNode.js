@@ -36,6 +36,7 @@ export class ShaclWizardNode extends Node {
                     sh:targetClass ?targetClass ;
                     sh:property ?propertyShape .
                 ?propertyShape ?p ?o .
+                ?rpId ?rpP ?rpO .
             } WHERE {
                 ?nodeShape a sh:NodeShape ;
                     sh:targetClass ?targetClass .
@@ -43,6 +44,8 @@ export class ShaclWizardNode extends Node {
                     ?nodeShape sh:property ?propertyShape .
                     ?propertyShape ?p ?o .
                 }
+                ?rpId a ff:RequirementProfile ;
+                    ?rpP ?rpO .
             }`
         let constructedQuads = await runSparqlConstructQueryOnStore(query, this.store)
         let store = new Store()
