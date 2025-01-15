@@ -286,6 +286,11 @@
 
             const openLoadModal = async () => {
                 const modalContent = showModal("Load from local storage")
+                let div = document.createElement("div")
+                div.style = "font-size: small; color: gray"
+                div.innerHTML = "Make sure to also export graphs that are important for you.<br>Local storage can be unreliable."
+                modalContent.appendChild(div)
+                modalContent.appendChild(document.createElement("br"))
                 const table = document.createElement("table")
                 table.classList.add("result-table")
                 buildTableHeader(["Graph ID", "Name", "Options"], table)
