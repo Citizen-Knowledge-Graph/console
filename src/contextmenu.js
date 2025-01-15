@@ -54,6 +54,7 @@ const canvasCtxMenuItems = [
             { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" },
             { label: "Turtle Input with copy-paste in-port", action: "TurtleInputNodeWithCopyPasteInPort" },
             { label: "SHACL Wizard", action: "ShaclWizardNode" },
+            { label: "Shacl Quiz-Form Editor", action: "ShaclQuizFormNode" },
             // { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
         ]
     },
@@ -75,7 +76,7 @@ const nodeHeaderCtxMenuItems = [
             { label: "including incoming Edges", action: "DuplicateNodeWithIncomingEdgesAction" }
         ]
     },
-    { label: "Add input port", action: "AddInputPortAction", onlyVisibleFor: [ "MergeTriplesNode" ] },
+    { label: "Add input port", action: "AddInputPortAction", onlyVisibleFor: [ "MergeTriplesNode", "ShaclQuizFormNode" ] },
     { label: "Save current as initial value", action: "SaveInitialValueAction", onlyVisibleFor: [ "TurtleInputNodeWithCopyPasteInPort" ] }
 ]
 

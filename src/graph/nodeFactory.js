@@ -16,6 +16,7 @@ import { TurtleInputNodeWithCopyPasteInPort } from "./node/input/TurtleInputNode
 import { ShaclWizardNode } from "./node/edit/ShaclWizardNode.js"
 import { MarkdownNode } from "./node/input/MarkdownNode.js"
 import { GraphVisuNode } from "./node/view/GraphVisuNode.js"
+import { ShaclQuizFormNode } from "./node/edit/ShaclQuizFormNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -58,6 +59,7 @@ const nodeClasses = {
     "ShaclWizardNode": ShaclWizardNode,
     "MarkdownNode": MarkdownNode,
     "GraphVisuNode": GraphVisuNode,
+    "ShaclQuizFormNode": ShaclQuizFormNode
 }
 
 export const exampleData = {
