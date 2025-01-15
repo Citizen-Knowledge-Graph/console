@@ -19,7 +19,7 @@ export class ShaclFormNode extends Node {
 
     postConstructor() {
         super.postConstructor()
-        this.assignTitlesToPorts("input", ["Datafield definitions", "Requirement profile(s)", "Existing profile"])
+        this.assignTitlesToPorts("input", ["Datafield definitions", "Requirement profile(s)", "Existing user profile"])
         this.assignTitlesToPorts("output", ["Profile", "Internal state", "Validation result: plausibility", "Validation result: subject-specific"])
         let container = this.nodeDiv.querySelector(".shacl-form-container")
         container.style.cursor = "default"

@@ -11,7 +11,7 @@ export class ShaclWizardNode extends Node {
     }
 
     getMainHtml() {
-        return `<div class="shacl-wizard-container" style="margin: 0 0 20px 10px">TODO</div>`
+        return `<div class="shacl-wizard-container" style="margin: 0 0 20px 10px"></div>`
     }
 
     postConstructor() {
