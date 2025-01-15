@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatObject, runValidationOnStore, serializeDatasetToTurtle, datasetToStore } from "../../../utils.js"
+import { addRdfStringToStore, expand, localName, runSparqlSelectQueryOnStore, serializeStoreToTurtle, runSparqlInsertDeleteQueryOnStore, runSparqlConstructQueryOnStore, formatObject, runValidationOnStore, serializeDatasetToTurtle, datasetToStore, stripQuotes } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclFormNode extends Node {
@@ -48,8 +48,16 @@ export class ShaclFormNode extends Node {
 
         for (let [rule, query] of Object.entries(this.materializationRules)) {
             constructedQuads = await runSparqlConstructQueryOnStore(query, stateStoreWithDfs)
-            for (let quad of constructedQuads) outputStore.addQuad(quad)
-            // tag those quads with their rule via rdf-star TODO
+            for (let quad of constructedQuads) {
+                let individual = quad.subject.id ?? quad.subject.value
+                let path = quad.predicate.id ?? quad.predicate.value
+                let obj = quad.object.id ?? quad.object.value
+                let element = this.elementsMap[`${individual}-${path}`]
+                if (!element) continue
+                element.input.value = stripQuotes(obj)
+                outputStore.addQuad(quad)
+            }
+            // tag those quads with the applied rule via rdf-star TODO
         }
 
         return await serializeStoreToTurtle(outputStore)
@@ -218,7 +226,7 @@ export class ShaclFormNode extends Node {
                     ff:sparqlConstructQuery ?query .
             }`
         let rows = await runSparqlSelectQueryOnStore(query, inputStore)
-        for (let row of rows) this.materializationRules[row.rule] = row.query.trim()
+        for (let row of rows) this.materializationRules[row.rule] = row.query.trim() // throw them in the internal state store instead?
 
         await this.rebuildForm()
     }
@@ -389,8 +397,7 @@ export class ShaclFormNode extends Node {
                     }
                     // related materialized triples might also have to get deleted TODO
                     await runSparqlInsertDeleteQueryOnStore(query, this.store)
-                    this.inputTurtles.currentUp = await this.serializeOutput()
-                    await this.rebuildInternalState()
+                    await this.update()
                 }
 
                 if (properties[expand("sh", "in")]) {

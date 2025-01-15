@@ -201,3 +201,7 @@ export function isNumber(val) {
 export function randStr(length = 4) {
     return Math.random().toString(36).substring(2, 2 + length)
 }
+
+export function stripQuotes(str) {
+    return str.replace(/^["']|["']$/g, '')
+}
