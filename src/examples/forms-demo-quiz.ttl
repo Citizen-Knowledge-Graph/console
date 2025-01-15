@@ -1,0 +1,126 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2024-12-25_15-57-48";
+         ff:hasName "Form demo: quiz approach";
+         ff:hasExportTimestamp "2025-01-15T22:14:06.511Z";
+         ff:hasTranslateX 435;
+         ff:hasTranslateY -173;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9, ff:edge10.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Knowledge base";
+         ff:hasPosX "-206";
+         ff:hasPosY "-350";
+         ff:hasWidth 493;
+         ff:hasHeight 833;
+         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:hasChild a ff:DataField ;\n    ff:shaclShape [\n    \ta sh:PropertyShape ;\n        sh:path ff:hasChild ;\n        sh:name \"has child\" ;\n        sh:description \"How many children do you have?\" ;\n        sh:nodeKind sh:IRI ;\n        sh:minCount 1 ;\n        ff:pointsToInstancesOf ff:Child ;\n\t] .\n\nfoaf:age a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path foaf:age ;\n        sh:name \"Age\" ;\n        sh:description \"What is your age?\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n        sh:maxCount 1 ;\n\t] .\n\nff:hasResidence a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:hasResidence ;\n        sh:name \"Residence\" ;\n        sh:description \"Where do you live?\" ;\n        sh:datatype xsd:string ;\n        sh:maxCount 1 ;\n    ] .\n\nff:income a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:income ;\n        sh:name \"Income\" ;\n        sh:description \"What is your income?\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n        sh:maxCount 1 ;\n\t] .\n\nff:Citizen a ff:Class .\nff:Child a ff:Class .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "User profile";
+         ff:hasPosX "-204";
+         ff:hasPosY "521";
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:mainPerson a ff:Citizen ;\n\t#ff:hasResidence \"Berlin\" ;\n\t#ff:income 2000 ;\n    ff:hasChild ff:child0 .\n\nff:child0 a ff:Child ;\n    foaf:age 11 .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Requirement profile 1";
+         ff:hasPosX "-862";
+         ff:hasPosY "71";
+         ff:hasWidth 588;
+         ff:hasHeight 642;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:kinderzuschlag a ff:RequirementProfile ;\n\tff:hasMainShape ff:kinderzuschlagMainShape .\n\nff:kinderzuschlagMainShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasResidence ;\n        sh:minCount 1 ;\n        sh:hasValue \"Berlin\" ;\n    ] ;\n    sh:property [\n        sh:path ff:hasChild ;\n        sh:valueShape ff:ChildShape;\n        sh:minCount 1;\n        sh:message \"The child doesn't exist or doesn't fulfill all criteria\" ;\n    ] .\n\nff:ChildShape a sh:NodeShape ;\n\tsh:targetClass ff:Child ;\n    sh:property [\n        sh:path foaf:age ;\n        sh:maxInclusive 25 ;\n        sh:minCount 1 ;\n        sh:message \"The child must be under 25 years old\" ;\n    ] .".
+ff:node4 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Requirement profile 2";
+         ff:hasPosX "-807";
+         ff:hasPosY "722";
+         ff:hasWidth 530;
+         ff:hasHeight 420;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:solarfoerderung a ff:RequirementProfile ;\n\tff:hasMainShape ff:solarfoerderungMainShape .\n\nff:solarfoerderungMainShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:income ;\n        sh:minCount 1 ;\n        sh:maxExclusive 3000 ;\n    ] ;\n    sh:property [\n        sh:path ff:hasResidence ;\n        sh:minCount 1 ;\n        sh:hasValue \"Berlin\" ;\n    ] .".
+ff:node5 a ff:Node;
+         ff:hasClass ff:ShaclQuizFormNode;
+         ff:hasName "Shacl Quiz-Form Editor";
+         ff:hasPosX "521";
+         ff:hasPosY "263".
+ff:node6 a ff:Node;
+         ff:hasClass ff:OutputViewLeafNode;
+         ff:hasName "Profile";
+         ff:hasPosX "1172";
+         ff:hasPosY "113".
+ff:node7 a ff:Node;
+         ff:hasClass ff:OutputViewLeafNode;
+         ff:hasName "Validation results";
+         ff:hasPosX "1637";
+         ff:hasPosY "178".
+ff:node8 a ff:Node;
+         ff:hasClass ff:OutputViewLeafNode;
+         ff:hasName "Priority list";
+         ff:hasPosX "1180";
+         ff:hasPosY "387".
+ff:node9 a ff:Node;
+         ff:hasClass ff:OutputViewLeafNode;
+         ff:hasName "Eligibility status";
+         ff:hasPosX "1159";
+         ff:hasPosY "600".
+ff:node10 a ff:Node;
+          ff:hasClass ff:OutputViewLeafNode;
+          ff:hasName "Missing data output";
+          ff:hasPosX "1281";
+          ff:hasPosY "803".
+ff:node11 a ff:Node;
+          ff:hasClass ff:OutputViewLeafNode;
+          ff:hasName "Violations output";
+          ff:hasPosX "820";
+          ff:hasPosY "987".
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 3.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 4.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 2;
+         ff:hasPortIn 1.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 3;
+         ff:hasPortIn 1.
+ff:edge8 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 4;
+         ff:hasPortIn 1.
+ff:edge9 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node10;
+         ff:hasPortOut 5;
+         ff:hasPortIn 1.
+ff:edge10 a ff:Edge;
+          ff:hasSource ff:node5;
+          ff:hasTarget ff:node11;
+          ff:hasPortOut 6;
+          ff:hasPortIn 1.
