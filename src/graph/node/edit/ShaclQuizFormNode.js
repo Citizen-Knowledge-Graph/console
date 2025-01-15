@@ -223,6 +223,17 @@ export class ShaclQuizFormNode extends Node {
             h2.textContent = "All questions answered"
             h2.style = "color: blue"
             container.appendChild(h2)
+            query = `
+                PREFIX ff: <https://foerderfunke.org/default#>
+                SELECT * WHERE {
+                    ?rp ff:hasEligibilityStatus ?status .
+                }`
+            let rows = await runSparqlSelectQueryOnStore(query, eligibilityStore)
+            for (let row of rows) {
+                div = document.createElement("div")
+                div.innerHTML = `${localName(row.rp)} &rarr; ${localName(row.status)}`
+                container.appendChild(div)
+            }
             return
         }
 
