@@ -80,6 +80,7 @@ export class ShaclFormNode extends Node {
     async highlightErrors(validationResult) {
         // reset errors
         for (let element of Object.values(this.elementsMap)) {
+            element.hasError = false
             element.label.style.color = "black"
             element.input.style.border = ""
             element.label.title = ""
@@ -100,6 +101,7 @@ export class ShaclFormNode extends Node {
         for (let row of rows) {
             let element = this.elementsMap[`${row.individual}-${row.path}`]
             if (!element) continue
+            element.hasError = true
             element.label.style.color = "red"
             element.input.style.border = "2px solid red"
             let msg = row.message.split("^^")[0]
@@ -371,7 +373,7 @@ export class ShaclFormNode extends Node {
                 }
 
                 let elementIdentifier = `${individual}-${path}`
-                this.elementsMap[elementIdentifier] = {}
+                this.elementsMap[elementIdentifier] = { hasError: false }
 
                 let label = document.createElement("label")
                 label.textContent = properties[expand("sh", "name")]
@@ -459,6 +461,10 @@ export class ShaclFormNode extends Node {
                 await addRdfStringToStore(this.inputTurtles.currentUp, store)
                 let result = await runValidationOnStore(store)
                 await this.highlightErrors(result)
+                // this does not cover the case of e.g. a child too old because hasChild is not in this.elementsMap TODO
+                if (!Object.values(this.elementsMap).find(element => element.hasError)) {
+                    alert("Looks good!")
+                }
             })
             container.appendChild(btn)
         }
