@@ -450,24 +450,22 @@ export class ShaclFormNode extends Node {
         }
         await walkTreeRecursively(root, 0)
 
-        if (!this.evalSubjectSpecific) {
-            container.appendChild(document.createElement("br"))
-            let btn = document.createElement("input")
-            btn.type = "button"
-            btn.value = "Submit"
-            btn.addEventListener("click", async () => {
-                let store = new Store()
-                await addRdfStringToStore(this.inputTurtles.rp, store)
-                await addRdfStringToStore(this.inputTurtles.currentUp, store)
-                let result = await runValidationOnStore(store)
-                await this.highlightErrors(result)
-                // this does not cover the case of e.g. a child too old because hasChild is not in this.elementsMap TODO
-                if (!Object.values(this.elementsMap).find(element => element.hasError)) {
-                    alert("Looks good!")
-                }
-            })
-            container.appendChild(btn)
-        }
+        container.appendChild(document.createElement("br"))
+        let btn = document.createElement("input")
+        btn.type = "button"
+        btn.value = "Submit"
+        btn.addEventListener("click", async () => {
+            let store = new Store()
+            await addRdfStringToStore(this.inputTurtles.rp, store)
+            await addRdfStringToStore(this.inputTurtles.currentUp, store)
+            let result = await runValidationOnStore(store)
+            await this.highlightErrors(result)
+            // this does not cover the case of e.g. a child too old because hasChild is not in this.elementsMap TODO
+            if (!Object.values(this.elementsMap).find(element => element.hasError)) {
+                alert("Looks good!")
+            }
+        })
+        container.appendChild(btn)
 
         this.rerenderConnectingEdges()
         await this.update()
