@@ -1,0 +1,306 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2024-12-25_15-57-48";
+         ff:hasName "Form demo: quiz approach detailed";
+         ff:hasExportTimestamp "2025-01-16T16:31:02.771Z";
+         ff:hasTranslateX 1032;
+         ff:hasTranslateY -17;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11, ff:node12, ff:node13, ff:node14, ff:node15, ff:node16, ff:node17, ff:node18, ff:node19, ff:node20, ff:node21, ff:node22, ff:node23;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9, ff:edge10, ff:edge11, ff:edge12, ff:edge13, ff:edge14, ff:edge15, ff:edge16, ff:edge17, ff:edge18, ff:edge19, ff:edge20, ff:edge21, ff:edge22, ff:edge23, ff:edge24, ff:edge25, ff:edge26, ff:edge27, ff:edge28, ff:edge29.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "User profile";
+         ff:hasPosX -264;
+         ff:hasPosY 542;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:mainPerson a ff:Citizen ;\n    #ff:hasBirthday \"1990-01-02\"^^xsd:date ;\n\t#ff:hasResidence \"Berlin\" ;\n\tff:income 4000 ;\n    ff:hasChild ff:child0 .\n\nff:child0 a ff:Child ;\n\tfoaf:age 11 .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Requirement profile 1";
+         ff:hasPosX "-862";
+         ff:hasPosY "71";
+         ff:hasWidth 548;
+         ff:hasHeight 602;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:kinderzuschlag a ff:RequirementProfile ;\n\tff:hasMainShape ff:kinderzuschlagMainShape .\n\nff:kinderzuschlagMainShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasResidence ;\n        sh:minCount 1 ;\n        sh:hasValue \"Berlin\" ;\n    ] ;\n    sh:property [\n        sh:path ff:hasChild ;\n        sh:valueShape ff:ChildShape;\n        sh:minCount 1;\n        sh:message \"The child doesn't exist or doesn't fulfill all criteria\" ;\n    ] .\n\nff:ChildShape a sh:NodeShape ;\n\tsh:targetClass ff:Child ;\n    sh:property [\n        sh:path foaf:age ;\n        sh:maxInclusive 25 ;\n        sh:minCount 1 ;\n        sh:message \"The child must be under 25 years old\" ;\n    ] .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Requirement profile 2";
+         ff:hasPosX -839;
+         ff:hasPosY 734;
+         ff:hasWidth 490;
+         ff:hasHeight 380;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:solarfoerderung a ff:RequirementProfile ;\n\tff:hasMainShape ff:solarfoerderungMainShape .\n\nff:solarfoerderungMainShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:income ;\n        sh:minCount 1 ;\n        sh:maxExclusive 3000 ;\n    ] ;\n    sh:property [\n        sh:path ff:hasResidence ;\n        sh:minCount 1 ;\n        sh:hasValue \"Berlin\" ;\n    ] .".
+ff:node4 a ff:Node;
+         ff:hasClass ff:ShaclValidationNode;
+         ff:hasName "SHACL validation 1";
+         ff:hasPosX "291";
+         ff:hasPosY "-93";
+         ff:hasWidth 488;
+         ff:hasHeight 445.
+ff:node5 a ff:Node;
+         ff:hasClass ff:ShaclValidationNode;
+         ff:hasName "SHACL validation 2";
+         ff:hasPosX "273";
+         ff:hasPosY "920".
+ff:node6 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Conclude eligibility status";
+         ff:hasPosX "3274";
+         ff:hasPosY "-111";
+         ff:hasWidth 684;
+         ff:hasHeight 502;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\nCONSTRUCT {\n  ?rp ff:hasEligibilityStatus ?status .\n}\nWHERE {\n  ?report ff:wasProducedFor ?rp ;\n          sh:conforms ?conforms .\n  BIND(\n    IF(\n      ?conforms = true,\n      ff:eligible,\n      IF(\n        EXISTS {\n          ?report sh:result ?result .\n          ?result sh:sourceConstraintComponent ?type .\n          FILTER(?type NOT IN (\n            sh:MinCountConstraintComponent,\n            sh:QualifiedMinCountConstraintComponent\n          ))\n        },\n        ff:ineligible,\n        ff:missingData\n      )\n    )\n    AS ?status\n  )\n}".
+ff:node7 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Post-process ValidationResult";
+         ff:hasPosX "1254";
+         ff:hasPosY "476";
+         ff:hasWidth 623;
+         ff:hasHeight 606;
+         ff:hasValue "PREFIX sh: <http://www.w3.org/ns/shacl#>\nPREFIX ff: <https://foerderfunke.org/default#>\n\nDELETE {\n    # delete redundant constraint in special case\n  \t?valiRep sh:result ?hasValueValiRes .\n  \t?hasValueValiRes ?p ?o .\n  \t?rp a ff:RequirementProfile .\n} INSERT {\n  \t# inject connection to rp\n\t?valiRep ff:wasProducedFor ?rp .\n} WHERE {\n  \t?valiRep a sh:ValidationReport .\n  \t?rp a ff:RequirementProfile .\n\n  \tOPTIONAL {\n      ?minCountValiRes a sh:ValidationResult ;\n          sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n          sh:focusNode ?focus ;\n          sh:sourceShape ?shape ;\n          sh:resultPath ?path .\n\n      ?hasValueValiRes a sh:ValidationResult ;\n          sh:sourceConstraintComponent sh:HasValueConstraintComponent ;\n          sh:focusNode ?focus ;\n          sh:sourceShape ?shape ;\n          sh:resultPath ?path .\n\n      ?valiRep sh:result ?hasValueValiRes .\n      ?hasValueValiRes ?p ?o .\n    }\n}".
+ff:node8 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Extract requirement profile identifier";
+         ff:hasPosX "283";
+         ff:hasPosY "665";
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nCONSTRUCT {\n    ?rp a ff:RequirementProfile .\n} WHERE {\n    ?rp a ff:RequirementProfile .\n}".
+ff:node9 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Extract missing datafields";
+         ff:hasPosX "3276";
+         ff:hasPosY "425";
+         ff:hasWidth 733;
+         ff:hasHeight 582;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\nCONSTRUCT {\n  ?dfId ff:isMissedBy ?rp ;\n      ff:hasSub ?subject ;\n      ff:hasPred ?predicate .\n}\nWHERE {\n  VALUES ?allowedConstraint {\n    sh:MinCountConstraintComponent\n    sh:QualifiedMinCountConstraintComponent\n  }\n\n  ?report ff:wasProducedFor ?rp ;\n          sh:result ?result .\n\n  ?result a sh:ValidationResult ;\n          sh:sourceConstraintComponent ?type ;\n          sh:focusNode ?subject ;\n          sh:resultPath ?predicate .\n  FILTER(?type IN (?allowedConstraint))\n\n  FILTER NOT EXISTS {\n    ?report sh:result ?otherResult .\n    ?otherResult sh:sourceConstraintComponent ?otherType .\n    FILTER(?otherType NOT IN (?allowedConstraint))\n  }\n  \n  BIND(IRI(CONCAT(STR(?subject), \"_\", REPLACE(STR(?predicate), \"^.*[#/]\", \"\"))) AS ?dfId)\n}".
+ff:node10 a ff:Node;
+          ff:hasClass ff:SparqlInputNode;
+          ff:hasName "Extract violating datafields";
+          ff:hasPosX "3317";
+          ff:hasPosY "1030";
+          ff:hasWidth 586;
+          ff:hasHeight 423;
+          ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\nCONSTRUCT {\n    ?rp ff:hasViolatingDatafield [\n  \t\tff:hasSub ?subject ;\n      \tff:hasPred ?predicate ;\n        ff:violationType ?type ;\n        ff:message ?message ;\n        ff:badValue ?badValue ;\n    ] .\n} WHERE {\n    ?report ff:wasProducedFor ?rp ;\n\t\tsh:result ?result .\n    ?result a sh:ValidationResult ;\n    \tsh:sourceConstraintComponent ?type ;\n\t\tsh:focusNode ?subject ;\n        sh:resultPath ?predicate ;\n  \tOPTIONAL { ?result sh:resultMessage ?message . }\n  \tOPTIONAL { ?result sh:value ?badValue . }\n\tFILTER(\n    \t?type != sh:MinCountConstraintComponent \n      \t&& ?type != sh:QualifiedMinCountConstraintComponent\n\t)\n}".
+ff:node11 a ff:Node;
+          ff:hasClass ff:SparqlInputNode;
+          ff:hasName "Sort prios";
+          ff:hasPosX 4948;
+          ff:hasPosY 336;
+          ff:hasWidth 562;
+          ff:hasHeight 222;
+          ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\n\nSELECT ?subject ?datafield (COUNT(?rp) AS ?missedByCount) WHERE {\n\t?dfId ff:isMissedBy ?rp ;\n          ff:hasSub ?subject ;\n\t\t  ff:hasPred ?datafield .\n}\nGROUP BY ?subject ?datafield\nORDER BY DESC(?missedByCount)".
+ff:node12 a ff:Node;
+          ff:hasClass ff:SparqlConstructExecNode;
+          ff:hasName "Eligibility results";
+          ff:hasPosX "4156";
+          ff:hasPosY "14";
+          ff:hasWidth 564;
+          ff:hasHeight 241.
+ff:node13 a ff:Node;
+          ff:hasClass ff:SparqlConstructExecNode;
+          ff:hasName "Run SPARCL CONSTRUCT";
+          ff:hasPosX "270";
+          ff:hasPosY "1476".
+ff:node14 a ff:Node;
+          ff:hasClass ff:SparqlConstructExecNode;
+          ff:hasName "Run SPARQL CONSTRUCT";
+          ff:hasPosX 4129;
+          ff:hasPosY 447;
+          ff:hasWidth 703;
+          ff:hasHeight 379.
+ff:node15 a ff:Node;
+          ff:hasClass ff:SparqlConstructExecNode;
+          ff:hasName "Run SPARQL CONSTRUCT";
+          ff:hasPosX 4130;
+          ff:hasPosY 1014;
+          ff:hasWidth 815;
+          ff:hasHeight 421.
+ff:node16 a ff:Node;
+          ff:hasClass ff:SparqlConstructExecNode;
+          ff:hasName "Run SPARCL CONSTRUCT";
+          ff:hasPosX "332";
+          ff:hasPosY "368".
+ff:node17 a ff:Node;
+          ff:hasClass ff:SparqlInsertDeleteExecNode;
+          ff:hasName "Run SPARQL INSERT/DELETE";
+          ff:hasPosX "1973";
+          ff:hasPosY "68";
+          ff:hasWidth 425;
+          ff:hasHeight 573.
+ff:node18 a ff:Node;
+          ff:hasClass ff:SparqlInsertDeleteExecNode;
+          ff:hasName "Run SPARQL INSERT/DELETE";
+          ff:hasPosX "1936";
+          ff:hasPosY "968".
+ff:node19 a ff:Node;
+          ff:hasClass ff:MergeTriplesNode;
+          ff:hasName "Merge triples";
+          ff:hasPosX "727";
+          ff:hasPosY "1020".
+ff:node20 a ff:Node;
+          ff:hasClass ff:MergeTriplesNode;
+          ff:hasName "Merge triples";
+          ff:hasPosX "802";
+          ff:hasPosY "184".
+ff:node21 a ff:Node;
+          ff:hasClass ff:MergeTriplesNode;
+          ff:hasName "Post-processed validation results";
+          ff:hasPosX "2631";
+          ff:hasPosY "475".
+ff:node22 a ff:Node;
+          ff:hasClass ff:SparqlSelectExecNode;
+          ff:hasName "Run SPARQL SELECT";
+          ff:hasPosX 5073;
+          ff:hasPosY 619.
+ff:node23 a ff:Node;
+          ff:hasClass ff:MergeTriplesNode;
+          ff:hasName "Final report";
+          ff:hasPosX 5622;
+          ff:hasPosY 401;
+          ff:hasWidth 497;
+          ff:hasHeight 452.
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node16;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node20;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node12;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node7;
+         ff:hasTarget ff:node17;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge8 a ff:Edge;
+         ff:hasSource ff:node7;
+         ff:hasTarget ff:node18;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge9 a ff:Edge;
+         ff:hasSource ff:node8;
+         ff:hasTarget ff:node13;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge10 a ff:Edge;
+          ff:hasSource ff:node8;
+          ff:hasTarget ff:node16;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge11 a ff:Edge;
+          ff:hasSource ff:node9;
+          ff:hasTarget ff:node14;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge12 a ff:Edge;
+          ff:hasSource ff:node10;
+          ff:hasTarget ff:node15;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge13 a ff:Edge;
+          ff:hasSource ff:node13;
+          ff:hasTarget ff:node19;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge14 a ff:Edge;
+          ff:hasSource ff:node14;
+          ff:hasTarget ff:node22;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge15 a ff:Edge;
+          ff:hasSource ff:node17;
+          ff:hasTarget ff:node21;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge16 a ff:Edge;
+          ff:hasSource ff:node19;
+          ff:hasTarget ff:node18;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge17 a ff:Edge;
+          ff:hasSource ff:node3;
+          ff:hasTarget ff:node5;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge18 a ff:Edge;
+          ff:hasSource ff:node3;
+          ff:hasTarget ff:node13;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge19 a ff:Edge;
+          ff:hasSource ff:node5;
+          ff:hasTarget ff:node19;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge20 a ff:Edge;
+          ff:hasSource ff:node20;
+          ff:hasTarget ff:node17;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge21 a ff:Edge;
+          ff:hasSource ff:node16;
+          ff:hasTarget ff:node20;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge22 a ff:Edge;
+          ff:hasSource ff:node18;
+          ff:hasTarget ff:node21;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge23 a ff:Edge;
+          ff:hasSource ff:node21;
+          ff:hasTarget ff:node14;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge24 a ff:Edge;
+          ff:hasSource ff:node21;
+          ff:hasTarget ff:node15;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge25 a ff:Edge;
+          ff:hasSource ff:node21;
+          ff:hasTarget ff:node12;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge26 a ff:Edge;
+          ff:hasSource ff:node11;
+          ff:hasTarget ff:node22;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge27 a ff:Edge;
+          ff:hasSource ff:node12;
+          ff:hasTarget ff:node23;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge28 a ff:Edge;
+          ff:hasSource ff:node14;
+          ff:hasTarget ff:node23;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge29 a ff:Edge;
+          ff:hasSource ff:node15;
+          ff:hasTarget ff:node23;
+          ff:hasPortOut 1;
+          ff:hasPortIn 3.
