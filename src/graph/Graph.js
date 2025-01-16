@@ -312,7 +312,10 @@ export class Graph {
             }`
         let row = (await runSparqlSelectQueryOnRdfString(query, rdfStr))[0]
         if (row.id) this.id = row.id
-        if (row.name) this.name = row.name
+        if (row.name) {
+            this.name = row.name
+            document.title = this.name
+        }
         // if we need to preserve other elements of transform (e.g. scale, rotate), we should use DOMMatrix
         if (row.x) {
             document.querySelector("#drawflow .drawflow").style.transform = `translate(${row.x}px, ${row.y}px)`
