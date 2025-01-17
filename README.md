@@ -1,6 +1,8 @@
 # semOps: linked data operations flow tool
 
-Right-click to add new nodes.
+Live at [console.foerderfunke.org](https://console.foerderfunke.org).
+
+Usage instructions under *HowTo* on the site.
 
 ## Development
 
@@ -9,12 +11,13 @@ npm install
 npm run build
 ```
 
-Serve `index.html` with a local server. For instance via `npx http-server`, `python3 -m http.server` or a built-in server of your IDE. 
-
+Serve `index.html` with a local server. For instance via `npx http-server`, `python3 -m http.server` or a built-in server of your IDE.
 
 ## Feature ideas:
 - Backend can be switched out: in-browser session (default), remote triplestore, local java server, etc.
 - Frontend can be switched out: e.g. use Miro or Mural
+- Collaborative live sessions to get from post-it-tinkering to computable data structures fast and playful, along [this](https://medium.com/miro-engineering/exploring-structured-data-as-graphs-in-miro-880aa4051b70) line
+  - with autocomplete and merge-suggestions for ongoing vocabulary-consolidation, along [this](https://github.com/benjaminaaron/OntoEngine) line
 - Pull data in live from other sources
 - Use standards for exported Turtle, maybe [RDF Connect](https://github.com/rdf-connect)
 - Export an entire ready-to-execute implementation in different programming languages based on the flow graph
