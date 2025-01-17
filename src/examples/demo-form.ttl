@@ -4,68 +4,74 @@
 ff:graph a ff:Graph;
          ff:hasId "graph_2024-12-14_21-00-00";
          ff:hasName "Demo: Form";
-         ff:hasExportTimestamp "2025-01-16T20:52:03.746Z";
-         ff:hasTranslateX -31;
-         ff:hasTranslateY -36;
-         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8;
+         ff:hasExportTimestamp "2025-01-17T22:58:08.491Z";
+         ff:hasTranslateX -775;
+         ff:hasTranslateY 335;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10;
          ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7.
 ff:node1 a ff:Node;
          ff:hasClass ff:ShaclFormNode;
          ff:hasName "SHACL Form Editor";
-         ff:hasPosX "1598";
-         ff:hasPosY "-100".
+         ff:hasPosX 1593;
+         ff:hasPosY -102.
 ff:node2 a ff:Node;
          ff:hasClass ff:TurtleInputNode;
          ff:hasName "Knowledge base";
          ff:hasPosX "96";
          ff:hasPosY "-307";
-         ff:hasWidth 565;
-         ff:hasHeight 1496;
-         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n@prefix fim: <https://neu.fimportal.de/fields/baukasten/> .\n@prefix wd: <http://www.wikidata.org/entity/> .\n\n# DATAFIELDS\n\nff:hasChild a ff:DataField ;\n    ff:shaclShape [\n    \ta sh:PropertyShape ;\n        sh:path ff:hasChild ;\n        sh:name \"has child\" ;\n        sh:nodeKind sh:IRI ;\n        sh:description \"add child\" ;\n        ff:pointsToInstancesOf ff:Child ;\n\t] .\n\nfoaf:age a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path foaf:age ;\n        ff:wikidataId wd:Q185836 ;\n        sh:name \"Age\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n\t\tsh:maxCount 1 ;\n\t] .\n\nff:citizenship a ff:DataField ;\n\tff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:citizenship ;\n        sh:name \"Citizenship\" ;\n        sh:in (ff:cit-ao-ger ff:cit-ao-eu ff:cit-ao-3rd) ;\n\t] .\n\nff:cit-ao-ger a ff:AnswerOption ; ff:title \"German\" .\nff:cit-ao-eu a ff:AnswerOption ; ff:title \"EU\" .\nff:cit-ao-3rd a ff:AnswerOption ; ff:title \"Third country (non-EU)\" .\n\nff:hasResidence a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:hasResidence ;\n        sh:name \"Residence\" ;\n       \tff:hasFimId fim:F03010085 ;\n        ff:hasFimVersion \"1.0\" ;\n        sh:datatype xsd:string ;\n    ] .\n\nff:residesInState a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:residesInState ;\n        sh:name \"Federal state\" ;\n        sh:datatype xsd:string ;\n    ] .\n\n# CLASSES\n\nff:Citizen a ff:Class .\nff:Child a ff:Class .\n\n# INFERENCE RULES\n\nff:DeriveFederalStateFromCity a ff:MaterializationRule ;\n\tff:sparqlConstructQuery \"\"\"\n    \tPREFIX ff: <https://foerderfunke.org/default#>\n        CONSTRUCT {\n            ?person ff:residesInState ?state .\n        } WHERE {\n            ?person ff:hasResidence ?city .\n            ff:CityStateMap ff:mappedCityToState ?mapping .\n            ?mapping ff:city ?city ;\n                ff:state ?state .\n        }\n\t\"\"\" .\n\n# CONSTANTS\n\nff:CityStateMap a ff:MapOfConstants ;\n    ff:mappedCityToState [\n        ff:city \"Bad Belzig\" ;\n        ff:state \"Brandenburg\"\n    ] ;\n    ff:mappedCityToState [\n        ff:city \"Leipzig\" ;\n        ff:state \"Saxony\"\n    ] ;\n    ff:mappedCityToState [\n        ff:city \"Augsburg\" ;\n        ff:state \"Bavaria\"\n    ] .".
+         ff:hasWidth 567;
+         ff:hasHeight 1642;
+         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n@prefix fim: <https://neu.fimportal.de/fields/baukasten/> .\n@prefix wd: <http://www.wikidata.org/entity/> .\n\n# DATAFIELDS\n\nff:hasChild a ff:DataField ;\n    ff:shaclShape [\n    \ta sh:PropertyShape ;\n        sh:path ff:hasChild ;\n        sh:name \"has child\" ;\n        sh:nodeKind sh:IRI ;\n        sh:description \"add child\" ;\n        ff:pointsToInstancesOf ff:Child ;\n\t] .\n\nfoaf:age a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path foaf:age ;\n        ff:wikidataId wd:Q185836 ;\n        sh:name \"Age\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n\t\tsh:maxCount 1 ;\n\t] .\n\nff:citizenship a ff:DataField ;\n\tff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:citizenship ;\n        sh:name \"Citizenship\" ;\n        sh:in (ff:cit-ao-ger ff:cit-ao-eu ff:cit-ao-3rd) ;\n\t] .\n\nff:cit-ao-ger a ff:AnswerOption ; ff:title \"German\" .\nff:cit-ao-eu a ff:AnswerOption ; ff:title \"EU\" .\nff:cit-ao-3rd a ff:AnswerOption ; ff:title \"Third country (non-EU)\" .\n\nff:hasResidence a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:hasResidence ;\n        sh:name \"Residence\" ;\n       \tff:hasFimId fim:F03010085 ;\n        ff:hasFimVersion \"1.0\" ;\n        sh:datatype xsd:string ;\n    ] .\n\nff:residesInState a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:residesInState ;\n        sh:name \"Federal state\" ;\n        sh:datatype xsd:string ;\n    ] .\n\nff:income a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:income ;\n        sh:name \"Income\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n\t] .\n\n# CLASSES\n\nff:Citizen a ff:Class .\nff:Child a ff:Class .\n\n# INFERENCE RULES\n\nff:DeriveFederalStateFromCity a ff:MaterializationRule ;\n\tff:sparqlConstructQuery \"\"\"\n    \tPREFIX ff: <https://foerderfunke.org/default#>\n        CONSTRUCT {\n            ?person ff:residesInState ?state .\n        } WHERE {\n            ?person ff:hasResidence ?city .\n            ff:CityStateMap ff:mappedCityToState ?mapping .\n            ?mapping ff:city ?city ;\n                ff:state ?state .\n        }\n\t\"\"\" .\n\n# CONSTANTS\n\nff:CityStateMap a ff:MapOfConstants ;\n    ff:mappedCityToState [\n        ff:city \"Bad Belzig\" ;\n        ff:state \"Brandenburg\"\n    ] ;\n    ff:mappedCityToState [\n        ff:city \"Leipzig\" ;\n        ff:state \"Saxony\"\n    ] ;\n    ff:mappedCityToState [\n        ff:city \"Augsburg\" ;\n        ff:state \"Bavaria\"\n    ] .".
 ff:node3 a ff:Node;
          ff:hasClass ff:TurtleInputNode;
          ff:hasName "Requirement profile";
-         ff:hasPosX "749";
-         ff:hasPosY "-320";
-         ff:hasWidth 587;
-         ff:hasHeight 1016;
+         ff:hasPosX 740;
+         ff:hasPosY -280;
+         ff:hasWidth 590;
+         ff:hasHeight 1019;
          ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:kinderzuschlag a ff:RequirementProfile ;\n    ff:leikaId \"99107016017000\" ;\n    ff:title \"Kinderzuschlag\"@de , \"Child allowance\"@en ;\n    ff:hasMainPersonShape ff:kinderzuschlagMainPersonShape .\n\nff:kinderzuschlagMainPersonShape a sh:NodeShape ;\n\tsh:targetClass ff:Citizen ;\n\tsh:property [\n    \tsh:path ff:citizenship ;\n        sh:hasValue ff:cit-ao-ger ;\n\t\tsh:minCount 1 ;\n        sh:order 3 ;\n   \t] ;\n\tsh:property [\n      \tsh:path ff:hasResidence ;\n        sh:hasValue \"Augsburg\" ;\n        sh:minCount 1 ;\n        sh:order 1 ;\n  \t] ;\n\tsh:property [\n      \tsh:path ff:residesInState ;\n        sh:hasValue \"Bavaria\" ;\n        sh:minCount 1 ;\n        sh:order 2 ;\n  \t] ;\n    sh:property [\n        sh:path ff:hasChild ;\n        sh:qualifiedValueShape ff:ChildShape;\n        sh:qualifiedMinCount 1;\n\t\tsh:order 4 ;\n    ] .\n\nff:ChildShape a sh:NodeShape ;\n\tsh:targetClass ff:Child ;\n\tsh:property [\n        sh:path foaf:age ;\n        sh:maxInclusive 25 ;\n        sh:minCount 1 ;\n    ] .\n\nff:calculateTotalKinderzuschlagAmount a ff:MaterializationRule ;\n    ff:sparqlConstructQuery \"\"\"\n\t\tPREFIX ff: <https://foerderfunke.org/default#>\n\t\tPREFIX foaf: <http://xmlns.com/foaf/0.1/>\n        CONSTRUCT {\n        \tff:mainPerson ff:totalKinderzuschlagAmount ?amount .\n        } WHERE {\n       \t\tSELECT (?childrenCount * 297 AS ?amount) WHERE {\n            \tSELECT (COUNT(?child) AS ?childrenCount) WHERE {\n              \t\tff:mainPerson ff:hasChild ?child .\n              \t\t?child foaf:age ?age .\n              \t\tFILTER(?age >= 0 && ?age <= 25) .\n            \t}\n          \t}           \n        }\n\t\"\"\" .".
 ff:node4 a ff:Node;
          ff:hasClass ff:TurtleInputNode;
          ff:hasName "Initial user profile";
-         ff:hasPosX "945";
-         ff:hasPosY "803";
+         ff:hasPosX 994;
+         ff:hasPosY 784;
          ff:hasValue "@prefix ff: <https://foerderfunke.org/default#>.\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\n\nff:mainPerson a ff:Citizen .".
 ff:node5 a ff:Node;
          ff:hasClass ff:OutputViewLeafNode;
          ff:hasName "User profile";
-         ff:hasPosX 2114;
-         ff:hasPosY -218;
-         ff:hasWidth 599;
-         ff:hasHeight 416.
+         ff:hasPosX 2252;
+         ff:hasPosY -205;
+         ff:hasWidth 485;
+         ff:hasHeight 417.
 ff:node6 a ff:Node;
          ff:hasClass ff:OutputViewLeafNode;
          ff:hasName "Internal state";
-         ff:hasPosX 3003;
-         ff:hasPosY 234.
+         ff:hasPosX 3173;
+         ff:hasPosY -78.
 ff:node7 a ff:Node;
          ff:hasClass ff:OutputViewLeafNode;
          ff:hasName "Validation result: plausibility";
-         ff:hasPosX 2126;
-         ff:hasPosY 228.
+         ff:hasPosX 2250;
+         ff:hasPosY 233.
 ff:node8 a ff:Node;
          ff:hasClass ff:OutputViewLeafNode;
          ff:hasName "Validation result: subject-specific";
-         ff:hasPosX 2561;
-         ff:hasPosY 234.
+         ff:hasPosX 2689;
+         ff:hasPosY 231.
 ff:node9 a ff:Node;
          ff:hasClass ff:MarkdownNode;
          ff:hasName "Advantages";
-         ff:hasPosX 2756;
-         ff:hasPosY -342;
-         ff:hasWidth 310;
-         ff:hasHeight 307;
+         ff:hasPosX 2803;
+         ff:hasPosY -378;
+         ff:hasWidth 313;
+         ff:hasHeight 310;
          ff:hasValue "- Validation\n\t- Plausibility\n\t- Subject-specific\n- Dynamic form adjustments\n- Generate UI from constraints\n- Interoperability\n- Active ecosystem\n    - SHACL specification\n\t- Vocabularies\n    - Tooling".
+ff:node10 a ff:Node;
+          ff:hasClass ff:TurtleInputNode;
+          ff:hasName "Requirement profile 2";
+          ff:hasPosX 903;
+          ff:hasPosY 1596;
+          ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:cityVoucher a ff:RequirementProfile ;\n    ff:title \"City Voucher\"@en ;\n\tff:hasMainShape ff:cityVoucherMainShape .\n\nff:cityVoucherMainShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:income ;\n        sh:minCount 1 ;\n        sh:maxExclusive 2000 ;\n    ] ;\n    sh:property [\n        sh:path ff:hasResidence ;\n        sh:minCount 1 ;\n        sh:hasValue \"Berlin\" ;\n    ] .".
 ff:edge1 a ff:Edge;
          ff:hasSource ff:node1;
          ff:hasTarget ff:node5;
@@ -92,12 +98,12 @@ ff:edge5 a ff:Edge;
          ff:hasPortOut 1;
          ff:hasPortIn 1.
 ff:edge6 a ff:Edge;
-         ff:hasSource ff:node3;
-         ff:hasTarget ff:node1;
-         ff:hasPortOut 1;
-         ff:hasPortIn 2.
-ff:edge7 a ff:Edge;
          ff:hasSource ff:node4;
          ff:hasTarget ff:node1;
          ff:hasPortOut 1;
          ff:hasPortIn 3.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node1;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
