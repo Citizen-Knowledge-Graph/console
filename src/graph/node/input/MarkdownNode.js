@@ -17,16 +17,18 @@ export class MarkdownNode extends CodeNode {
 
     postConstructor() {
         super.postConstructor()
-        this.markdown = this.nodeDiv.querySelector(".markdown-container")
-        this.markdown.style.display = "none"
+        let markdown = this.nodeDiv.querySelector(".markdown-container")
+        markdown.style = "user-select: text; display: none"
         this.nodeDiv.querySelector(".edit-btn").addEventListener("click", () => {
-            this.markdown.style.display = "none"
+            markdown.style.display = "none"
             this.codemirrorContainer.style.display = "block"
         })
         this.nodeDiv.querySelector(".view-btn").addEventListener("click", () => {
-            this.markdown.innerHTML = marked.parse(this.getValue())
-            this.markdown.style.display = "block"
+            markdown.innerHTML = marked.parse(this.getValue())
+            markdown.style.display = "block"
             this.codemirrorContainer.style.display = "none"
         })
+        markdown.style.cursor = "default"
+        markdown.addEventListener("mousedown", event => event.stopPropagation())
     }
 }
