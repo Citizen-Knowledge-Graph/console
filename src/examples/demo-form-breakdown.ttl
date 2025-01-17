@@ -3,7 +3,7 @@
 
 ff:graph a ff:Graph;
          ff:hasId "graph_2025-01-16_17-50-03";
-         ff:hasName "Demo: Fill Profile Breakdown";
+         ff:hasName "Demo: Form Breakdown";
          ff:hasExportTimestamp "2025-01-16T18:20:54.716Z";
          ff:hasTranslateX -133;
          ff:hasTranslateY 109;
