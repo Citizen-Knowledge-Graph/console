@@ -29,7 +29,7 @@ ff:node3 a ff:Node;
          ff:hasName "SPARQL Input";
          ff:hasPosX 201;
          ff:hasPosY 357;
-         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\n\nSELECT * WHERE {\n  ff:mainPerson ff:hasChild ?child .\n  ?child ff:age ?age .\n}".
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\n\nSELECT * WHERE {\n  ff:mainPerson ff:hasChild ?child .\n}".
 ff:node4 a ff:Node;
          ff:hasClass ff:GraphVisuNode;
          ff:hasName "Graph Visualizer";
