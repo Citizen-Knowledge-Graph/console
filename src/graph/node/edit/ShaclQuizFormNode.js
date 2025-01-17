@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { addRdfStringToStore, datasetToStore, formatObject, localName, runSparqlConstructQueryOnStore, runSparqlInsertDeleteQueryOnStore, runSparqlSelectQueryOnStore, runValidationOnStore, serializeStoreToTurtle, expand } from "../../../utils.js"
+import { addRdfStringToStore, datasetToStore, formatObject, localName, runSparqlConstructQueryOnStore, runSparqlInsertDeleteQueryOnStore, runSparqlSelectQueryOnStore, runValidationOnStore, serializeStoreToTurtle, expand, shrink } from "../../../utils.js"
 import { Store } from "../../../assets/bundle.js"
 
 export class ShaclQuizFormNode extends Node {
@@ -121,7 +121,16 @@ export class ShaclQuizFormNode extends Node {
         let eligibilityStore = new Store()
         let constructedQuads = await runSparqlConstructQueryOnStore(query, processedValidationsStore)
         for (let quad of constructedQuads) eligibilityStore.addQuad(quad)
-        this.sendInstantShowValue("output_4", await serializeStoreToTurtle(eligibilityStore))
+        let tableData = { headers: ["Requirement profile", "Eligibility status"], rows: [], fullRows: [] }
+        query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT * WHERE { ?rp ff:hasEligibilityStatus ?status . }`
+        let results = await runSparqlSelectQueryOnStore(query, eligibilityStore)
+        for (let result of results) {
+            tableData.rows.push([shrink(result.rp), shrink(result.status)])
+            tableData.fullRows.push([result.rp, result.status])
+        }
+        this.sendInstantShowValue("output_4", tableData)
 
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>
@@ -187,19 +196,37 @@ export class ShaclQuizFormNode extends Node {
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>
             CONSTRUCT {
-                ?dfId ff:missedByCount ?missedByCount .
+                ?dfId ff:missedByCount ?missedByCount ;
+                    ff:hasSub ?sub ;
+                    ff:hasPred ?pred .                    
             } WHERE {
-                SELECT ?dfId (COUNT(?rp) AS ?missedByCount)
+                SELECT ?dfId ?sub ?pred (COUNT(?rp) AS ?missedByCount)
                 WHERE {
-                    ?dfId ff:isMissedBy ?rp .
+                    ?dfId ff:isMissedBy ?rp ;
+                        ff:hasSub ?sub ;
+                        ff:hasPred ?pred .
                 }
-                GROUP BY ?dfId
+                GROUP BY ?dfId ?sub ?pred
                 ORDER BY DESC(?missedByCount) 
             }`
         let priorityListStore = new Store()
         constructedQuads = await runSparqlConstructQueryOnStore(query, missingDataStore)
         for (let quad of constructedQuads) priorityListStore.addQuad(quad)
-        this.sendInstantShowValue("output_3", await serializeStoreToTurtle(priorityListStore))
+        tableData = { headers: ["Subject", "Predicate", "Missed By"], rows: [], fullRows: [] }
+        query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            SELECT * WHERE {
+                ?dfId ff:missedByCount ?missedByCount ;
+                    ff:hasSub ?sub ;
+                    ff:hasPred ?pred .
+            } ORDER BY DESC(?missedByCount) `
+        results = await runSparqlSelectQueryOnStore(query, priorityListStore)
+        for (let result of results) {
+            tableData.rows.push([shrink(result.sub), shrink(result.pred), result.missedByCount])
+            tableData.fullRows.push([result.sub, result.pred, result.missedByCount])
+        }
+        this.sendInstantShowValue("output_3", tableData)
 
         query = `
             PREFIX ff: <https://foerderfunke.org/default#>
