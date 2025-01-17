@@ -297,6 +297,7 @@ export class ShaclQuizFormNode extends Node {
             if (event.key === "Enter") await submit()
         })
         container.appendChild(submitBtn)
+        input.focus()
         this.rerenderConnectingEdges()
     }
 
