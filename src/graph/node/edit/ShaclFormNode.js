@@ -49,6 +49,8 @@ export class ShaclFormNode extends Node {
         for (let [rule, query] of Object.entries(this.materializationRules)) {
             constructedQuads = await runSparqlConstructQueryOnStore(query, stateStoreWithDfs)
             for (let quad of constructedQuads) {
+                // is this generally correct or are there cases where this deletion is not what we want?
+                outputStore.getQuads(quad.subject, quad.predicate, null).forEach(q => outputStore.delete(q))
                 outputStore.addQuad(quad)
                 let individual = quad.subject.id ?? quad.subject.value
                 let path = quad.predicate.id ?? quad.predicate.value
