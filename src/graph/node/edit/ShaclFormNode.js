@@ -347,7 +347,7 @@ export class ShaclFormNode extends Node {
 
                 if (pointsToInstancesOf) {
                     let btn = document.createElement("div")
-                    btn.style = "margin-top: 10px; cursor: pointer; color: gray; font-size: small"
+                    btn.style = "margin-top: 10px; cursor: pointer; color: gray; font-size: small; margin-bottom: 15px"
                     btn.style.marginLeft = indentation
                     btn.innerHTML = `+ ${properties[expand("sh", "description")]}`
                     btn.addEventListener("click", async () => {
