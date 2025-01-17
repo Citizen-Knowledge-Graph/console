@@ -58,6 +58,14 @@ ff:node8 a ff:Node;
          ff:hasName "Validation result: subject-specific";
          ff:hasPosX 2561;
          ff:hasPosY 234.
+ff:node9 a ff:Node;
+         ff:hasClass ff:MarkdownNode;
+         ff:hasName "Advantages";
+         ff:hasPosX 2756;
+         ff:hasPosY -342;
+         ff:hasWidth 310;
+         ff:hasHeight 307;
+         ff:hasValue "- Validation\n\t- Plausibility\n\t- Subject-specific\n- Dynamic form adjustments\n- Generate UI from constraints\n- Interoperability\n- Active ecosystem\n    - SHACL specification\n\t- Vocabularies\n    - Tooling".
 ff:edge1 a ff:Edge;
          ff:hasSource ff:node1;
          ff:hasTarget ff:node5;
