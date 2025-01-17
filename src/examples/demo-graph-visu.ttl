@@ -1,0 +1,64 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-01-17_09-38-36";
+         ff:hasName "Demo: Graph Visu";
+         ff:hasExportTimestamp "2025-01-17T12:40:43.044Z";
+         ff:hasTranslateX -25;
+         ff:hasTranslateY 91;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Example: User profile";
+         ff:hasPosX 179;
+         ff:hasPosY 80;
+         ff:hasWidth 449;
+         ff:hasHeight 237;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\nff:mainPerson ff:hasChild\n\tff:child1, ff:child2, ff:child3 .\n\nff:child1 ff:age 13 .\nff:child2 ff:age 15 .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:GraphVisuNode;
+         ff:hasName "Graph Visualizer";
+         ff:hasPosX 781;
+         ff:hasPosY -54;
+         ff:hasWidth 452;
+         ff:hasHeight 452.
+ff:node3 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "SPARQL Input";
+         ff:hasPosX 201;
+         ff:hasPosY 357;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\n\nSELECT * WHERE {\n  ff:mainPerson ff:hasChild ?child .\n  ?child ff:age ?age .\n}".
+ff:node4 a ff:Node;
+         ff:hasClass ff:GraphVisuNode;
+         ff:hasName "Graph Visualizer";
+         ff:hasPosX 781;
+         ff:hasPosY 417;
+         ff:hasWidth 452;
+         ff:hasHeight 452.
+ff:node5 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX 1322;
+         ff:hasPosY 287.
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node2;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
