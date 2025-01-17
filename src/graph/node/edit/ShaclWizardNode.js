@@ -304,25 +304,29 @@ export class ShaclWizardNode extends Node {
                 query = `
                     PREFIX ff: <https://foerderfunke.org/default#>
                     PREFIX sh: <http://www.w3.org/ns/shacl#>
-                    SELECT ?datafield ?name WHERE {
+                    SELECT ?datafield ?name ?pointsToInstancesOf WHERE {
                         ?datafield a ff:DataField ;
                             ff:shaclShape ?shaclShape .
                         ?shaclShape sh:name ?name .
+                        OPTIONAL { ?shaclShape ff:pointsToInstancesOf ?pointsToInstancesOf . }
                     }`
+                let valueToPointsToInstancesOf = {}
                 let list = (await runSparqlSelectQueryOnStore(query, this.store)).map(row => {
+                    if (row.pointsToInstancesOf) valueToPointsToInstancesOf[row.datafield] = row.pointsToInstancesOf
                     return { value: row.datafield, label: row.name }
                 })
                 let input = document.createElement("input")
                 td.appendChild(input)
                 this.wireUpAutocompleteElement(input, list, "+ create new property", (datafield) => {
                     return `
-                    PREFIX sh: <http://www.w3.org/ns/shacl#>
-                    INSERT DATA {
-                        <${nodeShape}> sh:property [
-                            sh:path <${datafield}> ;
-                            sh:minCount 1 ;
-                        ] .
-                    }`
+                        PREFIX sh: <http://www.w3.org/ns/shacl#>
+                        INSERT DATA {
+                            <${nodeShape}> sh:property [
+                                sh:path <${datafield}> ;
+                                sh:minCount 1 ;
+                                ${valueToPointsToInstancesOf[datafield] ? `sh:valueShape <${valueToPointsToInstancesOf[datafield]}Shape> ;` : ""}
+                            ] .
+                        }`
                 })
                 tr.appendChild(td)
                 rowToInsertBefore.parentNode.insertBefore(tr, rowToInsertBefore)

@@ -51,7 +51,7 @@ const canvasCtxMenuItems = [
         label: "experimental",
         submenu: [
             { label: "SHACL Form Editor", action: "ShaclFormNode" },
-            { label: "Shacl Quiz-Form Editor", action: "ShaclQuizFormNode" },
+            { label: "SHACL Quiz-Form Editor", action: "ShaclQuizFormNode" },
             { label: "SHACL Wizard", action: "ShaclWizardNode" },
             { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" },
             { label: "Table output Viewer (only live-view)", action: "OutputViewTableLeafNode" },
