@@ -1,6 +1,6 @@
 import { Node } from "../Node.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { randStr, runSparqlSelectQueryOnRdfString, shrink } from "../../../utils.js"
+import { randStr, runSparqlSelectQueryOnRdfString, shrink, expand } from "../../../utils.js"
 import { slugify } from "../../../assets/bundle.js"
 import { SparqlParser } from "../../../assets/bundle.js"
 
@@ -11,7 +11,8 @@ export class GraphVisuNode extends Node {
             URI: "",
             LITERAL: "green",
             BLANK: "silver",
-            VARIABLE: "orange"
+            VARIABLE: "orange",
+            MAIN_PERSON: "blue",
         }
     }
 
@@ -28,7 +29,9 @@ export class GraphVisuNode extends Node {
             const processTerm = (value, type) => {
                 switch (type) {
                     case this.NODE_TYPE.URI:
-                        return { id: value, label: shrink(value), type: type }
+                        let node = { id: value, label: shrink(value), type: type }
+                        if (value === expand("ff", "mainPerson")) node.type = this.NODE_TYPE.MAIN_PERSON
+                        return node
                     case this.NODE_TYPE.LITERAL:
                         let id = `${randStr()}_${slugify(value, { lower: true })}`
                         return { id, label: `"${value}"`, type: type }
@@ -65,7 +68,9 @@ export class GraphVisuNode extends Node {
             const processTerm = (term) => {
                 switch (term.termType) {
                     case "NamedNode":
-                        return { id: term.value, label: shrink(term.value), type: this.NODE_TYPE.URI }
+                        let node = { id: term.value, label: shrink(term.value), type: this.NODE_TYPE.URI }
+                        if (term.value === expand("ff", "mainPerson")) node.type = this.NODE_TYPE.MAIN_PERSON
+                        return node
                     case "Literal":
                         let id = `${randStr()}_${slugify(term.value, { lower: true })}`
                         return { id, label: `"${term.value}"`, type: this.NODE_TYPE.LITERAL }
