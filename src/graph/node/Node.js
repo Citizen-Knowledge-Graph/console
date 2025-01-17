@@ -255,7 +255,7 @@ export class Node {
     sendInstantShowValue(portOut, content) {
         let outgoingEdges = Object.values(this.graph.edgesMap).filter(edge => edge.sourceNode === this)
         let edge = outgoingEdges.find(edge => edge.portOut === portOut)
-        if (!edge || edge.targetNode.constructor.name !== "OutputViewLeafNode") return
+        if (!edge || !(["OutputViewLeafNode", "OutputViewTableLeafNode"].includes(edge.targetNode.constructor.name))) return
         edge.targetNode.instantShowValue(content, "turtle")
     }
 

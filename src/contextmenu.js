@@ -51,10 +51,11 @@ const canvasCtxMenuItems = [
         label: "experimental",
         submenu: [
             { label: "SHACL Form Editor", action: "ShaclFormNode" },
-            { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" },
-            { label: "Turtle Input with copy-paste in-port", action: "TurtleInputNodeWithCopyPasteInPort" },
-            { label: "SHACL Wizard", action: "ShaclWizardNode" },
             { label: "Shacl Quiz-Form Editor", action: "ShaclQuizFormNode" },
+            { label: "SHACL Wizard", action: "ShaclWizardNode" },
+            { label: "Output Viewer (only live-view)", action: "OutputViewLeafNode" },
+            { label: "Table output Viewer (only live-view)", action: "OutputViewTableLeafNode" },
+            // { label: "Turtle Input with copy-paste in-port", action: "TurtleInputNodeWithCopyPasteInPort" },
             // { label: "shacl-form lib Editor (dev)", action: "ShaclFormLibNode" }
         ]
     },

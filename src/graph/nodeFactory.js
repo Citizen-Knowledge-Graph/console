@@ -17,6 +17,7 @@ import { ShaclWizardNode } from "./node/edit/ShaclWizardNode.js"
 import { MarkdownNode } from "./node/input/MarkdownNode.js"
 import { GraphVisuNode } from "./node/view/GraphVisuNode.js"
 import { ShaclQuizFormNode } from "./node/edit/ShaclQuizFormNode.js"
+import { OutputViewTableLeafNode } from "./node/view/OutputViewTableLeafNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -59,7 +60,8 @@ const nodeClasses = {
     "ShaclWizardNode": ShaclWizardNode,
     "MarkdownNode": MarkdownNode,
     "GraphVisuNode": GraphVisuNode,
-    "ShaclQuizFormNode": ShaclQuizFormNode
+    "ShaclQuizFormNode": ShaclQuizFormNode,
+    "OutputViewTableLeafNode": OutputViewTableLeafNode
 }
 
 export const exampleData = {
