@@ -64,8 +64,8 @@ ff:node9 a ff:Node;
          ff:hasPosX 2803;
          ff:hasPosY -378;
          ff:hasWidth 313;
-         ff:hasHeight 310;
-         ff:hasValue "- Validation\n\t- Plausibility\n\t- Subject-specific\n- Dynamic form adjustments\n- Generate UI from constraints\n- Interoperability\n- Active ecosystem\n    - SHACL specification\n\t- Vocabularies\n    - Tooling".
+         ff:hasHeight 360;
+         ff:hasValue "- Validation\n\t- Plausibility\n\t- Subject-specific\n- Dynamic form changes\n\t- Based on Input\n\t- Inference\n- Generate UI from constraints\n- Interoperability\n- Active ecosystem\n    - SHACL specification\n\t- Vocabularies\n    - Tooling".
 ff:node10 a ff:Node;
           ff:hasClass ff:TurtleInputNode;
           ff:hasName "Requirement profile 2";
