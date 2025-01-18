@@ -14,7 +14,7 @@ ff:node1 a ff:Node;
          ff:hasName "User profile";
          ff:hasPosX -1158;
          ff:hasPosY 743;
-         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:mainPerson a ff:Citizen ;\n    #ff:hasBirthday \"1990-01-02\"^^xsd:date ;\n\t#ff:hasResidence \"Berlin\" ;\n\tff:income 4000 ;\n    ff:hasChild ff:child0 .\n\nff:child0 a ff:Child ;\n\tfoaf:age 11 .".
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:mainPerson a ff:Citizen ;\n    #ff:hasBirthday \"1990-01-02\"^^xsd:date ;\n\t#ff:hasResidence \"Berlin\" ;\n\t#ff:income 4000 ;\n    ff:hasChild ff:child0 .\n\nff:child0 a ff:Child ;\n\tfoaf:age 11 .".
 ff:node2 a ff:Node;
          ff:hasClass ff:TurtleInputNode;
          ff:hasName "Requirement profile 1";
