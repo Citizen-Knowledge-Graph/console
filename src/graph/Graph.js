@@ -350,6 +350,7 @@ export class Graph {
             if (row.width) initialValues.size = [row.width, row.height]
             if (row.contentHidden) initialValues.contentHidden = true
             let node = this.createNode(this.localName(row.class), initialValues)
+            if (node.constructor.name === "MarkdownNode") node.switchToViewMode()
             idMap[row.node] = node.id
         }
         // edges
