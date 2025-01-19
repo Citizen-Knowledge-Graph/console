@@ -194,14 +194,14 @@
         <div class="top-menu">
             <span style="font-size: large; font-weight: bold;">semOps</span>
             <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
-            <span id="runBtn" class="spanBtn">Run</span><span class="separator-span">|</span>
+            <span id="runBtn" class="spanBtn" title="cmd + e">Run</span><span class="separator-span">|</span>
             <!--<span id="stepBtn">Step</span><span class="separator-span">|</span>-->
             <!--<span id="resetBtn" class="spanBtn" title="clear the value of all processor nodes">Reset</span><span class="separator-span">|</span>-->
-            <span id="saveBtn" class="spanBtn" title="to the local storage of your browser">Save</span><span class="separator-span">|</span>
-            <span id="loadBtn" class="spanBtn" title="from the local storage of your browser">Load</span><span class="separator-span">|</span>
+            <span id="saveBtn" class="spanBtn" title="cmd + s / to the local storage of your browser">Save</span><span class="separator-span">|</span>
+            <span id="loadBtn" class="spanBtn" title="cmd + l / from the local storage of your browser">Load</span><span class="separator-span">|</span>
             <span id="newBtn" class="spanBtn">New</span><span class="separator-span">|</span>
             <span id="importBtn" class="spanBtn" title="has to be semOps turtle format">Import</span><input type="file" id="fileUpload" style="display: none" /><span class="separator-span">|</span>
-            <span id="exportBtn" class="spanBtn" title="as semOps turtle format">Export</span><span class="separator-span">|</span>
+            <span id="exportBtn" class="spanBtn">Export</span><span class="separator-span">|</span>
             <span id="settingsBtn" class="spanBtn">Settings</span><span class="separator-span">|</span>
             <span id="examplesBtn" class="spanBtn">Examples</span><span class="separator-span">|</span>
             <span id="howtoBtn" class="spanBtn">HowTo</span>
@@ -495,14 +495,22 @@
                     <div>&#128250; <a href="https://youtu.be/1muHHA0Q8cQ" target="_blank">5 min intro video</a></div>
                     <br/>
                     <div><strong>New nodes:</strong> right-click on the canvas</div>
-                    <div><strong>New edges:</strong> left-click and drag from port to port</div>
+                    <div><strong>New edges:</strong> left-click and drag from input- to output-port</div>
+                    <br/>
                     <div><strong>Node options:</strong> right-click on the node</div>
                     <div><strong>Delete edges:</strong> right-click on the edge</div>
-                    <div><strong>Resize nodes:</strong> drag the lower right corner / double click for default size</div>
+                    <div><strong>Resize nodes:</strong> lower right corner: dragging for resizing / double clicking for default size</div>
                     <br/>
-                    <div>Use the browser zoom to zoom in and out if needed</div>
+                    <div>Use the browser zoom to zoom in and out if needed.</div>
                     <br/>
-                    <div>Select multiple nodes by holding shift while clicking \t&rarr; options via right-click on one of them</div>
+                    <div>Select multiple nodes by holding shift while clicking \t&rarr; options via right-click on one of them.</div>
+                    <br/>
+                    <strong>Shortcuts:</strong>
+                    <ul>
+                        <li>Run: <code>cmd + e</code></li>
+                        <li>Save: <code>cmd + s</code></li>
+                        <li>Load: <code>cmd + l</code></li>
+                    </ul>
                 `
                 modalContent.appendChild(div)
             })
