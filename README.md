@@ -1,8 +1,8 @@
 # semOps: linked data operations flow tool
 
-Live at [console.foerderfunke.org](https://console.foerderfunke.org).
+:tv: [5 min intro video](https://youtu.be/1muHHA0Q8cQ).
 
-Usage instructions under *HowTo* on the site.
+Live at [console.foerderfunke.org](https://console.foerderfunke.org). Usage instructions under *HowTo* on the site.
 
 ## Development
 
