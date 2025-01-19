@@ -8,27 +8,28 @@ export class MarkdownNode extends CodeNode {
 
     getMainHtml() {
         return `
-            <div class="markdown-container"></div>
+            <div class="markdown-container" style="user-select: text; cursor: default; display: none"></div>
             <div class="codemirror-container"></div>
             <div class="bottom-menu">
                 <span class="edit-btn">Edit</span> | <span class="view-btn">View</span>
             </div>`
     }
 
+    switchToEditMode() {
+        this.nodeDiv.querySelector(".markdown-container").style.display = "none"
+        this.codemirrorContainer.style.display = "block"
+    }
+
+    switchToViewMode() {
+        this.codemirrorContainer.style.display = "none"
+        this.nodeDiv.querySelector(".markdown-container").innerHTML = marked.parse(this.getValue())
+        this.nodeDiv.querySelector(".markdown-container").style.display = "block"
+    }
+
     postConstructor() {
         super.postConstructor()
-        let markdown = this.nodeDiv.querySelector(".markdown-container")
-        markdown.style = "user-select: text; display: none"
-        this.nodeDiv.querySelector(".edit-btn").addEventListener("click", () => {
-            markdown.style.display = "none"
-            this.codemirrorContainer.style.display = "block"
-        })
-        this.nodeDiv.querySelector(".view-btn").addEventListener("click", () => {
-            markdown.innerHTML = marked.parse(this.getValue())
-            markdown.style.display = "block"
-            this.codemirrorContainer.style.display = "none"
-        })
-        markdown.style.cursor = "default"
-        markdown.addEventListener("mousedown", event => event.stopPropagation())
+        this.nodeDiv.querySelector(".markdown-container").addEventListener("mousedown", event => event.stopPropagation())
+        this.nodeDiv.querySelector(".edit-btn").addEventListener("click", () => this.switchToEditMode())
+        this.nodeDiv.querySelector(".view-btn").addEventListener("click", () => this.switchToViewMode())
     }
 }
