@@ -46,7 +46,7 @@ export class Node {
     }
 
     resetSize() {
-        this.setValue(this.getValue().trim())
+        this.setValue(this.getValueForExport().trim())
         this.setSize(this.initialWidth, this.initialHeight)
         this.nodeDiv.style.removeProperty("width")
         this.nodeDiv.style.removeProperty("height")
@@ -155,7 +155,7 @@ export class Node {
 
     async run() {
         if (this.isInput()) {
-            this.inputNodePreRun()
+            await this.inputNodePreRun()
         } else {
             this.setValue(await this.processIncomingData())
         }
