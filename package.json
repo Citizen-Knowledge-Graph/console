@@ -23,7 +23,7 @@
     "cloneRepo": "git clone https://github.com/Citizen-Knowledge-Graph/requirement-profiles src/assets/requirement-profiles",
     "extractLatestRPcommit": "cd src/assets/requirement-profiles && git rev-parse HEAD > ../latest-rps-repo-commit.txt",
     "cleanRepo": "rm -rf src/assets/requirement-profiles/.git*",
-    "listRpsDir": "cd src/assets/requirement-profiles && ls -R > ../rps-dir.txt",
+    "listRpsDir": "cd src/assets/requirement-profiles && find . -type f > ../rps-dir.txt",
     "listExamplesDir": "cd src/examples && ls > ../assets/examples-dir.txt",
     "extractLatestConsoleCommit": "git rev-parse HEAD > src/assets/latest-console-repo-commit.txt",
     "bundle": "webpack",
