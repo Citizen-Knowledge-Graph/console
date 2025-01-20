@@ -9,7 +9,12 @@ export class TableNode extends Node {
     getMainHtml() {
         return `
             <div class="result">Result:</div>
-            <table class="result-table"></table>`
+            <table class="result-table" style="user-select: text; cursor: default;"></table>`
+    }
+
+    postConstructor() {
+        super.postConstructor()
+        this.nodeDiv.querySelector(".result-table").addEventListener("mousedown", event => event.stopPropagation())
     }
 
     setValue(tableData) {
