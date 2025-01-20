@@ -26,6 +26,7 @@ const canvasCtxMenuItems = [
                     { label: "Example: Delete / Insert", action: "ex_SparqlInputNode_DeleteInsert" },
                 ]
             },
+            { label: "External Turtle Files", action: "ExternalTurtleFilesInputNode" },
             // { label: "Output Viewer with initial input", action: "OutputViewNodeWithInitialInput" },
         ]
     },

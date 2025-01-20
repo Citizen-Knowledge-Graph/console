@@ -18,6 +18,7 @@ import { MarkdownNode } from "./node/input/MarkdownNode.js"
 import { GraphVisuNode } from "./node/view/GraphVisuNode.js"
 import { ShaclQuizFormNode } from "./node/edit/ShaclQuizFormNode.js"
 import { OutputViewTableLeafNode } from "./node/view/OutputViewTableLeafNode.js"
+import { ExternalTurtleFilesInputNode } from "./node/input/ExternalTurtleFilesInputNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -61,7 +62,8 @@ const nodeClasses = {
     "MarkdownNode": MarkdownNode,
     "GraphVisuNode": GraphVisuNode,
     "ShaclQuizFormNode": ShaclQuizFormNode,
-    "OutputViewTableLeafNode": OutputViewTableLeafNode
+    "OutputViewTableLeafNode": OutputViewTableLeafNode,
+    "ExternalTurtleFilesInputNode": ExternalTurtleFilesInputNode
 }
 
 export const exampleData = {
