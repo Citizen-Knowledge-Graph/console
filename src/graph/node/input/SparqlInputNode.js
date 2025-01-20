@@ -7,7 +7,7 @@ export class SparqlInputNode extends CodeNode {
         super(initialValues, graph, [], [ PORT.SPARQL ], TYPE.INPUT)
     }
 
-    checkSyntax() {
+    inputNodePreRun() {
         try {
             new SparqlParser().parse(this.getValue())
         } catch (err) {

@@ -7,7 +7,7 @@ export class TurtleInputNode extends CodeNode {
         super(initialValues, graph, [], [ PORT.TURTLE ], TYPE.INPUT)
     }
 
-    checkSyntax() {
+    inputNodePreRun() {
         this.testParseTurtle()
             .then()
             .catch(err => this.handleError(err))

@@ -155,7 +155,7 @@ export class Node {
 
     async run() {
         if (this.isInput()) {
-            this.checkSyntax()
+            this.inputNodePreRun()
         } else {
             this.setValue(await this.processIncomingData())
         }
@@ -262,7 +262,7 @@ export class Node {
     getMainHtml() {}
     preResize() {}
     postResize(dy) {}
-    checkSyntax() {}
+    inputNodePreRun() {}
 
     getValue() { this.err() }
     setValue(value) { this.err() }
