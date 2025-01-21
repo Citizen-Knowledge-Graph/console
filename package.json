@@ -1,7 +1,7 @@
 {
-  "name": "foerderfunke-console",
-  "version": "0.0.1",
-  "description": "Playground and discovery tool for all Linked Data in the FörderFunke project",
+  "name": "sem-ops",
+  "version": "0.1.0-beta",
+  "description": "Playground and discovery tool for Linked Data",
   "type": "module",
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.0.2",
