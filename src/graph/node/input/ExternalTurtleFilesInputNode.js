@@ -23,7 +23,7 @@ export class ExternalTurtleFilesInputNode extends CodeNode {
 
     async inputNodePreRun() {
         try {
-            let sources = this.codeMirror.getValue().split(/\r?\n/).filter(line => line.trim() !== "")
+            let sources = this.codeMirror.getValue().split(/\r?\n/).filter(line => line.trim() !== "" && !line.trim().startsWith("#") && !line.trim().startsWith("//"))
             if (sources.length === 1) {
                 let response = await fetch(sources[0])
                 this.value = await response.text()
