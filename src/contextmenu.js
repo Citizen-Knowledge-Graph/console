@@ -79,7 +79,8 @@ const nodeHeaderCtxMenuItems = [
         ]
     },
     { label: "Add input port", action: "AddInputPortAction", onlyVisibleFor: [ "MergeTriplesNode", "ShaclQuizFormNode" ] },
-    { label: "Save current as initial value", action: "SaveInitialValueAction", onlyVisibleFor: [ "TurtleInputNodeWithCopyPasteInPort" ] }
+    { label: "Save current as initial value", action: "SaveInitialValueAction", onlyVisibleFor: [ "TurtleInputNodeWithCopyPasteInPort" ] },
+    { label: "Info", action: "InfoAction", onlyVisibleFor: [ "ExternalTurtleFilesInputNode" ] },
 ]
 
 const multipleNodesHeaderCtxMenuItems = (count) => {

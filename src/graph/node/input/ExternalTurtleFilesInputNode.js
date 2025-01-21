@@ -17,6 +17,10 @@ export class ExternalTurtleFilesInputNode extends CodeNode {
         return this.codeMirror.getValue()
     }
 
+    getInfo() {
+        return `Each line must point to an external Turtle file.<br>If multiple lines are provided, all Turtle files<br>will be fetched and their contents merged.`
+    }
+
     async inputNodePreRun() {
         try {
             let sources = this.codeMirror.getValue().split(/\r?\n/).filter(line => line.trim() !== "")

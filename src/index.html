@@ -621,6 +621,12 @@
                             case "SaveInitialValueAction":
                                 node.saveInitialValue()
                                 break;
+                            case "InfoAction":
+                                let modalContent = showModal("Node Info")
+                                let div = document.createElement("div")
+                                div.innerHTML = node.getInfo()
+                                modalContent.appendChild(div)
+                                break;
                         }
                     })
                     return

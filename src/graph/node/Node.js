@@ -272,6 +272,7 @@ export class Node {
     addInputPort() { this.err() }
     onCodeMirrorChange() { this.err() }
     saveInitialValue() { this.err() }
+    getInfo() { this.err() }
 
     err() {
         console.error("This 'abstract base method' should not be called")
