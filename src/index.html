@@ -465,24 +465,57 @@
                 let modalContent = showModal("Examples")
                 let table = document.createElement("table")
                 table.classList.add("result-table")
-                buildTableHeader(["File", "Name", "Options"], table)
+                buildTableHeader(["File / Folder", "Name", "Options"], table)
                 let response = await fetch("assets/examples-dir.txt")
                 const fileNameList = await response.text()
+                let structure = { ROOT: { expanded: true, children: [] }}
                 for (const fileName of fileNameList.split("\n")) {
                     if (!fileName) continue
+                    let parts = fileName.split("/")
+                    if (parts.length === 2) {
+                        structure.ROOT.children.push(parts[1])
+                    }
+                    if (parts.length === 3) {
+                        if (!structure[parts[1]]) structure[parts[1]] = { expanded: false, children: [] }
+                        structure[parts[1]].children.push(parts[2])
+                    }
+                }
+                const buildRow = async (fileName) => {
                     response = await fetch(`examples/${fileName}`)
                     let turtle = await response.text()
                     let details = await getDetailsFromGraphTurtle(turtle)
                     let tr = document.createElement("tr")
                     let td = document.createElement("td")
                     td.style.fontSize = "small"
-                    td.appendChild(document.createTextNode(fileName))
+                    td.appendChild(document.createTextNode(fileName.split("/").pop()))
                     tr.appendChild(td)
                     td = document.createElement("td")
                     td.appendChild(document.createTextNode(details.name ? details.name : ""))
                     tr.appendChild(td)
                     td = document.createElement("td")
                     td.appendChild(buildActionSpan("Load", () => loadTurtle(turtle)))
+                    tr.appendChild(td)
+                    table.appendChild(tr)
+                }
+                for (let key of Object.keys(structure)) {
+                    if (key === "ROOT") {
+                        for (let child of structure[key].children) await buildRow(child)
+                        continue
+                    }
+                    let tr = document.createElement("tr")
+                    let td = document.createElement("td")
+                    td.colSpan = 3
+                    td.style.fontSize = "normal"
+                    let span = document.createElement("span")
+                    span.innerHTML = "&#x25BC;" + key.replaceAll("-", " ")
+                    td.appendChild(span)
+                    td.addEventListener("click", async () => {
+                        if (structure[key].expanded) return
+                        structure[key].expanded = true
+                        for (let child of structure[key].children) {
+                            await buildRow(`${key}/${child}`)
+                        }
+                    })
                     tr.appendChild(td)
                     table.appendChild(tr)
                 }

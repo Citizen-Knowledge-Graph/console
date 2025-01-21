@@ -24,7 +24,7 @@
     "extractLatestRPcommit": "cd src/assets/requirement-profiles && git rev-parse HEAD > ../latest-rps-repo-commit.txt",
     "cleanRepo": "rm -rf src/assets/requirement-profiles/.git*",
     "listRpsDir": "cd src/assets/requirement-profiles && find . -type f > ../rps-dir.txt",
-    "listExamplesDir": "cd src/examples && ls > ../assets/examples-dir.txt",
+    "listExamplesDir": "cd src/examples && find . -type f > ../assets/examples-dir.txt",
     "extractLatestConsoleCommit": "git rev-parse HEAD > src/assets/latest-console-repo-commit.txt",
     "bundle": "webpack",
     "build": "npm run clean && npm run cloneRepo && npm run extractLatestRPcommit && npm run cleanRepo && npm run listRpsDir && npm run listExamplesDir && npm run extractLatestConsoleCommit && npm run bundle"
