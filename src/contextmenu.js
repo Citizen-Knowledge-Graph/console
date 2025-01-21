@@ -27,6 +27,7 @@ const canvasCtxMenuItems = [
                 ]
             },
             { label: "External Turtle Files", action: "ExternalTurtleFilesInputNode" },
+            { label: "External SPARQL Endpoint", action: "ExternalSparqlEndpointInputNode" },
             // { label: "Output Viewer with initial input", action: "OutputViewNodeWithInitialInput" },
         ]
     },
@@ -80,7 +81,7 @@ const nodeHeaderCtxMenuItems = [
     },
     { label: "Add input port", action: "AddInputPortAction", onlyVisibleFor: [ "MergeTriplesNode", "ShaclQuizFormNode" ] },
     { label: "Save current as initial value", action: "SaveInitialValueAction", onlyVisibleFor: [ "TurtleInputNodeWithCopyPasteInPort" ] },
-    { label: "Info", action: "InfoAction", onlyVisibleFor: [ "ExternalTurtleFilesInputNode" ] },
+    { label: "Info", action: "InfoAction", onlyVisibleFor: [ "ExternalTurtleFilesInputNode", "ExternalSparqlEndpointInputNode" ] },
 ]
 
 const multipleNodesHeaderCtxMenuItems = (count) => {
