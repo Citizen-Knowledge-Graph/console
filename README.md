@@ -19,6 +19,8 @@ Serve `index.html` with a local server. For instance via `npx http-server`, `pyt
 - Collaborative live sessions to get from post-it-tinkering to computable data structures fast and playful, along [this](https://medium.com/miro-engineering/exploring-structured-data-as-graphs-in-miro-880aa4051b70) line
   - with autocomplete and merge-suggestions for ongoing vocabulary-consolidation, along [this](https://github.com/benjaminaaron/OntoEngine) line
 - Pull data in live from other sources
+- Add a reasoner processor node for ontology functionalities
+- Improve graph visualizer, also with support for ontologies
 - Use standards for exported Turtle, maybe [RDF Connect](https://github.com/rdf-connect)
 - Export an entire ready-to-execute implementation in different programming languages based on the flow graph
 - Support RDF-star (e.g. for tagging and versioning)
