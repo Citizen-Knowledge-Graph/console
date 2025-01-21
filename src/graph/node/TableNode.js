@@ -45,6 +45,7 @@ export class TableNode extends Node {
             tbody.appendChild(tr)
         }
         table.appendChild(tbody)
+        this.nodeDiv.style.setProperty("width", (table.offsetWidth + 2 * table.offsetLeft) + "px", "important")
         this.rerenderConnectingEdges()
     }
 
