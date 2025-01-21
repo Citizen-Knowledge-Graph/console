@@ -10,12 +10,23 @@ export class SparqlConstructExecNode extends CodeNode {
 
     async processIncomingData() {
         try {
-            let turtle = this.incomingData.filter(port => port.dataType === PORT.TURTLE)[0].data
             let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
-            let constructedQuads = await runSparqlConstructQueryOnRdfString(sparql, turtle) // reuse the store being created there?
-            let store = new Store()
-            for (let quad of constructedQuads) store.addQuad(quad)
-            return await serializeStoreToTurtle(store)
+            let turtleInput = this.incomingData.filter(port => port.dataType === PORT.TURTLE)
+            if (turtleInput.length > 0) {
+                let constructedQuads = await runSparqlConstructQueryOnRdfString(sparql, turtleInput[0].data) // reuse the store being created there?
+                let store = new Store()
+                for (let quad of constructedQuads) store.addQuad(quad)
+                return await serializeStoreToTurtle(store)
+            }
+            let sparqlEndpointInput = this.incomingData.filter(port => port.dataType === PORT.SPARQL_ENDPOINT)
+            if (sparqlEndpointInput.length > 0) {
+                let endpoint = sparqlEndpointInput[0].data
+                let fullUrl = endpoint + "?query=" + encodeURIComponent(sparql)
+                const response = await fetch(fullUrl, {
+                    headers: { "Accept": "text/turtle" }
+                })
+                return await response.text()
+            }
         } catch (err) {
             return this.handleError(err.message)
         }

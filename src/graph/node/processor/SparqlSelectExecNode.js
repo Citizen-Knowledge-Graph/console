@@ -18,9 +18,29 @@ export class SparqlSelectExecNode extends TableNode {
 
     async processIncomingData() {
         try {
-            let turtle = this.incomingData.filter(port => port.dataType === PORT.TURTLE)[0].data
             let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
-            let results = await runSparqlSelectQueryOnRdfString(sparql, turtle)
+            let turtleInput = this.incomingData.filter(port => port.dataType === PORT.TURTLE)
+            let results
+            if (turtleInput.length > 0) {
+                results = await runSparqlSelectQueryOnRdfString(sparql, turtleInput[0].data)
+            }
+            let sparqlEndpointInput = this.incomingData.filter(port => port.dataType === PORT.SPARQL_ENDPOINT)
+            if (sparqlEndpointInput.length > 0) {
+                let endpoint = sparqlEndpointInput[0].data
+                let fullUrl = endpoint + "?query=" + encodeURIComponent(sparql)
+                let response = await fetch(fullUrl, {
+                    headers: { "Accept": "application/sparql-results+json" }
+                })
+                let data = await response.json()
+                results = []
+                for (let binding of data.results.bindings) {
+                    let row = {}
+                    Object.entries(binding).forEach(([queryVar, obj]) => {
+                        row[queryVar] = obj.value
+                    })
+                    results.push(row)
+                }
+            }
             let variables = Object.keys(results[0]) // assuming they don't change between rows
             let rows = []
             let fullRows = [] // not de-prefixed
