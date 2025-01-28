@@ -1,6 +1,7 @@
 import { TableNode } from "../TableNode.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
 import { prefixes, runSparqlSelectQueryOnRdfString } from "../../../utils.js"
+import { SparqlParser } from "../../../assets/bundle.js"
 
 export class SparqlSelectExecNode extends TableNode {
     constructor(initialValues, graph) {
@@ -19,6 +20,18 @@ export class SparqlSelectExecNode extends TableNode {
     async processIncomingData() {
         try {
             let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
+            let queryObj = new SparqlParser().parse(sparql)
+            if (queryObj.queryType !== "SELECT") {
+                return this.handleError("Only SPARQL SELECT queries are supported")
+            }
+            let variables = []
+            if (!(queryObj.variables.length === 1 && queryObj.variables[0].value === "*")) {
+                // this is so that the order is being honored, later when collecting keys it won't
+                for (let vari of queryObj.variables) {
+                    if (vari.value) variables.push(vari.value)
+                    if (vari.variable) variables.push(vari.variable.value)
+                }
+            }
             let turtleInput = this.incomingData.filter(port => port.dataType === PORT.TURTLE)
             let results
             if (turtleInput.length > 0) {
@@ -41,15 +54,25 @@ export class SparqlSelectExecNode extends TableNode {
                     results.push(row)
                 }
             }
-            let variables = Object.keys(results[0]) // assuming they don't change between rows
+            if (variables.length === 0) {
+                // collect all variables from all the rows
+                let keys = {}
+                for (let result of results) {
+                    for (let key of Object.keys(result)) {
+                        keys[key] = true
+                    }
+                }
+                variables = Object.keys(keys)
+            }
             let rows = []
             let fullRows = [] // not de-prefixed
             for (let result of results) {
                 let row = []
                 let fullRow = []
                 for (let variable of variables) {
-                    row.push(this.dePrefix(result[variable]))
-                    fullRow.push(result[variable])
+                    let value = result[variable] ?? ""
+                    row.push(this.dePrefix(value))
+                    fullRow.push(value)
                 }
                 rows.push(row)
                 fullRows.push(fullRow)
