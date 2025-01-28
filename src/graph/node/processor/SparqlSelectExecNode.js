@@ -10,9 +10,7 @@ export class SparqlSelectExecNode extends TableNode {
 
     dePrefix(value) {
         for (let [key, val] of Object.entries(prefixes)) {
-            if (value.startsWith(val)) {
-                return value.replace(val, key + ":")
-            }
+            value = value.replaceAll(val, key + ":")
         }
         return value
     }

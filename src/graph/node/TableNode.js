@@ -35,10 +35,16 @@ export class TableNode extends Node {
             let tr = document.createElement("tr")
             for (let cell of row) {
                 let td = document.createElement("td")
-                if (cell.includes(":")) {
-                    td.innerHTML = `<span class="prefix">${cell.split(":")[0]}:</span>${cell.split(":")[1]}`
-                } else {
-                    td.innerHTML = `<span class="literal">${cell}</span>`
+                let splits = cell.split(",") // assumes comma separator
+                for (let i = 0; i < splits.length; i++) {
+                    let element = splits[i]
+                    if (element.includes(":")) {
+                        td.innerHTML += `<span class="prefix">${element.split(":")[0]}:</span>${element.split(":")[1]}`
+                        if (i < splits.length - 1) td.innerHTML += ","
+                    } else {
+                        td.innerHTML += `<span class="literal">${element}</span>`
+                        if (i < splits.length - 1) td.innerHTML += ","
+                    }
                 }
                 tr.appendChild(td)
             }
