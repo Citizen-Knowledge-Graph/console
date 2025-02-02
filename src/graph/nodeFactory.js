@@ -20,6 +20,8 @@ import { ShaclQuizFormNode } from "./node/edit/ShaclQuizFormNode.js"
 import { OutputViewTableLeafNode } from "./node/view/OutputViewTableLeafNode.js"
 import { ExternalTurtleFilesInputNode } from "./node/input/ExternalTurtleFilesInputNode.js"
 import { ExternalSparqlEndpointInputNode } from "./node/input/ExternalSparqlEndpointInputNode.js"
+import { JavaScriptInputNode } from "./node/input/JavaScriptInputNode.js"
+import { JavaScriptExecNode } from "./node/processor/JavaScriptExecNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -36,7 +38,8 @@ export const PORT = {
     SPARQL: 2,
     CSV: 3,
     MARKDOWN: 4,
-    SPARQL_ENDPOINT: 5
+    SPARQL_ENDPOINT: 5,
+    JAVASCRIPT: 6,
 }
 
 export const VIEW_MODE = {
@@ -66,7 +69,9 @@ const nodeClasses = {
     "ShaclQuizFormNode": ShaclQuizFormNode,
     "OutputViewTableLeafNode": OutputViewTableLeafNode,
     "ExternalTurtleFilesInputNode": ExternalTurtleFilesInputNode,
-    "ExternalSparqlEndpointInputNode": ExternalSparqlEndpointInputNode
+    "ExternalSparqlEndpointInputNode": ExternalSparqlEndpointInputNode,
+    "JavaScriptExecNode": JavaScriptExecNode,
+    "JavaScriptInputNode": JavaScriptInputNode,
 }
 
 export const exampleData = {

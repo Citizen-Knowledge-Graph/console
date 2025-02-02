@@ -9,6 +9,7 @@ import CodeMirror from "codemirror"
 import "codemirror/mode/turtle/turtle.js"
 import "codemirror/mode/sparql/sparql.js"
 import "codemirror/mode/markdown/markdown.js"
+import "codemirror/mode/javascript/javascript.js"
 import slugify from "slugify"
 import JSZip from "jszip"
 

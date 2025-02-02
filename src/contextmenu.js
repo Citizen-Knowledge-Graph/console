@@ -28,6 +28,7 @@ const canvasCtxMenuItems = [
             },
             { label: "External Turtle Files", action: "ExternalTurtleFilesInputNode" },
             { label: "External SPARQL Endpoint", action: "ExternalSparqlEndpointInputNode" },
+            { label: "JavaScript Input", action: "JavaScriptInputNode" },
             // { label: "Output Viewer with initial input", action: "OutputViewNodeWithInitialInput" },
         ]
     },
@@ -39,6 +40,7 @@ const canvasCtxMenuItems = [
             { label: "Run SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
             { label: "Run SPARQL INSERT/DELETE", action: "SparqlInsertDeleteExecNode" },
             { label: "Run SHACL validation", action: "ShaclValidationNode" },
+            { label: "Run JavaScript", action: "JavaScriptExecNode" },
         ]
     },
     {
