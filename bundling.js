@@ -1,6 +1,7 @@
 import { Parser, Store, Writer, DataFactory } from "n3"
 import { QueryEngine } from "@comunica/query-sparql-rdfjs"
 import Validator from "shacl-engine/Validator.js"
+import { validations as sparqlValidations } from "shacl-engine/sparql.js"
 import rdf from "rdf-ext"
 import formatsPretty from "@rdfjs/formats/pretty.js"
 import { Parser as SparqlParser } from "sparqljs"
@@ -17,6 +18,7 @@ export {
     Parser, Store, Writer, DataFactory,
     QueryEngine,
     Validator,
+    sparqlValidations,
     rdf,
     formatsPretty,
     SparqlParser,

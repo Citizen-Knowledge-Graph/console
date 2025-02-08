@@ -1,4 +1,4 @@
-import { Parser, QueryEngine, rdf, Store, Validator, slugify, formatsPretty } from "./assets/bundle.js"
+import { Parser, QueryEngine, rdf, Store, Validator, sparqlValidations, slugify, formatsPretty } from "./assets/bundle.js"
 
 export async function fetchAsset(relPath) {
     const response = await fetch("assets/" + relPath, {
@@ -135,7 +135,7 @@ export async function serializeDatasetToTurtle(dataset) {
 
 export async function runValidationOnStore(store) {
     let dataset = rdf.dataset(store.getQuads())
-    let validator = new Validator(dataset, { factory: rdf, debug: false, details: false })
+    let validator = new Validator(dataset, { factory: rdf, debug: false, details: false, validations: sparqlValidations })
     return await validator.validate({ dataset: dataset })
 }
 
