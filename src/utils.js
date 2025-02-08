@@ -135,7 +135,7 @@ export async function serializeDatasetToTurtle(dataset) {
 
 export async function runValidationOnStore(store) {
     let dataset = rdf.dataset(store.getQuads())
-    let validator = new Validator(dataset, { factory: rdf, debug: false })
+    let validator = new Validator(dataset, { factory: rdf, debug: false, details: false })
     return await validator.validate({ dataset: dataset })
 }
 
