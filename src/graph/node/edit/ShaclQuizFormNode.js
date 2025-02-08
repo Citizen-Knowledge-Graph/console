@@ -140,21 +140,17 @@ export class ShaclQuizFormNode extends Node {
                     ff:hasSub ?subject ;
                     ff:hasPred ?predicate .
             } WHERE {
-                VALUES ?allowedConstraint {
-                    sh:MinCountConstraintComponent
-                    sh:QualifiedMinCountConstraintComponent
-                }
                 ?report ff:wasProducedFor ?rp ;
                     sh:result ?result .
                 ?result a sh:ValidationResult ;
                     sh:sourceConstraintComponent ?type ;
                     sh:focusNode ?subject ;
                     sh:resultPath ?predicate .
-                FILTER(?type IN (?allowedConstraint))
+                FILTER(?type IN (sh:MinCountConstraintComponent, sh:QualifiedMinCountConstraintComponent))                
                 FILTER NOT EXISTS {
                     ?report sh:result ?otherResult .
                     ?otherResult sh:sourceConstraintComponent ?otherType .
-                    FILTER(?otherType NOT IN (?allowedConstraint))
+                    FILTER(?otherType NOT IN (sh:MinCountConstraintComponent, sh:QualifiedMinCountConstraintComponent))
                 }
                 BIND(IRI(CONCAT(STR(?subject), "_", REPLACE(STR(?predicate), "^.*[#/]", ""))) AS ?dfId)
             }`
