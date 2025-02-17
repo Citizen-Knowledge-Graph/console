@@ -1,0 +1,11 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:mainPerson a ff:Citizen ;
+    ff:hasChild ff:child0 .
+
+ff:child0 a ff:Child ;
+    ff:hasAge 14 ;
+    ff:hasToy ff:toy0 .
+
+ff:toy0 a ff:Toy ;
+    ff:hasAge 3 .

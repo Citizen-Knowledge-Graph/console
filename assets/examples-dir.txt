@@ -1,0 +1,10 @@
+./foerderfunke-mini.ttl
+./javascript.ttl
+./external-sparql-endpoint.ttl
+./external-turtle-files.ttl
+./for-demo-videos/demo-quiz-breakdown.ttl
+./for-demo-videos/demo-form.ttl
+./for-demo-videos/demo-form-breakdown.ttl
+./for-demo-videos/demo-quiz.ttl
+./for-demo-videos/demo-graph-visu.ttl
+./for-demo-videos/demo-wizard.ttl
