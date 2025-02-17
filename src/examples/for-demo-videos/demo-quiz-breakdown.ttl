@@ -4,7 +4,7 @@
 ff:graph a ff:Graph;
          ff:hasId "graph_2024-12-25_15-57-48";
          ff:hasName "Demo: Quiz Breakdown";
-         ff:hasExportTimestamp "2025-01-17T16:15:11.462Z";
+         ff:hasExportTimestamp "2025-02-17T21:46:27.018Z";
          ff:hasTranslateX -5450;
          ff:hasTranslateY -84;
          ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11, ff:node12, ff:node13, ff:node14, ff:node15, ff:node16, ff:node17, ff:node18, ff:node19, ff:node20, ff:node21, ff:node22, ff:node23, ff:node24, ff:node25;
@@ -72,7 +72,7 @@ ff:node9 a ff:Node;
          ff:hasPosY 500;
          ff:hasWidth 576;
          ff:hasHeight 545;
-         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\nCONSTRUCT {\n  ?dfId ff:isMissedBy ?rp ;\n      ff:hasSub ?subject ;\n      ff:hasPred ?predicate .\n}\nWHERE {\n  VALUES ?allowedConstraint {\n    sh:MinCountConstraintComponent\n    sh:QualifiedMinCountConstraintComponent\n  }\n\n  ?report ff:wasProducedFor ?rp ;\n          sh:result ?result .\n\n  ?result a sh:ValidationResult ;\n          sh:sourceConstraintComponent ?type ;\n          sh:focusNode ?subject ;\n          sh:resultPath ?predicate .\n  FILTER(?type IN (?allowedConstraint))\n\n  FILTER NOT EXISTS {\n    ?report sh:result ?otherResult .\n    ?otherResult sh:sourceConstraintComponent ?otherType .\n    FILTER(?otherType NOT IN (?allowedConstraint))\n  }\n  \n  BIND(IRI(CONCAT(STR(?subject), \"_\", REPLACE(STR(?predicate), \"^.*[#/]\", \"\"))) AS ?dfId)\n}".
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\nCONSTRUCT {\n  ?dfId ff:isMissedBy ?rp ;\n      ff:hasSub ?subject ;\n      ff:hasPred ?predicate .\n}\nWHERE {\n  ?report ff:wasProducedFor ?rp ;\n          sh:result ?result .\n\n  ?result a sh:ValidationResult ;\n          sh:sourceConstraintComponent ?type ;\n          sh:focusNode ?subject ;\n          sh:resultPath ?predicate .\n  FILTER(?type IN (sh:MinCountConstraintComponent, sh:QualifiedMinCountConstraintComponent))                \n\n  FILTER NOT EXISTS {\n    ?report sh:result ?otherResult .\n    ?otherResult sh:sourceConstraintComponent ?otherType .\n    FILTER(?otherType NOT IN (sh:MinCountConstraintComponent, sh:QualifiedMinCountConstraintComponent))\n  }\n  \n  BIND(IRI(CONCAT(STR(?subject), \"_\", REPLACE(STR(?predicate), \"^.*[#/]\", \"\"))) AS ?dfId)\n}".
 ff:node10 a ff:Node;
           ff:hasClass ff:SparqlInputNode;
           ff:hasName "Extract violating datafields";
