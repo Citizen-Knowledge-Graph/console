@@ -18,4 +18,8 @@ export class ShaclValidationNode extends CodeNode {
             return this.handleError(err.message)
         }
     }
+
+    toggleSettings() {
+        console.log("TODO")
+    }
 }

@@ -273,6 +273,7 @@ export class Node {
     onCodeMirrorChange() { this.err() }
     saveInitialValue() { this.err() }
     getInfo() { this.err() }
+    toggleSettings() { this.err() }
 
     err() {
         console.error("This 'abstract base method' should not be called")
