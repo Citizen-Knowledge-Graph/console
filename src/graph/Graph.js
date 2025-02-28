@@ -217,6 +217,8 @@ export class Graph {
         const hasHeight = this.ff("hasHeight")
         const hasValue = this.ff("hasValue")
         const hasContentHidden = this.ff("hasContentHidden")
+        const hasDebugOn = this.ff("hasShaclValidationDebugOn")
+        const hasDetailsOn = this.ff("hasShaclValidationDetailsOn")
         // edges
         const edgeRdfClass = this.ff("Edge")
         const hasEdge = this.ff("hasEdge")
@@ -275,6 +277,10 @@ export class Graph {
             }
             if (node.isInput()) {
                 writer.addQuad(n, hasValue, DataFactory.literal(node.getValueForExport().trim()))
+            }
+            if (node.constructor.name === "ShaclValidationNode") {
+                if (node.debugOn) writer.addQuad(n, hasDebugOn, DataFactory.literal(true))
+                if (node.detailsOn) writer.addQuad(n, hasDetailsOn, DataFactory.literal(true))
             }
         })
         // edges
@@ -338,6 +344,8 @@ export class Graph {
                 }
                 OPTIONAL { ?node ff:hasContentHidden ?contentHidden . }
                 OPTIONAL { ?node ff:hasValue ?value . }
+                OPTIONAL { ?node ff:hasShaclValidationDebugOn ?debugOn . }
+                OPTIONAL { ?node ff:hasShaclValidationDetailsOn ?detailsOn . }
             }`
         let rows = await runSparqlSelectQueryOnRdfString(query, rdfStr)
         let idMap = {} // identifier in imported turtle (exportId) to the now actually instantiated node.id
@@ -349,6 +357,8 @@ export class Graph {
             if (row.value) initialValues.value = row.value
             if (row.width) initialValues.size = [row.width, row.height]
             if (row.contentHidden) initialValues.contentHidden = true
+            if (row.debugOn) initialValues.debugOn = true
+            if (row.detailsOn) initialValues.detailsOn = true
             let node = this.createNode(this.localName(row.class), initialValues)
             if (node.constructor.name === "MarkdownNode") node.switchToViewMode()
             idMap[row.node] = node.id

@@ -104,6 +104,7 @@ export class Node {
                 </div>
                 <div class="box">
                     <div class="errorMsg" style="color: red"></div>
+                    <div class="node-settings-container hidden"></div>
                     <div class="view-mode-button-container hidden">
                         <input type="button" class="show-content-btn" value="Show Content">
                     </div>

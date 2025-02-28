@@ -133,9 +133,9 @@ export async function serializeDatasetToTurtle(dataset) {
     return await rdf.io.dataset.toText("text/turtle", dataset, { prefixes: prefixesArr })
 }
 
-export async function runValidationOnStore(store) {
+export async function runValidationOnStore(store, debug = false, details = false) {
     let dataset = rdf.dataset(store.getQuads())
-    let validator = new Validator(dataset, { factory: rdf, debug: false, details: false, validations: sparqlValidations })
+    let validator = new Validator(dataset, { factory: rdf, debug: debug, details: details, validations: sparqlValidations })
     return await validator.validate({ dataset: dataset })
 }
 
