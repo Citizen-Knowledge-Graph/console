@@ -403,7 +403,15 @@
                 base64Div.addEventListener("click", async () => {
                     await graph.toTurtle(turtle => {
                         let url = new URL(window.location)
-                        url.searchParams.set("base64", encodeURIComponent(btoa(turtle)))
+                        let base64
+                        try {
+                            base64 = btoa(turtle)
+                        } catch (e) {
+                            console.error(e)
+                            alert("Failed to encode the graph to base64: " + e.message)
+                            return
+                        }
+                        url.searchParams.set("base64", encodeURIComponent(base64))
                         navigator.clipboard.writeText(url.href)
                         showMsg("Link copied to clipboard")
                     })
