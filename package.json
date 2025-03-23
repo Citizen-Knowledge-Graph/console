@@ -1,6 +1,6 @@
 {
   "name": "sem-ops",
-  "version": "0.1.0-beta",
+  "version": "0.1.1-beta",
   "description": "Playground and discovery tool for Linked Data",
   "type": "module",
   "dependencies": {
