@@ -1,7 +1,8 @@
 {
-  "name": "sem-ops",
-  "version": "0.1.1-beta",
+  "name": "@foerderfunke/console",
+  "version": "0.1.2-beta",
   "description": "Playground and discovery tool for Linked Data",
+  "author": "@foerderfunke",
   "type": "module",
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.0.2",
