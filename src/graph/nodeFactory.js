@@ -24,6 +24,7 @@ import { JavaScriptInputNode } from "./node/input/JavaScriptInputNode.js"
 import { JavaScriptExecNode } from "./node/processor/JavaScriptExecNode.js"
 import { TurtleToJsonLdConverterNode } from "./node/converter/TurtleToJsonLdConverterNode.js"
 import { JsonLdToTurtleConverterNode } from "./node/converter/JsonLdToTurtleConverterNode.js"
+import { JsonLdInputNode } from "./node/input/JsonLdInputNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -78,6 +79,7 @@ const nodeClasses = {
     "JavaScriptInputNode": JavaScriptInputNode,
     "TurtleToJsonLdConverterNode": TurtleToJsonLdConverterNode,
     "JsonLdToTurtleConverterNode": JsonLdToTurtleConverterNode,
+    "JsonLdInputNode": JsonLdInputNode
 }
 
 export const exampleData = {

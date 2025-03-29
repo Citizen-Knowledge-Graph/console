@@ -11,6 +11,7 @@ export class OutputViewNode extends CodeNode {
         let mode = "text/plain"
         if (type === PORT.SPARQL) mode = "sparql"
         if (type === PORT.TURTLE) mode = "turtle"
+        if (type === PORT.JSONLD) mode = "javascript"
         this.codeMirror.setOption("mode", mode)
         return this.incomingData[0].data
     }

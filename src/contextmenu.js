@@ -18,6 +18,7 @@ const canvasCtxMenuItems = [
                     { label: "Example: Requirement profile 2", action: "ex_TurtleInputNode_RP2" },
                 ]
             },
+            { label: "JSON-LD Input", action: "JsonLdInputNode" },
             { label: "SPARQL Input", action: "SparqlInputNode",
                 submenu: [
                     { label: "Example: Materialization rule", action: "ex_SparqlInputNode_MatRule" },
