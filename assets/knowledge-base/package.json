@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "@foerderfunke/sem-ops-utils": "^0.1.2",
+    "mocha": "^11.1.0"
+  }
+}

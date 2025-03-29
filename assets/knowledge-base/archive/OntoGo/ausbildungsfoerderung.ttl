@@ -1,0 +1,22 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+ff:ausbildungsfoerderung a ff:RequirementProfile ;
+    ff:title "Ausbildungsförderung" .
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:occupation ;
+        sh:minCount 1 ;
+        sh:in (ff:ausbildung) ;
+    ] ;
+    sh:property [
+        sh:path ff:residesInCounty ;
+        sh:minCount 1 ;
+        sh:in ("Nordfriesland") ;
+        sh:message "This Ausbildungsförderung is available only for residents of Nordfriesland" ;
+    ] .

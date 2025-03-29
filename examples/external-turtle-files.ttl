@@ -1,0 +1,38 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2024-12-14_21-00-00";
+         ff:hasName "External Turtle Files";
+         ff:hasExportTimestamp "2025-01-21T22:26:27.247Z";
+         ff:hasTranslateX 146;
+         ff:hasTranslateY 148;
+         ff:hasNode ff:node1, ff:node2, ff:node3;
+         ff:hasEdge ff:edge1, ff:edge2.
+ff:node1 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "SPARQL Input";
+         ff:hasPosX 25;
+         ff:hasPosY 176;
+         ff:hasValue "PREFIX m8g: <http://data.europa.eu/m8g/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\n\nSELECT * WHERE {\n\t?class a owl:Class ;\n    \trdfs:label ?label .\n}".
+ff:node2 a ff:Node;
+         ff:hasClass ff:ExternalTurtleFilesInputNode;
+         ff:hasName "External Turtle Files";
+         ff:hasPosX 24;
+         ff:hasPosY -61;
+         ff:hasValue "# Core Criterion and Core Evidence Vocabulary (CCCEV)\nhttps://raw.githubusercontent.com/SEMICeu/CCCEV/refs/heads/master/releases/2.1.0/voc/cccev.ttl\n\n# Core Person Vocabulary (CPV)\nhttps://raw.githubusercontent.com/SEMICeu/Core-Person-Vocabulary/refs/heads/master/releases/2.1.1/voc/core-person-ap.ttl".
+ff:node3 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX 644;
+         ff:hasPosY -117.
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node3;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node3;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
