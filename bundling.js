@@ -13,6 +13,7 @@ import "codemirror/mode/markdown/markdown.js"
 import "codemirror/mode/javascript/javascript.js"
 import slugify from "slugify"
 import JSZip from "jszip"
+import { datasetToTurtle, jsonLdObjToDataset, datasetToJsonLdObj, turtleToDataset } from "@foerderfunke/sem-ops-utils"
 
 export {
     Parser, Store, Writer, DataFactory,
@@ -25,5 +26,9 @@ export {
     Drawflow,
     CodeMirror,
     slugify,
-    JSZip
+    JSZip,
+    datasetToTurtle,
+    jsonLdObjToDataset,
+    datasetToJsonLdObj,
+    turtleToDataset
 }

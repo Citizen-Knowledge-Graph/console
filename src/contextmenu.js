@@ -44,6 +44,13 @@ const canvasCtxMenuItems = [
         ]
     },
     {
+        label: "Converter",
+        submenu: [
+            { label: "Turtle to JSON-LD", action: "TurtleToJsonLdConverterNode" },
+            { label: "JSON-LD to Turtle", action: "JsonLdToTurtleConverterNode" },
+        ]
+    },
+    {
         label: "View",
         submenu: [
             { label: "Output Viewer", action: "OutputViewNode" },

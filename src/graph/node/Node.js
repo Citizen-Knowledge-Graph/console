@@ -84,6 +84,7 @@ export class Node {
     getTitleBoxClass() {
         switch (this.type) {
             case TYPE.PROCESSOR:
+            case TYPE.CONVERTER:
                 return "processor-node"
             case TYPE.VIEW:
                 return "view-node"

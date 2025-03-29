@@ -17,6 +17,7 @@ export class CodeNode extends Node {
         if (this.outputs.length === 0) return "text/plain"
         if (this.outputs[0] === PORT.SPARQL) return "sparql"
         if (this.outputs[0] === PORT.TURTLE) return "turtle"
+        if (this.outputs[0] === PORT.JSONLD) return "javascript"
         if (this.outputs[0] === PORT.MARKDOWN) return "markdown"
         if (this.outputs[0] === PORT.JAVASCRIPT) return "javascript"
         return "text/plain"

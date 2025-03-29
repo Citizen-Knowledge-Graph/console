@@ -22,24 +22,28 @@ import { ExternalTurtleFilesInputNode } from "./node/input/ExternalTurtleFilesIn
 import { ExternalSparqlEndpointInputNode } from "./node/input/ExternalSparqlEndpointInputNode.js"
 import { JavaScriptInputNode } from "./node/input/JavaScriptInputNode.js"
 import { JavaScriptExecNode } from "./node/processor/JavaScriptExecNode.js"
+import { TurtleToJsonLdConverterNode } from "./node/converter/TurtleToJsonLdConverterNode.js"
+import { JsonLdToTurtleConverterNode } from "./node/converter/JsonLdToTurtleConverterNode.js"
 
 export const TYPE = {
     INPUT: 0,
     PROCESSOR: 1,
-    VIEW: 2,
-    VIEW_LEAF: 3,
-    EDIT: 4,
-    LOGIC: 5
+    CONVERTER: 2,
+    VIEW: 3,
+    VIEW_LEAF: 4,
+    EDIT: 5,
+    LOGIC: 6
 }
 
 export const PORT = {
     ANY: 0,
     TURTLE: 1,
-    SPARQL: 2,
-    CSV: 3,
-    MARKDOWN: 4,
-    SPARQL_ENDPOINT: 5,
-    JAVASCRIPT: 6,
+    JSONLD: 2,
+    SPARQL: 3,
+    CSV: 4,
+    MARKDOWN: 6,
+    SPARQL_ENDPOINT: 7,
+    JAVASCRIPT: 7,
 }
 
 export const VIEW_MODE = {
@@ -72,6 +76,8 @@ const nodeClasses = {
     "ExternalSparqlEndpointInputNode": ExternalSparqlEndpointInputNode,
     "JavaScriptExecNode": JavaScriptExecNode,
     "JavaScriptInputNode": JavaScriptInputNode,
+    "TurtleToJsonLdConverterNode": TurtleToJsonLdConverterNode,
+    "JsonLdToTurtleConverterNode": JsonLdToTurtleConverterNode,
 }
 
 export const exampleData = {
