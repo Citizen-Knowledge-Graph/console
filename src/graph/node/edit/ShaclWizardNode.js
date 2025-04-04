@@ -104,7 +104,9 @@ export class ShaclWizardNode extends Node {
         const applyValue = async () => {
             if (!inputChanged) return
             inputChanged = false
-            await runSparqlInsertDeleteQueryOnStore(buildQuery(input.value), this.store)
+            let value = input.value
+            if (value.startsWith("ff:")) value = value.replace("ff:", "https://foerderfunke.org/default#")
+            await runSparqlInsertDeleteQueryOnStore(buildQuery(value), this.store)
             await this.rebuildForm()
         }
         input.addEventListener("input", () => inputChanged = true)
