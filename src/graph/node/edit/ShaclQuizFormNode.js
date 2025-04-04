@@ -284,10 +284,34 @@ export class ShaclQuizFormNode extends Node {
 
         let createIndividualsOfClass = row.class
 
-        let input = document.createElement("input")
-        input.type = "text"
-        input.style = "margin-right: 10px"
-        container.appendChild(input)
+        query = `
+            PREFIX ff: <https://foerderfunke.org/default#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            SELECT * WHERE {
+                ?propertyShape sh:path <${datafield}> ;
+                    sh:in/rdf:rest*/rdf:first ?option .
+                ?option ff:title ?label .
+            }`
+        rows = await runSparqlSelectQueryOnStore(query, datafieldsStore)
+
+        let input
+        if (rows.length === 0) {
+            input = document.createElement("input")
+            input.type = "text"
+            input.style.marginRight = "10px"
+            container.appendChild(input)
+        } else {
+            input = document.createElement("select")
+            input.style.marginRight = "10px"
+            container.appendChild(input)
+            for (let row of rows) {
+                let option = document.createElement("option")
+                option.value = row.option
+                option.textContent = row.label
+                input.appendChild(option)
+            }
+        }
 
         let submitBtn = document.createElement("input")
         submitBtn.type = "button"
