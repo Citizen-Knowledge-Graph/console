@@ -135,7 +135,20 @@ DELETE {
 } WHERE { 
     ?user a ff:Citizen ;
         ff:hasBirthday ?bday .
-}`
+}`,
+    "ex_JavaScriptInputNode_JsonArrToTripleStore": `let store = newStore()
+const a = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+const ff = function(localName) { return "https://foerderfunke.org/default#" + localName }
+let count = 0
+
+for (let element of JSON.parse(input)) {
+  let individual = ff("class" + (count ++))
+  addTripleToStore(store, individual, a, ff("Class"))
+  addTripleToStore(store, individual, ff("hasTitle"), element.Title)
+  // ...
+}
+
+return storeToTurtle(store)`
 }
 
 export function factoryCreateNode(nodeClass, initialValues, graph) {

@@ -29,7 +29,11 @@ const canvasCtxMenuItems = [
             },
             { label: "External Turtle Files", action: "ExternalTurtleFilesInputNode" },
             { label: "External SPARQL Endpoint", action: "ExternalSparqlEndpointInputNode" },
-            { label: "JavaScript Input", action: "JavaScriptInputNode" },
+            { label: "JavaScript Input", action: "JavaScriptInputNode",
+                submenu: [
+                    { label: "Template: JSON array to triple store", action: "ex_JavaScriptInputNode_JsonArrToTripleStore" }
+                ]
+            },
             // { label: "Output Viewer with initial input", action: "OutputViewNodeWithInitialInput" },
         ]
     },
