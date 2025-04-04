@@ -93,6 +93,8 @@ const nodeHeaderCtxMenuItems = [
     { label: "Save current as initial value", action: "SaveInitialValueAction", onlyVisibleFor: [ "TurtleInputNodeWithCopyPasteInPort" ] },
     { label: "Info", action: "InfoAction", onlyVisibleFor: [ "ExternalTurtleFilesInputNode", "ExternalSparqlEndpointInputNode" ] },
     { label: "Toggle settings", action: "ToggleSettings", onlyVisibleFor: [ "ShaclValidationNode" ] },
+    { label: "Import content", action: "ImportContent", onlyVisibleFor: [ "JsonLdInputNode" ] }, //  visible for input nodes TODO
+    { label: "Export content", action: "ExportContent", onlyVisibleFor: [ "JavaScriptExecNode" ] }, // visible for processor nodes TODO
 ]
 
 const multipleNodesHeaderCtxMenuItems = (count) => {

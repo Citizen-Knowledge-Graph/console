@@ -20,6 +20,15 @@ export class Graph {
         this.applySettings()
     }
 
+    registerNodeImportContentTrigger(func) {
+        this.triggerNodeImportContent = func
+    }
+
+    triggerNodeImportContentForNode(node) {
+        this.nodeToReceiveImportedContent = node
+        this.triggerNodeImportContent(node)
+    }
+
     applySettings() {
         for (let setting of Object.values(this.settings)) {
             document.documentElement.style.setProperty(setting.variable, setting.value)

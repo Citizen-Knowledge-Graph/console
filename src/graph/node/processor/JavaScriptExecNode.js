@@ -1,10 +1,12 @@
 import { CodeNode } from "../CodeNode.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
 import { newStore, addTripleToStore, storeToTurtle } from "../../../assets/bundle.js"
+import { download, getTimestamp } from "../../../utils.js"
 
 export class JavaScriptExecNode extends CodeNode {
     constructor(initialValues, graph) {
-        super(initialValues, graph, [ PORT.ANY, PORT.JAVASCRIPT ], [ PORT.ANY ], TYPE.PROCESSOR)
+        // change back to PORT.ANY TODO
+        super(initialValues, graph, [ PORT.ANY, PORT.JAVASCRIPT ], [ PORT.TURTLE ], TYPE.PROCESSOR)
     }
 
     async processIncomingData() {
@@ -18,5 +20,9 @@ export class JavaScriptExecNode extends CodeNode {
         } catch (err) {
             return this.handleError(err.message)
         }
+    }
+
+    exportContent() {
+        download(this.getValue(), "text/turtle", `export_${getTimestamp()}.ttl`)
     }
 }

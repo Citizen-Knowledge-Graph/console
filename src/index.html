@@ -212,6 +212,7 @@
                 <span id="githubBtn" class="spanBtn">GitHub</span>
             </span>
         </div>
+        <input type="file" id="nodeImportContentFileUpload" style="display: none" />
         <div id="drawflow"></div>
         <script type="module">
             import { checkForNewRepoCommits } from "./check-repo-updates.js"
@@ -231,6 +232,7 @@
             editor.start()
 
             let graph = new Graph(editor, showMessage)
+            graph.registerNodeImportContentTrigger(() => document.getElementById("nodeImportContentFileUpload").click())
 
             const wipe = () => {
                 editor.clear()
@@ -366,6 +368,16 @@
                 }
                 if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
                 wipe()
+                reader.readAsText(file)
+            })
+            document.getElementById("nodeImportContentFileUpload").addEventListener("change", () => {
+                const reader = new FileReader()
+                reader.onload = event => {
+                    const content = event.target.result
+                    graph.nodeToReceiveImportedContent.setValue(content)
+                    graph.nodeToReceiveImportedContent = null
+                }
+                const file = document.getElementById("nodeImportContentFileUpload").files[0]
                 reader.readAsText(file)
             })
             document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
@@ -670,6 +682,12 @@
                                 break;
                             case "ToggleSettings":
                                 node.toggleSettings()
+                                break;
+                            case "ImportContent":
+                                node.importContent()
+                                break;
+                            case "ExportContent":
+                                node.exportContent()
                                 break;
                         }
                     })

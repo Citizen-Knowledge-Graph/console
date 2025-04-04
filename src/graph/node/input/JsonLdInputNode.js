@@ -5,4 +5,8 @@ export class JsonLdInputNode extends CodeNode {
     constructor(initialValues, graph) {
         super(initialValues, graph, [], [ PORT.JSONLD ], TYPE.INPUT)
     }
+
+    importContent() {
+        this.graph.triggerNodeImportContentForNode(this)
+    }
 }

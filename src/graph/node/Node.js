@@ -276,7 +276,8 @@ export class Node {
     saveInitialValue() { this.err() }
     getInfo() { this.err() }
     toggleSettings() { this.err() }
-
+    importContent() { this.err() }
+    exportContent() { this.err() }
     err() {
         console.error("This 'abstract base method' should not be called")
     }
