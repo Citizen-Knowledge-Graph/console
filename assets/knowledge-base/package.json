@@ -1,0 +1,15 @@
+{
+  "name": "@foerderfunke/knowledge-base",
+  "description": "Contains requirement profiles, datafield definitions and materialization queries",
+  "author": "@foerderfunke",
+  "repository": "github:Citizen-Knowledge-Graph/knowledge-base",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "@foerderfunke/sem-ops-utils": "^0.1.2",
+    "mocha": "^11.1.0"
+  }
+}

@@ -1,0 +1,29 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:existenzgruendungspassthueringen a ff:RequirementProfile ;
+            ff:author ff:benjaminaaron ;
+            ff:created "2024-04-09"^^xsd:date ;
+            ff:title "Existenzgründungspass Thüringen" ;
+            rdfs:seeAlso <https://www.aufbaubank.de/Foerderprogramme/Gruendungsrichtlinie-Existenzgruendungspass> .
+
+# CONDITIONS
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:worksAsFreelancer ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Eine selbständige Tätigkeit darf noch nicht begonnen worden sein" ;
+        sh:in (false) ;
+    ] ;
+    sh:property [
+        sh:path ff:residesInState ;
+        sh:in ("Thüringen") ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Der Wohnort muss in Thüringen sein"
+    ] .
