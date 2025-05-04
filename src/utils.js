@@ -113,6 +113,7 @@ export const prefixes = {
     rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     foaf: "http://xmlns.com/foaf/0.1/",
     m8g: "http://data.europa.eu/m8g/",
+    sp: "http://spinrdf.org/sp#",
     // wdt: "http://www.wikidata.org/prop/direct/",
     // wd: "http://www.wikidata.org/entity/",
     // rdfs: "http://www.w3.org/2000/01/rdf-schema#",

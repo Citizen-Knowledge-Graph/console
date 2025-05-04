@@ -1,0 +1,186 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+    ff:hasId "graph_2025-05-04_17-52-26";
+    ff:hasName "Introspective Query";
+    ff:hasExportTimestamp "2025-05-04T17:52:26.315Z";
+    ff:hasTranslateX 25;
+    ff:hasTranslateY 32;
+    ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11, ff:node12, ff:node13, ff:node14;
+    ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9, ff:edge10, ff:edge11, ff:edge12, ff:edge13, ff:edge14, ff:edge15, ff:edge16.
+ff:node1 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "User profile";
+    ff:hasPosX "53";
+    ff:hasPosY "47";
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\nff:mainPerson a ff:Citizen ;\n    ff:hasResidence \"Frankfurt\" .".
+ff:node2 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "Requirement profile";
+    ff:hasPosX "727";
+    ff:hasPosY "513";
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:SimpleBenefit1 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:residesInState ;\n        sh:minCount 1 ;\n        sh:in (\"Bayern\") ;\n    ] .".
+ff:node3 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "Table of constants";
+    ff:hasPosX "51";
+    ff:hasPosY "217";
+    ff:hasWidth 428;
+    ff:hasHeight 253;
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n\nff:CityStateMap a ff:MapOfConstants ;\n    ff:mappedCityToState [\n        ff:city \"Frankfurt\" ;\n        ff:state \"Hessen\"\n    ] ;\n    ff:mappedCityToState [\n        ff:city \"Augsburg\" ;\n        ff:state \"Bayern\"\n    ] .".
+ff:node4 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "Materialization rule";
+    ff:hasPosX "50";
+    ff:hasPosY "544";
+    ff:hasWidth 483;
+    ff:hasHeight 221;
+    ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nCONSTRUCT {\n\t?person ff:residesInState ?state .\n} WHERE {\n  \t?person ff:hasResidence ?city .\n  \tff:CityStateMap ff:mappedCityToState ?mapping .\n  \t?mapping ff:city ?city ;\n    \tff:state ?state .\n}".
+ff:node5 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "Introspective query: datafield neighbourhood";
+    ff:hasPosX "1846";
+    ff:hasPosY "1008";
+    ff:hasWidth 499;
+    ff:hasHeight 485;
+    ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nCONSTRUCT {\n  \t?sS ?pS ?oS .\n  \t?sS ff:occurrenceAs rdf:subject .\n \n   \t?sP ?siblingPP ?siblingOP .\n  \t?sP ff:occurrenceAs rdf:predicate .\n  \n\t?sO ?siblingPO ?siblingOO .\n  \t?sO ff:occurrenceAs rdf:object .\n \n} WHERE {\n   \tBIND(ff:residesInState AS ?datafield) .\n  \t{\n    \t?sS ?pS ?oS .\n      \t?datafield ?pS ?oS .\n    } UNION {\n\t\t?sP ?datafield ?oP ;\n        \t?siblingPP ?siblingOP .\n  \t} UNION {\n      \t?sO ?pO ?datafield ;\n          \t?siblingPO ?siblingOO .\n    }\n}".
+ff:node6 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "Introspective query level 2: count occurrences";
+    ff:hasPosX "2973";
+    ff:hasPosY "1098";
+    ff:hasWidth 503;
+    ff:hasHeight 197;
+    ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nSELECT ?occurrenceAs (COUNT(?occurrenceAs) AS ?count)\nWHERE {\n\t?s ff:occurrenceAs ?occurrenceAs .\n} GROUP BY ?occurrenceAs".
+ff:node7 a ff:Node;
+    ff:hasClass ff:SparqlConstructExecNode;
+    ff:hasName "Run SPARQL CONSTRUCT";
+    ff:hasPosX "871";
+    ff:hasPosY "181".
+ff:node8 a ff:Node;
+    ff:hasClass ff:SparqlConstructExecNode;
+    ff:hasName "Run SPARQL CONSTRUCT";
+    ff:hasPosX "2488";
+    ff:hasPosY "683".
+ff:node9 a ff:Node;
+    ff:hasClass ff:MergeTriplesNode;
+    ff:hasName "Extended user profile";
+    ff:hasPosX "1390";
+    ff:hasPosY "54".
+ff:node10 a ff:Node;
+    ff:hasClass ff:MergeTriplesNode;
+    ff:hasName "Merge triples";
+    ff:hasPosX "551";
+    ff:hasPosY "182";
+    ff:hasWidth 228;
+    ff:hasHeight 121;
+    ff:hasContentHidden true.
+ff:node11 a ff:Node;
+    ff:hasClass ff:MergeTriplesNode;
+    ff:hasName "Merge triples";
+    ff:hasPosX "1914";
+    ff:hasPosY "826";
+    ff:hasWidth 246;
+    ff:hasHeight 113;
+    ff:hasContentHidden true.
+ff:node12 a ff:Node;
+    ff:hasClass ff:ShaclValidationNode;
+    ff:hasName "SHACL validation";
+    ff:hasPosX "1358";
+    ff:hasPosY "371".
+ff:node13 a ff:Node;
+    ff:hasClass ff:SparqlSelectExecNode;
+    ff:hasName "Run SPARQL SELECT";
+    ff:hasPosX "3556";
+    ff:hasPosY "863";
+    ff:hasWidth 232;
+    ff:hasHeight 229.
+ff:node14 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "Materialization rule as SPIN representation";
+    ff:hasPosX 52;
+    ff:hasPosY 791;
+    ff:hasWidth 563;
+    ff:hasHeight 568;
+    ff:hasValue "# The \"SPARQL to SPIN\" converter node requires the Apache Jena\n# server to run. Therefore for now just a manual copy-over of\n# the transformed above SPARQL CONSTRUCT\n\nPREFIX ff:   <https://foerderfunke.org/default#>\nPREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sp:   <http://spinrdf.org/sp#>\n\n[ rdf:type      sp:Construct;\n  sp:templates  ( [ sp:object     [ sp:varName  \"state\" ];\n                    sp:predicate  ff:residesInState;\n                    sp:subject    [ sp:varName  \"person\" ]\n                  ]\n                );\n  sp:where      ( [ sp:object     [ sp:varName  \"city\" ];\n                    sp:predicate  ff:hasResidence;\n                    sp:subject    [ sp:varName  \"person\" ]\n                  ]\n                  [ sp:object     [ sp:varName  \"mapping\" ];\n                    sp:predicate  ff:mappedCityToState;\n                    sp:subject    ff:CityStateMap\n                  ]\n                  [ sp:object     [ sp:varName  \"city\" ];\n                    sp:predicate  ff:city;\n                    sp:subject    [ sp:varName  \"mapping\" ]\n                  ]\n                  [ sp:object     [ sp:varName  \"state\" ];\n                    sp:predicate  ff:state;\n                    sp:subject    [ sp:varName  \"mapping\" ]\n                  ]\n                )\n] .".
+ff:edge1 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node9;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node10;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+    ff:hasSource ff:node2;
+    ff:hasTarget ff:node12;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge4 a ff:Edge;
+    ff:hasSource ff:node2;
+    ff:hasTarget ff:node11;
+    ff:hasPortOut 1;
+    ff:hasPortIn 3.
+ff:edge5 a ff:Edge;
+    ff:hasSource ff:node3;
+    ff:hasTarget ff:node10;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge6 a ff:Edge;
+    ff:hasSource ff:node4;
+    ff:hasTarget ff:node7;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge7 a ff:Edge;
+    ff:hasSource ff:node7;
+    ff:hasTarget ff:node9;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge8 a ff:Edge;
+    ff:hasSource ff:node9;
+    ff:hasTarget ff:node12;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge9 a ff:Edge;
+    ff:hasSource ff:node9;
+    ff:hasTarget ff:node11;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge10 a ff:Edge;
+    ff:hasSource ff:node10;
+    ff:hasTarget ff:node7;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge11 a ff:Edge;
+    ff:hasSource ff:node12;
+    ff:hasTarget ff:node11;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge12 a ff:Edge;
+    ff:hasSource ff:node11;
+    ff:hasTarget ff:node8;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge13 a ff:Edge;
+    ff:hasSource ff:node5;
+    ff:hasTarget ff:node8;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge14 a ff:Edge;
+    ff:hasSource ff:node8;
+    ff:hasTarget ff:node13;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge15 a ff:Edge;
+    ff:hasSource ff:node6;
+    ff:hasTarget ff:node13;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge16 a ff:Edge;
+    ff:hasSource ff:node14;
+    ff:hasTarget ff:node11;
+    ff:hasPortOut 1;
+    ff:hasPortIn 4.
