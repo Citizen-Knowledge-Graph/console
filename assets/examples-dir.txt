@@ -1,0 +1,13 @@
+./introspective-query.ttl
+./foerderfunke-mini.ttl
+./counseling-centres.ttl
+./foerderungen-moers.ttl
+./javascript.ttl
+./external-turtle-files.ttl
+./external-sparql-endpoint.ttl
+./for-demo-videos/demo-quiz.ttl
+./for-demo-videos/demo-form-breakdown.ttl
+./for-demo-videos/demo-graph-visu.ttl
+./for-demo-videos/demo-form.ttl
+./for-demo-videos/demo-wizard.ttl
+./for-demo-videos/demo-quiz-breakdown.ttl
