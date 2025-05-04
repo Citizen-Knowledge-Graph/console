@@ -19,6 +19,10 @@ public class Converter {
         Model model = ModelFactory.createDefaultModel();
         model.setNsPrefix("sp",   "http://spinrdf.org/sp#");
         model.setNsPrefix("rdf",  "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+        model.setNsPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
+        model.setNsPrefix("xsd",  "http://www.w3.org/2001/XMLSchema#");
+        model.setNsPrefix("ff",   "https://foerderfunke.org/default#");
+        model.setNsPrefix("sh",   "http://www.w3.org/ns/shacl#");
 
         org.apache.jena.query.Query arqQuery = ARQFactory.get().createQuery(model, sparql);
         ARQ2SPIN converter = new ARQ2SPIN(model);
