@@ -51,7 +51,7 @@ const canvasCtxMenuItems = [
         submenu: [
             { label: "Turtle to JSON-LD", action: "TurtleToJsonLdConverterNode" },
             { label: "JSON-LD to Turtle", action: "JsonLdToTurtleConverterNode" },
-            { label: "SPARQL to SPIN", action: "SparqlToSpinConverterNode" },
+            { label: "SPARQL to SPIN (server required)", action: "SparqlToSpinConverterNode" },
         ]
     },
     {
