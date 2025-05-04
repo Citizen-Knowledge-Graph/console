@@ -8,6 +8,10 @@ public class Controller {
 
     @GetMapping("/sparqlToSpin")
     public String sparqlToSpin(@RequestParam(name = "sparql") String sparql) {
+
+        Converter converter = new Converter();
+        converter.sparqlToSpin();
+
         return "TODO";
     }
 }

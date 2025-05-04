@@ -19,6 +19,7 @@ repositories {
 
 dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation("org.aksw.thirdparty.org.spinrdf:spinrdf:2.0.0-jena5-1")
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
