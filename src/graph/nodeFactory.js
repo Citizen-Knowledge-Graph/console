@@ -25,6 +25,7 @@ import { JavaScriptExecNode } from "./node/processor/JavaScriptExecNode.js"
 import { TurtleToJsonLdConverterNode } from "./node/converter/TurtleToJsonLdConverterNode.js"
 import { JsonLdToTurtleConverterNode } from "./node/converter/JsonLdToTurtleConverterNode.js"
 import { JsonLdInputNode } from "./node/input/JsonLdInputNode.js"
+import { SparqlToSpinConverterNode } from "./node/converter/SparqlToSpinConverterNode.js"
 
 export const TYPE = {
     INPUT: 0,
@@ -79,7 +80,8 @@ const nodeClasses = {
     "JavaScriptInputNode": JavaScriptInputNode,
     "TurtleToJsonLdConverterNode": TurtleToJsonLdConverterNode,
     "JsonLdToTurtleConverterNode": JsonLdToTurtleConverterNode,
-    "JsonLdInputNode": JsonLdInputNode
+    "JsonLdInputNode": JsonLdInputNode,
+    "SparqlToSpinConverterNode": SparqlToSpinConverterNode
 }
 
 export const exampleData = {
