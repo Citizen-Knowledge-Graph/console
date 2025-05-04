@@ -145,8 +145,8 @@ let count = 0
 
 for (let element of JSON.parse(input)) {
   let individual = ff("class" + (count ++))
-  addTripleToStore(store, individual, a, ff("Class"))
-  addTripleToStore(store, individual, ff("hasTitle"), element.Title)
+  addTriple(store, individual, a, ff("Class"))
+  addTriple(store, individual, ff("hasTitle"), element.Title)
   // ...
 }
 

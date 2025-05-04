@@ -1,6 +1,6 @@
 import { CodeNode } from "../CodeNode.js"
 import { PORT, TYPE } from "../../nodeFactory.js"
-import { newStore, addTripleToStore, storeToTurtle } from "../../../assets/bundle.js"
+import { newStore, addTriple, storeToTurtle } from "../../../assets/bundle.js"
 import { download, getTimestamp } from "../../../utils.js"
 
 export class JavaScriptExecNode extends CodeNode {
@@ -15,8 +15,8 @@ export class JavaScriptExecNode extends CodeNode {
             let input = this.incomingData.filter(port => port.dataType !== PORT.JAVASCRIPT)[0].data
             // support multiple input ports TODO
             // tell user that input is available as "input" variable TODO
-            const execute = new Function("input", "newStore", "addTripleToStore", "storeToTurtle", js)
-            return execute(input, newStore, addTripleToStore, storeToTurtle)
+            const execute = new Function("input", "newStore", "addTriple", "storeToTurtle", js)
+            return execute(input, newStore, addTriple, storeToTurtle)
         } catch (err) {
             return this.handleError(err.message)
         }
