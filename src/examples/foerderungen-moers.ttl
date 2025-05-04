@@ -1,0 +1,143 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+    ff:hasId "graph_2025-04-04_17-49-56";
+    ff:hasName "Förderungen Moers";
+    ff:hasExportTimestamp "2025-04-04T17:49:56.756Z";
+    ff:hasTranslateX -333;
+    ff:hasTranslateY 444;
+    ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11, ff:node12;
+    ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9, ff:edge10, ff:edge11.
+ff:node1 a ff:Node;
+    ff:hasClass ff:ShaclQuizFormNode;
+    ff:hasName "SHACL Quiz-Form Editor";
+    ff:hasPosX "1931";
+    ff:hasPosY "296".
+ff:node2 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "Knowledge Base";
+    ff:hasPosX "377";
+    ff:hasPosY "-222";
+    ff:hasWidth 663;
+    ff:hasHeight 1676;
+    ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n\nff:hasHouse a ff:DataField ;\n    ff:shaclShape [\n    \ta sh:PropertyShape ;\n        sh:path ff:hasHouse ;\n        sh:name \"has house\" ;\n        sh:description \"How many houses do you have?\" ;\n        sh:nodeKind sh:IRI ;\n        ff:pointsToInstancesOf ff:House ;\n\t] .\n\nff:receivedEnergieberatungAlready a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:receivedEnergieberatungAlready ;\n        sh:name \"received Energieberatung\" ;\n        sh:description \"Did you receive Energieberatung already?\" ;\n        # sh:datatype xsd:boolean ;\n        sh:in (\"yes\" \"no\") ;\n        sh:maxCount 1 ;\n\t] .\n\nff:housingRole a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:housingRole ;\n        sh:name \"Housing Role\" ;\n        sh:description \"What is your housing role?\" ;\n        sh:in (\n        \tff:housingrole-ao-owner\n          \tff:housingrole-ao-landlord\n          \tff:housingrole-ao-tenant\n        ) ;\n        sh:maxCount 1 ;\n    ] .\nff:housingrole-ao-owner a ff:AnswerOption ; ff:title \"Eigentümer*in\" .\nff:housingrole-ao-landlord a ff:AnswerOption ; ff:title \"Vermieter*in\" .\nff:housingrole-ao-tenant a ff:AnswerOption ; ff:title \"Mieter*in\" .\n\n\nff:houseType a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:houseType ;\n        sh:name \"House Type\" ;\n        sh:description \"What type is the house?\" ;\n        sh:in (\n        \tff:housetype-ao-einfamilienhaus\n          \tff:housetype-ao-zweifamilienhaus\n          \tff:housetype-ao-mehrfamilienhaus\n        ) ;\n        sh:maxCount 1 ;\n    ] .\nff:housetype-ao-einfamilienhaus a ff:AnswerOption ; ff:title \"Einfamilienhaus\" .\nff:housetype-ao-zweifamilienhaus a ff:AnswerOption ; ff:title \"Zweifamilienhaus\" .\nff:housetype-ao-mehrfamilienhaus a ff:AnswerOption ; ff:title \"Mehrfamilienhaus\" .\n\nff:location a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:location ;\n        sh:name \"Location\" ;\n        sh:description \"Where is it located?\" ;\n        sh:maxCount 1 ;\n\t] .\n\nff:mainOrientation a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:mainOrientation ;\n        sh:name \"Main Orientiation\" ;\n        sh:description \"What is the main orientation?\" ;\n        sh:in (\n        \tff:mainorientation-ao-north\n        \tff:mainorientation-ao-east\n        \tff:mainorientation-ao-south\n            ff:mainorientation-ao-west\n        ) ;\n        sh:maxCount 1 ;\n    ] .\nff:mainorientation-ao-north a ff:AnswerOption ; ff:title \"Norden\" .\nff:mainorientation-ao-east a ff:AnswerOption ; ff:title \"Osten\" .\nff:mainorientation-ao-south a ff:AnswerOption ; ff:title \"Süden\" .\nff:mainorientation-ao-west a ff:AnswerOption ; ff:title \"Westen\" .\n\nff:shadeFree a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:shadeFree ;\n        sh:name \"Shade Free\" ;\n        sh:description \"Is the placement mostly free of shade?\" ;\n        # sh:datatype xsd:boolean ;\n        sh:in (\"yes\" \"no\") ;\n        sh:maxCount 1 ;\n\t] .\n\nff:hasSolarmodule a ff:DataField ;\n    ff:shaclShape [\n    \ta sh:PropertyShape ;\n        sh:path ff:hasSolarmodule ;\n        sh:name \"has solarmodule\" ;\n        sh:description \"How many solarmodules do you have?\" ;\n        sh:nodeKind sh:IRI ;\n        ff:pointsToInstancesOf ff:Solarmodule ;\n\t] .\n\nff:Citizen a ff:Class ; ff:title \"Citizen\" .\nff:House a ff:Class ; ff:title \"House\" .\nff:Solarmodule a ff:Class ; ff:title \"Solarmodule\" .".
+ff:node3 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "User profile";
+    ff:hasPosX "1694";
+    ff:hasPosY "543";
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\nff:mainPerson a ff:Citizen .".
+ff:node4 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "Energieberatung Moers";
+    ff:hasPosX 1136;
+    ff:hasPosY -419;
+    ff:hasWidth 513;
+    ff:hasHeight 655;
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:energieberatungMoers a ff:RequirementProfile ;\n\tff:hasMainShape ff:energieberatungMoersShape .\n\nff:energieberatungMoersShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasHouse ;\n       \tsh:valueShape ff:HouseShape;\n        sh:minCount 1 ;\n    ] ;\n\tsh:property [\n        sh:path ff:receivedEnergieberatungAlready ;\n       \tsh:hasValue \"no\" ;\n        sh:minCount 1 ;\n    ] .\n\nff:HouseShape a sh:NodeShape ;\n\tsh:targetClass ff:House ;\n\tsh:property [\n        sh:path ff:housingRole ;\n        sh:hasValue ff:housingrole-ao-owner ;\n        sh:minCount 1 ;\n    ] ;\n\tsh:property [\n        sh:path ff:houseType ;\n        sh:in (\n          ff:housetype-ao-einfamilienhaus\n          ff:housetype-ao-zweifamilienhaus\n        ) ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ff:location ;\n        sh:hasValue \"Moers\" ;\n        sh:minCount 1 ;\n    ] .".
+ff:node5 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "SHACL Input";
+    ff:hasPosX "735";
+    ff:hasPosY "1630";
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:energieberatungMoers a ff:RequirementProfile ;\n    ff:title \"Energieberatung Moers\" ;\n    ff:hasMainShape ff:mainShape .\n\nff:mainShape a sh:NodeShape ;\n\tsh:targetClass ff:Citizen .".
+ff:node6 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "Balkonkraftwerk Moers";
+    ff:hasPosX 1140;
+    ff:hasPosY 265;
+    ff:hasWidth 514;
+    ff:hasHeight 960;
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:balkonkraftwerkMoers a ff:RequirementProfile ;\n\tff:hasMainShape ff:balkonkraftwerkMoersShape .\n\nff:balkonkraftwerkMoersShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasHouse ;\n       \tsh:valueShape ff:HouseShape;\n        sh:minCount 1 ;\n    ] .\n\nff:HouseShape a sh:NodeShape ;\n\tsh:targetClass ff:House ;\n\tsh:property [\n        sh:path ff:housingRole ;\n        sh:in (\n        \tff:housingrole-ao-owner\n          \tff:housingrole-ao-landlord\n          \tff:housingrole-ao-tenant\n        ) ;\n        sh:minCount 1 ;\n    ] ;\n\tsh:property [\n        sh:path ff:houseType ;\n     \tsh:in (\n        \tff:housetype-ao-einfamilienhaus\n          \tff:housetype-ao-zweifamilienhaus\n          \tff:housetype-ao-mehrfamilienhaus\n        ) ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ff:location ;\n        sh:hasValue \"Moers\" ;\n        sh:minCount 1 ;\n    ] ;\n    sh:property [\n        sh:path ff:hasSolarmodule ;\n       \tsh:valueShape ff:SolarmoduleShape ;\n        sh:minCount 1 ;\n    ] .\n\nff:SolarmoduleShape a sh:NodeShape ;\n\tsh:targetClass ff:Solarmodule ;\n\tsh:property [\n        sh:path ff:mainOrientation ;\n        sh:in (\n        \tff:mainorientation-ao-east\n        \tff:mainorientation-ao-south\n            ff:mainorientation-ao-west\n        ) ;\n        sh:minCount 1 ;\n    ] ;\n\tsh:property [\n        sh:path ff:shadeFree ;\n       \tsh:hasValue \"yes\" ;\n        sh:minCount 1 ;\n    ] .".
+ff:node7 a ff:Node;
+    ff:hasClass ff:OutputViewLeafNode;
+    ff:hasName "Profile";
+    ff:hasPosX "2487";
+    ff:hasPosY "128";
+    ff:hasWidth 444;
+    ff:hasHeight 355.
+ff:node8 a ff:Node;
+    ff:hasClass ff:OutputViewLeafNode;
+    ff:hasName "Validation results";
+    ff:hasPosX "2968";
+    ff:hasPosY "173";
+    ff:hasWidth 558;
+    ff:hasHeight 528.
+ff:node9 a ff:Node;
+    ff:hasClass ff:OutputViewLeafNode;
+    ff:hasName "SHACL Output";
+    ff:hasPosX "1799";
+    ff:hasPosY "1457".
+ff:node10 a ff:Node;
+    ff:hasClass ff:OutputViewTableLeafNode;
+    ff:hasName "Priority list";
+    ff:hasPosX "2482";
+    ff:hasPosY "492";
+    ff:hasWidth 432;
+    ff:hasHeight 306.
+ff:node11 a ff:Node;
+    ff:hasClass ff:OutputViewTableLeafNode;
+    ff:hasName "Eligibilities";
+    ff:hasPosX "2493";
+    ff:hasPosY "831".
+ff:node12 a ff:Node;
+    ff:hasClass ff:ShaclWizardNode;
+    ff:hasName "SHACL Wizard";
+    ff:hasPosX "1279";
+    ff:hasPosY "1468".
+ff:edge1 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node7;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node8;
+    ff:hasPortOut 2;
+    ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node10;
+    ff:hasPortOut 3;
+    ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node11;
+    ff:hasPortOut 4;
+    ff:hasPortIn 1.
+ff:edge5 a ff:Edge;
+    ff:hasSource ff:node2;
+    ff:hasTarget ff:node1;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+    ff:hasSource ff:node2;
+    ff:hasTarget ff:node12;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge7 a ff:Edge;
+    ff:hasSource ff:node3;
+    ff:hasTarget ff:node1;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge8 a ff:Edge;
+    ff:hasSource ff:node4;
+    ff:hasTarget ff:node1;
+    ff:hasPortOut 1;
+    ff:hasPortIn 3.
+ff:edge9 a ff:Edge;
+    ff:hasSource ff:node5;
+    ff:hasTarget ff:node12;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge10 a ff:Edge;
+    ff:hasSource ff:node6;
+    ff:hasTarget ff:node1;
+    ff:hasPortOut 1;
+    ff:hasPortIn 4.
+ff:edge11 a ff:Edge;
+    ff:hasSource ff:node12;
+    ff:hasTarget ff:node9;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
