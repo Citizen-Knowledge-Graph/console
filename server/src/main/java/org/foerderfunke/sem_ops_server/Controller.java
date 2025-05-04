@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
+    Converter converter = new Converter();
+
     @GetMapping("/sparqlToSpin")
     public String sparqlToSpin(@RequestParam(name = "sparql") String sparql) {
-
-        Converter converter = new Converter();
-        converter.sparqlToSpin();
-
-        return "TODO";
+        return converter.sparqlToSpin(sparql);
     }
 }
