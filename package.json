@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.0.2",
-    "@foerderfunke/sem-ops-utils": "^0.1.8",
+    "@foerderfunke/sem-ops-utils": "^0.2.1",
     "@ulb-darmstadt/shacl-form": "^1.6.5",
     "awesomplete": "^1.1.7",
     "codemirror": "^5.65.18",
