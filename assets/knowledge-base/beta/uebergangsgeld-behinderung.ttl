@@ -1,0 +1,146 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix shn: <https://schemas.link/shacl-next#>.
+
+ff:uebergangsgeld-behinderung a ff:RequirementProfile ;
+    ff:title "Übergangsgeld für Menschen mit Behinderung - Bundesagentur für Arbeit"@de ,
+        "Transitional Allowance for People with Disabilities - Federal Employment Agency"@en ;
+    ff:category ff:schule-studium-ausbildung-bc-kategorie, ff:gesundheit-pflege-bc-kategorie, ff:sozialhilfe-grundsicherung-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:benefitInfo "Menschen mit Behinderungen können zur Sicherung des Lebensunterhaltes Übergangsgeld erhalten, wenn sie an bestimmten Bildungsmaßnahmen teilnehmen. Je nach Rehabilitionträger gelten hier unterschiedliche Voraussetzungen und Leistungsangebote. Die vorliegende Leistung steht Menschen zur Verfügung, deren Rehabilitationsträger die Bundesagentur für Arbeit ist."@de ,
+        "People with disabilities can receive transitional allowance to cover their living expenses if they participate in specific educational programs. Depending on the rehabilitation provider, different requirements and benefits apply. This benefit is available to people whose rehabilitation provider is the Federal Employment Agency."@en ;
+    rdfs:seeAlso <https://www.arbeitsagentur.de/datei/uebergangsgeld-fuer-rehabilitanden-der-ba_ba040009.pdf> ;
+    ff:hasMainPersonShape ff:uebergangsgeld-behinderungMainPersonShape .
+
+ff:uebergangsgeld-behinderungMainPersonShape a sh:NodeShape, ff:EligibilityConstraint ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:has_disability ;
+        sh:in (true) ;
+        sh:minCount 1 ;
+        sh:message "Sie müssen eine anerkannte Behinderung haben. (Quelle: 'Sie haben eine Behinderung und benötigen deshalb eine besondere Unterstützung')"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:rehabilitation_provider ;
+        sh:in (ff:rehabilitation_provider-bundesagentur-fuer-arbeit) ;
+        sh:minCount 1 ;
+        sh:message "Ihr Rehabilitationsträger muss die Bundesagentur für Arbeit sein. (Quelle: 'Die Bundesagentur für Arbeit ist Ihr zuständiger Rehabilitationsträger')"@de ;
+    ] ;
+
+    sh:property ff:educationShape ;
+
+    sh:property [
+        sh:deactivated [
+     		sh:not [
+        		shn:eq ([ sh:path ff:vocational_returnee_deactivated ] false )
+        	]
+	    ] ;
+        sh:path ff:vocational_returnee ;
+        sh:in (true false) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:deactivated [
+     		sh:not [
+        		shn:eq ([ sh:path ff:vocational_returnee_deactivated ] false )
+        	]
+	    ] ;
+        sh:path ff:socially_insured ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:deactivated [
+     		sh:not [
+        		shn:eq ([ sh:path ff:vocational_returnee_deactivated ] false )
+        	]
+	    ] ;
+        sh:path ff:applied_unemployment_benefits ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:deactivated [
+     		sh:not [
+        		shn:eq ([ sh:path ff:vocational_returnee_deactivated ] false )
+        	]
+	    ] ;
+        sh:path ff:entitled_soldiers_unemployment_benefits ;
+        sh:minCount 1 ;
+    ] ;
+
+	sh:property ff:vocationalReturneeShape ;
+	sh:property ff:nonVocationalReturneeShape .
+
+ff:educationShape a sh:EducationWithinLastYear ;
+	
+    sh:property [
+        sh:path ff:graduated_within_last_year ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path ff:certified_within_last_year ;
+        sh:minCount 1 ;
+    ] ;
+
+	sh:or ([
+    	sh:property [
+      		sh:path ff:graduated_within_last_year ;
+            sh:in (true false) ;
+		]
+	][
+      	sh:property [
+			sh:path ff:certified_within_last_year ;
+            sh:in (true false) ;
+        ]    		
+	]) .
+
+ff:vocationalReturneeShape a sh:VocationalReturnee ;
+	sh:deactivated [
+    	shn:eq ([ sh:path ff:vocationalReturneeShape_deactivated ] true )
+	] ;
+
+	sh:or ([
+    	sh:property [
+      		sh:path ff:socially_insured ;
+              	sh:in (ff:socially_insured-greater_than_12_months) ;
+    	]
+  	][
+    	sh:property [
+      		sh:path ff:applied_unemployment_benefits ;
+              	sh:in (ff:applied_unemployment_benefits-yes ff:applied_unemployment_benefits-within_last_3_years) ;
+    	]
+  	][
+    	sh:property [
+      		sh:path ff:entitled_soldiers_unemployment_benefits ;
+              	sh:in (ff:entitled_soldiers_unemployment_benefits-yes ff:entitled_soldiers_unemployment_benefits-within_last_3_years) ;
+    	]
+  	]) .
+
+ff:nonVocationalReturneeShape a sh:NonVocationalReturnee ;
+	sh:deactivated [
+    	shn:eq ([ sh:path ff:nonVocationalReturneeShape_deactivated ] true )
+	] ;
+
+	sh:or ([
+    	sh:property [
+      		sh:path ff:socially_insured ;
+              	sh:in (ff:socially_insured-greater_than_12_months_within_last_3_years) ;
+    	]
+  	][
+    	sh:property [
+      		sh:path ff:applied_unemployment_benefits ;
+              	sh:in (ff:applied_unemployment_benefits-within_last_3_years) ;
+    	]
+  	][
+    	sh:property [
+      		sh:path ff:entitled_soldiers_unemployment_benefits ;
+              	sh:in (ff:entitled_soldiers_unemployment_benefits-within_last_3_years) ;
+    	]
+  	]) .

@@ -1,0 +1,65 @@
+/* Adapted from ChatGPT */
+
+#ctx-menu {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    font: 14px sans-serif;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+#ctx-menu > div {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#ctx-menu > div:hover {
+    background: #ddd;
+}
+
+.sub {
+    position: relative;
+}
+
+.submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    display: none;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.sub:hover > .submenu {
+    display: block;
+}
+
+.submenu > div {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.submenu > div:hover {
+    background: #ddd;
+}
+
+.disabled {
+    color: #999;
+    cursor: default;
+}
+
+.no-action-menu-item {
+    font-weight: bold;
+    color: darkblue;
+    cursor: default !important;
+    background: lightcyan;
+}
+
+.no-action-menu-item:hover {
+    background: lightcyan !important;
+}
