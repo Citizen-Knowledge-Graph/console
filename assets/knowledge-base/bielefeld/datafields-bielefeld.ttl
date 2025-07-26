@@ -1,0 +1,215 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+
+ff:registered_residence_country a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Land des Wohnsitzes"@de , "Country of main residence"@en ;
+    schema:question "In welchem Land haben Sie einen Wohnsitz?"@de , "In which country do you have a residence?"@en ;
+    rdfs:comment "Wo haben Sie Ihren Wohnsitz? Sie können mehrere Wohnsitze angeben, wenn Sie in mehreren Ländern wohnen."@de ,
+        "Where do you have your residence? You can specify multiple residences if you live in several countries."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:registered_residence_country ;
+        sh:property [
+            sh:path ff:registered_residence_country ;
+            sh:in (ff:registered_residence_country-germany ff:registered_residence_country-other) ;
+        ] ;
+    ] .
+
+ff:registered_residence_country-germany a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:registered_residence_country-other a ff:AnswerOption ; rdfs:label "Anderes Land"@de , "Other country"@en .
+
+
+ff:employment_country a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Land des Arbeitsverhältnisses"@de , "Country of employment"@en ;
+    schema:question "In welchem Land sind Sie beschäftigt?"@de , "In which country are you employed?"@en ;
+    rdfs:comment "Wo sind Sie beschäftigt? Sie können mehrere Länder angeben, wenn Sie in mehreren Ländern arbeiten."@de ,
+        "Where are you employed? You can specify multiple countries if you work in several countries."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:employment_country ;
+        sh:property [
+            sh:path ff:employment_country ;
+            sh:in (ff:employment_country-germany ff:employment_country-other) ;
+        ] ;
+    ] .
+
+ff:employment_country-germany a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:employment_country-other a ff:AnswerOption ; rdfs:label "Anderes Land"@de , "Other country"@en .
+
+
+ff:disability_expected_duration_6_months a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Behinderung voraussichtlich länger als 6 Monate"@de , "Disability expected to last longer than 6 months"@en ;
+    schema:question "Wird Ihre Behinderung mit hoher Wahrscheinlichkeit länger als 6 Monate andauern?"@de ,
+        "Is your disability expected to last longer than 6 months?"@en ;
+    rdfs:comment "Die Frage soll ermitteln, ob der Zustand Ihrer Behinderung nicht nur vorübergehend besteht, sondern voraussichtlich mindestens sechs Monate andauert."@de ,
+        "This question aims to determine whether your disability is not just temporary but is expected to last at least six months."@en ;
+        ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disability_expected_duration_6_months ;
+        sh:property [
+            sh:path ff:disability_expected_duration_6_months ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+
+ff:disability_degree_evaluated a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Grad der Behinderung festgestellt"@de , "Degree of disability evaluated"@en ;
+    schema:question "Wurde der Grad Ihrer Behinderung bereits festgestellt?"@de , "Has the degree of your disability been evaluated?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disability_degree_evaluated ;
+        sh:property [
+            sh:path ff:disability_degree_evaluated ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+
+ff:disability_degree a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Grad der Behinderung"@de , "Degree of disability"@en ;
+    schema:question "Wie hoch ist der Grad Ihrer Behinderung?"@de , "What is the degree of your disability?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disability_degree ;
+        sh:property [
+            sh:path ff:disability_degree ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxInclusive 100 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+
+ff:job_at_risk_without_equal_status a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Arbeitsplatz gefährdet ohne Gleichstellung"@de , "Job at risk without equal status"@en ;
+    schema:question "Könnten Sie wegen Ihrer Behinderung ohne eine Gleichstellung einen geeigneten Arbeitsplatz nicht erlangen oder behalten?"@de ,
+        "Would you not be able to obtain or retain suitable employment due to your disability without equal status?"@en ;
+    rdfs:comment "Gleichstellung bedeutet, dass Personen mit einem Grad der Behinderung von 30 bis 49 formal Schwerbehinderten gleichgestellt werden, wenn sie sonst keinen geeigneten Arbeitsplatz erlangen oder behalten könnten."@de ,
+        "Equal status means that persons with a degree of disability of 30 to 49 are formally treated as severely disabled if they would otherwise not be able to obtain or retain suitable employment."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:job_at_risk_without_equal_status ;
+        sh:property [
+            sh:path ff:job_at_risk_without_equal_status ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:open_market_fit a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Geeignet für den allgemeinen Arbeitsmarkt"@de , "Fit for the open labor market"@en ;
+    schema:question "Sind Sie außerhalb einer geschützten Einrichtung in der Lage, auf dem regulären Arbeitsmarkt zu arbeiten?"@de ,
+        "Are you able to work on the regular labor market outside a sheltered facility?"@en ;
+    rdfs:comment "Der allgemeine Arbeitsmarkt sind alle normalen Arbeitsplätze in Firmen, an denen Menschen – auch mit Hilfsmitteln oder Unterstützung – arbeiten können, solange es kein dauerhaft geschützter Sonder­arbeitsplatz wie eine Werkstatt für behinderte Menschen ist."@de ,
+        "The open labor market includes all regular jobs in companies where people can work, even with aids or support, as long as it is not a permanently protected special workplace like a workshop for disabled people."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:open_market_fit ;
+        sh:property [
+            sh:path ff:open_market_fit ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:open_market_hours a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Stunden pro Tag auf dem allgemeinen Arbeitsmarkt"@de , "Hours per day on the open labor market"@en ;
+    schema:question "Wie viele Stunden könnten Sie unter den üblichen Bedingungen des allgemeinen Arbeitsmarktes pro Tag arbeiten?"@de ,
+        "How many hours could you work per day under the usual conditions of the open labor market?"@en ;
+    rdfs:comment "Diese Frage klärt, wie viele Stunden Sie unter den üblichen Bedingungen des allgemeinen Arbeitsmarktes arbeiten können; die Einstufung beruht auf ärztlichen Gutachten und einer sozialmedizinischen Bewertung Ihres verbliebenen Leistungsvermögens."@de ,
+        "This question clarifies how many hours you can work per day under the usual conditions of the open labor market; the classification is based on medical reports and a social medical assessment of your remaining capacity."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:open_market_hours ;
+        sh:property [
+            sh:path ff:open_market_hours ;
+            sh:in (ff:open_market_hours-3hours ff:open_market_hours-6hours ff:open_market_hours-more_than_6hours) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:open_market_hours-3hours a ff:AnswerOption ; rdfs:label "Höchstens 3 Stunden"@de , "At most 3 hours"@en .
+ff:open_market_hours-6hours a ff:AnswerOption ; rdfs:label "Höchstens 6 Stunden"@de , "At most 6 hours"@en .
+ff:open_market_hours-more_than_6hours a ff:AnswerOption ; rdfs:label "Mehr als 6 Stunden"@de , "More than 6 hours"@en .
+
+ff:special_cause_inability a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Besondere Gründe für Arbeitsunfähigkeit"@de , "Special reasons for inability to work"@en ;
+    schema:question "Ist Ihre Erwerbsminderung durch einen Arbeitsunfall, eine Berufskrankheit, einen Unfall im Wehr- oder Freiwilligendienst, einen Impfschaden oder durch Gewalt entstanden?"@de ,
+        "Is your disability due to a work accident, an occupational disease, an accident during military or voluntary service, a vaccination injury, or violence?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:special_cause_inability ;
+        sh:property [
+            sh:path ff:special_cause_inability ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:general_waiting_period a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Allgemeine Wartezeit"@de , "Regular waiting period"@en ;
+    schema:question "Haben Sie insgesamt mindestens fünf Jahre Zeiten, in denen Beiträge zur gesetzlichen Rentenversicherung gezahlt wurden oder angerechnete Monate zählen?"@de , 
+        "Do you have a total of at least five years of periods during which contributions to the statutory pension insurance were paid or credited months count?"@en ;
+    rdfs:comment "Die allgemeine Wartezeit gilt als erfüllt, wenn sich mindestens 60 Kalendermonate mit Beiträgen oder mit gleichgestellten Monaten angesammelt haben; gleichgestellte Monate sind Zeiträume ohne Beiträge, die trotzdem zählen, etwa während Kindererziehung, Schul- oder Studienbesuch, Krankheit, Reha oder Pflege eines Angehörigen."@de ,
+        "The regular waiting period is considered fulfilled if at least 60 calendar months with contributions or credited months have accumulated; credited months are periods without contributions that still count, such as during child-rearing, school or university attendance, illness, rehabilitation, or caregiving for a relative."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:general_waiting_period ;
+        sh:property [
+            sh:path ff:general_waiting_period ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:extended_waiting_period a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Erweiterte Wartezeit"@de , "Extended waiting period"@en ;
+    schema:question "Haben Sie, seit Sie ununterbrochen voll erwerbsgemindert sind, insgesamt mindestens 20 Jahre Zeiten in der gesetzlichen Rentenversicherung angesammelt?"@de ,
+        "Since you have been continuously fully incapable of work, have you accumulated at least 20 years of credited periods in the German statutory pension insurance?"@en ;
+    rdfs:comment "Diese besondere Wartezeit gilt für Personen, die schon vor den ersten fünf Beitragsjahren voll erwerbsgemindert waren und es bis heute ohne Unterbrechung geblieben sind. In diesem Fall zählen 240 Kalendermonate rentenrechtlicher Zeiten – meist Anrechnungs- oder Berücksichtigungszeiten wie Schul-, Reha-, Krankheits- oder Pflegemonate –, auch wenn während dieser Zeit kaum oder keine Beiträge gezahlt werden konnten."@de ,
+        "This special waiting period applies to individuals who were already fully incapable of work before the first five contribution years and have remained so continuously until today. In this case, 240 calendar months of pension-relevant periods count – usually credited or recognized periods such as school, rehabilitation, illness, or caregiving months – even if few or no contributions could be paid during this time."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:extended_waiting_period ;
+        sh:property [
+            sh:path ff:extended_waiting_period ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:compulsory_contributions a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Pflichtbeiträge zur gesetzlichen Rentenversicherung"@de , "Compulsory contributions to statutory pension insurance"@en ;
+    schema:question "Haben Sie in den letzten 5 Jahren mindestens 36 Monate Pflichtbeiträge zur gesetzlichen Rentenversicherung gezahlt?"@de ,
+        "Have you paid at least 36 months of compulsory contributions to the statutory pension insurance in the last 5 years?"@en ;
+    rdfs:comment "Pflichtbeiträge sind Beträge, die aus einer versicherten Beschäftigung oder einer Pflichtversicherung automatisch abgeführt werden. Der Prüfzeitraum umfasst normalerweise die letzten fünf Jahre vor Eintritt der Erwerbsminderung; er verlängert sich jedoch um beitragsfreie Monate wie Krankheits- oder Reha­zeiten, Zeiten einer bereits gezahlten Erwerbsminderungsrente, Kinder- oder Pflegezeiten, bestimmte unbezahlte Auszeiten sowie bis zu sieben Jahre Schul- oder Studienzeit nach dem 17. Geburtstag. Dadurch können auch weiter zurückliegende Pflichtbeiträge berücksichtigt werden."@de ,
+        "Compulsory contributions are amounts automatically deducted from an insured employment or compulsory insurance. The review period usually covers the last five years before the onset of disability; however, it extends to include contribution-free months such as illness or rehabilitation periods, periods of already paid disability pensions, child-rearing or caregiving periods, certain unpaid breaks, and up to seven years of school or university time after the age of 17. This allows for consideration of compulsory contributions made further back in time."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:compulsory_contributions ;
+        sh:property [
+            sh:path ff:compulsory_contributions ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

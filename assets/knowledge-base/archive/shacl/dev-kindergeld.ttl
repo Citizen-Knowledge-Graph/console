@@ -1,0 +1,16 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ff:kindergeld a ff:RequirementProfile ;
+    ff:title "Kindergeld" ;
+    ff:category ff:Sozialleistung .
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasIncomeBrutto ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
