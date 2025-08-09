@@ -8,6 +8,7 @@ export class OutputViewNode extends CodeNode {
 
     async processIncomingData() {
         let type = this.incomingData[0].dataType
+        this.outputs = [ type ]
         let mode = "text/plain"
         if (type === PORT.SPARQL) mode = "sparql"
         if (type === PORT.TURTLE) mode = "turtle"
