@@ -1,0 +1,46 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:forschungszulage a ff:RequirementProfile ;
+    ff:title "Forschungszulage - Steuerliche Förderung von Forschung und Entwicklung"@de ,
+              "Research Allowance - Tax Incentive for R&D"@en ;
+    ff:category ff:innovation-forschung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Steuerpflichtige Unternehmen in Deutschland können eine Forschungszulage für förderfähige Aufwendungen in Grundlagenforschung, industrieller Forschung und experimenteller Entwicklung erhalten."@de ,
+        "Tax-liable companies in Germany may claim a research allowance for eligible expenses related to basic research, industrial research, and experimental development."@en ;
+    rdfs:seeAlso <https://www.bundesfinanzministerium.de> ;
+    ff:hasMainShape ff:forschungszulageMainShape .
+
+ff:forschungszulageMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:taxable_germany ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:message "Anspruchsberechtigt sind Steuerpflichtige im Sinne des Einkommensteuer- oder Körperschaftsteuergesetzes, sofern sie Einkünfte nach § 2 Abs. 1 Satz 1 Nr. 1–3 EStG erzielen und nicht steuerbefreit sind. (Quelle: §1 Abs. 1 FZulG)"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:research_type ;
+        sh:minCount 1 ;
+        sh:in (ff:research_type-foundational ff:research_type-industrial ff:research_type-experimental) ;
+        sh:message "Nur Grundlagenforschung, industrielle Forschung oder experimentelle Entwicklung sind förderfähig. (Quelle: §2 Abs. 1 FZulG)"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:research_start_date ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:message "Das F&E-Vorhaben muss nach dem 1. Januar 2020 begonnen worden sein. (Quelle: §8 FZulG)"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:financial_difficulty ;
+        sh:minCount 1 ;
+        sh:in ( false ) ;
+        sh:message "Unternehmen in Schwierigkeiten gemäß AGVO sind ausgeschlossen. (Quelle: §9 Abs. 2 FZulG)"@de ;
+    ] .

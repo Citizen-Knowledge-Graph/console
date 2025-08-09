@@ -1,0 +1,104 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-01-17_09-38-36";
+         ff:hasName "SemOps LD Intro";
+         ff:hasExportTimestamp "2025-07-26T08:22:18.365Z";
+         ff:hasTranslateX -62;
+         ff:hasTranslateY 88;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "RDF Graph";
+         ff:hasPosX "207";
+         ff:hasPosY "8";
+         ff:hasWidth 447;
+         ff:hasHeight 252;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n\nff:person1 a ff:Citizen ;\n\tff:hasAge 10 ;\n\tff:hasResidence \"Berlin\" .\nff:person2  a ff:Citizen ;\n\tff:hasAge 20 ;\n\tff:hasResidence \"Munich\" .\nff:person3  a ff:Citizen ;\n\tff:hasAge 30 ;\n\tff:hasResidence \"Hamburg\" .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "SHACL";
+         ff:hasPosX "707";
+         ff:hasPosY "704";
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:shaclShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:minInclusive 15 ;\n    ] .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:GraphVisuNode;
+         ff:hasName "Graph Visualizer";
+         ff:hasPosX "704";
+         ff:hasPosY "-170".
+ff:node4 a ff:Node;
+         ff:hasClass ff:ShaclValidationNode;
+         ff:hasName "Run SHACL validation";
+         ff:hasPosX "1251";
+         ff:hasPosY "606";
+         ff:hasWidth 418;
+         ff:hasHeight 325.
+ff:node5 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "SPARQL SELECT";
+         ff:hasPosX "709";
+         ff:hasPosY "321";
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nSELECT * WHERE {\n    ?person a ff:Citizen ;\n    \tff:hasAge ?age ;\n\t\tff:hasResidence ?residence .\n}".
+ff:node6 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "SPARQL CONSTRUCT";
+         ff:hasPosX "710";
+         ff:hasPosY "505";
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nCONSTRUCT {\n    ?person ff:isAdult true .\n} WHERE {\n\t?person ff:hasAge ?age .\n\tFILTER(?age > 18) .\n}".
+ff:node7 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX "1253";
+         ff:hasPosY "105".
+ff:node8 a ff:Node;
+         ff:hasClass ff:TurtleToJsonLdConverterNode;
+         ff:hasName "Turtle to JSON-LD";
+         ff:hasPosX "213";
+         ff:hasPosY "301".
+ff:node9 a ff:Node;
+         ff:hasClass ff:SparqlConstructExecNode;
+         ff:hasName "Run SPARQL CONSTRUCT";
+         ff:hasPosX "1253";
+         ff:hasPosY "370".
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node3;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge8 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.

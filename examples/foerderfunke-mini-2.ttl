@@ -1,0 +1,102 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-05-06_23-47-23";
+         ff:hasName "FörderFunke Mini 2";
+         ff:hasExportTimestamp "2025-07-26T08:17:35.885Z";
+         ff:hasTranslateX -2;
+         ff:hasTranslateY 62;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "User profile";
+         ff:hasPosX "61";
+         ff:hasPosY "26";
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\nff:mainPerson a ff:Citizen ;\n    ff:hasResidence \"Augsburg\" .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Requirement profile";
+         ff:hasPosX "697";
+         ff:hasPosY "409";
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:SimpleBenefit1 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:residesInState ;\n        sh:minCount 1 ;\n        sh:in (\"Bayern\") ;\n    ] .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Table of constants";
+         ff:hasPosX "52";
+         ff:hasPosY "228";
+         ff:hasWidth 426;
+         ff:hasHeight 248;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n\nff:CityStateMap a ff:MapOfConstants ;\n    ff:mappedCityToState [\n        ff:city \"Frankfurt\" ;\n        ff:state \"Hessen\"\n    ] ;\n    ff:mappedCityToState [\n        ff:city \"Augsburg\" ;\n        ff:state \"Bayern\"\n    ] .".
+ff:node4 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Materialization rule";
+         ff:hasPosX "53";
+         ff:hasPosY "493";
+         ff:hasWidth 483;
+         ff:hasHeight 220;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nCONSTRUCT {\n\t?person ff:residesInState ?state .\n} WHERE {\n  \t?person ff:hasResidence ?city .\n  \tff:CityStateMap ff:mappedCityToState ?mapping .\n  \t?mapping ff:city ?city ;\n    \tff:state ?state .\n}".
+ff:node5 a ff:Node;
+         ff:hasClass ff:SparqlConstructExecNode;
+         ff:hasName "Run SPARQL CONSTRUCT";
+         ff:hasPosX "792";
+         ff:hasPosY "158".
+ff:node6 a ff:Node;
+         ff:hasClass ff:MergeTriplesNode;
+         ff:hasName "Extended user profile";
+         ff:hasPosX "1250";
+         ff:hasPosY "25".
+ff:node7 a ff:Node;
+         ff:hasClass ff:MergeTriplesNode;
+         ff:hasName "Merge triples";
+         ff:hasPosX "522";
+         ff:hasPosY "162";
+         ff:hasWidth 193;
+         ff:hasHeight 120;
+         ff:hasContentHidden true.
+ff:node8 a ff:Node;
+         ff:hasClass ff:ShaclValidationNode;
+         ff:hasName "SHACL validation";
+         ff:hasPosX "1222";
+         ff:hasPosY "384".
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge8 a ff:Edge;
+         ff:hasSource ff:node7;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.

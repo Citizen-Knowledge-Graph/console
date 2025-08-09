@@ -1,0 +1,82 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:exist-gruendungsstipendium a ff:RequirementProfile ;
+    ff:title "Exist Gründungsstipendium"@de , "Exist Founders Grant"@en ;
+    ff:category ff:selbstaendigkeit-gruendung ;
+    rdfs:seeAlso <https://www.exist.de/EXIST/Navigation/DE/Gruendungsfoerderung/EXIST-Gruendungsstipendium/exist-gruendungsstipendium.html> ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Das EXIST-Gründungsstipendium ist ein Förderprogramm der deutschen Regierung, das Studierende, Absolvent:innen und Wissenschaftler:innen von Hochschulen und Forschungseinrichtungen bei der Gründung innovativer Startups durch finanzielle Unterstützung und Coaching für bis zu ein Jahr fördert."@de ,
+        "The EXIST Gründungsstipendium is a German government grant that supports students, graduates, and scientists from universities and research institutions in founding innovative startups by providing financial support and coaching for up to one year."@en ;
+    ff:hasMainShape ff:exist-gruendungsstipendiumMainShape .
+
+ff:exist-gruendungsstipendiumMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:interested_in_founding ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+
+    sh:property [
+        sh:path ff:graduation_status ;
+        sh:minCount 1 ;
+        sh:in (  
+            ff:graduation_status-currently-enrolled-or-working
+            ff:graduation_status-left-at-most-5-years-ago
+        ) ;
+    ] ;
+    sh:property [
+        sh:path ff:institute_location ;
+        sh:minCount 1 ;
+        sh:in ( ff:institute_location-germany ) ;
+    ] ;
+    sh:property [
+        sh:path ff:beruf_neu ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:beruf_neu-ao-soz ) ;
+        ];
+    ] ;
+    sh:property [
+        sh:path ff:scholarship ;
+        sh:minCount 1 ;
+        sh:in ( false ) ;
+    ] ;
+    sh:property [
+        sh:path ff:founding_status ;
+        sh:minCount 1 ;
+        sh:in ( false ) ;
+    ] ;
+    sh:property [
+        sh:path ff:academic_institution_support ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+    sh:property [
+        sh:path ff:composition_founding_team ;
+        sh:minCount 1 ;
+        sh:in ( 
+            ff:composition_founding_team-only-academic-degrees
+            ff:composition_founding_team-at-most-one-non-academic-degree 
+        ) ;
+    ] ;
+    sh:property [
+        sh:path ff:secondary_activity ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in ( ff:secondary_activity-more-than-20 ) ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ff:studies_status ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in ( 
+                ff:studies_status-less-than-half
+                ff:studies_status-no-academic-studies 
+            ) ;
+        ] ;
+    ] .
