@@ -1,0 +1,118 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:ifb-gruendung-nachfolge a ff:RequirementProfile ;
+    ff:title "Hamburg-Kredit Gründung und Nachfolge III 2025"@de , "Hamburg-Kredit Gründung und Nachfolge III 2025"@en ;
+    ff:category ff:selbstaendigkeit-gruendung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Der Hamburg-Kredit Gründung und Nachfolge III 2025 unterstützt Existenzgründungen und Unternehmensnachfolgen in Hamburg durch langfristige Finanzierung von Investitionen und Betriebsmitteln. Das Programm bietet günstige Darlehenskonditionen und Zuschüsse für Handwerksbetriebe, die Ausbildungsplätze schaffen."@de ,
+        "The Hamburg-Kredit Gründung und Nachfolge III 2025 supports business start-ups and successions in Hamburg through long-term financing of investments and working capital. The program offers favorable loan conditions and grants for craft businesses that create training positions."@en ;
+    rdfs:seeAlso <https://www.ifbhh.de/programme/gruender-and-unternehmen/gruenden-und-nachfolgen/unternehmen-gruenden/hamburg-kredit-gruendung-und-nachfolge> ;
+    ff:hasMainShape ff:ifb-gruendung-nachfolgeMainShape .
+
+ff:ifb-gruendung-nachfolgeMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:interested_in_founding ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:founding_status ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:interested_in_succession ;
+        sh:minCount 1 ;
+    ] ;
+    sh:or (
+        [
+            sh:property [
+                sh:path ff:interested_in_founding ;
+                sh:in ( true ) ;
+            ] ;
+        ]
+        [
+            sh:property [
+                sh:path ff:founding_status ;
+                sh:in ( true ) ;
+            ] ;
+        ]
+        [
+            sh:property [
+                sh:path ff:interested_in_succession ;
+                sh:in ( true ) ;
+            ] ;
+        ]
+    ) ;
+
+    sh:property [
+        sh:minCount 1 ;
+        sh:path ff:company_age ;
+        sh:not [ sh:in (ff:company_age-more-than-5-years) ; ];
+        sh:message "Das Unternehmen darf nicht älter als fünf Jahre sein. (Quelle: 'Gefördert werden kleine und mittlere Unternehmen, die nicht länger als fünf Jahre bestehen')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:industry ;
+        sh:minCount 1 ;
+        sh:in (
+            ff:industry-ao-construction 
+            ff:industry-ao-gastronomy 
+            ff:industry-ao-healthcare 
+            ff:industry-ao-renewable-energy 
+            ff:industry-ao-creative-industries 
+            ff:industry-ao-logistics 
+            ff:industry-ao-tourism 
+            ff:industry-ao-food-industry 
+            ff:industry-ao-trade 
+            ff:industry-ao-manufacturing 
+        ) ;
+        sh:message "Das Unternehmen muss einer förderfähigen Branche angehören. (Quelle: 'Förderfähig sind Unternehmen der Branchen Bauwesen, Gastronomie, Gesundheitswesen, erneuerbare Energien, kreative Wirtschaft, Logistik, Tourismus, Lebensmittelindustrie, Handel und verarbeitendes Gewerbe')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:headquarters_location ;
+        sh:minCount 1 ;
+        sh:in ( ff:headquarters-ao-hamburg ) ;
+        sh:message "Der Unternehmenssitz muss sich in Hamburg befinden. (Quelle: 'Anträge sind nur zulässig, wenn das Unternehmen seinen Sitz in Hamburg hat')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:number_of_employees ;
+        sh:minCount 1 ;
+        sh:not[ sh:in (ff:number_of_employees-250-or-more) ; ];
+        sh:message "Das Unternehmen darf nicht mehr als 249 Mitarbeiter haben. (Quelle: 'Ein KMU hat weniger als 250 Mitarbeiter gemäß Empfehlung 2003/361/EG')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:annual_turnover ;
+        sh:minCount 1 ;
+        sh:in (ff:annual_turnover-less-than-50-million) ;
+        sh:message "Der Jahresumsatz darf 50 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf einen maximalen Jahresumsatz von 50 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:balance_sheet_total ;
+        sh:minCount 1 ;
+        sh:in (ff:balance_sheet_total-less-than-43-million) ;
+        sh:message "Die Jahresbilanzsumme darf 43 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf eine maximale Jahresbilanzsumme von 43 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:business_activity ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:business_activity-primary-agriculture) ;
+        ] ;
+        sh:message "Unternehmen, die in der Primärproduktion landwirtschaftlicher Erzeugnisse tätig sind oder unter Artikel 1 Abs. 1 der Verordnung (EU) 2023/2831 fallen, sind nicht förderfähig. (Quelle: 'Unternehmen bzw. Tätigkeiten gemäß Artikel 1 Abs. 1 der Verordnung (EU) 2023/2831 sind nicht förderfähig')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:financial_difficulty ;
+        sh:minCount 1 ;
+        sh:in ( false ) ;
+        sh:message "Unternehmen in finanziellen Schwierigkeiten gemäß Art. 2 Nr. 18 AGVO sind ausgeschlossen. (Quelle: 'Unternehmen in Schwierigkeiten im Sinne von Art. 2 Nr. 18 AGVO sind nicht förderfähig')."@de ;
+    ] ;
+    sh:property [
+        sh:path ff:de_minimis_aid ;
+        sh:minCount 1 ;
+        sh:in (ff:de_minimis_aid-no ff:de_minimis_aid-unsure) ;
+        sh:message "Nur Unternehmen, die die De-minimis-Förderung nicht vollständig ausgeschöpft haben oder nicht wissen, ob sie die Grenze erreicht haben, sind förderfähig. (Quelle: 'Unternehmen, die die zulässige De-minimis-Grenze gemäß EU-Verordnung überschreiten, sind nicht förderfähig')."@de ;
+    ] .

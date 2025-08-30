@@ -1,0 +1,89 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:ilb-kredit-gruendung a ff:RequirementProfile ;
+    ff:title "Brandenburg-Kredit Gründung"@de , "Brandenburg Start-up Credit"@en ;
+    ff:category ff:selbstaendigkeit-gruendung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Der Brandenburg-Kredit Gründung unterstützt junge Unternehmen in Brandenburg mit zinsgünstigen Krediten für Investitionen und Betriebsmittel."@de ,
+        "The Brandenburg Start-up Credit supports young businesses in Brandenburg with low-interest loans for investments and working capital."@en ;
+    rdfs:seeAlso <https://www.ilb.de> ;
+    ff:hasMainShape ff:ilb-kredit-gruendungMainShape .
+
+ff:ilb-kredit-gruendungMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:interested_in_founding ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:founding_status ;
+        sh:minCount 1 ;
+    ] ;
+    sh:or (
+        [
+            sh:property [
+                sh:path ff:interested_in_founding ;
+                sh:in ( true ) ;
+            ] ;
+        ]
+        [
+            sh:property [
+                sh:path ff:founding_status ;
+                sh:in ( true ) ;
+            ] ;
+        ]
+    ) ;
+    
+    sh:property [
+        sh:minCount 1 ;
+        sh:path ff:company_age ;
+        sh:not [ sh:in (ff:company_age-more-than-5-years) ; ] ;
+        sh:message "Das Unternehmen darf nicht älter als fünf Jahre sein. (Quelle: Merkblatt Brandenburg-Kredit Gründung - 'Die ILB fördert mit dem Brandenburg-Kredit Gründung unter der Voraussetzung, dass Sie als Antragsteller sich innerhalb der ersten 5 Jahre nach Aufnahme der Geschäftstätigkeit befinden.')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:number_of_employees ;
+        sh:minCount 1 ;
+        sh:not[ sh:in (ff:number_of_employees-250-or-more) ; ];
+        sh:message "Das Unternehmen muss ein KMU mit weniger als 250 Mitarbeitenden sein. (Quelle: KMU-Definition der EU - 'junge, kleine und mittlere Unternehmen im Sinne der EU-Definition mit weniger als 250 Mitarbeitern.')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:annual_turnover ;
+        sh:minCount 1 ;
+        sh:not [ sh:in (ff:annual_turnover-50-million-or-more) ; ];
+        sh:message "Der Jahresumsatz darf 50 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf einen maximalen Jahresumsatz von 50 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:balance_sheet_total ;
+        sh:minCount 1 ;
+        sh:not [ sh:in (ff:balance_sheet_total-43-million-or-more) ; ];
+        sh:message "Die Jahresbilanzsumme darf 43 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf eine maximale Jahresbilanzsumme von 43 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:business_activity_location ;
+        sh:minCount 1 ;
+        sh:in ( ff:business_activity_location-brandenburg );
+        sh:message "Das Unternehmen muss seinen Geschäftssitz in Brandenburg haben. (Quelle: Für Vorhaben im Land Brandenburg sind antragsberechtigt: … mit Unternehmenssitz in Deutschland – für Vorhaben in Brandenburg.')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:headquarters_country ;
+        sh:minCount 1 ;
+        sh:in ( ff:headquarters_country-germany ) ;
+        sh:message "Der Unternehmenssitz muss sich in Deutschland befinden. (Quelle: Merkblatt Brandenburg-Kredit Gründung - 'Für Vorhaben im Land Brandenburg sind antragsberechtigt: … mit Unternehmenssitz in Deutschland – für Vorhaben in Brandenburg..')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:de_minimis_aid ;
+        sh:minCount 1 ;
+        sh:in (ff:de_minimis_aid-no ff:de_minimis_aid-unsure) ;
+        sh:message "Unternehmen, die die zulässige De-minimis-Grenze überschritten haben, sind nicht förderfähig. (Quelle: Kurzinformation Brandenburg-Kredit Gründung - 'Aktuell erfolgen Darlehenszusagen bis auf Weiteres ausschließlich nach der De-minimis-Verordnung (EU) 2023/2831 vom 13. Dezember 2023.')"@de ;
+    ] .

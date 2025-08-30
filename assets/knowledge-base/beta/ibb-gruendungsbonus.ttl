@@ -1,0 +1,60 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:ibb-gruendungsbonus a ff:RequirementProfile ;
+    ff:title "IBB Gründungsbonus"@de , "IBB Gründungsbonus"@en ;
+    ff:category ff:selbstaendigkeit-gruendung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Der IBB Gründungsbonus unterstützt innovative Startups in Berlin durch finanzielle Zuschüsse und Beratung. Ziel ist es, nachhaltige und innovative Geschäftsmodelle zu fördern, die einen positiven Beitrag zur Wirtschaft leisten."@de ,
+        "The IBB Gründungsbonus supports innovative startups in Berlin through financial grants and consulting. The goal is to promote sustainable and innovative business models that contribute positively to the economy."@en ;
+    rdfs:seeAlso <https://www.ibb.de/de/foerderprogramme/gruendungsbonus-plus.html> ;
+    ff:hasMainShape ff:ibb-gruendungsbonusMainShape .
+
+ff:ibb-gruendungsbonusMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    
+    sh:property [
+        sh:path ff:founding_status ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+    sh:property [
+        sh:path ff:bank_account_germany ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+    sh:property [
+        sh:path ff:company_age ;
+        sh:in ( ff:company_age-less-than-18-months );
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:industry ;
+        sh:description "Companies in construction, gastronomy, hospitality (except ecological innovation), and retail (except sustainable products) are excluded."@en ;
+        sh:minCount 1 ;
+        sh:not [ sh:in ( ff:industry-ao-construction ff:industry-ao-gastronomy ff:industry-ao-hospitality-non-ecological ff:industry-ao-retail-non-sustainable ) ] ;
+    ] ;
+    sh:property [
+        sh:path ff:headquarters_location ;
+        sh:minCount 1 ;
+        sh:in ( ff:headquarters-ao-berlin ) ;
+    ] ;
+    sh:property [
+        sh:path ff:profit_oriented ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+    sh:property [
+        sh:path ff:majority_shares ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+    sh:property [
+        sh:path ff:no_double_funding ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] .

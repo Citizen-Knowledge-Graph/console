@@ -1,0 +1,543 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+
+ff:registered_residence_country a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie ;
+    rdfs:label "Land der Meldeadresse"@de , "Country of registered residence"@en ;
+    schema:question "In welchem Land sind Sie mit einer Meldeadresse gemeldet?"@de , "In which country is your residence officially registered?"@en ;
+    rdfs:comment "Es geht um das Land, in dem Sie eine offizielle Meldeadresse haben. Falls Sie in mehreren Ländern gemeldet sind, können Sie mehrere Adressen angeben."@de ,
+        "This refers to the country where your residence is officially registered. If you are registered in multiple countries, you may specify them all."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:registered_residence_country ;
+        sh:property [
+            sh:path ff:registered_residence_country ;
+            sh:in (ff:registered_residence_country-germany ff:registered_residence_country-other) ;
+        ] ;
+    ] .
+
+ff:registered_residence_country-germany a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:registered_residence_country-other a ff:AnswerOption ; rdfs:label "Anderes Land"@de , "Other country"@en .
+
+
+ff:employment_country a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Land des Arbeitsverhältnisses"@de , "Country of employment"@en ;
+    schema:question "In welchem Land sind Sie beschäftigt?"@de , "In which country are you employed?"@en ;
+    rdfs:comment "Wo sind Sie beschäftigt? Sie können mehrere Länder angeben, wenn Sie in mehreren Ländern arbeiten."@de ,
+        "Where are you employed? You can specify multiple countries if you work in several countries."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:employment_country ;
+        sh:property [
+            sh:path ff:employment_country ;
+            sh:in (ff:employment_country-germany ff:employment_country-other) ;
+        ] ;
+    ] .
+
+ff:employment_country-germany a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:employment_country-other a ff:AnswerOption ; rdfs:label "Anderes Land"@de , "Other country"@en .
+
+
+ff:disability_expected_duration_6_months a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Behinderung voraussichtlich länger als 6 Monate"@de , "Disability expected to last longer than 6 months"@en ;
+    schema:question "Wird Ihre Behinderung mit hoher Wahrscheinlichkeit länger als 6 Monate andauern?"@de ,
+        "Is your disability expected to last longer than 6 months?"@en ;
+    rdfs:comment "Die Frage soll ermitteln, ob der Zustand Ihrer Behinderung nicht nur vorübergehend besteht, sondern voraussichtlich mindestens sechs Monate andauert."@de ,
+        "This question aims to determine whether your disability is not just temporary but is expected to last at least six months."@en ;
+        ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disability_expected_duration_6_months ;
+        sh:property [
+            sh:path ff:disability_expected_duration_6_months ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+
+ff:disability_degree_evaluated a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Grad der Behinderung festgestellt"@de , "Degree of disability evaluated"@en ;
+    schema:question "Wurde der Grad Ihrer Behinderung bereits festgestellt?"@de , "Has the degree of your disability been evaluated?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disability_degree_evaluated ;
+        sh:property [
+            sh:path ff:disability_degree_evaluated ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+
+ff:disability_degree a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Grad der Behinderung"@de , "Degree of disability"@en ;
+    schema:question "Wie hoch ist der Grad Ihrer Behinderung?"@de , "What is the degree of your disability?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disability_degree ;
+        sh:property [
+            sh:path ff:disability_degree ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxInclusive 100 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+
+ff:job_at_risk_without_equal_status a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Arbeitsplatz gefährdet ohne Gleichstellung"@de , "Job at risk without equal status"@en ;
+    schema:question "Könnten Sie wegen Ihrer Behinderung ohne eine Gleichstellung einen geeigneten Arbeitsplatz nicht erlangen oder behalten?"@de ,
+        "Would you not be able to obtain or retain suitable employment due to your disability without equal status?"@en ;
+    rdfs:comment "Gleichstellung bedeutet, dass Personen mit einem Grad der Behinderung von 30 bis 49 formal Schwerbehinderten gleichgestellt werden, wenn sie sonst keinen geeigneten Arbeitsplatz erlangen oder behalten könnten."@de ,
+        "Equal status means that persons with a degree of disability of 30 to 49 are formally treated as severely disabled if they would otherwise not be able to obtain or retain suitable employment."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:job_at_risk_without_equal_status ;
+        sh:property [
+            sh:path ff:job_at_risk_without_equal_status ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:open_market_fit a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Geeignet für den allgemeinen Arbeitsmarkt"@de , "Fit for the open labor market"@en ;
+    schema:question "Sind Sie außerhalb einer geschützten Einrichtung in der Lage, auf dem regulären Arbeitsmarkt zu arbeiten?"@de ,
+        "Are you able to work on the regular labor market outside a sheltered facility?"@en ;
+    rdfs:comment "Der allgemeine Arbeitsmarkt sind alle normalen Arbeitsplätze in Firmen, an denen Menschen – auch mit Hilfsmitteln oder Unterstützung – arbeiten können, solange es kein dauerhaft geschützter Sonder­arbeitsplatz wie eine Werkstatt für behinderte Menschen ist."@de ,
+        "The open labor market includes all regular jobs in companies where people can work, even with aids or support, as long as it is not a permanently protected special workplace like a workshop for disabled people."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:open_market_fit ;
+        sh:property [
+            sh:path ff:open_market_fit ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:open_market_hours a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Stunden pro Tag auf dem allgemeinen Arbeitsmarkt"@de , "Hours per day on the open labor market"@en ;
+    schema:question "Wie viele Stunden könnten Sie unter den üblichen Bedingungen des allgemeinen Arbeitsmarktes pro Tag arbeiten?"@de ,
+        "How many hours could you work per day under the usual conditions of the open labor market?"@en ;
+    rdfs:comment "Diese Frage klärt, wie viele Stunden Sie unter den üblichen Bedingungen des allgemeinen Arbeitsmarktes arbeiten können; die Einstufung beruht auf ärztlichen Gutachten und einer sozialmedizinischen Bewertung Ihres verbliebenen Leistungsvermögens."@de ,
+        "This question clarifies how many hours you can work per day under the usual conditions of the open labor market; the classification is based on medical reports and a social medical assessment of your remaining capacity."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:open_market_hours ;
+        sh:property [
+            sh:path ff:open_market_hours ;
+            sh:in (ff:open_market_hours-3hours ff:open_market_hours-6hours ff:open_market_hours-more_than_6hours) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:open_market_hours-3hours a ff:AnswerOption ; rdfs:label "Höchstens 3 Stunden"@de , "At most 3 hours"@en .
+ff:open_market_hours-6hours a ff:AnswerOption ; rdfs:label "Höchstens 6 Stunden"@de , "At most 6 hours"@en .
+ff:open_market_hours-more_than_6hours a ff:AnswerOption ; rdfs:label "Mehr als 6 Stunden"@de , "More than 6 hours"@en .
+
+ff:special_cause_inability a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Besondere Gründe für Arbeitsunfähigkeit"@de , "Special reasons for inability to work"@en ;
+    schema:question "Ist Ihre Erwerbsminderung durch einen Arbeitsunfall, eine Berufskrankheit, einen Unfall im Wehr- oder Freiwilligendienst, einen Impfschaden oder durch Gewalt entstanden?"@de ,
+        "Is your disability due to a work accident, an occupational disease, an accident during military or voluntary service, a vaccination injury, or violence?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:special_cause_inability ;
+        sh:property [
+            sh:path ff:special_cause_inability ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:general_waiting_period a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Allgemeine Wartezeit"@de , "Regular waiting period"@en ;
+    schema:question "Haben Sie insgesamt mindestens fünf Jahre Zeiten, in denen Beiträge zur gesetzlichen Rentenversicherung gezahlt wurden oder angerechnete Monate zählen?"@de , 
+        "Do you have a total of at least five years of periods during which contributions to the statutory pension insurance were paid or credited months count?"@en ;
+    rdfs:comment "Die allgemeine Wartezeit gilt als erfüllt, wenn sich mindestens 60 Kalendermonate mit Beiträgen oder mit gleichgestellten Monaten angesammelt haben; gleichgestellte Monate sind Zeiträume ohne Beiträge, die trotzdem zählen, etwa während Kindererziehung, Schul- oder Studienbesuch, Krankheit, Reha oder Pflege eines Angehörigen."@de ,
+        "The regular waiting period is considered fulfilled if at least 60 calendar months with contributions or credited months have accumulated; credited months are periods without contributions that still count, such as during child-rearing, school or university attendance, illness, rehabilitation, or caregiving for a relative."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:general_waiting_period ;
+        sh:property [
+            sh:path ff:general_waiting_period ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:extended_waiting_period a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Erweiterte Wartezeit"@de , "Extended waiting period"@en ;
+    schema:question "Haben Sie, seit Sie ununterbrochen voll erwerbsgemindert sind, insgesamt mindestens 20 Jahre Zeiten in der gesetzlichen Rentenversicherung angesammelt?"@de ,
+        "Since you have been continuously fully incapable of work, have you accumulated at least 20 years of credited periods in the German statutory pension insurance?"@en ;
+    rdfs:comment "Diese besondere Wartezeit gilt für Personen, die schon vor den ersten fünf Beitragsjahren voll erwerbsgemindert waren und es bis heute ohne Unterbrechung geblieben sind. In diesem Fall zählen 240 Kalendermonate rentenrechtlicher Zeiten – meist Anrechnungs- oder Berücksichtigungszeiten wie Schul-, Reha-, Krankheits- oder Pflegemonate –, auch wenn während dieser Zeit kaum oder keine Beiträge gezahlt werden konnten."@de ,
+        "This special waiting period applies to individuals who were already fully incapable of work before the first five contribution years and have remained so continuously until today. In this case, 240 calendar months of pension-relevant periods count – usually credited or recognized periods such as school, rehabilitation, illness, or caregiving months – even if few or no contributions could be paid during this time."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:extended_waiting_period ;
+        sh:property [
+            sh:path ff:extended_waiting_period ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:compulsory_contributions a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Pflichtbeiträge zur gesetzlichen Rentenversicherung"@de , "Compulsory contributions to statutory pension insurance"@en ;
+    schema:question "Haben Sie in den letzten 5 Jahren mindestens 36 Monate Pflichtbeiträge zur gesetzlichen Rentenversicherung gezahlt?"@de ,
+        "Have you paid at least 36 months of compulsory contributions to the statutory pension insurance in the last 5 years?"@en ;
+    rdfs:comment "Pflichtbeiträge sind Beträge, die aus einer versicherten Beschäftigung oder einer Pflichtversicherung automatisch abgeführt werden. Der Prüfzeitraum umfasst normalerweise die letzten fünf Jahre vor Eintritt der Erwerbsminderung; er verlängert sich jedoch um beitragsfreie Monate wie Krankheits- oder Reha­zeiten, Zeiten einer bereits gezahlten Erwerbsminderungsrente, Kinder- oder Pflegezeiten, bestimmte unbezahlte Auszeiten sowie bis zu sieben Jahre Schul- oder Studienzeit nach dem 17. Geburtstag. Dadurch können auch weiter zurückliegende Pflichtbeiträge berücksichtigt werden."@de ,
+        "Compulsory contributions are amounts automatically deducted from an insured employment or compulsory insurance. The review period usually covers the last five years before the onset of disability; however, it extends to include contribution-free months such as illness or rehabilitation periods, periods of already paid disability pensions, child-rearing or caregiving periods, certain unpaid breaks, and up to seven years of school or university time after the age of 17. This allows for consideration of compulsory contributions made further back in time."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:compulsory_contributions ;
+        sh:property [
+            sh:path ff:compulsory_contributions ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:has_confirmed_addiction a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Bestätigte Sucht"@de , "Confirmed addiction"@en ;
+    schema:question "Leiden Sie an einer Suchterkrankung?"@de , "Do you suffer from an addiction?"@en ;
+    rdfs:comment "Eine Sucht wird von einer Ärzt:in bestätigt, wenn mehrere eindeutige Anzeichen vorliegen – zum Beispiel, dass der Konsum nicht mehr kontrolliert werden kann, der Körper ohne die Substanz starke Beschwerden zeigt, ein sehr starkes Verlangen danach besteht und andere wichtige Dinge im Leben vernachlässigt werden."@de ,
+        "An addiction is confirmed by a doctor or psychologist when there are multiple clear signs – for example, that consumption can no longer be controlled, the body shows severe discomfort without the substance, there is a very strong craving for it, and other important aspects of life are neglected."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:has_confirmed_addiction ;
+        sh:property [
+            sh:path ff:has_confirmed_addiction ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:has_opioid_addiction a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Opioidabhängigkeit"@de , "Opioid addiction"@en ;
+    schema:question "Liegt bei Ihnen eine ärztlich anerkannte Opioid-Abhängigkeitserkrankung vor?"@de , "Do you have a medically recognized opioid addiction?"@en , "Sind Sie abhängig von Opioiden und wurde diese Abhängigkeit von einem Arzt oder einer Ärztin bestätigt?"@de-x-es ;
+    rdfs:comment "Opioide sind Substanzen, die Schmerzen lindern und ein Gefühl von Euphorie erzeugen können. Beispiele für Opioide sind Heroin, Morphin, Methadon und Buprenorphin."@de ,
+        "Opioids are substances that can relieve pain and create a feeling of euphoria. Examples of opioids include heroin, morphine, methadone, and buprenorphine."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:has_opioid_addiction ;
+        sh:property [
+            sh:path ff:has_opioid_addiction ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:has_medical_insurance a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Krankenversicherung"@de , "Health insurance"@en ;
+    schema:question "Haben Sie eine Krankenversicherung?"@de , "Do you have health insurance?"@en ;
+    rdfs:comment "Eine Krankenversicherung ist notwendig, um medizinische Behandlungen und Therapien zu erhalten. Sie kann gesetzlich oder privat sein."@de ,
+        "Health insurance is necessary to receive medical treatments and therapies. It can be statutory or private."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:has_medical_insurance ;
+        sh:property [
+            sh:path ff:has_medical_insurance ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:sobriety_wish a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Abstinenz Wunsch"@de , "Sobriety wish"@en ;
+    schema:question "Ist es Ihr Ziel, in Ihrem Leben keine Opioide mehr zu nehmen?"@de , 
+        "Is it your goal to no longer use opioids in your life?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:sobriety_wish ;
+        sh:property [
+            sh:path ff:sobriety_wish ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:has_severe_disease a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Schwere Erkrankung"@de , "Severe disease"@en ;
+    schema:question "Haben Sie eine schwere Krankheit, zum Beispiel Krebs, HIV, Hepatitis A oder Hepatitis C?"@de , 
+        "Do you have a severe disease, such as cancer, HIV, hepatitis A, or hepatitis C?"@en ;
+    rdfs:comment "Eine schwere Erkrankung ist eine Krankheit, die erhebliche Auswirkungen auf Ihre Gesundheit und Lebensqualität hat."@de ,
+        "A severe disease is an illness that has significant effects on your health and quality of life."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:has_severe_disease ;
+        sh:property [
+            sh:path ff:has_severe_disease ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:pregnant a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Schwanger"@de , "Pregnant"@en ;
+    schema:question "Sind Sie schwanger?"@de , "Are you pregnant?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:pregnant ;
+        sh:property [
+            sh:path ff:pregnant ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:recent_birth a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Vor kurzem geboren"@de , "Recently given birth"@en ;
+    schema:question "Haben Sie vor kurzem ein Kind geboren?"@de , "Have you recently given birth to a child?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:recent_birth ;
+        sh:property [
+            sh:path ff:recent_birth ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:addiction_duration_2years a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Sucht seit mindestens 2 Jahren"@de , "Addiction for at least 2 years"@en ;
+    schema:question "Leiden Sie seit mindestens zwei Jahren an einer Sucht?"@de , "Have you been suffering from an addiction for at least two years?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:addiction_duration_2years ;
+        sh:property [
+            sh:path ff:addiction_duration_2years ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+
+ff:addiction_damage a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Suchtschäden"@de, "Addiction damage"@en ;
+    schema:question "Haben Sie große gesundheitliche, seelische oder soziale Probleme, weil Sie Opioide (zum Beispiel Heroin) konsumieren?"@de ,
+        "Do you have serious health, emotional, or social problems because you use opioids (for example, heroin)?"@en ;
+    rdfs:comment "Solche Probleme können zum Beispiel schlechte körperliche Gesundheit, Traurigkeit oder Angst, Streit mit Familie oder Freund:innen, Verlust der Arbeit oder Schwierigkeiten mit Wohnung oder Geld sein."@de ,
+        "Such problems can include poor physical health, feeling depressed or anxious, trouble with family or friends, losing your job, or difficulties with housing or money."@en ;        
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:addiction_damage ;
+        sh:property [
+            sh:path ff:addiction_damage ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+
+ff:substitutiontherapy_regular_6months a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Reguläre Substitutionstherapie von mindestens 6 Monaten"@de , "Regular substitution therapy of at least 6 months"@en ;
+    schema:question "Waren Sie bereits in Ihrem Leben mindestens 6 Monate in einer Substitutionstherapie?"@de ,
+        "Have you already been in substitution therapy for at least 6 months in your life?"@en ;
+    rdfs:comment "Eine Substitutionstherapie ist eine medizinische Behandlung, bei der Opioide (zum Beispiel Heroin) durch andere, länger wirkende und weniger schädliche Substanzen (zum Beispiel Methadon oder Buprenorphin) ersetzt werden."@de ,
+        "Substitution therapy is a medical treatment in which opioids (for example, heroin) are replaced by other, longer-acting and less harmful substances (for example, methadone or buprenorphine)."@en ;        
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:substitutiontherapy_regular_6months ;
+        sh:property [
+            sh:path ff:substitutiontherapy_regular_6months ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+
+ff:substitutiontherapy_regular_unsuccessful a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Erfolglose Substitutionstherapie"@de, "Unsuccessful substitution therapy"@en ;
+    schema:question "War die letzte oder aktuelle Substitutionstherapie erfolglos?"@de , 
+        "Was your last or current substitution therapy unsuccessful?"@en ;
+    rdfs:comment "Das bedeutet, dass Sie schon an einer Behandlung mit Substitutionsmitteln (zum Beispiel Methadon oder Buprenorphin) teilgenommen haben, diese aber Ihre Probleme nicht ausreichend verbessert hat."@de ,
+        "This means you have already taken part in treatment with substitution medicines (for example, methadone or buprenorphine), but it has not improved your problems enough."@en ;        
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:substitutiontherapy_regular_unsuccessful ;
+        sh:property [
+            sh:path ff:substitutiontherapy_regular_unsuccessful ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+        
+ff:requires_assistance a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Erheblicher Unterstützungsbedarf"@de , "Requires assistance"@en ;
+    schema:question "Benötigen Sie regelmäßige, erhebliche und dauerhafte Unterstützung, um Ihre Arbeit auszuführen?"@de , "Do you require regular, substantial, and ongoing support to perform your work?"@en ;
+    rdfs:comment "Das bedeutet, dass Sie über eine lange Zeit hinweg oft und in größerem Umfang Hilfe von anderen brauchen, um wichtige Dinge im Alltag oder bei der Arbeit erledigen zu können."@de ,
+        "This means that you need frequent and significant help from others over a long period to manage important tasks in daily life or at work."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:requires_assistance ;
+        sh:property [
+            sh:path ff:requires_assistance ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+
+ff:core_activity_independent a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Kernaktivität selbstständig"@de , "Core activity independent"@en ;
+    schema:question "Können Sie Ihre Kernaktivitäten Ihrer Arbeit ohne Hilfe erledigen?"@de ,
+        "Can you perform your core activities at work independently?"@en ;
+    rdfs:comment "Sie erledigen die wichtigste Aufgabe selbst und brauchen nur bei kleineren oder vorbereitenden Arbeiten Unterstützung."@de ,
+        "You can perform the main task independently and only need support for smaller or preparatory tasks."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:core_activity_independent ;
+        sh:property [
+            sh:path ff:core_activity_independent ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+
+ff:existing_workplace_measures_insufficient a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Vorhandene Arbeitsplatzgestaltung unzureichend"@de , "Existing workplace design insufficient"@en ;
+    schema:question "Ist die vorhandene behindertengerechte Gestaltung Ihres Arbeitsplatzes nicht ausreichend, um Ihre Arbeit zu ermöglichen?"@de ,
+        "Is the existing disability-friendly design of your workplace insufficient to enable you to work?"@en ;
+    rdfs:comment "Bestehende Anpassungen können zum Beispiel ein höhenverstellbarer Schreibtisch, eine Rampe oder ein Bildschirmlesegerät sein."@de ,
+        "Existing adjustments can include a height-adjustable desk, a ramp, or a screen reader."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:existing_workplace_measures_insufficient ;
+        sh:property [
+            sh:path ff:existing_workplace_measures_insufficient ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+
+ff:workplace a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Arbeitsplatz"@de , "Workplace"@en ;
+    schema:question "Haben Sie einen Arbeitsplatz?"@de , "Do you have a workplace?"@en ;
+    rdfs:comment "Ein Arbeitsplatz ist der Ort, an dem Sie Ihre beruflichen Aufgaben erledigen."@de ,
+        "A workplace is the place where you perform your professional tasks."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:workplace ;
+        sh:property [
+            sh:path ff:workplace ;
+            sh:in (ff:workplace-inclusive ff:workplace-sheltered ff:workplace-other) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:workplace-inclusive a ff:AnswerOption ; rdfs:label "Inklusionsbetrieb"@de , "Inclusive workplace"@en .
+ff:workplace-sheltered a ff:AnswerOption ; rdfs:label "Werkstatt für Menschen mit Behinderung"@de , "Workshop for people with disabilities"@en .
+ff:workplace-self-employed a ff:AnswerOption ; rdfs:label "Selbstständig"@de , "Self-employed"@en .
+ff:workplace-other a ff:AnswerOption ; rdfs:label "Anderer Arbeitsplatz"@de , "Other workplace"@en .
+
+ff:workhours_per_week a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Arbeitsstunden pro Woche"@de , "Work hours per week"@en ;
+    schema:question "Wie viele Stunden arbeiten Sie pro Woche?"@de , "How many hours do you work per week?"@en ;
+    rdfs:comment "Die Angabe der Arbeitsstunden pro Woche hilft, den Umfang Ihrer Beschäftigung zu verstehen."@de ,
+        "Specifying the number of work hours per week helps to understand the extent of your employment."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:workhours_per_week ;
+        sh:property [
+            sh:path ff:workhours_per_week ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:business_plan a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Geschäftsplan"@de , "Business plan"@en ;
+    schema:question "Haben Sie einen Geschäftsplan erstellt?"@de , "Have you created a business plan?"@en ;
+    rdfs:comment "Ein Geschäftsplan ist ein Dokument, das die Ziele, Strategien und Rahmenbedingungen einer Unternehmung beschreibt und dabei insbesondere darlegt, wie die wirtschaftliche Tragfähigkeit des Vorhabens sichergestellt wird."@de ,
+        "A business plan is a document that outlines the goals, strategies, and conditions of a business venture, particularly detailing how the economic viability of the project will be ensured."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:business_plan ;
+        sh:property [
+            sh:path ff:business_plan ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:self_employment_secures_livelihood a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Wirtschaftliche Tragfähigkeit der Selbstständigkeit"@de , "Economic viability of self-employment"@en ;
+    schema:question "Dient die Selbständigkeit zur Sicherung der wirtschaftlichen Lebensgrundlage??"@de , 
+        "Is the self-employment intended to secure your economic livelihood?"@en ;
+    rdfs:comment "Die wirtschaftliche Tragfähigkeit bedeutet, dass Ihr selbstständiges Vorhaben so gestaltet ist, dass es langfristig finanziell erfolgreich sein kann."@de ,
+        "Economic viability means that your self-employment project is designed to be financially successful in the long term."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:self_employment_secures_livelihood ;
+        sh:property [
+            sh:path ff:self_employment_secures_livelihood ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:primary_occupation_country a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie ;
+    rdfs:label "Land der Hauptbeschäftigung"@de , "Country of primary occupation"@en ;
+    schema:question "In welchem Land sind Sie hauptsächlich berufstätig?"@de , "In which country are you primarily employed?"@en ;
+    rdfs:comment "Die Angabe bezieht sich auf das Land, in dem der überwiegende Teil des Lebensunterhalts durch Arbeit oder selbständige Tätigkeit erzielt wird. Maßgeblich ist, wo das Haupteinkommen erwirtschaftet wird."@de ,
+        "This information refers to the country where the majority of livelihood is earned through employment or self-employment. The key factor is where the main income is generated."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:primary_occupation_country ;
+        sh:property [
+            sh:path ff:primary_occupation_country ;
+            sh:in (ff:primary_occupation_country-germany ff:primary_occupation_country-other) ;
+        ] ;
+    ] .
+ff:primary_occupation_country-germany a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:primary_occupation_country-other a ff:AnswerOption ; rdfs:label "Anderes Land"@de , "Other country"@en .
+
+ff:earnings_above_jaeg a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Einkommen über der JAEG"@de , "Income above the JAEG"@en ;
+    schema:question "Liegt Ihr Einkommen über der Jahresentgeltgrenze von 73.800 Euro brutto (JAEG)?"@de , 
+        "Is your income above the annual earnings threshold of 73,800 euros gross (JAEG)?"@en ;
+    rdfs:comment "Ab einem regelmäßigen Bruttojahresgehalt über 73 800 € gilt man ab 2025 als krankenversicherungsfrei, d. h. man kann zwischen der freiwilligen GKV und der PKV wählen."@de ,
+        "From a regular gross annual salary of over €73,800, one is considered exempt from compulsory health insurance as of 2025, meaning one can choose between voluntary statutory health insurance (GKV) and private health insurance (PKV)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:earnings_above_jaeg ;
+        sh:property [
+            sh:path ff:earnings_above_jaeg ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

@@ -1,0 +1,15 @@
+./counseling-centres.ttl
+./external-turtle-files.ttl
+./sem-ops-ld-intro.ttl
+./external-sparql-endpoint.ttl
+./foerderfunke-mini-2.ttl
+./foerderfunke-mini.ttl
+./for-demo-videos/demo-form-breakdown.ttl
+./for-demo-videos/demo-quiz.ttl
+./for-demo-videos/demo-form.ttl
+./for-demo-videos/demo-quiz-breakdown.ttl
+./for-demo-videos/demo-graph-visu.ttl
+./for-demo-videos/demo-wizard.ttl
+./introspective-query.ttl
+./javascript.ttl
+./foerderungen-moers.ttl
