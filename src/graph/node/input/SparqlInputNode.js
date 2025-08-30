@@ -9,7 +9,7 @@ export class SparqlInputNode extends CodeNode {
 
     inputNodePreRun() {
         try {
-            new SparqlParser().parse(this.getValue())
+            new SparqlParser({ sparqlStar: true }).parse(this.getValue())
         } catch (err) {
             let msg = err.message.split("...")[0]
             msg = msg.substring(0, msg.length - 2)

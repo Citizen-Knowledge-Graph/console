@@ -53,7 +53,7 @@ export class GraphVisuNode extends Node {
     }
 
     async processSparqlData(sparql) {
-        let ast = new SparqlParser().parse(sparql) // abstract syntax tree
+        let ast = new SparqlParser({ sparqlStar: true }).parse(sparql) // abstract syntax tree
         if (ast.queryType !== "SELECT") {
             this.handleError("Only SPARQL SELECT queries are supported for now")
             return { nodes: [], links: [] }

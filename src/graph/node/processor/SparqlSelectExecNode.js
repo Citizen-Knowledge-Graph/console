@@ -18,7 +18,7 @@ export class SparqlSelectExecNode extends TableNode {
     async processIncomingData() {
         try {
             let sparql = this.incomingData.filter(port => port.dataType === PORT.SPARQL)[0].data
-            let queryObj = new SparqlParser().parse(sparql)
+            let queryObj = new SparqlParser({ sparqlStar: true }).parse(sparql)
             if (queryObj.queryType !== "SELECT") {
                 return this.handleError("Only SPARQL SELECT queries are supported")
             }
