@@ -1,0 +1,129 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+    ff:hasId "graph_2025-01-17_09-38-36";
+    ff:hasName "LD-intro";
+    ff:hasExportTimestamp "2025-11-25T13:17:19.619Z";
+    ff:hasTranslateX -121;
+    ff:hasTranslateY 239;
+    ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11;
+    ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9, ff:edge10.
+ff:node1 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "RDF Graph";
+    ff:hasPosX "209";
+    ff:hasPosY "-11";
+    ff:hasWidth 428;
+    ff:hasHeight 280;
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n\nff:person1 a ff:Citizen .\nff:person1 ff:hasAge 15 .\nff:person1 ff:hasResidence \"Berlin\" .\n\nff:person2  a ff:Citizen ;\n\tff:hasAge 20 ;\n\tff:hasResidence \"Bielefeld\" .\n\nff:person3  a ff:Citizen ;\n\tff:hasAge 30 ;\n\tff:hasResidence \"Münster\" .".
+ff:node2 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "SHACL";
+    ff:hasPosX "718";
+    ff:hasPosY "333";
+    ff:hasWidth 420;
+    ff:hasHeight 251;
+    ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:shaclShape a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:minInclusive 18 ;\n        sh:message \"User is not an adult\" ;\n    ] .".
+ff:node3 a ff:Node;
+    ff:hasClass ff:TurtleInputNode;
+    ff:hasName "SPARQL CONSTRUCT to Triples (SPIN)";
+    ff:hasPosX "721";
+    ff:hasPosY "1009";
+    ff:hasWidth 499;
+    ff:hasHeight 434;
+    ff:hasValue "PREFIX ff:   <https://foerderfunke.org/default#>\nPREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX sp:   <http://spinrdf.org/sp#>\n\n[ rdf:type sp:Construct;\n  sp:templates ( \n    [ sp:object true ;\n      sp:predicate ff:isAdult ;\n      sp:subject [ sp:varName  \"person\" ]\n    ]\n  ) ;\n  sp:where (\n    [ sp:object [ sp:varName  \"age\" ] ;\n      sp:predicate ff:hasAge ;\n      sp:subject [ sp:varName  \"person\" ]\n    ]\n    [ rdf:type sp:Filter ;\n      sp:expression [ rdf:type sp:gt;\n                      sp:arg1 [ sp:varName \"age\" ] ;\n                      sp:arg2 18\n                    ]\n    ]\n  )\n] .".
+ff:node4 a ff:Node;
+    ff:hasClass ff:GraphVisuNode;
+    ff:hasName "Graph Visualizer";
+    ff:hasPosX "712";
+    ff:hasPosY "-184".
+ff:node5 a ff:Node;
+    ff:hasClass ff:ShaclValidationNode;
+    ff:hasName "Run SHACL validation";
+    ff:hasPosX "1254";
+    ff:hasPosY "152";
+    ff:hasWidth 549;
+    ff:hasHeight 338.
+ff:node6 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "SPARQL SELECT";
+    ff:hasPosX "719";
+    ff:hasPosY "612";
+    ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nSELECT * WHERE {\n    ?person a ff:Citizen ;\n    \tff:hasAge ?age ;\n\t\tff:hasResidence ?residence .\n}".
+ff:node7 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "SPARQL CONSTRUCT";
+    ff:hasPosX "719";
+    ff:hasPosY "806";
+    ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nCONSTRUCT {\n    ?person ff:isAdult true .\n} WHERE {\n\t?person ff:hasAge ?age .\n\tFILTER(?age > 18) .\n}".
+ff:node8 a ff:Node;
+    ff:hasClass ff:SparqlSelectExecNode;
+    ff:hasName "Run SPARQL SELECT";
+    ff:hasPosX "1253";
+    ff:hasPosY "508".
+ff:node9 a ff:Node;
+    ff:hasClass ff:TurtleToJsonLdConverterNode;
+    ff:hasName "Turtle to JSON-LD";
+    ff:hasPosX "213";
+    ff:hasPosY "301".
+ff:node10 a ff:Node;
+    ff:hasClass ff:SparqlConstructExecNode;
+    ff:hasName "Run SPARQL CONSTRUCT";
+    ff:hasPosX "1259";
+    ff:hasPosY "775".
+ff:node11 a ff:Node;
+    ff:hasClass ff:MergeTriplesNode;
+    ff:hasName "Merge triples";
+    ff:hasPosX "1821";
+    ff:hasPosY "717".
+ff:edge1 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node4;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node8;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node9;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node10;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge5 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node11;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node5;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge7 a ff:Edge;
+    ff:hasSource ff:node2;
+    ff:hasTarget ff:node5;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge8 a ff:Edge;
+    ff:hasSource ff:node6;
+    ff:hasTarget ff:node8;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge9 a ff:Edge;
+    ff:hasSource ff:node7;
+    ff:hasTarget ff:node10;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge10 a ff:Edge;
+    ff:hasSource ff:node10;
+    ff:hasTarget ff:node11;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
