@@ -4,7 +4,7 @@
 ff:graph a ff:Graph;
          ff:hasId "graph_2025-11-24_11-47-30";
          ff:hasName "Participants Knowledge Graph";
-         ff:hasExportTimestamp "2025-11-26T11:24:13.270Z";
+         ff:hasExportTimestamp "2025-11-26T11:43:33.101Z";
          ff:hasTranslateX 235;
          ff:hasTranslateY 173;
          ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11, ff:node12, ff:node13, ff:node14, ff:node15, ff:node16;
@@ -30,26 +30,26 @@ ff:node3 a ff:Node;
 ff:node4 a ff:Node;
          ff:hasClass ff:SparqlInputNode;
          ff:hasName "Skill Matching";
-         ff:hasPosX "530";
-         ff:hasPosY "-235";
-         ff:hasWidth 552;
-         ff:hasHeight 202;
-         ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT ?skill ?personWantingIt ?personHavingIt WHERE {\n    ?person1 :hasSkill ?skill ;\n                    :hasName ?personHavingIt .\n  \t?person2 :hasDesiredSkill ?skill ;\n             :hasName ?personWantingIt .\n}".
+         ff:hasPosX 549;
+         ff:hasPosY -244;
+         ff:hasWidth 517;
+         ff:hasHeight 218;
+         ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT * WHERE {\n    ?personHavingIt :hasSkill ?skill .\n  \t?personWantingIt :hasDesiredSkill ?skill .\n                     \n    OPTIONAL { ?personHavingIt :hasName ?name1 . }\n    OPTIONAL { ?personWantingIt :hasName ?name2 . }\n}".
 ff:node5 a ff:Node;
          ff:hasClass ff:SparqlInputNode;
          ff:hasName "Travel distance";
          ff:hasPosX "1043";
          ff:hasPosY "213";
-         ff:hasWidth 598;
-         ff:hasHeight 324;
+         ff:hasWidth 600;
+         ff:hasHeight 326;
          ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT (SUM(?distance * ?numResidents * 2) AS ?totalDistance)\nWHERE {\n  {\n    SELECT ?city (COUNT(?person) AS ?numResidents)\n    WHERE {\n      ?person :hasResidence ?city .\n    }\n    GROUP BY ?city\n  }\n\n  ?wdId :hasLabel ?city ;\n        :distanceToBielefeld ?distance .\n}".
 ff:node6 a ff:Node;
          ff:hasClass ff:SparqlInputNode;
          ff:hasName "Interest and question tags ranked";
          ff:hasPosX "760";
          ff:hasPosY "2008";
-         ff:hasWidth 506;
-         ff:hasHeight 268;
+         ff:hasWidth 508;
+         ff:hasHeight 270;
          ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT ?tag (COUNT(*) AS ?count)\nWHERE {\n  {\n    ?person :hasInterestTag ?tag .\n  } UNION {\n    ?person :hasLodQuestionTag ?tag .\n  }\n}\nGROUP BY ?tag\nORDER BY DESC(?count)".
 ff:node7 a ff:Node;
          ff:hasClass ff:SparqlInputNode;
@@ -62,14 +62,14 @@ ff:node8 a ff:Node;
          ff:hasName "Population of cities";
          ff:hasPosX "1773";
          ff:hasPosY "858";
-         ff:hasWidth 553;
-         ff:hasHeight 278;
+         ff:hasWidth 555;
+         ff:hasHeight 280;
          ff:hasValue "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\n\nSELECT ?cityLabel ?population WHERE {\n  VALUES ?city {\n    wd:Q2112 wd:Q64 wd:Q586 wd:Q14887 wd:Q1721 wd:Q2742\n  }\n  ?city wdt:P1082 ?population .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"de\". }\n}".
 ff:node9 a ff:Node;
          ff:hasClass ff:SparqlSelectExecNode;
          ff:hasName "Run SPARQL SELECT";
-         ff:hasPosX "1150";
-         ff:hasPosY "-234".
+         ff:hasPosX 1153;
+         ff:hasPosY -238.
 ff:node10 a ff:Node;
           ff:hasClass ff:SparqlSelectExecNode;
           ff:hasName "Run SPARQL SELECT";
@@ -101,8 +101,8 @@ ff:node15 a ff:Node;
           ff:hasName "Wikidata SPARQL Endpoint";
           ff:hasPosX "1368";
           ff:hasPosY "932";
-          ff:hasWidth 327;
-          ff:hasHeight 102;
+          ff:hasWidth 329;
+          ff:hasHeight 104;
           ff:hasValue "https://query.wikidata.org/sparql".
 ff:node16 a ff:Node;
           ff:hasClass ff:ShaclValidationNode;
@@ -140,42 +140,42 @@ ff:edge6 a ff:Edge;
          ff:hasPortOut 1;
          ff:hasPortIn 1.
 ff:edge7 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node16;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge8 a ff:Edge;
          ff:hasSource ff:node4;
          ff:hasTarget ff:node9;
          ff:hasPortOut 1;
          ff:hasPortIn 1.
-ff:edge8 a ff:Edge;
+ff:edge9 a ff:Edge;
          ff:hasSource ff:node5;
          ff:hasTarget ff:node10;
          ff:hasPortOut 1;
          ff:hasPortIn 1.
-ff:edge9 a ff:Edge;
-         ff:hasSource ff:node6;
-         ff:hasTarget ff:node11;
-         ff:hasPortOut 1;
-         ff:hasPortIn 1.
 ff:edge10 a ff:Edge;
+          ff:hasSource ff:node6;
+          ff:hasTarget ff:node11;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge11 a ff:Edge;
           ff:hasSource ff:node7;
           ff:hasTarget ff:node12;
           ff:hasPortOut 1;
           ff:hasPortIn 1.
-ff:edge11 a ff:Edge;
+ff:edge12 a ff:Edge;
           ff:hasSource ff:node8;
           ff:hasTarget ff:node13;
           ff:hasPortOut 1;
           ff:hasPortIn 1.
-ff:edge12 a ff:Edge;
+ff:edge13 a ff:Edge;
           ff:hasSource ff:node14;
           ff:hasTarget ff:node10;
           ff:hasPortOut 1;
           ff:hasPortIn 2.
-ff:edge13 a ff:Edge;
+ff:edge14 a ff:Edge;
           ff:hasSource ff:node15;
           ff:hasTarget ff:node13;
           ff:hasPortOut 1;
           ff:hasPortIn 2.
-ff:edge14 a ff:Edge;
-          ff:hasSource ff:node3;
-          ff:hasTarget ff:node16;
-          ff:hasPortOut 1;
-          ff:hasPortIn 1.
