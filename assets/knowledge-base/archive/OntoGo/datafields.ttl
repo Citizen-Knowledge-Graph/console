@@ -1,0 +1,13 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:hasBirthday a ff:DataField ;
+    ff:modifiable false .
+
+ff:residesInCounty a ff:DataField ;
+    ff:modifiable true .
+
+ff:fundingAmountRequired a ff:DataField ;
+    ff:modifiable true .
+
+ff:fundingTarget a ff:DataField ;
+    ff:modifiable true .

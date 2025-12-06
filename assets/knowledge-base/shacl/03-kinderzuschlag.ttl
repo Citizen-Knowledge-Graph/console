@@ -1,0 +1,106 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:kzl a ff:RequirementProfile ;
+    ff:leikaId "99107016017000" ;
+    ff:title "Kinderzuschlag"@de , "Child allowance"@en ;
+    ff:category ff:leistungen-fuer-familien-bc-kategorie ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/kinderzuschlag> ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:familienkasse ;
+    ff:legalBasis ff:bundeskindergeldgesetz ;
+    ff:benefitInfo "Wenn Sie ein geringes Einkommen haben und Kindergeld beziehen, können Sie zusätzlich den Kinderzuschlag, abgekürzt auch KiZ genannt, beantragen."@de ,
+        "If you are a low-earner and receive child benefit, you can also apply for the child allowance."@en ;
+    ff:ineligibleGeneralExplanation "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Der Kinderzuschlag ist ein Zuschlag zum Kindergeld für Eltern, die genug verdienen, um für sich selbst zu sorgen, das Einkommen aber nicht oder nur knapp für die gesamte Familie reicht. Einkommen und Vermögen der Eltern und des Kindes werden auf den Kinderzuschlag teilweise angerechnet und reduzieren die Höhe. Mit dem Kinderzuschlag sind weitere Vergünstigungen möglich, z. B. Bildungs- und Teilhabeleistungen für die Kinder oder eine Befreiung von den KiTa-Gebühren."@de ,
+        "You are probably not entitled to this benefit. The child allowance is a supplement to child benefit for parents who earn enough to take care of themselves, but the income is not or only just enough for the entire family. Income and assets of the parents and the child are partly offset against the child allowance and reduce the amount. Additional discounts are possible with the child allowance, e.g. education and participation services for the children or an exemption from the childcare fees."@en ;
+    ff:hasMainShape ff:kzlMainShape .
+
+ff:kzlMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:children ;
+        sh:minCount 1 ;
+        sh:in (true) ;
+    ] ;
+    sh:property [
+        sh:path ff:childrenAge ;
+        sh:minCount 1 ;
+        sh:in (ff:childrenAge-sub_18 ff:childrenAge-18_25) ;
+    ] ;    
+    sh:property [
+        sh:path ff:habitualResidence ;
+        sh:minCount 1 ;
+        sh:in (ff:habitualResidence-ger) ;
+    ] ;
+    sh:property [
+        sh:path ff:citizenship ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:residencyStatus ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:or (
+            sh:property [ sh:path ff:citizenship ; sh:in (ff:citizenship-ger) ]
+            sh:property [ 
+                sh:path ff:residencyStatus ; sh:in (
+                    ff:residencyStatus-residencePermit 
+                    ff:residencyStatus-settlementPermit
+                    ff:residencyStatus-ger
+                ) 
+            ]
+        )
+    ] ;
+
+    sh:property [
+        sh:path ff:parentingSituation ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:householdIncome ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:or ( 
+            [
+                sh:and (
+                    sh:property [ sh:path ff:parentingSituation ; sh:in (ff:parentingSituation-coParenting) ]
+                    sh:property [ sh:path ff:householdIncome ; sh:in (ff:householdIncome-900plus) ]
+                )
+            ]
+            [
+                sh:and (
+                    sh:property [ sh:path ff:parentingSituation ; sh:in (ff:parentingSituation-singleParent) ]
+                    [
+                        sh:not (
+                            sh:property [ sh:path ff:householdIncome ; sh:in (ff:householdIncome-below600) ]
+                        )
+                    ]                                
+                )          
+            ] 
+        )
+    ] ;
+    sh:property [
+        sh:path ff:socialBenefitsReceiving ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:and (
+            sh:property [
+                sh:path ff:socialBenefitsReceiving ;
+                sh:in (
+                    ff:socialBenefitsReceiving-childBenefit 
+                ) 
+            ] 
+            sh:property [
+                sh:path ff:socialBenefitsReceiving ;
+                sh:not [
+                    sh:in (ff:socialBenefitsReceiving-citizensIncome) 
+                ]
+            ]
+        )
+    ] .

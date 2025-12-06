@@ -1,0 +1,41 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:ausbildungsgeld a ff:RequirementProfile ;
+    ff:title "Ausbildungsgeld"@de , "Training Allowance"@en ;
+    ff:category ff:schule-studium-ausbildung-bc-kategorie, ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-iii ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:bundesagentur-fuer-arbeit ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Menschen mit Behinderungen können zur Sicherung des Lebensunterhaltes Ausbildungsgeld erhalten, wenn sie an bestimmten Bildungsmaßnahmen teilnehmen. (Quelle: §§ 122 bis 126 SGB III)"@de ,
+        "People with disabilities can receive a training allowance to cover their living expenses if they participate in specific educational programs. (Source: §§ 122 to 126 SGB III)"@en ;
+    rdfs:seeAlso <https://www.gesetze-im-internet.de/sgb_3/__122.html> ;
+    ff:hasMainShape ff:ausbildungsgeldMainShape .
+
+ff:ausbildungsgeldMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:has_disability ;
+        sh:in (true) ;
+        sh:minCount 1 ;
+        sh:message "Sie müssen eine anerkannte Behinderung haben. (Quelle: 'Sie haben eine Behinderung...')"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:rehabilitation_provider ;
+        sh:in (ff:rehabilitation_provider-bundesagentur-fuer-arbeit) ;
+        sh:minCount 1 ;
+        sh:message "Die Bundesagentur für Arbeit muss Ihr zuständiger Rehabilitationsträger sein. (Quelle: 'Ihr zuständiger Rehabilitationsträger ist die Bundesagentur für Arbeit')"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:eligible_for_transitional_allowance ;
+        sh:in (ff:eligible_for_transitional_allowance-no ff:eligible_for_transitional_allowance-unsure) ;
+        sh:minCount 1 ;
+        sh:message "Sie dürfen keinen Anspruch auf Übergangsgeld haben. (Quelle: 'Sie haben keinen Anspruch auf Übergangsgeld')"@de ;
+    ] .

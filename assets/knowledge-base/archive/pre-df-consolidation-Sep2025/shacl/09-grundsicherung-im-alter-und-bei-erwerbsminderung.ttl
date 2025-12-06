@@ -1,0 +1,60 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:grundsicherung-im-alter-und-bei-erwerbsminderung a ff:RequirementProfile ;
+    ff:leikaId "99107009017000" ;
+    ff:title "Grundsicherung im Alter und bei Erwerbsminderung"@de , "Basic welfare for the elderly and people with reduced earnings capacity"@en ;
+    ff:category ff:sozialhilfe-grundsicherung-bc-kategorie, ff:alter-ruhestand-bc-kategorie ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/grundsicherung-im-alter-und-bei-erwerbsminderung> ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-xii ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:sozialamt ;
+    ff:benefitInfo "Sie sind im Rentenalter, aber Ihr Geld reicht nicht aus, um Ihren Lebensunterhalt zu bezahlen? Oder sind Sie zwar noch jünger, können aber aus gesundheitlichen Gründen dauerhaft nicht arbeiten? Dann können Sie die finanzielle „Grundsicherung im Alter und bei Erwerbsminderung“ beantragen."@de ,
+        "Are you receiving your pension but don’t have enough money to get by? Or are you younger but unable to work for health-related reasons? If so, you may be entitled to claim basic financial welfare for the elderly and people with reduced earnings capacity."@en ;
+    ff:ineligibleGeneralExplanation "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Grundsicherung im Alter und bei Erwerbsminderung können Sie als bedürftiger Mensch bekommen, wenn Sie entweder die Regelaltersgrenze - das ist der Zeitpunkt, an dem Sie die reguläre Altersrente beziehen können – erreicht haben oder mindestens 18 Jahre alt und dauerhaft voll erwerbsgemindert sind oder das Eingangs- und den Berufsbildungsbereich einer Werkstatt für behinderte Menschen durchlaufen oder in einem Ausbildungsverhältnis stehen, für welches Sie ein Budget für die Ausbildung erhalten. Sie müssen außerdem in Deutschland wohnen."@de ,
+        "You are probably not entitled to this benefit. You can receive basic welfare for the elderly and people with reduced earnings capacity as a needy person if you have either reached the standard retirement age - that is the point at which you can draw the regular old-age pension - or are at least 18 years old and permanently fully disabled or have the initial and go through the vocational training area of a workshop for disabled people or are in an apprenticeship for which you receive a budget for the apprenticeship. You must also live in Germany."@en ;
+    ff:hasMainShape ff:grundsicherung-im-alter-und-bei-erwerbsminderungMainShape .
+
+ff:grundsicherung-im-alter-und-bei-erwerbsminderungMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:geburtsdatum ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:pensionable ;
+        sh:minCount 1 ;
+        sh:in (true) ;
+    ] ;
+    sh:property [
+        sh:path ff:aufenthaltsort ;
+        sh:minCount 1 ;
+        sh:in (ff:aufenthaltsort-ao-innerhalb) ;
+    ] ;
+    sh:property [
+        sh:path ff:erwerbsfaehig_neu ;
+        sh:minCount 1 ;
+        sh:in (ff:erwerbsfaehig_neu-ao-nein-ueber-6-monate) ;
+    ] ;
+    sh:property [
+        sh:path ff:beruf_neu ;
+        sh:minCount 1 ;
+        sh:in (ff:beruf_neu-ao-rente) ;
+    ] ;
+    sh:property [
+        sh:path ff:einkommen_neu;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:einkommen_neu-ao-ausbildung) ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ff:bezogene_leistungen;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:bezogene_leistungen-arbeitslosengeld ff:einkommen_neu-ao-ausbildung ff:bezogene_leistungen-bafoeg) ;
+        ] ;
+    ] .

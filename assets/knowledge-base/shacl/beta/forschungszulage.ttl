@@ -1,0 +1,58 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:fzl a ff:RequirementProfile ;
+    ff:title "Forschungszulage - Steuerliche Förderung von Forschung und Entwicklung"@de ,
+              "Research Allowance - Tax Incentive for R&D"@en ;
+    ff:category ff:innovation-forschung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Steuerpflichtige Unternehmen in Deutschland können eine Forschungszulage für förderfähige Aufwendungen in Grundlagenforschung, industrieller Forschung und experimenteller Entwicklung erhalten."@de ,
+        "Tax-liable companies in Germany may claim a research allowance for eligible expenses related to basic research, industrial research, and experimental development."@en ;
+    rdfs:seeAlso <https://www.bundesfinanzministerium.de> ;
+    ff:hasMainShape ff:fzlMainShape .
+
+ff:fzlMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:interestInBusinessFunding ;
+        sh:in ( true ) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path ff:managingCompany ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+
+    sh:property [
+        sh:path ff:taxableGermany ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:message "Anspruchsberechtigt sind Steuerpflichtige im Sinne des Einkommensteuer- oder Körperschaftsteuergesetzes, sofern sie Einkünfte nach § 2 Abs. 1 Satz 1 Nr. 1–3 EStG erzielen und nicht steuerbefreit sind. (Quelle: §1 Abs. 1 FZulG)"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:researchType ;
+        sh:minCount 1 ;
+        sh:in (ff:researchType-foundational ff:researchType-industrial ff:researchType-experimental) ;
+        sh:message "Nur Grundlagenforschung, industrielle Forschung oder experimentelle Entwicklung sind förderfähig. (Quelle: §2 Abs. 1 FZulG)"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:researchActivitiesSince2020 ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:message "Das F&E-Vorhaben muss nach dem 1. Januar 2020 begonnen worden sein. (Quelle: §8 FZulG)"@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:companyFinancialDifficulty ;
+        sh:minCount 1 ;
+        sh:in ( false ) ;
+        sh:message "Unternehmen in Schwierigkeiten gemäß AGVO sind ausgeschlossen. (Quelle: §9 Abs. 2 FZulG)"@de ;
+    ] .

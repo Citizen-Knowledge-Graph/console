@@ -1,0 +1,264 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Benefit categories
+
+ff:arbeitslosigkeit-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Arbeitslosigkeit & Arbeitsuche"@de, "Unemployment & Job Search"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/arbeitslosigkeit> .
+
+ff:sozialhilfe-grundsicherung-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Sozialhilfe & Grundsicherung"@de, "Social & Basic welfare"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/sozialhilfe-grundsicherung> .
+
+ff:wohnen-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Wohnen"@de, "Housing"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/wohnen> .
+
+ff:schule-studium-ausbildung-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Schule, Studium, Ausbildung"@de, "Vocational Training & Studies"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/schule-studium-ausbildung> .
+
+ff:leistungen-fuer-familien-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Leistungen für Familien"@de, "Family & Children"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/leistungen-fuer-familien> .
+
+ff:migration-asyl-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Migration & Asyl"@de, "Migration & Asylum"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/migration-asyl> .
+
+ff:alter-ruhestand-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Alter und Ruhestand"@de, "Aging & Retirement"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/alter-ruhestand> .
+
+ff:gesundheit-pflege-bc-kategorie a ff:BenefitCategory ;
+    rdfs:label "Gesundheit & Pflege"@de, "Health & Care"@en ;
+    rdfs:seeAlso <https://sozialplattform.de/gesundheit-pflege> .
+
+ff:selbstaendigkeit-gruendung a ff:BenefitCategory ;
+    rdfs:label "Selbständigkeit & Gründung"@de, "Self-employment & Founding"@en .
+
+ff:wohnungsbau-modernisierung a ff:BenefitCategory ;
+    rdfs:label "Wohnungsbau & Modernisierung"@de, "Housing & Modernization"@en .
+
+ff:innovation-forschung a ff:BenefitCategory ;
+    rdfs:label "Innovation & Forschung"@de, "Innovation & Research"@en .
+
+ff:stiftungs-foerderung a ff:BenefitCategory ;
+    rdfs:label "Stiftungsförderung"@de, "Foundation Funding"@en .
+
+ff:gewerbe-foerderung a ff:BenefitCategory ;
+    rdfs:label "Gewerbe- und Unternehmensförderung"@de, "Business & Company Funding"@en .
+
+# Datafield categories
+
+ff:persoenliche-angaben-df-kategorie a ff:DatafieldCategory ; rdfs:label "Persönliche Angaben"@de, "Personal information"@en .
+ff:kinder-df-kategorie a ff:DatafieldCategory ; rdfs:label "Kinder"@de, "Children"@en .
+ff:erwerbstaetigkeit-df-kategorie a ff:DatafieldCategory ; rdfs:label "Erwerbstätigkeit"@de, "Employment"@en .
+ff:lebenssituation-df-kategorie a ff:DatafieldCategory ; rdfs:label "Lebenssituation"@de, "Living situation"@en .
+ff:gesundheit-df-kategorie a ff:DatafieldCategory ; rdfs:label "Gesundheit"@de, "Health"@en .
+ff:gruendung-df-kategorie a ff:DatafieldCategory ; rdfs:label "Gründung"@de, "Founding"@en .
+ff:education-df-kategorie a ff:DatafieldCategory ; rdfs:label "Ausbildung"@de, "Education"@en .
+ff:wohnungsbau-df-kategorie a ff:DatafieldCategory ; rdfs:label "Wohnungsbau & Modernisierung"@de, "Housing & Modernization"@en .
+ff:business-permits-df-kategorie a ff:DatafieldCategory ; rdfs:label "Betriebsstätten & Genehmigungen"@de, "Business premises & permits"@en .
+
+# Laws
+
+ff:sgb-iii a ff:Law ;
+    rdfs:label "SGB III"@de, "SGB III"@en ;
+    rdfs:comment "Das SGB III regelt die Arbeitsförderung in Deutschland."@de ,
+    "SGB III regulates employment promotion in Germany."@en .
+
+ff:sgb-vi a ff:Law ;
+    rdfs:label "SGB VI"@de, "SGB VI"@en ;
+    rdfs:comment "Das SGB VI regelt die gesetzliche Rentenversicherung in Deutschland."@de ,
+    "SGB VI regulates statutory pension insurance in Germany."@en .
+
+ff:sgb-ix a ff:Law ;
+    rdfs:label "SGB IX"@de, "SGB IX"@en ;
+    rdfs:comment "Das SGB IX regelt die Rehabilitation und Teilhabe von Menschen mit Behinderungen."@de ,
+    "SGB IX regulates the rehabilitation and participation of people with disabilities."@en .
+
+ff:sgb-xii a ff:Law ;
+    rdfs:label "SGB XII"@de, "SGB XII"@en ;
+    rdfs:comment "Das SGB XII regelt die Sozialhilfe in Deutschland."@de ,
+    "SGB XII regulates social assistance in Germany."@en .
+
+ff:bundeskindergeldgesetz a ff:Law ;
+    rdfs:label "Bundeskindergeldgesetz"@de, "Federal Child Benefit Act"@en ;
+    rdfs:comment "Das Bundeskindergeldgesetz regelt die Gewährung von Kindergeld in Deutschland."@de ,
+    "The Federal Child Benefit Act regulates the granting of child benefit in Germany."@en .
+
+ff:einkommensteuergesetz a ff:Law ;
+    rdfs:label "Einkommensteuergesetz"@de, "Income Tax Act"@en ;
+    rdfs:comment "Das Einkommensteuergesetz regelt die Erhebung der Einkommensteuer in Deutschland."@de ,
+    "The Income Tax Act regulates the collection of income tax in Germany."@en .
+
+ff:bundesausbildungsfoerderungsgesetz a ff:Law ;
+    rdfs:label "Bundesausbildungsförderungsgesetz"@de, "Federal Training Assistance Act"@en ;
+    rdfs:comment "Das Bundesausbildungsförderungsgesetz regelt die Ausbildungsförderung für Schüler:innen und Student:innen in Deutschland."@de ,
+    "The Federal Training Assistance Act regulates training assistance for students and pupils in Germany."@en .
+
+ff:wohngeldgesetz a ff:Law ;
+    rdfs:label "Wohngeldgesetz"@de, "Housing Benefit Act"@en ;
+    rdfs:comment "Das Wohngeldgesetz regelt die Gewährung von Wohngeld in Deutschland."@de ,
+    "The Housing Benefit Act regulates the granting of housing benefit in Germany."@en .
+
+ff:betaeubungsmittelgesetz a ff:Law ;
+    rdfs:label "Betäubungsmittelgesetz"@de, "Narcotics Act"@en ;
+    rdfs:comment "Das Betäubungsmittelgesetz regelt den Umgang mit Betäubungsmitteln in Deutschland."@de ,
+    "The Narcotics Act regulates the handling of narcotics in Germany."@en .
+
+# Providing Agencies
+
+ff:sozialamt a ff:ProvidingAgency ;
+    rdfs:label "Sozialamt"@de, "Social Welfare Office"@en ;
+    rdfs:comment "Das Sozialamt ist für die Gewährung von Sozialleistungen zuständig, insbesondere für Menschen in Notlagen."@de ,
+    "The Social Welfare Office is responsible for providing social benefits, especially for people in need."@en .
+
+ff:familienkasse a ff:ProvidingAgency ;
+    rdfs:label "Familienkasse"@de, "Family Benefits Office"@en ;
+    rdfs:comment "Die Familienkasse ist für die Auszahlung von Kindergeld und anderen familienbezogenen Leistungen zuständig."@de ,
+    "The Family Benefits Office is responsible for the payment of child benefit and other family-related benefits."@en .
+
+ff:amt-fuer-ausbildungsfoerderung a ff:ProvidingAgency ;
+    rdfs:label "Amt für Ausbildungsförderung"@de, "Office for Training Assistance"@en ;
+    rdfs:comment "Das Amt für Ausbildungsförderung ist für die Gewährung von BAföG und anderen Ausbildungsförderungen zuständig."@de ,
+    "The Office for Training Assistance is responsible for providing BAföG and other training assistance."@en .
+
+ff:bundesverwaltungsamt a ff:ProvidingAgency ;
+    rdfs:label "Bundesverwaltungsamt"@de, "Federal Administrative Office"@en ;
+    rdfs:comment "Das Bundesverwaltungsamt ist eine Bundesbehörde, die verschiedene Verwaltungsaufgaben wahrnimmt."@de ,
+    "The Federal Administrative Office is a federal authority that performs various administrative tasks."@en .
+
+ff:jobcenter a ff:ProvidingAgency ;
+    rdfs:label "Jobcenter"@de, "Job Center"@en ;
+    rdfs:comment "Das Jobcenter ist für die Grundsicherung für Arbeitsuchende zuständig und unterstützt bei der Integration in den Arbeitsmarkt."@de ,
+    "The Job Center is responsible for basic security for job seekers and supports integration into the labor market."@en .
+
+ff:bundesagentur-fuer-arbeit a ff:ProvidingAgency ;
+    rdfs:label "Bundesagentur für Arbeit"@de, "Federal Employment Agency"@en ;
+    rdfs:comment "Die Bundesagentur für Arbeit ist die zentrale Institution für Arbeitsvermittlung und Arbeitsförderung in Deutschland."@de ,
+    "The Federal Employment Agency is the central institution for job placement and employment promotion in Germany."@en .
+
+ff:wohngeldbehoerde a ff:ProvidingAgency ;
+    rdfs:label "Wohngeldbehörde"@de, "Housing Benefit Authority"@en ;
+    rdfs:comment "Die Wohngeldbehörde ist für die Gewährung von Wohngeld zuständig."@de ,
+    "The Housing Benefit Authority is responsible for granting housing benefit."@en .
+
+ff:kassenaerztliche-vereinigung a ff:ProvidingAgency ;
+    rdfs:label "Kassenärztliche Vereinigung"@de, "Association of Statutory Health Insurance Physicians"@en ;
+    rdfs:comment "Die Kassenärztliche Vereinigung ist für die Sicherstellung der ambulanten medizinischen Versorgung in Deutschland zuständig."@de ,
+    "The Association of Statutory Health Insurance Physicians is responsible for ensuring outpatient medical care in Germany."@en .
+
+ff:gesundheitsamt a ff:ProvidingAgency ;
+    rdfs:label "Gesundheitsamt"@de, "Health Office"@en ;
+    rdfs:comment "Das Gesundheitsamt ist für den Gesundheitsschutz und die öffentliche Gesundheit zuständig."@de ,
+    "The Health Office is responsible for health protection and public health."@en .
+
+ff:integrationsamt a ff:ProvidingAgency ;
+    rdfs:label "Integrationsamt"@de, "Integration Office"@en ;
+    rdfs:comment "Das Integrationsamt unterstützt Menschen mit Behinderungen bei der Teilhabe am Arbeitsleben."@de ,
+    "The Integration Office supports people with disabilities in participating in working life."@en .
+
+ff:jugendamt a ff:ProvidingAgency ;
+    rdfs:label "Jugendamt"@de, "Youth Welfare Office"@en ;
+    rdfs:comment "Das Jugendamt ist für die Förderung und den Schutz von Kindern und Jugendlichen zuständig."@de ,
+    "The Youth Welfare Office is responsible for the promotion and protection of children and young people."@en .
+
+ff:rentenversicherung a ff:ProvidingAgency ;
+    rdfs:label "Rentenversicherung"@de, "Pension Insurance"@en ;
+    rdfs:comment "Die Rentenversicherung ist für die gesetzliche Rentenversicherung in Deutschland zuständig."@de ,
+    "The Pension Insurance is responsible for statutory pension insurance in Germany."@en .  
+
+# Administrative Levels
+
+ff:bund a ff:AdministrativeLevel ;
+    rdfs:label "Bund"@de, "Federal"@en ;
+    rdfs:comment "Der Bund ist die höchste Ebene der deutschen Verwaltung und zuständig für bundesweite Angelegenheiten."@de ,
+    "The federal level is the highest level of German administration and is responsible for nationwide matters."@en .
+
+ff:land a ff:AdministrativeLevel ;
+    rdfs:label "Land"@de, "State"@en ;
+    rdfs:comment "Die Länder sind die Bundesländer in Deutschland und haben eigene Verwaltungsstrukturen."@de ,
+    "The states are the federal states in Germany and have their own administrative structures."@en .
+
+ff:kommune a ff:AdministrativeLevel ;
+    rdfs:label "Kommune"@de, "Municipality"@en ;
+    rdfs:comment "Die Kommunen sind die unterste Ebene der deutschen Verwaltung und zuständig für lokale Angelegenheiten."@de ,
+    "The municipalities are the lowest level of German administration and are responsible for local matters."@en .
+
+# Tags
+
+ff:bielefunke a ff:Tag ; rdfs:label "BieleFunke"@de, "BieleFunke"@en .
+ff:beta a ff:Tag ; rdfs:label "Beta"@de, "Beta"@en .
+ff:wolfenbuettel a ff:Tag ; rdfs:label "Wolfenbüttel"@de, "Wolfenbüttel"@en .
+
+# Validation Stages
+
+ff:preliminary-validation a ff:ValidationStage ; rdfs:label "Vorbehaltliches Ergebnis"@de, "Preliminary result"@en .
+ff:complete-validation a ff:ValidationStage ; rdfs:label "Abschließendes Ergebnis"@de, "Final result"@en .
+
+# Classes
+
+ff:Citizen a rdfs:Class ; rdfs:label "Bürger*in"@de, "Citizen"@en .
+ff:Child a rdfs:Class ; rdfs:label "Kind"@de, "Child"@en .
+
+# Materializable Data Fields
+
+ff:pensionable a ff:DataField, ff:MaterializableDataField ;
+    rdfs:label "Pensionable"@en, "Rentenberechtigt"@de ;
+    ff:materializedViaRule ff:CalculateAgeFromBirthdate ;
+    ff:suggestProfileAddition true ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:pensionable ;
+        sh:property [
+            sh:path ff:pensionable ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:hasAge a ff:DataField, ff:MaterializableDataField ;
+    rdfs:label "Age"@en, "Alter"@de ;
+    ff:materializedViaRule ff:PensionableFromBirthdate ;
+    ff:suggestProfileAddition true ; # it can change though
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:hasAge ;
+        sh:property [
+            sh:path ff:hasAge ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:vermoegensgrenze_buergergeld a ff:DataField, ff:MaterializableDataField ;
+    ff:suggestProfileAddition false ;
+    ff:materializedViaRule ff:HouseholdMembersToVermoegensGrenzeBuergergeld ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:vermoegensgrenze_buergergeld ;
+        sh:property [
+            sh:path ff:vermoegensgrenze_buergergeld ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:vermoegensgrenze_wohngeld a ff:DataField, ff:MaterializableDataField ;
+    ff:suggestProfileAddition false ;
+    ff:materializedViaRule ff:HouseholdMembersToVermoegensGrenzeWohngeld ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:vermoegensgrenze_wohngeld ;
+        sh:property [
+            sh:path ff:vermoegensgrenze_wohngeld ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

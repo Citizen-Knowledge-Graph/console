@@ -1,0 +1,57 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:bab a ff:RequirementProfile ;
+    ff:leikaId "99007004017000" ;
+    ff:title "Berufsausbildungsbeihilfe (BAB)"@de , "Vocational training allowance (BAB)"@en ;
+    ff:category ff:schule-studium-ausbildung-bc-kategorie ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/berufsausbildungsbeihilfe-bab> ;
+    ff:validationStage ff:complete-validation ;    
+    ff:legalBasis ff:sgb-iii ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:bundesagentur-fuer-arbeit ;
+    ff:benefitInfo "Berufsausbildungsbeihilfe (BAB) ist ein finanzieller Zuschuss für junge Menschen in ihrer ersten Berufsausbildung. Sie hilft zum Beispiel dabei, Miete, Lebensmittel oder Fahrtkosten zu bezahlen."@de ,
+        "Vocational training allowance, or Berufsausbildungsbeihilfe (BAB), is a form of financial assistance for young people who are in vocational training for the first time. It helps them pay for things like rent, food or transport costs."@en ;
+    ff:ineligibleGeneralExplanation "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Sie müssen bestimmte Voraussetzungen erfüllen, damit Sie Anspruch auf Berufsausbildungsbeihilfe haben. Einer der folgenden Fälle sollte auf Sie zutreffen, damit Ihr Antrag erfolgreich ist: Sie nehmen an einer berufsvorbereitenden Bildungsmaßnahme (BvB) teil – vielleicht auch, um sich nachträglich auf einen Hauptschulabschluss oder gleichwertigen Schulabschluss vorzubereiten. Sie machen eine betriebliche oder außerbetriebliche Berufsausbildung in einem anerkannten Ausbildungsberuf. Ihr Ausbildungsbetrieb ist zu weit von Ihren Eltern entfernt, um zuhause wohnen zu bleiben. Sie machen eine betriebliche oder außerbetriebliche Berufsausbildung in einem anerkannten Ausbildungsberuf. Außerdem sind Sie über 18 Jahre alt oder verheiratet beziehungsweise leben mit Ihrer Partnerin oder Ihrem Partner zusammen. Sie machen eine betriebliche oder außerbetriebliche Berufsausbildung in einem anerkannten Ausbildungsberuf. Sie haben mindestens ein Kind und leben nicht in der Wohnung Ihrer Eltern. Trifft einer der folgenden Fälle auf Sie zu, haben Sie keinen Anspruch auf finanzielle Unterstützung in Form von BAB: Sie machen eine schulische Ausbildung (zum Beispiel zur Physiotherapeutin beziehungsweise zum Physiotherapeut). Sie erhalten bereits Leistungen von einer anderen Behörde, die mit der BAB vergleichbar sind."@de ,
+        "You are probably not entitled to this benefit. You have to meet certain requirements in order to be entitled to a vocational training grant. One of the following cases should apply to you for your application to be successful: You are taking part in a pre-vocational training program – perhaps also in order to prepare for a lower secondary school certificate or an equivalent school certificate. You are doing in-company or external vocational training in a recognized training occupation. Your training company is too far away from your parents to stay at home. You are doing in-company or external vocational training in a recognized training occupation. In addition, you are over 18 years old or married or live with your partner. You are doing in-company or external vocational training in a recognized training occupation. You have at least one child and do not live in your parents' home. If one of the following applies to you, you are not entitled to financial support in the form of BAB: They are doing school-based training (e.g. to become a physiotherapist). You are already receiving services from another authority that are comparable to BAB."@en ;
+    ff:hasMainShape ff:babMainShape .
+
+ff:babMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:birthDate ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:pensionable ;
+        sh:minCount 1 ;
+        sh:in (false) ;
+    ] ;
+    sh:property [
+        sh:path ff:habitualResidence ;
+        sh:minCount 1 ;
+        sh:in (ff:habitualResidence-ger) ;
+    ] ; 
+    sh:property [
+        sh:path ff:employmentStatus ;
+        sh:minCount 1 ;
+        sh:in (ff:employmentStatus-inEducation) ;
+    ] ;
+    sh:property [
+        sh:path ff:incomeSource ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (
+                ff:incomeSource-unemploymentBenefit 
+                ff:incomeSource-bafoeg 
+                ff:incomeSource-pension
+            ) ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ff:livesWithParents ;
+        sh:in (false) ;
+        sh:minCount 1 ;
+    ] .

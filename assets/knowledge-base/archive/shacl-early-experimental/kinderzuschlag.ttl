@@ -1,0 +1,249 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:kinderzuschlag a ff:RequirementProfile ;
+    ff:author ff:benjaminaaron ;
+    ff:created "2024-03-14"^^xsd:date ;
+    ff:title "Kinderzuschlag" ;
+    ff:category ff:Sozialleistung ;
+    ff:validFor "P6M"^^xsd:duration ; # suggest setting up reminder TODO
+    rdfs:seeAlso <https://www.arbeitsagentur.de/familie-und-kinder/kinderzuschlag-verstehen/kinderzuschlag-anspruch-hoehe-dauer> ;
+    ff:onlineEligibilityCheckingTool <https://www.arbeitsagentur.de/familie-und-kinder/kinderzuschlag-verstehen/kiz-lotse> .
+
+# CONDITIONS
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:parentingSetup ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ; # Rely on datafields.ttl to ensure this?
+    ] ;
+    sh:property [
+        sh:path ff:hasIncomeBrutto ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:hasIncomeNetto ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:paysRentCold ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:receivesWohngeld ;
+        sh:message "[optional]" ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:hasChild ;
+        sh:qualifiedValueShape ff:ChildShape;
+        sh:qualifiedMinCount 1;
+        sh:message "The child doesn't exist or doesn't fulfill all criteria" ;
+    ] ;
+    sh:property [
+        sh:path ff:hasGesamtbedarf ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:hasGesamtverfuegung ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:hasGesamtverfuegungPlusKinderzuschlag ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:ChildShape a sh:NodeShape ;
+    sh:property [
+        sh:path ff:hasAge ;
+        sh:maxExclusive 25 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "The child must be under 25 years old" ;
+    ] ;
+    sh:property [
+        sh:path ff:hasMaritalStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:not [
+            sh:in ( "VH" "LP" ) ;
+        ] ;
+        sh:message "The child can't be married or in a civil union" ;
+    ] ;
+    sh:property [
+        sh:path ff:receiveKindergeld ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "You must receive Kindergeld for the child" ;
+    ] .
+
+ff:IncomeCheckShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Für Alleinerziehende muss das Bruttoeinkommen mindestens 600 sein, für Elternpaare mindestens 900." ;
+        sh:select """
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT $this WHERE {
+                $this ff:parentingSetup ?parentingSetup .
+                $this ff:hasIncomeBrutto ?income .
+                FILTER (
+                    (?parentingSetup = ff:Alleinerziehend && ?income < 600) ||
+                    (?parentingSetup = ff:Elternpaar && ?income < 900)
+                )
+            }
+        """ ;
+    ] .
+
+ff:GesamtverfuegungGeringerAlsGesamtbedarfShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Die Familie kann mit ihrer Gesamtverfügung ohne Kinderzuschlag ihren Gesamtbedarf decken --> ein Anspruch auf Kinderzuschlag besteht daher nicht" ;
+        sh:select """
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT $this WHERE {
+                $this ff:hasGesamtbedarf ?gesamtbedarf .
+                $this ff:hasGesamtverfuegung ?gesamtverfuegung .
+                FILTER(?gesamtbedarf < ?gesamtverfuegung) .
+            }
+        """ ;
+    ] .
+
+ff:GesamtverfuegungPlusKinderzuschlagDecktGesamtbedarfShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Die Familie kann mit ihrer Gesamtverfügung plus Kinderzuschlag ihren Gesamtbedarf nicht decken --> es besteht eine Hilfebedürftigkeit nach dem SGB 2, ein Anspruch auf Kinderzuschlag besteht daher nicht" ;
+        sh:select """
+            PREFIX ff: <https://foerderfunke.org/default#>
+            SELECT $this WHERE {
+                $this ff:hasGesamtbedarf ?gesamtbedarf .
+                $this ff:hasGesamtverfuegungPlusKinderzuschlag ?gesamtverfuegungPlus .
+                FILTER(?gesamtbedarf > ?gesamtverfuegungPlus) .
+            }
+        """ ;
+   ] .
+
+# CONSTANTS
+
+ff:RegelbedarfeSgb2 a ff:TableOfConstants ;
+    rdfs:comment "Werte gültig seit 2024-01-01" ;
+    rdfs:seeAlso <https://www.arbeitsagentur.de/datei/kiz2-merkblattkinderzuschlag_ba034485.pdf> ;
+    ff:hasRow ff:Alleinerziehend ;
+    ff:hasRow ff:Elternpaar ;
+    ff:hasRow ff:KindU6 ;
+    ff:hasRow ff:Kind6_U14 ;
+    ff:hasRow ff:Jugendliche14_U18 ;
+    ff:hasRow ff:VolljaehrigesKind18_U25 .
+
+ff:Alleinerziehend ff:hatRegelbedarfParent 563 .
+ff:Elternpaar ff:hatRegelbedarfParent 1012 ;
+    rdfs:comment "Zusammensetzung: 2 * 506" .
+ff:KindU6 ff:hatRegelbedarfChild 357 ;
+    xsd:minInclusive 0 ;
+    xsd:maxExclusive 6 .
+ff:Kind6_U14 ff:hatRegelbedarfChild 390 ;
+    xsd:minInclusive 6 ;
+    xsd:maxExclusive 14 .
+ff:Jugendliche14_U18 ff:hatRegelbedarfChild 471 ;
+    xsd:minInclusive 14 ;
+    xsd:maxExclusive 18 .
+ff:VolljaehrigesKind18_U25 ff:hatRegelbedarfChild 451 ;
+    xsd:minInclusive 18 ;
+    xsd:maxExclusive 25 .
+
+ff:KinderzuschlagPerChild a ff:Constant ;
+    ff:hasValue 292 .
+
+# MATERIALIZATION
+
+ff:CalculateGesamtbedarfFamilie a ff:SparqlFormula ;
+    rdfs:label "Berechne den Gesamtbedarf einer Familie" ;
+    ff:input ff:hasAge ;
+    ff:output ff:hasGesamtbedarf ;
+    ff:suggestPermanentMaterialization false ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+
+        CONSTRUCT {
+            ff:mainPerson ff:hasGesamtbedarf ?gesamtbedarf .
+        } WHERE {
+            SELECT (SUM(?bedarf) AS ?gesamtbedarf) WHERE {
+                {
+                    ff:mainPerson ff:parentingSetup ?parentingSetup .
+                    ?parentingSetup ff:hatRegelbedarfParent ?bedarf .
+                } UNION {
+                    ff:mainPerson ff:hasChild ?child .
+                    ?child ff:hasAge ?age .
+                    ?ageGroup xsd:minInclusive ?min ;
+                        xsd:maxExclusive ?max .
+                    FILTER(?age >= ?min && ?age < ?max) .
+                    ?ageGroup ff:hatRegelbedarfChild ?bedarf .
+                } UNION {
+                    ff:mainPerson ff:paysRentCold ?bedarf .
+                }
+            }
+        }
+    """ .
+
+ff:CalculateGesamtverfuegungFamilie a ff:SparqlFormula ;
+    rdfs:label "Berechne die Gesamtverfügung einer Familie" ;
+    ff:output ff:hasGesamtverfuegung ;
+    ff:suggestPermanentMaterialization false ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+
+        CONSTRUCT {
+            ff:mainPerson ff:hasGesamtverfuegung ?gesamtverfuegung .
+        } WHERE {
+            SELECT (SUM(?income) AS ?gesamtverfuegung) WHERE {
+                {
+                    ff:mainPerson ff:hasChild ?child .
+                    ?child ff:receiveKindergeld ?income .
+                } UNION {
+                    ff:mainPerson ff:hasIncomeNetto ?income .
+                } UNION {
+                    ff:mainPerson ff:receivesWohngeld ?income .
+                }
+            }
+        }
+    """ .
+
+ff:CalculateGesamtverfuegungPlusKinderzuschlagFamilie a ff:SparqlFormula ;
+    rdfs:label "Berechne die Gesamtverfügung plus Kinderzuschläge einer Familie" ;
+    ff:input ff:hasGesamtverfuegung ;
+    ff:output ff:hasGesamtverfuegungPlusKinderzuschlag ;
+    ff:suggestPermanentMaterialization false ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+
+        CONSTRUCT {
+            ff:mainPerson ff:hasGesamtverfuegungPlusKinderzuschlag ?total .
+        } WHERE {
+            SELECT (?gesamtverfuegung + ?kinderzuschlagSum AS ?total) WHERE {
+                ff:mainPerson ff:hasGesamtverfuegung ?gesamtverfuegung .
+                {
+                    SELECT (?childrenCount * ?value AS ?kinderzuschlagSum) WHERE {
+                        ff:KinderzuschlagPerChild ff:hasValue ?value .
+                        {
+                            SELECT (COUNT(?child) AS ?childrenCount) WHERE {
+                                ff:mainPerson ff:hasChild ?child .
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    """ .

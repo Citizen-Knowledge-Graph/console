@@ -1,0 +1,101 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:emv a ff:RequirementProfile ;
+    ff:title "Rente wegen voller Erwerbsminderung"@de ,
+              "Pension for Full Disability"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie, ff:sozialhilfe-grundsicherung-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-vi ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:sozialamt ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "Die Rente wegen voller Erwerbsminderung ist eine Leistung der gesetzlichen Rentenversicherung für Versicherte, die aufgrund von Krankheit oder Behinderung dauerhaft nicht mehr in der Lage sind, am allgemeinen Arbeitsmarkt erwerbstätig zu sein."@de ,
+        "The pension for full disability is a benefit of the statutory pension insurance for insured persons who, due to illness or disability, are permanently unable to work in the general labor market."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasHowBpmn "erwerbsminderungsrente-voll_how.bpmn" ;
+    ff:hasMainShape ff:erwerbsminderungsrenteVollMainShape ;
+    ff:hasFlowShape ff:erwerbsminderungsrenteVollFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:erwerbsminderungsrenteVollMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [ sh:path ff:pensionable ; sh:in (false) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:workAbility ; sh:in (ff:workAbility-none) ] ]
+            [ 
+                sh:and (
+                    sh:property [ sh:path ff:workAbility ; sh:in (ff:workAbility-limited) ] 
+                    sh:property [ sh:path ff:workAbilityHours ; sh:maxInclusive 3 ]
+                )
+            ]
+        )
+    ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:reducedEarningCapacityCause ; sh:in (true) ] ]
+            [   
+                sh:and (
+                    sh:property [ sh:path ff:reducedEarningCapacityCause ; sh:in (false) ] 
+                    [ sh:or (
+                        [ sh:property [ sh:path ff:statutoryPension20YearsDisability ; sh:in (true) ] ; ]
+                        [    
+                            sh:and (
+                                sh:property [ sh:path ff:statutoryPensionFiveYears ; sh:in (true) ] 
+                                sh:property [ sh:path ff:statutoryPension36Months5Years ; sh:in (true) ]
+                            )
+                        ]
+                    ) ]
+                )
+            ]
+        )
+    ] .
+    
+# ----- DECISION TREE LOGIC -----
+
+ff:erwerbsminderungsrenteVollFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property ff:emvBaseRequirements ;
+    sh:property ff:emvFullyReducedEarningsCapacityPS ;
+    sh:property ff:emvSpecialCauseInabilityPS ;
+    sh:property ff:emvWaitingPeriodPS .
+
+ff:emvBaseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:birthDate ; sh:minCount 1 ] .
+
+ff:emvFullyReducedEarningsCapacityPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [ shn:eq ( [ sh:path ff:pensionable ] false ) ]
+    ] ;
+    sh:property [ sh:path ff:workAbility ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:workAbilityHours ; sh:minCount 1 ] .
+
+ff:emvSpecialCauseInabilityPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [ 
+            sh:or (
+                [ shn:eq ( [ sh:path ff:workAbility ] ff:workAbility-none ) ]
+                [
+                    sh:and (
+                        [ shn:eq ( [ sh:path ff:workAbility ] ff:workAbility-limited ) ]
+                        [ sh:path ff:workAbilityHours ; sh:minInclusive 0 ; sh:maxInclusive 3 ]
+                    )
+                ]
+            ) 
+        ]
+    ] ;
+    sh:property [ sh:path ff:reducedEarningCapacityCause ; sh:minCount 1 ] .
+
+ff:emvWaitingPeriodPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [ shn:eq ( [ sh:path ff:reducedEarningCapacityCause ] false ) ]
+    ] ;
+    sh:property [ sh:path ff:statutoryPension20YearsDisability ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:statutoryPensionFiveYears ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:statutoryPension36Months5Years ; sh:minCount 1 ] .

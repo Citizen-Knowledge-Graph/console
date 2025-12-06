@@ -1,0 +1,1641 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# Persönliche Angaben
+
+ff:geburtsdatum a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Geburtsdatum"@de , "Date of Birth"@en ;
+    schema:question "Wann haben Sie Geburtstag?"@de , "When is your birthday?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:geburtsdatum ;
+        sh:property [
+            sh:path ff:geburtsdatum ;
+            sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:staatsbuergerschaft a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Staatsbürgerschaft"@de , "Citizenship"@en ;
+    schema:question "Welche Staatsbürgerschaft haben Sie?"@de , "What is your citizenship?"@en ;
+    rdfs:comment "Welches Land steht auf Ihrem Pass oder Ausweis? Meistens ist das Deutschland. Mitgliedstaaten der Europäischen Union sind: Belgien, Bulgarien, Dänemark, Deutschland, Estland, Finnland, Frankreich, Griechenland, Irland, Italien, Kroatien, Lettland, Litauen, Luxemburg, Malta, die Niederlande, Österreich, Polen, Portugal, Rumänien, Schweden, die Slowakei, Slowenien, Spanien, die Tschechische Republik, Ungarn und Zypern."@de ,
+        "Which country is on your passport or ID card? Mostly it is Germany. Member states of the European Union are: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:staatsbuergerschaft ;
+        sh:property [
+            sh:path ff:staatsbuergerschaft ;
+            sh:in (ff:staatsbuergerschaft-ao-ger ff:staatsbuergerschaft-ao-eu ff:staatsbuergerschaft-ao-3rd) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:staatsbuergerschaft-ao-ger a ff:AnswerOption ; rdfs:label "Deutsch"@de , "German"@en .
+ff:staatsbuergerschaft-ao-eu a ff:AnswerOption ; rdfs:label "EU"@de , "EU"@en .
+ff:staatsbuergerschaft-ao-3rd a ff:AnswerOption ; rdfs:label "Drittstaat (Nicht-EU)"@de , "Third country (non-EU)"@en .
+
+ff:aufenthalt a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Aufenthaltsberechtigung"@de , "Right of residence"@en ;
+    schema:question "Sind Sie in Deutschland aufenthaltsberechtigt?"@de , "Are you entitled to stay in Germany?"@en ;
+    rdfs:comment "Wenn Sie Ausländer:in sind und eine Aufenthaltsberechtigung haben (diese wurden zwischen 1991 und 2004 ausgestellt) oder eine Niederlassungsberechtigung (seit 2005), klicken Sie „ja“ an. Wenn Sie das nicht haben, klicken Sie „nein“ an."@de ,
+        "If you are a foreigner and have a residence permit (these were issued between 1991 and 2004) or a settlement permit (since 2005), click \"yes\". If you do not have one, click \"no\"."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:aufenthalt ;
+        sh:property [
+            sh:path ff:aufenthalt ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:aufenthaltsort a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Aufenthaltsort"@de , "Actual Residence"@en ;
+    schema:question "Wo ist Ihr tatsächlicher Aufenthaltsort, an dem Sie erreichbar sind?"@de ,
+        "Where is your actual residence where you can be reached?"@en ;
+    rdfs:comment "Das ist der Ort, wo Sie sich wirklich aufhalten. Es ist egal, ob Sie dort gemeldet sind oder das Recht haben, hier zu leben. Das kann auch eine Pflegeeinrichtung, ein Frauenhaus, ein Stadtteil oder Ähnliches sein."@de ,
+        "This is the place where you are actually staying. It does not matter whether you are registered there or have the right to live here. This can also be a care facility, a women's shelter, a city district or the like."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:aufenthaltsort ;
+        sh:property [
+            sh:path ff:aufenthaltsort ;
+            sh:in (ff:aufenthaltsort-ao-ausserhalb ff:aufenthaltsort-ao-innerhalb) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:aufenthaltsort-ao-ausserhalb a ff:AnswerOption ; rdfs:label "Außerhalb Deutschlands"@de , "Outside Germany"@en .
+ff:aufenthaltsort-ao-innerhalb a ff:AnswerOption ; rdfs:label "Innerhalb Deutschlands"@de , "Inside Germany"@en .
+
+ff:household_members a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Haushaltsmitglieder"@de , "Household Members"@en ;
+    schema:question "Wie viele Personen leben in Ihrem Haushalt?"@de , "How many people live in your household?"@en ;
+    rdfs:comment "Zählen Sie alle Personen, die in Ihrer Wohnung oder Ihrem Haus leben. Dazu gehören auch Kinder, die bei Ihnen leben, aber nicht Ihr eigenes sind. Zählen Sie auch Personen, die nicht arbeiten, wie zum Beispiel Rentner:innen oder Kinder."@de ,
+        "Count all the people who live in your apartment or house. This includes children who live with you but are not your own. Also count people who do not work, such as pensioners or children."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:household_members ;
+        sh:property [
+            sh:path ff:household_members ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+# Kinder
+
+ff:kinder a ff:DataField ;
+    schema:category ff:kinder-df-kategorie ;
+    rdfs:label "Kinder"@de , "Children"@en ;
+    schema:question "Haben Sie ein oder mehrere Kinder?"@de , "Do you have one or more children?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Kinder in Ihrem Haushalt leben."@de ,
+        "Please specify if there are children living in your household."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:kinder ;
+        sh:property [
+            sh:path ff:kinder ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:kinder_unter_18 a ff:DataField ;
+    schema:category ff:kinder-df-kategorie ;
+    rdfs:label "Kinder unter 18"@de , "Children under 18"@en ;
+    schema:question "Haben Sie Kinder unter 18 Jahren?"@de , "Do you have children younger than 18 years old?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:kinder_unter_18 ;
+        sh:property [
+            sh:path ff:kinder_unter_18 ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:kinder_18_25 a ff:DataField ;
+    schema:category ff:kinder-df-kategorie ;
+    rdfs:label "Kinder 18-25"@de , "Children 18-25"@en ;
+    schema:question "Haben Sie Kinder zwischen 18-25 Jahren?"@de , "Do you have children between the ages of 18 and 25?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:kinder_18_25 ;
+        sh:property [
+            sh:path ff:kinder_18_25 ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:kinder_in_ausbildung a ff:DataField ;
+    schema:category ff:kinder-df-kategorie ;
+    rdfs:label "Kinder in Ausbildung"@de , "Children in Education"@en ;
+    schema:question "Haben Sie Kinder zwischen 18 und 25 Jahren, die sich noch in Schule, Ausbildung oder Studium befinden?"@de ,
+        "Do you have children between the ages of 18 and 25 who are still in school, training or studying?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:kinder_in_ausbildung ;
+        sh:property [
+            sh:path ff:kinder_in_ausbildung ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:receiving_kindergeld a ff:DataField ;
+    schema:category ff:kinder-df-kategorie ;
+    rdfs:label "Kindergeld"@de , "Child Benefit"@en ;
+    schema:question "Beziehen Sie Kindergeld für ein oder mehrere Kinder?"@de ,
+        "Do you receive child benefit for one or more children?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:receiving_kindergeld ;
+        sh:property [
+            sh:path ff:receiving_kindergeld ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:hasChild a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Anzahl Kinder"@de , "Number of children"@en ;
+    schema:question "Wie viele Kinder haben Sie?"@de , "How many children do you have?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:hasChild ;
+        sh:property [
+            sh:path ff:hasChild ;
+            sh:class ff:Child ;
+        ] ;
+    ] .
+
+# Erwerbstätigkeit
+
+ff:erwerbsfaehig_neu a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Erwerbsfähig"@de , "Fit for Work"@en ;
+    schema:question "Sind Sie erwerbsfähig und können täglich mindestens 3 Stunden arbeiten?"@de ,
+        "Are you fit for work and able to work at least 3 hours a day?"@en ;
+    rdfs:comment "Sie sind erwerbsfähig, wenn Sie mindestens 3 Stunden am Tag normal arbeiten können. Wenn Sie es wegen längerer Krankheit oder Behinderung nicht schaffen, so lange zu arbeiten, geben Sie „nein“ an."@de ,
+        "You are fit for work if you can work normally for at least 3 hours a day. If you cannot manage to work that long because of a prolonged illness or disability, click “no”."@en ;
+    ff:hasShaclShape [
+    a sh:NodeShape ;
+        sh:targetSubjectsOf ff:erwerbsfaehig_neu ;
+        sh:property [
+            sh:path ff:erwerbsfaehig_neu ;
+            sh:in (ff:erwerbsfaehig_neu-ao-ja ff:erwerbsfaehig_neu-ao-nein-ueber-6-monate ff:erwerbsfaehig_neu-ao-nein-weniger-6-monate) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:erwerbsfaehig_neu-ao-ja a ff:AnswerOption ; rdfs:label "ja"@de , "yes"@en .
+ff:erwerbsfaehig_neu-ao-nein-ueber-6-monate a ff:AnswerOption ; rdfs:label "Nein, dauerhaft erwerbsunfähig (über 6 Monate)"@de , "No, permanently unable to work (more than 6 months)"@en .
+ff:erwerbsfaehig_neu-ao-nein-weniger-6-monate a ff:AnswerOption ; rdfs:label "Nein, temporär erwerbsunfähig (weniger als 6 Monate)"@de , "No, temporarily unable to work (less than 6 months)"@en .
+
+ff:beruf_neu a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Beruf"@de , "Profession"@en ;
+    schema:question "Wie ist Ihre berufliche Situation?"@de , "What is your professional situation?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:beruf_neu ;
+        sh:property [
+            sh:path ff:beruf_neu ;
+            sh:in (ff:beruf_neu-ao-selbstaendig ff:beruf_neu-ao-soz ff:beruf_neu-ao-alg ff:beruf_neu-ao-ausbildung ff:beruf_neu-ao-bfd ff:beruf_neu-ao-rente ff:beruf_neu-ao-eltern) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:beruf_neu-ao-selbstaendig a ff:AnswerOption ; rdfs:label "Selbständig in einer Beschäftigung von mehr als 15 Stunden pro Woche"@de , "Self-employed, working more than 15 hours per week"@en .
+ff:beruf_neu-ao-soz a ff:AnswerOption ; rdfs:label "Berufstätig in einer sozialversicherungspflichtigen Beschäftigung"@de , "Employed in a job subject to social security contributions"@en .
+ff:beruf_neu-ao-alg a ff:AnswerOption ; rdfs:label "Arbeitslos"@de , "Unemployed"@en .
+ff:beruf_neu-ao-ausbildung a ff:AnswerOption ; rdfs:label "Schule/Ausbildung/Studium"@de , "School/vocational training/studies"@en .
+ff:beruf_neu-ao-bfd a ff:AnswerOption ; rdfs:label "Bundesfreiwilligendienst"@de , "Federal voluntary service"@en .
+ff:beruf_neu-ao-rente a ff:AnswerOption ; rdfs:label "Regelaltersrente/Pension"@de , "Standard old-age pension/retirement"@en .
+ff:beruf_neu-ao-eltern a ff:AnswerOption ; rdfs:label "Elternzeit"@de , "Parental leave"@en .
+
+ff:einkommen_neu a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Einkommen"@de , "Income"@en ;
+    schema:question "Wie erzielen Sie Ihr Einkommen? (Mehrfachnennung möglich)"@de ,
+        "How do you earn your income? (multiple answers possible)"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:einkommen_neu ;
+        sh:property [
+            sh:path ff:einkommen_neu ;
+            sh:in (ff:einkommen_neu-ao-selbstaendig ff:einkommen_neu-ao-soz ff:einkommen_neu-ao-alg ff:einkommen_neu-ao-alg-ii ff:einkommen_neu-ao-ausbildung ff:einkommen_neu-ao-bafoeg ff:einkommen_neu-ao-rente ff:einkommen_neu-ao-elterngeld ff:einkommen_neu-ao-mutterschaftsgeld ff:einkommen_neu-ao-wohngeld ff:einkommen_neu-ao-sonstige) ;
+        ] ;
+    ] .
+ff:einkommen_neu-ao-selbstaendig a ff:AnswerOption ; rdfs:label "Selbstständige Arbeit in einer Beschäftigung von mehr als 15 Stunden pro Woche"@de , "Self-employed work of more than 15 hours per week"@en .
+ff:einkommen_neu-ao-soz a ff:AnswerOption ; rdfs:label "Sozialversicherungspflichtige Beschäftigung"@de , "Employment subject to social security contributions"@en .
+ff:einkommen_neu-ao-ausbildung a ff:AnswerOption ; rdfs:label "Ausbildungsvergütung"@de , "Training allowance"@en .
+ff:einkommen_neu-ao-sonstige a ff:AnswerOption ; rdfs:label "Sonstige"@de , "Other"@en .
+
+ff:einkommen_familie a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Einkommen Familie"@de , "Family Income"@en ;
+    schema:question "Wie beschreiben Sie das Einkommen Ihrer Familie?"@de , "How do you describe your family's income?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:einkommen_familie ;
+        sh:property [
+            sh:path ff:einkommen_familie ;
+            sh:in (ff:einkommen_familie-ao-monatsbrutto-ueber-900-600 ff:einkommen_familie-ao-monatsbrutto-unter-900-600) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:einkommen_familie-ao-monatsbrutto-ueber-900-600 a ff:AnswerOption ; rdfs:label "Die Familie hat ein monatliches Brutto-Einkommen von mindestens 900 Euro (Gemeinsam erziehend) bzw. 600 Euro (Alleinerziehende)"@de , "The family has a monthly gross income of at least 900 euros (joint parents) or 600 euros (single parents)."@en .
+ff:einkommen_familie-ao-monatsbrutto-unter-900-600 a ff:AnswerOption ; rdfs:label "Die Familie hat kein monatliches Brutto-Einkommen von mindestens 900 Euro (Gemeinsam erziehend) bzw. 600 Euro (Alleinerziehende)"@de , "The family does not have a monthly gross income of at least 900 euros (joint parents) or 600 euros (single parents)."@en .
+
+# Lebenssituation
+
+ff:lebenssituation a ff:DataField ;
+    schema:category ff:lebenssituation-df-kategorie ;
+    rdfs:label "Lebenssituation"@de , "Living Situation"@en ;
+    schema:question "Wie ist Ihre Lebenssituation?"@de , "What is your living situation?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:lebenssituation ;
+        sh:property [
+            sh:path ff:lebenssituation ;
+            sh:in (ff:lebenssituation-ao-allein ff:lebenssituation-ao-gemeinschaft ff:lebenssituation-ao-allein-mit-kind) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:lebenssituation-ao-allein a ff:AnswerOption ; rdfs:label "Alleinlebend"@de , "Single household"@en .
+ff:lebenssituation-ao-gemeinschaft a ff:AnswerOption ; rdfs:label "Gemeinsam lebend (Ehe, Partnerschaft, eingetragene Lebenspartnerschaft), ggf. mit Kindern"@de , "Joint household (marriage, partnership, registered partnership), possibly with children"@en .
+ff:lebenssituation-ao-allein-mit-kind a ff:AnswerOption ; rdfs:label "Alleinerziehend mit mind. einem Kind"@de , "Single parent with at least one child"@en .
+
+ff:lebenslage a ff:DataField ;
+    schema:category ff:lebenssituation-df-kategorie ;
+    rdfs:label "Lebenslage"@de , "Living Situation"@en ;
+    schema:question "Befinden Sie sich in einer sozial schwierigen Lebenslage?"@de ,
+        "Are you in a difficult social situation?"@en ;
+    rdfs:comment "Schwierige Lebenslagen oder Notsituationen sind zum Beispiel: Sie haben keine Wohnung mehr (Obdachlosigkeit), Sie haben ein Suchtproblem, Sie wissen nicht, wovon Sie leben sollen oder wurden ein Opfer von Gewalt in der Familie."@de ,
+        "Difficult living situations or emergency situations are, for example: you no longer have a home (homelessness), you have an addiction problem, you do not know how to cover your living expenses, or you have been a victim of violence in the family."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:lebenslage ;
+        sh:property [
+            sh:path ff:lebenslage ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:vermoegen a ff:DataField ;
+    schema:category ff:lebenssituation-df-kategorie ;
+    rdfs:label "Vermögen"@de , "Assets"@en ;
+    schema:question "Wie hoch ist Ihr Vermögen? Runden Sie auf 5.000 Euro auf."@de , "What is the value of your assets? Round up to 5,000 euros."@en ;
+    rdfs:comment "Vermögen sind zum Beispiel: Bargeld, Sparguthaben, Wertpapiere, Immobilien, Schmuck, Kunstgegenstände, Autos, Boote, Anteile an Unternehmen oder Lebensversicherungen."@de ,
+        "Assets include: cash, savings, securities, real estate, jewelry, works of art, cars, boats, shares in companies or life insurance."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:vermoegen ;
+        sh:property [
+            sh:path ff:vermoegen ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:experience_financial_difficulties a ff:DataField ;
+    schema:category ff:lebenssituation-df-kategorie ;
+    rdfs:label "Finanzielle Schwierigkeiten"@de , "Financial Difficulties"@en ;
+    schema:question "Haben Sie finanzielle Schwierigkeiten, Ihren oder den Lebensunterhalt Ihres Haushalts zu bewältigen?"@de ,
+        "Do you have financial difficulties in managing your or your household's livelihood?"@en ;
+    rdfs:comment "Einige Leistungen setzen voraus, dass Sie in einer finanziellen Notlage sind. Das bedeutet, dass Sie nicht genug Geld haben, um Ihre Lebenshaltungskosten zu decken. Wenn Sie zum Beispiel Schulden haben, Ihre Miete nicht bezahlen können, Ihre Rechnungen nicht bezahlen können oder Ihre Lebenshaltungskosten nicht bezahlen können. Teil eines entsprechenden Antragsverfahrens ist die Prüfung, ob Sie in einer finanziellen Notlage sind."@de ,
+        "Some benefits require that you are in a financial emergency. This means that you do not have enough money to cover your living expenses. For example, if you have debts, cannot pay your rent, cannot pay your bills, or cannot pay your living expenses. Part of the corresponding application process is the examination of whether you are in a financial emergency."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:experience_financial_difficulties ;
+        sh:property [
+            sh:path ff:experience_financial_difficulties ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+# Gesundheit
+
+ff:krankenversicherung a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Krankenversicherung"@de , "Health Insurance"@en ;
+    schema:question "Haben Sie eine Krankenversicherung?"@de , "Do you have health insurance?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:krankenversicherung ;
+        sh:property [
+            sh:path ff:krankenversicherung ;
+            sh:in (
+                ff:krankenversicherung-yes
+                ff:krankenversicherung-no
+                ff:krankenversicherung-unsure
+            )
+        ] ;
+    ] .
+ff:krankenversicherung-yes a ff:AnswerOption ; rdfs:label "Ja"@de , "Yes"@en .
+ff:krankenversicherung-no a ff:AnswerOption ; rdfs:label "Nein"@de , "No"@en .
+ff:krankenversicherung-unsure a ff:AnswerOption ; rdfs:label "Nicht sicher"@de , "Not sure"@en .
+
+
+ff:pflegeversicherung a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Pflegeversicherung"@de , "Nursing Care Insurance"@en ;
+    schema:question "Haben Sie eine Pflegeversicherung?"@de , "Do you have nursing care insurance?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:pflegeversicherung ;
+        sh:property [
+            sh:path ff:pflegeversicherung ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:pflege a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Pflege"@de , "Care"@en ;
+    schema:question "Sind Sie pflegebedürftig?"@de , "Are you in need of care?"@en ;
+    rdfs:comment "Die Pflegebedürftigkeit wird von einem Gutachter des Medizinischen Dienstes der Krankenversicherung (MDK) festgestellt. Nach der Prüfung entscheidet die Pflegekasse über Pflegebedürftigkeit und Pflegegrad."@de ,
+        "The need for care is determined by an expert from the health insurance's medical service (MDK). After the examination, the care fund (Pflegekasse) decides on the need for care and the degree of care."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:pflege ;
+        sh:property [
+            sh:path ff:pflege ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:care_recipient_close_relative a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Pflegebedürftiger naher Angehöriger"@de , "Care recipient close relative"@en ;
+    schema:question "Ist die pflegebedürftige Person eine nahe Angehörige oder Angehöriger?"@de ,
+        "Is the person in need of care a close relative?"@en ;
+    rdfs:comment "Zu „nahen Angehörigen“ zählen Großeltern, Eltern, Schwieger- und Stiefeltern, Ehegatten, Lebenspartner oder Partner einer ehe- bzw. lebenspartnerschaftsähnlichen Gemeinschaft, Geschwister sowie deren Ehe- oder Lebenspartner, Kinder, Adoptiv-, Pflege- und Stiefkinder, Schwiegerkinder und Enkelkinder."@de ,
+        "Close relatives include grandparents, parents, parents-in-law and step-parents, spouses, life partners or partners in a marriage or life partnership-like community, siblings and their spouses or life partners, children, adopted, foster and step-children, children-in-law and grandchildren."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:care_recipient_close_relative ;
+        sh:property [
+            sh:path ff:care_recipient_close_relative ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .    
+
+ff:acute_care_situation a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Akute Pflegesituation"@de , "Acute Care Situation"@en ;
+    schema:question "Befindet sich eine Person in Ihrem Umfeld in einer akuten Pflegesituation?"@de ,
+        "Is there a person in your environment in an acute care situation?"@en ;
+    rdfs:comment "Eine akute Pflegesituation liegt vor, wenn bei einer Person unerwartet ein Pflegebedarf eintritt (z. B. durch Unfall oder plötzlichen Krankheitsschub), sodass unverzüglich Pflege organisiert oder selbst geleistet werden muss und dafür sofortiger persönlicher Einsatz erforderlich ist."@de ,
+        "An acute care situation exists when a person unexpectedly requires care (e.g. due to an accident or sudden illness), so that care must be organized or provided immediately and immediate personal commitment is required."@en ;        
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:acute_care_situation ;
+        sh:property [
+            sh:path ff:acute_care_situation ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:required_for_care a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Erforderlich für Pflege"@de , "Required for Care"@en ;
+    schema:question "Ist Ihre persönliche Mitwirkung erforderlich, um die Pflege der betroffenen Person sicherzustellen?"@de ,
+        "Is your personal involvement required to ensure the care of the affected person?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:required_for_care ;
+        sh:property [
+            sh:path ff:required_for_care ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+# Sozialleistungen
+
+ff:bezogene_leistungen a ff:DataField ;
+    schema:category ff:sozialleistungen-df-kategorie ;
+    rdfs:label "Bezogene Leistungen"@de , "Received Benefits"@en ;
+    schema:question "Erhalten Sie eine oder mehrere der folgenden Leistungen? (Mehrfachnennung möglich)"@de, "Do you receive one or more of the following benefits? (multiple answers possible)"@en ;
+    rdfs:comment "Teilweise schließen sich bestimmte Leistungen gegenseitig aus. Wenn Sie beispielsweise Wohngeld beziehen, können Sie kein Bürgergeld erhalten. Auf der anderen Seite sind einige Leistungen Voraussetzung für andere."@de ,
+        "Some benefits are mutually exclusive. For example, if you receive housing benefit, you cannot receive citizen's income. On the other hand, some benefits are a prerequisite for others."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:sozialleistungen ;
+        sh:property [
+            sh:path ff:sozialleistungen ;
+            sh:in (
+                ff:bezogene_leistungen-keine
+                ff:bezogene_leistungen-arbeitslosengeld
+                ff:bezogene_leistungen-buergergeld
+                ff:bezogene_leistungen-asylblg
+                ff:bezogene_leistungen-bafoeg
+                ff:bezogene_leistungen-wohngeld
+                ff:bezogene_leistungen-kinderzuschlag
+                ff:bezogene_leistungen-elterngeld
+                ff:bezogene_leistungen-rente
+                ff:bezogene_leistungen-mutterschaftsgeld
+                ff:bezogene_leistungen-erwerbsminderungsrente
+                ff:bezogene_leistungen-grundsicherung
+                ff:bezogene_leistungen-hilfe-zum-lebensunterhalt
+                ff:bezogene_leistungen-berufsausbildungsbeihilfe-und-ausbildungsgeld
+                ff:bezogene_leistungen-sicherung-des-lebensunterhaltes-mobipro-EU
+            ) ;
+        ] ;
+    ] .
+ff:bezogene_leistungen-keine a ff:AnswerOption ; rdfs:label "Keine"@de , "None"@en .
+ff:bezogene_leistungen-arbeitslosengeld a ff:AnswerOption ; rdfs:label "Arbeitslosengeld"@de , "Unemployment benefit"@en .
+ff:bezogene_leistungen-buergergeld a ff:AnswerOption ; rdfs:label "Bürgergeld (früher ALG II)"@de , "Citizen's income (formerly unemployment benefit II)"@en .
+ff:bezogene_leistungen-asylblg a ff:AnswerOption ; rdfs:label "Asylbewerberleistungen (AsylbLG)"@de , "Asylum seeker benefits (AsylbLG)"@en .
+ff:bezogene_leistungen-bafoeg a ff:AnswerOption ; rdfs:label "BAföG"@de , "Student support (BAföG)"@en .
+ff:bezogene_leistungen-wohngeld a ff:AnswerOption ; rdfs:label "Wohngeld"@de , "Housing benefit"@en .
+ff:bezogene_leistungen-kinderzuschlag a ff:AnswerOption ; rdfs:label "Kinderzuschlag"@de , "Child supplement"@en .
+ff:bezogene_leistungen-elterngeld a ff:AnswerOption ; rdfs:label "Elterngeld"@de , "Parental allowance"@en .
+ff:bezogene_leistungen-rente a ff:AnswerOption ; rdfs:label "Regelaltersrente"@de , "Standard retirement pension"@en .
+ff:bezogene_leistungen-mutterschaftsgeld a ff:AnswerOption ; rdfs:label "Mutterschaftsgeld"@de , "Maternity pay"@en .
+ff:bezogene_leistungen-erwerbsminderungsrente a ff:AnswerOption ; rdfs:label "Erwerbsminderungsrente"@de , "Disability pension"@en .
+ff:bezogene_leistungen-grundsicherung a ff:AnswerOption ; rdfs:label "Grundsicherung im Alter und bei Erwerbsminderung"@de , "Basic security in old age and in case of reduced earning capacity"@en .
+ff:bezogene_leistungen-hilfe-zum-lebensunterhalt a ff:AnswerOption ; rdfs:label "Hilfe zum Lebensunterhalt"@de , "Assistance for subsistence"@en .
+ff:bezogene_leistungen-berufsausbildungsbeihilfe-und-ausbildungsgeld a ff:AnswerOption ; rdfs:label "Berufsausbildungsbeihilfe und Ausbildungsgeld"@de , "Vocational training allowance and training allowance"@en .
+ff:bezogene_leistungen-sicherung-des-lebensunterhaltes-mobipro-EU a ff:AnswerOption ; rdfs:label "Sicherung des Lebensunterhaltes im Rahmen des MobiPro-EU Programms"@de , "Securing the livelihood within the framework of the MobiPro-EU program"@en .
+
+ff:buergergeld_vergangenheit a ff:DataField ;
+    schema:category ff:sozialleistungen-df-kategorie ;
+    rdfs:label "Bezogenes Bürgergeld in der Vergangenheit"@de , "Received citizen's income in the past"@en ;
+    schema:question "Haben Sie innerhalb der letzten 3 Jahre Bürgergeld bezogen?"@de , "Have you received citizen's income in the last 3 years?"@en ;
+    rdfs:comment "Manche Leistungen oder Voraussetzungen für Leistungen hängen davon ab, ob Sie in der Vergangenheit Bürgergeld bezogen haben."@de ,
+        "Some benefits or requirements for benefits depend on whether you have received citizen's income in the past."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:buergergeld_vergangenheit ;
+        sh:property [
+            sh:path ff:buergergeld_vergangenheit ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+##############################
+# Updated Graduation Status field for EXIST Gründerstipendium
+##############################
+
+ff:interested_in_founding a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Interested in Founding"@en, "Interesse an Gründung"@de ;
+    schema:question "Are you interested in founding a company?"@en, "Sind Sie an der Gründung eines Unternehmens interessiert?"@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:interested_in_founding ;
+        sh:property [
+            sh:path ff:interested_in_founding ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:graduation_status a ff:DataField ;
+    schema:category ff:education-df-kategorie ;
+    rdfs:label "University or Research Institution Status"@en, "Universitäts- oder Forschungseinrichtungsstatus"@de ;
+    schema:question "Are you currently enrolled at a university or working at a research institution?"@en, 
+                    "Sind Sie derzeit an einer Universität eingeschrieben oder arbeiten Sie an einer Forschungseinrichtung?"@de ;
+    rdfs:comment "Some grants require applicants to be currently affiliated with a university or research institution or to have been in the past."@en,
+                 "Einige Förderprogramme setzen voraus, dass Antragstellende aktuell mit einer Universität oder Forschungseinrichtung verbunden sind oder dies in der Vergangenheit waren."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:graduation_status ;
+        sh:property [
+            sh:path ff:graduation_status ;
+            sh:in (
+                ff:graduation_status-currently-enrolled-or-working
+                ff:graduation_status-left-at-most-5-years-ago
+                ff:graduation_status-left-more-than-5-years-ago
+                ff:graduation_status-never-enrolled
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:graduation_status-currently-enrolled-or-working a ff:AnswerOption ; 
+    rdfs:label "I am currently enrolled at a university or working at a research institution"@en, 
+               "Ich bin derzeit an einer Universität eingeschrieben oder arbeite an einer Forschungseinrichtung"@de .
+ff:graduation_status-left-at-most-5-years-ago a ff:AnswerOption ; 
+    rdfs:label "I left my university or research institution within the last 5 years"@en, 
+               "Ich habe meine Universität oder Forschungseinrichtung innerhalb der letzten 5 Jahre verlassen"@de .
+ff:graduation_status-left-more-than-5-years-ago a ff:AnswerOption ; 
+    rdfs:label "I left my university or research institution more than 5 years ago"@en, 
+               "Ich habe meine Universität oder Forschungseinrichtung vor mehr als 5 Jahren verlassen"@de .
+ff:graduation_status-never-enrolled a ff:AnswerOption ; 
+    rdfs:label "I was never enrolled at a university or employed at a research institution"@en, 
+               "Ich war nie an einer Universität eingeschrieben oder an einer Forschungseinrichtung beschäftigt"@de .
+
+ff:institute_location a ff:DataField ;
+    schema:category ff:education-df-kategorie ;
+    rdfs:label "University or Research Institution Location"@en, "Standort der Universität oder Forschungseinrichtung"@de ;
+    schema:question "Where is your university or research institution located?"@en, 
+                    "Wo befindet sich Ihre Universität oder Forschungseinrichtung?"@de ;
+    rdfs:comment "Some grants are specifically available for individuals affiliated with universities or research institutions in Germany."@en,
+                 "Einige Förderprogramme richten sich speziell an Personen, die mit Universitäten oder Forschungseinrichtungen in Deutschland verbunden sind."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:institute_location ;
+        sh:property [
+            sh:path ff:institute_location ;
+            sh:in ( ff:institute_location-germany ff:institute_location-outside-germany ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:institute_location-germany a ff:AnswerOption ; 
+    rdfs:label "My university or research institution is located in Germany"@en, 
+               "Meine Universität oder Forschungseinrichtung befindet sich in Deutschland"@de .
+ff:institute_location-outside-germany a ff:AnswerOption ; 
+    rdfs:label "My university or research institution is located outside Germany"@en, 
+               "Meine Universität oder Forschungseinrichtung befindet sich außerhalb Deutschlands"@de .
+
+ff:scholarship a ff:DataField ;
+    schema:category ff:education-df-kategorie ;
+    rdfs:label "Scholarship"@en, "Stipendium"@de ;
+    schema:question "Do you currently receive a scholarship?"@en, 
+                    "Erhalten Sie derzeit ein Stipendium?"@de ;
+    rdfs:comment "This question includes all types of scholarships. However, some grants specifically consider scholarships that provide financial support for daily living expenses, such as rent, food, and other personal costs."@en,
+                 "Diese Frage umfasst alle Arten von Stipendien. Einige Förderprogramme berücksichtigen jedoch speziell Stipendien, die finanzielle Unterstützung für die täglichen Lebenshaltungskosten wie Miete, Lebensmittel und sonstige persönliche Ausgaben bieten."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:scholarship ;
+        sh:property [
+            sh:path ff:scholarship ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:founding_status a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Startup Founding Status"@en, "Gründungsstatus"@de ;
+    schema:question "Has your startup already been legally founded?"@en, 
+                    "Wurde Ihr Unternehmen bereits offiziell gegründet?"@de ;
+    rdfs:comment "This question refers to whether your startup has been legally registered as a business entity (e.g., GmbH, UG, GbR, or other legal forms). Some funding opportunities are specifically designed for newly founded startups, while others also support teams in the pre-founding phase."@en,
+                 "Diese Frage bezieht sich darauf, ob Ihr Unternehmen bereits offiziell als juristische Person registriert wurde (z. B. GmbH, UG, GbR oder andere Rechtsformen). Einige Förderprogramme richten sich speziell an neu gegründete Startups, während andere auch Teams in der Vorgründungsphase unterstützen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:founding_status ;
+        sh:property [
+            sh:path ff:founding_status ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:composition_founding_team a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Startup Team Composition"@en, "Zusammensetzung des Gründungsteams"@de ;
+    schema:question "What is the educational and professional background of your startup team members?"@en, 
+                    "Welchen Bildungs- und Berufsabschluss haben die Mitglieder Ihres Gründungsteams?"@de ;
+    rdfs:comment "Some funding programs take the educational composition of founding teams into account, especially regarding the presence of academic versus non-academic backgrounds. This helps determine eligibility for grants aimed at research-based startups or those supporting founders without formal academic degrees."@en,
+                 "Einige Förderprogramme berücksichtigen die Bildungszusammensetzung von Gründungsteams, insbesondere in Bezug auf akademische und nicht-akademische Hintergründe. Dies kann für Förderungen relevant sein, die sich gezielt an forschungsbasierte Startups oder Gründer ohne akademischen Abschluss richten."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:composition_founding_team ;
+        sh:property [
+            sh:path ff:composition_founding_team ;
+            sh:in (
+                ff:composition_founding_team-only-academic-degrees
+                ff:composition_founding_team-at-most-one-non-academic-degree
+                ff:composition_founding_team-more-than-one-non-academic-degree
+                ff:composition_founding_team-at-least-one-non-degree
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:composition_founding_team-only-academic-degrees a ff:AnswerOption ;
+    rdfs:label "Only team members with academic degrees (e.g., bachelor's, master's, PhD)"@en, 
+               "Nur Teammitglieder mit akademischen Abschlüssen (z. B. Bachelor, Master, Promotion)"@de .
+ff:composition_founding_team-at-most-one-non-academic-degree a ff:AnswerOption ;
+    rdfs:label "Mostly academic degrees, but at most one team member has a non-academic professional qualification"@en, 
+               "Überwiegend akademische Abschlüsse, aber maximal ein Teammitglied mit nicht-akademischem Berufsabschluss"@de .
+ff:composition_founding_team-more-than-one-non-academic-degree a ff:AnswerOption ;
+    rdfs:label "More than one team member has a non-academic professional qualification (e.g., vocational training)"@en, 
+               "Mehr als ein Teammitglied hat einen nicht-akademischen Berufsabschluss (z. B. Berufsausbildung)"@de .
+ff:composition_founding_team-at-least-one-non-degree a ff:AnswerOption ;
+    rdfs:label "At least one team member has no formal professional or academic qualification"@en, 
+               "Mindestens ein Teammitglied hat keinen formalen Berufs- oder akademischen Abschluss"@de .
+
+ff:secondary_activity a ff:DataField ;
+    schema:category ff:employment-df-kategorie ;
+    rdfs:label "Paid Secondary Activities"@en, "Bezahlte Nebentätigkeiten"@de ;
+    schema:question "How many hours per week do you spend on paid secondary activities alongside your main work or startup?"@en, 
+                    "Wie viele Stunden pro Woche verbringen Sie mit bezahlten Nebentätigkeiten neben Ihrer Haupttätigkeit oder Ihrem Startup?"@de ;
+    rdfs:comment "Some funding programs consider the extent of paid secondary activities when assessing eligibility. Part-time employment or freelance work beyond a certain threshold may affect funding opportunities or eligibility for certain grants."@en,
+                 "Einige Förderprogramme berücksichtigen den Umfang bezahlter Nebentätigkeiten bei der Förderfähigkeit. Eine Teilzeitbeschäftigung oder freiberufliche Tätigkeit über eine bestimmte Grenze hinaus kann Auswirkungen auf Fördermöglichkeiten oder die Förderfähigkeit haben."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:secondary_activity ;
+        sh:property [
+            sh:path ff:secondary_activity ;
+            sh:in (
+                ff:secondary_activity-no-secondary
+                ff:secondary_activity-less-than-20
+                ff:secondary_activity-more-than-20
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:secondary_activity-no-secondary a ff:AnswerOption ;
+    rdfs:label "I do not have any paid secondary activities"@en, 
+               "Ich habe keine bezahlten Nebentätigkeiten"@de .
+ff:secondary_activity-less-than-20 a ff:AnswerOption ;
+    rdfs:label "Less than 20 hours per week"@en, 
+               "Weniger als 20 Stunden pro Woche"@de .
+ff:secondary_activity-more-than-20 a ff:AnswerOption ;
+    rdfs:label "More than 20 hours per week"@en, 
+               "Mehr als 20 Stunden pro Woche"@de .
+    
+ff:studies_status a ff:DataField ;
+    schema:category ff:education-df-kategorie ;
+    rdfs:label "Study Progress"@en, "Studienfortschritt"@de ;
+    schema:question "What is your current progress in your academic studies?"@en, 
+                    "Wie weit sind Sie in Ihrem akademischen Studium fortgeschritten?"@de ;
+    rdfs:comment "Some funding programs take into account the stage of your academic studies when determining eligibility. Certain grants may be available only to students who have completed a minimum portion of their studies or to those who have already graduated."@en,
+                 "Einige Förderprogramme berücksichtigen den Fortschritt Ihres akademischen Studiums bei der Feststellung der Förderfähigkeit. Bestimmte Förderungen sind möglicherweise nur für Studierende verfügbar, die einen bestimmten Teil ihres Studiums abgeschlossen haben, oder für Absolventen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:studies_status ;
+        sh:property [
+            sh:path ff:studies_status ;
+            sh:in (
+                ff:studies_status-less-than-half
+                ff:studies_status-more-than-half
+                ff:studies_status-completed
+                ff:studies_status-no-academic-studies
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:studies_status-less-than-half a ff:AnswerOption ;
+    rdfs:label "I have completed less than half of my academic studies"@en, 
+               "Ich habe weniger als die Hälfte meines Studiums abgeschlossen"@de .
+ff:studies_status-more-than-half a ff:AnswerOption ;
+    rdfs:label "I have completed more than half of my academic studies"@en, 
+               "Ich habe mehr als die Hälfte meines Studiums abgeschlossen"@de .
+ff:studies_status-completed a ff:AnswerOption ;
+    rdfs:label "I have completed my academic studies (graduated)"@en, 
+               "Ich habe mein Studium abgeschlossen (absolviert)"@de .
+ff:studies_status-no-academic-studies a ff:AnswerOption ;
+    rdfs:label "I have never been enrolled in an academic study program"@en, 
+               "Ich war nie in einem akademischen Studiengang eingeschrieben"@de .
+
+ff:academic_institution_support a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Support for Founding Teams from Academic Institutions"@en, "Unterstützung für Gründungsteams durch akademische Einrichtungen"@de ;
+    schema:question "Does your academic institution offer dedicated support for startup founders, such as mentorship, incubator programs, or funding opportunities?"@en, 
+                    "Bietet Ihre akademische Einrichtung gezielte Unterstützung für Gründer*innen, wie Mentoring, Inkubator-Programme oder Finanzierungsmöglichkeiten?"@de ;
+    rdfs:comment "Some universities and research institutions provide dedicated startup support, such as startup centers, incubators, or funding opportunities for early-stage ventures. This can be relevant for grants that require institutional backing or offer additional resources to university-affiliated teams."@en,
+                 "Einige Universitäten und Forschungseinrichtungen bieten gezielte Unterstützung für Gründer*innen an, wie Gründerzentren, Inkubator-Programme oder finanzielle Förderungen für junge Unternehmen. Dies kann für Förderprogramme relevant sein, die eine institutionelle Unterstützung voraussetzen oder zusätzliche Ressourcen für universitätsnahe Teams bereitstellen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:academic_institution_support ;
+        sh:property [
+            sh:path ff:academic_institution_support ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ]
+    ] .
+
+##############################
+# Updated fields for IBB Gründungsbonus
+##############################
+
+ff:bank_account_germany a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Bank Account in Germany"@en, "Bankkonto in Deutschland"@de ;
+    schema:question "Does your startup have a bank account in Germany?"@en, 
+                    "Hat Ihr Startup ein Bankkonto in Deutschland?"@de ;
+    rdfs:comment "Some funding programs require startups to have a bank account in Germany to receive financial support or grants. This question helps determine eligibility for grants that are specifically available to companies with a German bank account."@en,
+                    "Einige Förderprogramme setzen voraus, dass Startups ein Bankkonto in Deutschland haben, um finanzielle Unterstützung oder Fördermittel zu erhalten. Diese Frage hilft dabei, die Förderfähigkeit für Förderungen zu bestimmen, die speziell für Unternehmen mit einem deutschen Bankkonto verfügbar sind."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:bank_account_germany ;
+        sh:property [
+            sh:path ff:bank_account_germany ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:company_age a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Company Age"@en, "Alter des Unternehmens"@de ;
+    schema:question "When was your startup founded?"@en, 
+                    "Wann wurde Ihr Unternehmen gegründet?"@de ;
+    rdfs:comment "The age of your startup can be relevant for funding opportunities that target early-stage ventures or require companies to be founded within a specific timeframe. Some grants are specifically available for startups founded less than 18 months ago or for companies that are not yet established."@en,
+                    "Das Alter Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die sich an junge Unternehmen richten oder voraussetzen, dass Unternehmen innerhalb eines bestimmten Zeitraums gegründet wurden. Einige Förderungen sind speziell für Startups verfügbar, die vor weniger als 18 Monaten gegründet wurden oder für Unternehmen, die noch nicht etabliert sind."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:company_age ;
+        sh:property [
+            sh:path ff:company_age ;
+            sh:in (
+                ff:company_age-less-than-12-months
+                ff:company_age-less-than-18-months
+                ff:company_age-less-than-5-years
+                ff:company_age-more-than-5-years
+                ff:company_age-not-yet-founded
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:company_age-less-than-12-months a ff:AnswerOption ; rdfs:label "Less than 12 months ago"@en, "Vor weniger als 12 Monaten"@de .
+ff:company_age-less-than-18-months a ff:AnswerOption ; rdfs:label "Less than 18 months ago"@en, "Vor weniger als 18 Monaten"@de .
+ff:company_age-more-than-18-months a ff:AnswerOption ; rdfs:label "More than 18 months ago"@en, "Vor mehr als 18 Monaten"@de .
+ff:company_age-less-than-5-years a ff:AnswerOption ; rdfs:label "Less than 5 years ago"@en, "Vor weniger als 5 Jahren"@de .
+ff:company_age-more-than-5-years a ff:AnswerOption ; rdfs:label "More than 5 years ago"@en, "Vor mehr als 5 Jahren"@de .
+ff:company_age-not-yet-founded a ff:AnswerOption ; rdfs:label "Not yet founded"@en, "Noch nicht gegründet"@de .
+            
+ff:headquarters_location a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Headquarters Location"@en, "Hauptsitz des Unternehmens"@de ;
+    schema:question "Where is your company headquartered?"@en, "Wo befindet sich der Hauptsitz Ihres Unternehmens?"@de ;
+    rdfs:comment "The location of your company's headquarters can be relevant for funding opportunities that require startups to be based in specific regions or countries. Some grants are specifically available for companies headquartered in Germany or in certain regions within the country."@en,
+                 "Der Standort des Hauptsitzes Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die voraussetzen, dass Startups in bestimmten Regionen oder Ländern ansässig sind. Einige Förderungen sind speziell für Unternehmen mit Hauptsitz in Deutschland oder in bestimmten Regionen innerhalb des Landes verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:headquarters_location ;
+        sh:property [
+            sh:path ff:headquarters_location ;
+            sh:in (
+                ff:headquarters-ao-berlin
+                ff:headquarters-ao-hamburg
+                ff:headquarters-ao-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:headquarters-ao-berlin a ff:AnswerOption ; rdfs:label "Berlin"@en, "Berlin"@de .
+ff:headquarters-ao-hamburg a ff:AnswerOption ; rdfs:label "Hamburg"@en, "Hamburg"@de .
+ff:headquarters-ao-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:industry a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Industry"@en, "Branche"@de ;
+    schema:question "What industry does your company operate in?"@en, "In welcher Branche ist Ihr Unternehmen tätig?"@de ;
+    rdfs:comment "The industry in which your company operates can be relevant for funding opportunities that target specific sectors or require startups to be active in certain industries. Some grants are specifically available for companies in the construction, gastronomy, or retail sectors, among others."@en,
+                 "Die Branche, in der Ihr Unternehmen tätig ist, kann für Fördermöglichkeiten relevant sein, die auf bestimmte Sektoren abzielen oder voraussetzen, dass Startups in bestimmten Branchen aktiv sind. Einige Förderungen sind speziell für Unternehmen im Bauwesen, in der Gastronomie oder im Einzelhandel verfügbar, unter anderem."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:industry ;
+        sh:property [
+            sh:path ff:industry ;
+            sh:in (
+                ff:industry-ao-construction
+                ff:industry-ao-gastronomy
+                ff:industry-ao-hospitality-non-ecological
+                ff:industry-ao-retail
+                ff:industry-ao-retail-non-sustainable
+                ff:industry-ao-healthcare
+                ff:industry-ao-renewable-energy
+                ff:industry-ao-creative-industries
+                ff:industry-ao-logistics
+                ff:industry-ao-tourism
+                ff:industry-ao-food-industry
+                ff:industry-ao-trade
+                ff:industry-ao-manufacturing
+                ff:industry-ao-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:industry-ao-construction a ff:AnswerOption ; rdfs:label "Construction"@en, "Bauwesen"@de .
+ff:industry-ao-gastronomy a ff:AnswerOption ; rdfs:label "Gastronomy"@en, "Gastronomie"@de .
+ff:industry-ao-hospitality-non-ecological a ff:AnswerOption ; rdfs:label "Hospitality (non-ecological)"@en, "Gastgewerbe (nicht-ökologisch)"@de .
+ff:industry-ao-retail a ff:AnswerOption ; rdfs:label "Retail"@en, "Einzelhandel"@de .
+ff:industry-ao-retail-non-sustainable a ff:AnswerOption ; rdfs:label "Retail (non-sustainable)"@en, "Einzelhandel (nicht-nachhaltig)"@de .
+ff:industry-ao-healthcare a ff:AnswerOption ; rdfs:label "Healthcare"@en, "Gesundheitswesen"@de .
+ff:industry-ao-renewable-energy a ff:AnswerOption ; rdfs:label "Renewable Energy"@en, "Erneuerbare Energien"@de .
+ff:industry-ao-creative-industries a ff:AnswerOption ; rdfs:label "Creative Industries"@en, "Kreativwirtschaft"@de .
+ff:industry-ao-logistics a ff:AnswerOption ; rdfs:label "Logistics"@en, "Logistik"@de .
+ff:industry-ao-tourism a ff:AnswerOption ; rdfs:label "Tourism"@en, "Tourismus"@de .
+ff:industry-ao-food-industry a ff:AnswerOption ; rdfs:label "Food Industry"@en, "Lebensmittelindustrie"@de .
+ff:industry-ao-trade a ff:AnswerOption ; rdfs:label "Trade"@en, "Handel"@de .
+ff:industry-ao-manufacturing a ff:AnswerOption ; rdfs:label "Manufacturing"@en, "Produktion"@de .
+ff:industry-ao-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:profit_oriented a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Legal Entity"@en, "Rechtsform des Unternehmens"@de ;
+    schema:question "Is your company profit-oriented?"@en, "Ist Ihr Unternehmen gewinnorientiert?"@de ;
+    rdfs:comment "The profit orientation of your company can be relevant for funding opportunities that target social enterprises, non-profit organizations, or companies with a specific legal status. Some grants are specifically available for profit-oriented companies, while others support social entrepreneurship or non-profit initiatives."@en,
+                 "Die Gewinnorientierung Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die sich an soziale Unternehmen, gemeinnützige Organisationen oder Unternehmen mit einem spezifischen Rechtsstatus richten. Einige Förderungen sind speziell für gewinnorientierte Unternehmen verfügbar, während andere soziales Unternehmertum oder gemeinnützige Initiativen unterstützen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:legal_entity ;
+        sh:property [
+            sh:path ff:legal_entity ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:majority_shares a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Majority Shares"@en, "Mehrheitliche Geschäftsanteile"@de ;
+    schema:question "Do the founders hold more than 50% of the company shares and perform key management roles?"@en, "Halten die Gründer*innen mehr als 50% der Geschäftsanteile und übernehmen zentrale Managementaufgaben?"@de ;
+    rdfs:comment "The distribution of shares among founders can be relevant for funding opportunities that require majority ownership or specific roles within the company. Some grants are specifically available for startups where the founders hold more than 50% of the shares and are actively involved in key management functions."@en,
+                 "Die Verteilung der Geschäftsanteile unter den Gründer*innen kann für Fördermöglichkeiten relevant sein, die eine Mehrheitsbeteiligung oder spezifische Rollen innerhalb des Unternehmens voraussetzen. Einige Förderungen sind speziell für Startups verfügbar, bei denen die Gründer*innen mehr als 50% der Anteile halten und aktiv an zentralen Managementfunktionen beteiligt sind."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:majority_shares ;
+        sh:property [
+            sh:path ff:majority_shares ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:no_double_funding a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "No Double Funding"@en, "Keine Doppelförderung"@de ;
+    schema:question "Are you receiving or planning to receive other public funding for the same eligible expenses?"@en, "Erhalten Sie oder planen Sie andere öffentliche Fördermittel für die gleichen förderfähigen Kosten?"@de ;
+    rdfs:comment "Some funding programs require startups to disclose any other public funding they are receiving or planning to receive for the same eligible expenses. This question helps prevent double funding and ensures that grants are used efficiently and effectively."@en,
+                 "Einige Förderprogramme verlangen von Startups, alle anderen öffentlichen Fördermittel offenzulegen, die sie erhalten oder erhalten möchten, um die gleichen förderfähigen Kosten zu decken. Diese Frage hilft, Doppelförderung zu vermeiden und sicherzustellen, dass Fördermittel effizient und effektiv eingesetzt werden."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:no_double_funding ;
+        sh:property [
+            sh:path ff:no_double_funding ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+##############################
+# Updated fields for IBB Wohnungsbau
+##############################
+
+ff:interested_in_housing a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Interest in Housing Construction"@en, "Interesse am Wohnungsbau"@de ;
+    schema:question "Are you interested in housing construction projects?"@en, "Sind Sie an Wohnungsbau-Projekten interessiert?"@de ;
+    rdfs:comment "This question helps identify individuals or organizations interested in housing construction projects, which may be eligible for funding opportunities or grants supporting residential development."@en,
+                 "Diese Frage hilft dabei, Personen oder Organisationen zu identifizieren, die an Wohnungsbau-Projekten interessiert sind und möglicherweise für Fördermöglichkeiten oder Zuschüsse zur Unterstützung des Wohnungsbau-Projekts infrage kommen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:interested_in_housing ;
+        sh:property [
+            sh:path ff:interested_in_housing ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:investment_location a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Investment Location"@en, "Investitionsstandort"@de ;
+    schema:question "Where is the location of the planned investment?"@en, "Wo befindet sich der Standort der geplanten Investition?"@de ;
+    rdfs:comment "This field specifies the geographical location of the investment project, which may be a condition for funding eligibility."@en,
+                 "Dieses Feld gibt den geografischen Standort des Investitionsprojekts an, der eine Voraussetzung für die Förderfähigkeit sein kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:investment_location ;
+        sh:property [
+            sh:path ff:investment_location ;
+            sh:in (
+                ff:location-berlin
+                ff:location-outside-berlin
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:location-berlin a ff:AnswerOption ; rdfs:label "Berlin"@en, "Berlin"@de .
+ff:location-outside-berlin a ff:AnswerOption ; rdfs:label "Outside Berlin"@en, "Außerhalb von Berlin"@de .
+
+ff:organization_type a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Organization Type"@en, "Organisationstyp"@de ;
+    schema:question "What type of organization would be applying for funding?"@en, "Welche Art von Organisation beantragt die Förderung?"@de ;
+    rdfs:comment "This field identifies the type of organization that is applying for funding, such as housing cooperatives, private or public investors."@en,
+                 "Dieses Feld gibt an, welche Art von Organisation die Förderung beantragt, z. B. Wohnungsgenossenschaften, private oder öffentliche Investoren."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:organization_type ;
+        sh:property [
+            sh:path ff:organization_type ;
+            sh:in (
+                ff:organization_type-communal
+                ff:organization_type-private-company
+                ff:organization_type-cooperative
+                ff:organization_type-landlord
+                ff:organization_type-investor
+                ff:organization_type-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:organization_type-communal a ff:AnswerOption ; rdfs:label "Communal housing company"@en, "Kommunales Wohnungsunternehmen"@de .
+ff:organization_type-private-company a ff:AnswerOption ; rdfs:label "Private housing company"@en, "Privates Wohnungsunternehmen"@de .
+ff:organization_type-cooperative a ff:AnswerOption ; rdfs:label "Housing cooperative"@en, "Wohnungsgenossenschaft"@de .
+ff:organization_type-landlord a ff:AnswerOption ; rdfs:label "Landlord"@en, "Vermieter:in"@de .
+ff:organization_type-investor a ff:AnswerOption ; rdfs:label "Investor"@en, "Investor:in"@de .
+ff:organization_type-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:project_type a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Project Type"@en, "Projektart"@de ;
+    schema:question "What type of housing project is planned?"@en, "Welche Art von Wohnprojekt ist geplant?"@de ;
+    rdfs:comment "This field describes the type of project to be funded, such as barrier reduction, living comfort improvement, or burglary protection."@en,
+                 "Dieses Feld beschreibt die Art des zu fördernden Projekts, z. B. Barrierenabbau, Wohnkomfortverbesserung oder Einbruchschutz."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:project_type ;
+        sh:property [
+            sh:path ff:project_type ;
+            sh:in (
+                ff:project_type-barrier-reduction
+                ff:project_type-living-comfort
+                ff:project_type-burglary-protection
+                ff:project_type-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:project_type-barrier-reduction a ff:AnswerOption ;rdfs:label "Barrier reduction"@en, "Barrierenabbau"@de .
+ff:project_type-living-comfort a ff:AnswerOption ; rdfs:label "Increased living comfort"@en, "Erhöhter Wohnkomfort"@de .
+ff:project_type-burglary-protection a ff:AnswerOption ; rdfs:label "Burglary protection"@en, "Einbruchschutz"@de .
+ff:project_type-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+##############################
+# Updated fields for IFB Gründung und Nachfolge
+##############################
+
+ff:interested_in_succession a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Interest in Business Succession"@en, "Interesse an Unternehmensnachfolge"@de ;
+    schema:question "Are you interested in business succession or taking over an existing company?"@en, "Sind Sie an einer Unternehmensnachfolge oder der Übernahme eines bestehenden Unternehmens interessiert?"@de ;
+    rdfs:comment "This question helps identify individuals or organizations interested in business succession or taking over existing companies, which may be eligible for funding opportunities or grants supporting the transfer of ownership."@en,
+                 "Diese Frage hilft dabei, Personen oder Organisationen zu identifizieren, die an einer Unternehmensnachfolge oder der Übernahme bestehender Unternehmen interessiert sind und möglicherweise für Fördermöglichkeiten oder Zuschüsse zur Unterstützung des Eigentumsübergangs infrage kommen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:interested_in_succession ;
+        sh:property [
+            sh:path ff:interested_in_succession ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:number_of_employees a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Number of Employees"@en, "Anzahl der Beschäftigten"@de ;
+    schema:question "How many employees does your company have?"@en, "Wie viele Beschäftigte hat Ihr Unternehmen?"@de ;
+    rdfs:comment "The number of employees in your company can be relevant for funding opportunities that target small and medium-sized enterprises (SMEs) or require a minimum number of staff members. Some grants are specifically available for companies with fewer than 50 employees or for micro-enterprises with less than 10 employees."@en,
+                 "Die Anzahl der Beschäftigten in Ihrem Unternehmen kann für Fördermöglichkeiten relevant sein, die sich an kleine und mittlere Unternehmen (KMU) richten oder eine Mindestanzahl von Mitarbeitenden voraussetzen. Einige Förderungen sind speziell für Unternehmen mit weniger als 50 Beschäftigten oder für Kleinstunternehmen mit weniger als 10 Beschäftigten verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:number_of_employees ;
+        sh:property [
+            sh:path ff:number_of_employees ;
+            sh:in (
+                ff:number_of_employees-less-than-5
+                ff:number_of_employees-less-than-250
+                ff:number_of_employees-250-or-more
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:number_of_employees-less-than-5 a ff:AnswerOption ; rdfs:label "Less than 5 employees"@en, "Weniger als 5 Beschäftigte"@de .
+ff:number_of_employees-less-than-250 a ff:AnswerOption ; rdfs:label "Less than 250 employees"@en, "Weniger als 250 Beschäftigte"@de .
+ff:number_of_employees-250-or-more a ff:AnswerOption ; rdfs:label "250 or more employees"@en, "250 oder mehr Beschäftigte"@de .
+
+ff:annual_turnover a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Annual Turnover"@en, "Jahresumsatz"@de ;
+    schema:question "What is the annual turnover of your company?"@en, "Wie hoch ist der Jahresumsatz Ihres Unternehmens?"@de ;
+    rdfs:comment "The annual turnover of your company can be relevant for funding opportunities that target specific revenue brackets or require a minimum level of financial performance. Some grants are specifically available for companies with an annual turnover below a certain threshold or for startups with limited revenue."@en,
+                 "Der Jahresumsatz Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die auf bestimmte Umsatzklassen abzielen oder eine Mindestleistung finanzieller Art voraussetzen. Einige Förderungen sind speziell für Unternehmen mit einem Jahresumsatz unterhalb einer bestimmten Schwelle oder für Startups mit begrenzten Einnahmen verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:annual_turnover ;
+        sh:property [
+            sh:path ff:annual_turnover ;
+            sh:in (
+                ff:annual_turnover-less-than-500K
+                ff:annual_turnover-less-than-50-million
+                ff:annual_turnover-50-million-or-more
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:annual_turnover-less-than-500K a ff:AnswerOption ; rdfs:label "Less than 500,000 euros"@en, "Weniger als 500.000 Euro"@de .
+ff:annual_turnover-less-than-50-million a ff:AnswerOption ; rdfs:label "Less than 50 million euros"@en, "Weniger als 50 Millionen Euro"@de .
+ff:annual_turnover-50-million-or-more a ff:AnswerOption ; rdfs:label "50 million euros or more"@en, "50 Millionen Euro oder mehr"@de .
+
+ff:balance_sheet_total a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Balance Sheet Total"@en, "Bilanzsumme"@de ;
+    schema:question "What is the balance sheet total of your company?"@en, "Wie hoch ist die Bilanzsumme Ihres Unternehmens?"@de ;
+    rdfs:comment "The balance sheet total of your company can be relevant for funding opportunities that target specific asset levels or require a minimum financial standing. Some grants are specifically available for companies with a balance sheet total below a certain threshold or for startups with limited assets."@en,
+                 "Die Bilanzsumme Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die auf bestimmte Vermögenswerte abzielen oder eine Mindestfinanzlage voraussetzen. Einige Förderungen sind speziell für Unternehmen mit einer Bilanzsumme unterhalb einer bestimmten Schwelle oder für Startups mit begrenzten Vermögenswerten verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:balance_sheet_total ;
+        sh:property [
+            sh:path ff:balance_sheet_total ;
+            sh:in (
+                ff:balance_sheet_total-less-than-43-million
+                ff:balance_sheet_total-43-million-or-more
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:balance_sheet_total-less-than-43-million a ff:AnswerOption ; rdfs:label "Less than 43 million euros"@en, "Weniger als 43 Millionen Euro"@de .
+ff:balance_sheet_total-43-million-or-more a ff:AnswerOption ; rdfs:label "43 million euros or more"@en, "43 Millionen Euro oder mehr"@de .
+
+ff:business_activity a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Business Activity"@en, "Geschäftstätigkeit"@de ;
+    schema:question "What is the main business activity of your company?"@en, "Was ist die Hauptgeschäftstätigkeit Ihres Unternehmens?"@de ;
+    rdfs:comment "The main business activity of your company can be relevant for funding opportunities that target specific sectors or require companies to be active in certain industries. Some grants are specifically available for companies in the manufacturing, services, or technology sectors, among others."@en,
+                 "Die Hauptgeschäftstätigkeit Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die auf bestimmte Sektoren abzielen oder voraussetzen, dass Unternehmen in bestimmten Branchen aktiv sind. Einige Förderungen sind speziell für Unternehmen im Bereich Produktion, Dienstleistungen oder Technologie verfügbar, unter anderem."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:business_activity ;
+        sh:property [
+            sh:path ff:business_activity ;
+            sh:in (
+                ff:business_activity-primary-agriculture
+                ff:business_activity-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:business_activity-primary-agriculture a ff:AnswerOption ; rdfs:label "Primary agriculture"@en, "Primärlandwirtschaft"@de .
+ff:business_activity-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:financial_difficulty a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Financial Difficulty"@en, "Finanzielle Schwierigkeiten"@de ;
+    schema:question "Is your company currently experiencing financial difficulties?"@en, "Hat Ihr Unternehmen derzeit finanzielle Schwierigkeiten?"@de ;
+    rdfs:comment "This question helps identify companies that are facing financial challenges and may be in need of support or funding to overcome difficulties. Some grants are specifically available for companies experiencing financial hardship or seeking assistance to stabilize their financial situation."@en,
+                 "Diese Frage hilft dabei, Unternehmen zu identifizieren, die mit finanziellen Herausforderungen konfrontiert sind und möglicherweise Unterstützung oder Fördermittel benötigen, um Schwierigkeiten zu überwinden. Einige Förderungen sind speziell für Unternehmen verfügbar, die finanzielle Schwierigkeiten haben oder Hilfe zur Stabilisierung ihrer finanziellen Situation suchen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:financial_difficulty ;
+        sh:property [
+            sh:path ff:financial_difficulty ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:de_minimis_aid a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "De Minimis Aid"@en, "De-minimis-Beihilfe"@de ;
+    schema:question "Has your company fully utilized the de minimis aid threshold in the past three fiscal years?"@en, 
+                    "Hat Ihr Unternehmen den De-minimis-Beihilfen-Schwellenwert in den letzten drei Geschäftsjahren vollständig ausgeschöpft?"@de ;
+    rdfs:comment "De minimis aid refers to small amounts of state aid that can be granted to companies without prior approval from the European Commission. This question helps determine whether your company has received de minimis aid in the past three fiscal years, as this may affect eligibility for certain grants or funding programs."@en,
+                 "De-minimis-Beihilfen beziehen sich auf geringe staatliche Beihilfen, die Unternehmen ohne vorherige Genehmigung der Europäischen Kommission gewährt werden können. Diese Frage hilft festzustellen, ob Ihr Unternehmen in den letzten drei Geschäftsjahren De-minimis-Beihilfen erhalten hat, da dies die Förderfähigkeit für bestimmte Zuschüsse oder Förderprogramme beeinflussen kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:de_minimis_aid ;
+        sh:property [
+            sh:path ff:de_minimis_aid ;
+            sh:in (
+                ff:de_minimis_aid-no
+                ff:de_minimis_aid-yes
+                ff:de_minimis_aid-unsure
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:de_minimis_aid-no a ff:AnswerOption ; rdfs:label "No"@en, "Nein"@de .
+ff:de_minimis_aid-yes a ff:AnswerOption ; rdfs:label "Yes"@en, "Ja"@de .
+ff:de_minimis_aid-unsure a ff:AnswerOption ; rdfs:label "Unsure"@en, "Unsicher"@de .
+
+ff:location_founding_team a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Location of Founding Team"@en, "Standort des Gründungsteams"@de ;
+    schema:question "Where is the location of the founding team?"@en, "Wo befindet sich der Standort des Gründungsteams?"@de ;
+    rdfs:comment "The location is corresponds to the location where at least half of the founding team is based. The location of the founding team can be relevant for funding opportunities that require startups to be based in specific regions or countries. Some grants are specifically available for companies founded in Germany or in certain regions within the country."@en,
+                 "Der Standort entspricht dem Ort, an dem sich mindestens die Hälfte des Gründungsteams befindet. Der Standort des Gründungsteams kann für Fördermöglichkeiten relevant sein, die voraussetzen, dass Startups in bestimmten Regionen oder Ländern ansässig sind. Einige Förderungen sind speziell für Unternehmen verfügbar, die in Deutschland oder in bestimmten Regionen innerhalb des Landes gegründet wurden."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:location_founding_team ;
+        sh:property [
+            sh:path ff:location_founding_team ;
+            sh:in (
+                ff:location_founding_team-berlin
+                ff:location_founding_team-hamburg
+                ff:location_founding_team-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:location_founding_team-berlin a ff:AnswerOption ; rdfs:label "Berlin"@en, "Berlin"@de .
+ff:location_founding_team-hamburg a ff:AnswerOption ; rdfs:label "Hamburg"@en, "Hamburg"@de .
+ff:location_founding_team-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+##############################
+# Updated fields for ILB 
+##############################
+
+ff:headquarters_country a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Headquarters Country"@en, "Hauptsitzland"@de ;
+    schema:question "In which country is your company headquartered?"@en, "In welchem Land befindet sich der Hauptsitz Ihres Unternehmens?"@de ;
+    rdfs:comment "The location of your company's headquarters can be relevant for funding opportunities that require startups to be based in specific regions or countries. Some grants are specifically available for companies headquartered in Germany or in certain regions within the country."@en,
+                 "Der Standort des Hauptsitzes Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die voraussetzen, dass Startups in bestimmten Regionen oder Ländern ansässig sind. Einige Förderungen sind speziell für Unternehmen mit Hauptsitz in Deutschland oder in bestimmten Regionen innerhalb des Landes verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:headquarters_country ;
+        sh:property [
+            sh:path ff:headquarters_country ;
+            sh:in (
+                ff:headquarters_country-germany
+                ff:headquarters_country-eu
+                ff:headquarters_country-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:headquarters_country-germany a ff:AnswerOption ; rdfs:label "Germany"@en, "Deutschland"@de .
+ff:headquarters_country-eu a ff:AnswerOption ; rdfs:label "EU"@en, "EU"@de .
+ff:headquarters_country-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:business_activity_location a ff:DataField ;
+    schema:category ff:gruendung-df-kategorie ;
+    rdfs:label "Business Activity Location"@en, "Standort der Geschäftstätigkeit"@de ;
+    schema:question "Do you have or plan business activities in one of the following regions?"@en, "Haben Sie oder planen Sie Geschäftstätigkeiten in einer der folgenden Regionen?"@de ;
+    rdfs:comment "The location of your company's business activities can be relevant for funding opportunities that require startups to be based in specific regions or countries. Some grants are specifically available for companies with business activities in Germany or in certain regions within the country."@en,
+                 "Der Standort der Geschäftstätigkeiten Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die voraussetzen, dass Startups in bestimmten Regionen oder Ländern ansässig sind. Einige Förderungen sind speziell für Unternehmen mit Geschäftstätigkeiten in Deutschland oder in bestimmten Regionen innerhalb des Landes verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:business_activity_location ;
+        sh:property [
+            sh:path ff:business_activity_location ;
+            sh:in (
+                ff:business_activity_location-berlin
+                ff:business_activity_location-hamburg
+                ff:business_activity_location-brandenburg
+                ff:business_activity_location-wolfenbuettel
+                ff:business_activity_location-other
+            ) ;
+        ] ;
+    ] .
+ff:business_activity_location-berlin a ff:AnswerOption ; rdfs:label "Berlin"@en, "Berlin"@de .
+ff:business_activity_location-hamburg a ff:AnswerOption ; rdfs:label "Hamburg"@en, "Hamburg"@de .
+ff:business_activity_location-brandenburg a ff:AnswerOption ; rdfs:label "Brandenburg"@en, "Brandenburg"@de .
+ff:business_activity_location-wolfenbuettel a ff:AnswerOption ; rdfs:label "Wolfenbüttel"@en, "Wolfenbüttel"@de .
+ff:business_activity_location-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+##############################
+# Updated fields for Forschungszulage
+##############################
+
+ff:taxable_germany a ff:DataField ;
+    schema:category ff:forschungszulage-df-kategorie ;
+    rdfs:label "Taxable in Germany"@en, "Steuerpflichtig in Deutschland"@de ;
+    schema:question "Is your company taxable in Germany?"@en, "Ist Ihr Unternehmen in Deutschland steuerpflichtig?"@de ;
+    rdfs:comment "The question of whether your company is taxable in Germany can affect eligibility for research grants or tax incentives. Some funding programs require companies to be taxable in Germany to qualify for research funding or tax credits."@en,
+                 "Die Frage, ob Ihr Unternehmen in Deutschland steuerpflichtig ist, kann die Förderfähigkeit für Forschungszuschüsse oder Steuervergünstigungen beeinflussen. Einige Förderprogramme verlangen, dass Unternehmen in Deutschland steuerpflichtig sind, um für Forschungsförderung oder Steuergutschriften in Frage zu kommen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:taxable_germany ;
+        sh:property [
+            sh:path ff:taxable_germany ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:research_type a ff:DataField ;
+    schema:category ff:forschungszulage-df-kategorie ;
+    rdfs:label "Research Type"@en, "Forschungstyp"@de ;
+    schema:question "What type of research activities does your company conduct?"@en, "Welche Art von Forschungsaktivitäten führt Ihr Unternehmen durch?"@de ;
+    rdfs:comment "The type of research activities conducted by your company can be relevant for funding opportunities that target specific research areas or require companies to be engaged in certain types of research. Some grants are specifically available for companies conducting basic research, applied research, or experimental development."@en,
+                 "Die Art der Forschungsaktivitäten, die Ihr Unternehmen durchführt, kann für Fördermöglichkeiten relevant sein, die auf bestimmte Forschungsbereiche abzielen oder voraussetzen, dass Unternehmen bestimmte Arten von Forschung betreiben. Einige Förderungen sind speziell für Unternehmen verfügbar, die Grundlagenforschung, angewandte Forschung oder experimentelle Entwicklung betreiben."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:research_type ;
+        sh:property [
+            sh:path ff:research_type ;
+            sh:in (
+                ff:research_type-foundational
+                ff:research_type-industrial
+                ff:research_type-experimental
+                ff:research_type-other
+                ff:research_type-none
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:research_type-foundational a ff:AnswerOption ; rdfs:label "Foundational Research"@en, "Grundlagenforschung"@de .
+ff:research_type-industrial a ff:AnswerOption ; rdfs:label "Industrial Research"@en, "Industrielle Forschung"@de .
+ff:research_type-experimental a ff:AnswerOption ; rdfs:label "Experimental Development"@en, "Experimentelle Entwicklung"@de .
+ff:research_type-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+ff:research_type-none a ff:AnswerOption ; rdfs:label "None"@en, "Keine"@de .
+
+ff:research_start_date a ff:DataField ;
+    schema:category ff:forschungszulage-df-kategorie ;
+    rdfs:label "Research Start Date"@en, "Forschungsbeginn"@de ;
+    schema:question "Did your company start research activities after January 1, 2020?"@en, "Hat Ihr Unternehmen Forschungsaktivitäten nach dem 1. Januar 2020 begonnen?"@de ;
+    rdfs:comment "The start date of your company's research activities can be relevant for funding opportunities that target recent research projects or require companies to have initiated research activities within a specific timeframe. Some grants are specifically available for companies that started research activities after a certain date or for projects that are still in progress."@en,
+                 "Das Startdatum der Forschungsaktivitäten Ihres Unternehmens kann für Fördermöglichkeiten relevant sein, die sich auf aktuelle Forschungsprojekte konzentrieren oder voraussetzen, dass Unternehmen Forschungsaktivitäten innerhalb eines bestimmten Zeitraums begonnen haben. Einige Förderungen sind speziell für Unternehmen verfügbar, die Forschungsaktivitäten nach einem bestimmten Datum begonnen haben oder für Projekte, die noch laufen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:research_start_date ;
+        sh:property [
+            sh:path ff:research_start_date ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+##############################
+# Updated fields for Effiziente Gebäude
+##############################
+
+ff:interested_in_building_renovation a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Interest in Building Renovation"@en, "Interesse an Gebäudesanierung"@de ;
+    schema:question "Are you interested in renovating or retrofitting buildings?"@en, "Sind Sie an der Sanierung oder Nachrüstung von Gebäuden interessiert?"@de ;
+    rdfs:comment "This question helps identify individuals or organizations interested in renovating or retrofitting buildings for energy efficiency, which may be eligible for funding opportunities or grants supporting energy-saving measures."@en,
+                 "Diese Frage hilft dabei, Personen oder Organisationen zu identifizieren, die an der Sanierung oder Nachrüstung von Gebäuden zur Energieeffizienz interessiert sind und möglicherweise für Fördermöglichkeiten oder Zuschüsse zur Unterstützung von Energiesparmaßnahmen infrage kommen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:interested_in_building_renovation ;
+        sh:property [
+            sh:path ff:interested_in_building_renovation ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:building_location_country a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Building Location Country"@en, "Land des Gebäudestandorts"@de ;
+    schema:question "In which country is the building located that you plan to renovate or retrofit?"@en, "In welchem Land befindet sich das Gebäude, das Sie sanieren oder nachrüsten möchten?"@de ;
+    rdfs:comment "The location of the building to be renovated or retrofitted can be relevant for funding opportunities that target energy-saving measures in specific regions or countries. Some grants are specifically available for buildings located in Germany or in certain regions within the country."@en,
+                 "Der Standort des zu sanierenden oder nachzurüstenden Gebäudes kann für Fördermöglichkeiten relevant sein, die auf Energiesparmaßnahmen in bestimmten Regionen oder Ländern abzielen. Einige Förderungen sind speziell für Gebäude verfügbar, die sich in Deutschland oder in bestimmten Regionen innerhalb des Landes befinden."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:building_location_country ;
+        sh:property [
+            sh:path ff:building_location_country ;
+            sh:in (
+                ff:building_location_country-germany
+                ff:building_location_country-eu
+                ff:building_location_country-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:building_location_country-germany a ff:AnswerOption ; rdfs:label "Germany"@en, "Deutschland"@de .
+ff:building_location_country-eu a ff:AnswerOption ; rdfs:label "EU"@en, "EU"@de .
+ff:building_location_country-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:building_status a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Building Status"@en, "Gebäudestatus"@de ;
+    schema:question "Does the building that you plan to renovate or retrofit already exist, or is it a new construction project?"@en, "Handelt es sich bei dem Gebäude, das Sie sanieren oder nachrüsten möchten, um ein bestehendes Gebäude oder ein Neubauprojekt?"@de ;
+    rdfs:comment "The status of the building to be renovated or retrofitted can be relevant for funding opportunities that target energy-saving measures in existing buildings or new construction projects. Some grants are specifically available for retrofitting existing buildings with energy-efficient technologies or for implementing sustainable building practices in new construction."@en,
+                 "Der Status des zu sanierenden oder nachzurüstenden Gebäudes kann für Fördermöglichkeiten relevant sein, die auf Energiesparmaßnahmen in bestehenden Gebäuden oder Neubauprojekten abzielen. Einige Förderungen sind speziell für die Nachrüstung bestehender Gebäude mit energieeffizienten Technologien oder für die Umsetzung nachhaltiger Baupraktiken in Neubauprojekten verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:building_status ;
+        sh:property [
+            sh:path ff:building_status ;
+            sh:in (
+                ff:building_status-existing
+                ff:building_status-new-construction
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:building_status-existing a ff:AnswerOption ; rdfs:label "Existing building"@en, "Bestehendes Gebäude"@de .
+ff:building_status-new-construction a ff:AnswerOption ; rdfs:label "New construction project"@en, "Neubauprojekt"@de .
+
+ff:building_renovation_type a ff:DataField ;
+    schema:category ff:wohnungsbau-df-kategorie ;
+    rdfs:label "Building Renovation Type"@en, "Art der Gebäudesanierung"@de ;
+    schema:question "What type of renovation or retrofitting work do you plan to carry out on the building?"@en, "Welche Art von Sanierungs- oder Nachrüstungsarbeiten planen Sie am Gebäude durchzuführen?"@de ;
+    rdfs:comment "The type of renovation or retrofitting work planned for the building can be relevant for funding opportunities that target specific energy-saving measures or building improvements. Some grants are specifically available for projects involving insulation upgrades, window replacements, or heating system modernization."@en,
+                 "Die Art der geplanten Sanierungs- oder Nachrüstungsarbeiten am Gebäude kann für Fördermöglichkeiten relevant sein, die auf spezifische Energiesparmaßnahmen oder Gebäudeverbesserungen abzielen. Einige Förderungen sind speziell für Projekte verfügbar, die Dämmungsverbesserungen, Fensteraustausch oder die Modernisierung von Heizungssystemen umfassen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:building_renovation_type ;
+        sh:property [
+            sh:path ff:building_renovation_type ;
+            sh:in (
+                ff:building_renovation_type-energy-efficiency
+                ff:building_renovation_type-renewable-heating
+                ff:building_renovation_type-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:building_renovation_type-energy-efficiency a ff:AnswerOption ; rdfs:label "Energy efficiency improvements"@en, "Energieeffizienzverbesserungen"@de .
+ff:building_renovation_type-renewable-heating a ff:AnswerOption ; rdfs:label "Renewable heating systems"@en, "Erneuerbare Heizsysteme"@de .
+ff:building_renovation_type-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+
+##############################
+# Wolfenbuettel
+##############################
+
+ff:residence_city a ff:DataField ;
+    schema:category ff:wolfenbuettel-df-kategorie ;
+    rdfs:label "Residence City"@en, "Wohnort"@de ;
+    schema:question "In which city do you live?"@en, "In welcher Stadt wohnen Sie?"@de ;
+    rdfs:comment "The residence city of the applicant can be relevant for funding opportunities that target specific regions or cities. Some grants are specifically available for residents of Wolfenbüttel."@en,
+                 "Der Wohnort des Antragstellers kann für Fördermöglichkeiten relevant sein, die auf bestimmte Regionen oder Städte abzielen. Einige Förderungen sind speziell für Bewohner von Wolfenbüttel verfügbar."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:residence_city ;
+        sh:property [
+            sh:path ff:residence_city ;
+            sh:in (
+                ff:residence_city-berlin
+                ff:residence_city-hamburg
+                ff:residence_city-braunschweig
+                ff:residence_city-wolfenbuettel
+                ff:residence_city-bielefeld
+                ff:residence_city-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:residence_city-berlin a ff:AnswerOption ; rdfs:label "Berlin"@en, "Berlin"@de .
+ff:residence_city-hamburg a ff:AnswerOption ; rdfs:label "Hamburg"@en, "Hamburg"@de .
+ff:residence_city-braunschweig a ff:AnswerOption ; rdfs:label "Braunschweig"@en, "Braunschweig"@de .
+ff:residence_city-wolfenbuettel a ff:AnswerOption ; rdfs:label "Wolfenbüttel"@en, "Wolfenbüttel"@de .
+ff:residence_city-bielefeld a ff:AnswerOption ; rdfs:label "Bielefeld"@en, "Bielefeld"@de .
+ff:residence_city-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:is_in_need a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie ;
+    rdfs:label "In Need of Support"@en, "Bedarf an Unterstützung"@de ;
+    schema:question "Do you consider yourself (or your organization) to be in financial need or require support for your current situation?"@en, "Halten Sie sich (oder Ihre Organisation) für finanziell bedürftig oder benötigen Sie Unterstützung für Ihre aktuelle Situation?"@de ;
+    rdfs:comment "This question helps identify individuals or organizations in need of support for their projects, which may be eligible for funding opportunities or grants."@en,
+                 "Diese Frage hilft dabei, Personen oder Organisationen zu identifizieren, die Unterstützung für ihre Projekte benötigen und möglicherweise für Fördermöglichkeiten oder Zuschüsse infrage kommen."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:is_in_need ;
+        sh:property [
+            sh:path ff:is_in_need ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:received_wolfenbuettel_stiftung_funding_previous_year a ff:DataField ;
+    schema:category ff:wolfenbuettel-df-kategorie ;
+    rdfs:label "Received Wolfenbüttel Foundation Funding Previous Year"@en, "Förderung der Wolfenbüttel Stiftung im Vorjahr erhalten"@de ;
+    schema:question "Did you receive funding from the Wolfenbüttel Foundation in the previous year?"@en, "Haben Sie im Vorjahr eine Förderung von der Wolfenbüttel Stiftung erhalten?"@de ;
+    rdfs:comment "This question helps identify individuals or organizations that have previously received funding from the Wolfenbüttel Foundation, which may affect their eligibility for new funding opportunities."@en,
+                 "Diese Frage hilft dabei, Personen oder Organisationen zu identifizieren, die zuvor eine Förderung von der Wolfenbüttel Stiftung erhalten haben, was ihre Förderfähigkeit für neue Fördermöglichkeiten beeinflussen kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:received_wolfenbuettel_stiftung_funding_previous_year ;
+        sh:property [
+            sh:path ff:received_wolfenbuettel_stiftung_funding_previous_year ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+
+ff:has_permit_for_outdoor_seating a ff:DataField ;
+    schema:category ff:business-permits-df-kategorie ;
+    rdfs:label "Permit for Outdoor Seating"@en, "Genehmigung für Außensitzplätze"@de ;
+    schema:question "Do you have a permit for outdoor seating?"@en, "Haben Sie eine Genehmigung für Außensitzplätze?"@de ;
+    rdfs:comment "This question helps identify individuals or organizations that have obtained a permit for outdoor seating, which may be relevant for funding opportunities or grants related to outdoor dining or hospitality."@en,
+                 "Diese Frage hilft dabei, Personen oder Organisationen zu identifizieren, die eine Genehmigung für Außensitzplätze erhalten haben, was für Fördermöglichkeiten oder Zuschüsse im Zusammenhang mit Außengastronomie oder Gastgewerbe relevant sein kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:has_permit_for_outdoor_seating ;
+        sh:property [
+            sh:path ff:has_permit_for_outdoor_seating ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+##############################
+# Ausbildungsgeld
+##############################
+
+ff:has_disability a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Has Disability"@en, "Hat Behinderung"@de ;
+    schema:question "Liegt bei Ihnen eine anerkannte Behinderung vor?"@de , "Haben Sie eine Behinderung, die anerkannt ist?"@de-x-es , "Do you have a recognized disability?"@en ;
+    rdfs:comment "Diese Frage hilft dabei, spezifische Fördermöglichkeiten oder Zuschüsse zu erfassen, die für Menschen mit Behinderungen verfügbar sind."@de,
+                    "This question helps identify specific funding opportunities or grants available for individuals with disabilities."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:has_disability ;
+        sh:property [
+            sh:path ff:has_disability ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:rehabilitation_provider a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Rehabilitation Provider"@en, "Rehabilitationsträger"@de ;
+    schema:question "Welche Einrichtung ist Ihr Rehabilitationsträger?"@de, "Which institution is your rehabilitation provider?"@en ;
+    rdfs:comment "Diese Frage hilft dabei, spezifische Fördermöglichkeiten oder Zuschüsse zu erfassen, die an bestimmte Rehabilitationsträger gebunden sind."@de,
+                    "This question helps identify specific funding opportunities or grants tied to certain rehabilitation providers."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:rehabilitation_provider ;
+        sh:property [
+            sh:path ff:rehabilitation_provider ;
+            sh:in (
+                ff:rehabilitation_provider-bundesagentur-fuer-arbeit
+                ff:rehabilitation_provider-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:rehabilitation_provider-bundesagentur-fuer-arbeit a ff:AnswerOption ; rdfs:label "Bundesagentur für Arbeit"@de, "Federal Employment Agency"@en .
+ff:rehabilitation_provider-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:eligible_for_transitional_allowance a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Eligible for Transitional Allowance"@en, "Anspruch auf Übergangsgeld"@de ;
+    schema:question "Are you eligible for transitional allowance?"@en, "Haben Sie Anspruch auf Übergangsgeld?"@de ;
+    rdfs:comment "This question helps identify individuals who are eligible for transitional allowance, which may affect their eligibility for specific funding opportunities or grants."@en,
+                 "Diese Frage hilft dabei, Personen zu identifizieren, die Anspruch auf Übergangsgeld haben, was ihre Förderfähigkeit für spezifische Fördermöglichkeiten oder Zuschüsse beeinflussen kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:eligible_for_transitional_allowance ;
+        sh:property [
+            sh:path ff:eligible_for_transitional_allowance ;
+            sh:in (
+                ff:eligible_for_transitional_allowance-yes
+                ff:eligible_for_transitional_allowance-no
+                ff:eligible_for_transitional_allowance-unsure
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:eligible_for_transitional_allowance-yes a ff:AnswerOption ; rdfs:label "Ja"@de, "Yes"@en .
+ff:eligible_for_transitional_allowance-no a ff:AnswerOption ; rdfs:label "Nein"@de, "No"@en .
+ff:eligible_for_transitional_allowance-unsure a ff:AnswerOption ; rdfs:label "Unsicher"@de, "Unknown"@en .
+
+
+ff:interested_offers_location a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Interested Offers Location"@en, "Interesse an Angeboten am Standort"@de ;
+    schema:question "In which location are you interested in offers?"@en, "An welchen Standorten sind Sie an Angeboten interessiert?"@de ;
+    rdfs:comment "This question helps identify individuals or organizations interested in specific offers at a certain location, which may be relevant for funding opportunities or grants related to that location."@en,
+                 "Viele Programme und Angebote sind regional oder lokal ausgerichtet. Diese Frage hilft dabei, Personen oder Organisationen zu identifizieren, die an spezifischen Angeboten an einem bestimmten Standort interessiert sind, was für Fördermöglichkeiten oder Zuschüsse im Zusammenhang mit diesem Standort relevant sein kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:interested_offers_location ;
+        sh:property [
+            sh:path ff:interested_offers_location ;
+            sh:in (
+                ff:interested_offers_location-berlin
+                ff:interested_offers_location-hamburg
+                ff:interested_offers_location-brandenburg
+                ff:interested_offers_location-wolfenbuettel
+                ff:interested_offers_location-other
+            ) ;
+        ] ;
+    ] .
+ff:interested_offers_location-berlin a ff:AnswerOption ; rdfs:label "Berlin"@en, "Berlin"@de .
+ff:interested_offers_location-hamburg a ff:AnswerOption ; rdfs:label "Hamburg"@en, "Hamburg"@de .
+ff:interested_offers_location-brandenburg a ff:AnswerOption ; rdfs:label "Brandenburg"@en, "Brandenburg"@de .
+ff:interested_offers_location-wolfenbuettel a ff:AnswerOption ; rdfs:label "Wolfenbüttel"@en, "Wolfenbüttel"@de .
+ff:interested_offers_location-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:business_location_inner_city a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Business Location Inner City"@en, "Unternehmensstandort Innenstadt"@de ;
+    schema:question "Befindet sich Ihr Geschäft, Betrieb oder Ihre Gastronomie in der Innenstadt?"@de , "Is your business, operation, or restaurant located in the inner city?"@en ;
+    rdfs:comment "This question helps identify businesses located in the inner city, which may be relevant for funding opportunities or grants related to urban development or revitalization."@en,
+                 "Diese Frage hilft dabei, Unternehmen zu identifizieren, die sich in der Innenstadt befinden, was für Fördermöglichkeiten oder Zuschüsse im Zusammenhang mit Stadtentwicklung oder Revitalisierung relevant sein kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:business_location_inner_city ;
+        sh:property [
+            sh:path ff:business_location_inner_city ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:vocational_training_completed a ff:DataField ;
+    schema:category ff:education-df-kategorie ;
+    rdfs:label "Education Completed"@en, "Abgeschlossene Ausbildung"@de ;
+    schema:question "Haben Sie in den letzten zwölf Monaten einen anerkannten Berufsabschluss durch eine Prüfung erworben oder wurde ein Zeugnis in dieser Zeit offiziell als gleichwertig anerkannt?"@de , 
+                    "Have you completed a recognized vocational training program or had a certificate officially recognized as equivalent in the last twelve months?"@en ;
+    rdfs:comment "Some offers and funding opportunities are specifically targeted at individuals who have recently completed vocational training."@en,
+                 "Einige Angebote und Fördermöglichkeiten richten sich speziell an Personen, die kürzlich eine Ausbildung abgeschlossen haben."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:vocational_training_completed ;
+        sh:property [
+            sh:path ff:vocational_training_completed ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:returning_professional a ff:DataField ;
+    schema:category ff:education-df-kategorie ;
+    rdfs:label "Returning Professional"@en, "Wiedereinsteiger"@de ;
+    schema:question "Sind sie Berufsrückkerer:in?"@de , "Are you a returning professional?"@en ;
+    rdfs:comment "A returning professional is someone who has interrupted their employment, unemployment, or vocational training due to childcare and family care responsibilities and wishes to return to the workforce in the near future."@en,
+                 "Eine Berufsrückkehrer:in ist jemand, der seine Erwerbstätigkeit, Arbeitslosigkeit oder betriebliche Ausbildung wegen Betreuung und Erziehung von Kindern oder Pflege Angehöriger unterbrochen hat und zeitnah wieder ins Berufsleben zurückkehren möchte."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:returning_professional ;
+        sh:property [
+            sh:path ff:returning_professional ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:state_insurance_status_3_years a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Status der staatlichen Versicherung innerhalb der letzten drei Jahre"@de , "State Insurance Status in the last three years"@en ;
+    schema:question "Waren Sie innerhalb der letzten drei Jahre mindestens zwölf Monate sozialversichert?"@de , 
+                    "Have you been covered by statutory health insurance for at least twelve months in the last three years?"@en ;
+    rdfs:comment "Monate mit sozialversicherungspflichtiger Arbeit, Arbeitslosengeld oder freiwilligen Beiträgen zählen. Diese Angabe hilft zu prüfen, ob bestimmte Leistungen möglich sind."@de,
+                    "Months of employment with social security contributions, unemployment benefits, or voluntary contributions count. This information helps determine eligibility for certain benefits."@en ;                 
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:state_insurance_status_3_years ;
+        sh:property [
+            sh:path ff:state_insurance_status_3_years ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:state_insurance_status a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Status der staatlichen Versicherung"@de, "State Insurance Status"@en ;
+    schema:question "Waren Sie bisher insgesamt mindestens zwölf Monate sozialversichert?"@de, 
+                    "Have you been covered by statutory health insurance for at least twelve months in total?"@en ;
+    rdfs:comment "Monate mit sozialversicherungspflichtiger Arbeit, Arbeitslosengeld oder freiwilligen Beiträgen zählen. Diese Angabe hilft zu prüfen, ob bestimmte Leistungen möglich sind."@de,
+                    "Months of employment with social security contributions, unemployment benefits, or voluntary contributions count. This information helps determine eligibility for certain benefits."@en ; 
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:state_insurance_status ;
+        sh:property [
+            sh:path ff:state_insurance_status ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:alg_application_3_years a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Antrag auf Arbeitslosengeld innerhalb der letzten drei Jahre"@de , "Applied for Unemployment Benefits in the last three years"@en ;
+    schema:question "Haben Sie in den letzten drei Jahren Arbeitslosengeld beantragt und wurde Ihr Anspruch bewilligt (oder besteht er noch)?"@de, "Have you applied for unemployment benefits in the last three years and has your claim been approved?"@en ;
+    rdfs:comment "Ein Antrag auf Arbeitslosengeld in den letzten drei Jahren zeigt, dass Ihre Versicherungszeiten bereits offiziell geprüft wurden. Diese Information hilft, Ihren Anspruch auf verschiedene Leistungen schnell und korrekt einzuschätzen."@de,
+                    "An application for unemployment benefits in the last three years indicates that your insurance periods have already been officially verified. This information helps to quickly and accurately assess your eligibility for various benefits."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:alg_application_3_years ;
+        sh:property [
+            sh:path ff:alg_application_3_years ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:alg_application a ff:DataField ;
+    schema:category ff:erwerbstaetigkeit-df-kategorie ;
+    rdfs:label "Antrag auf Arbeitslosengeld"@de , "Applied for Unemployment Benefits"@en ;
+    schema:question "Haben Sie in der Vergangenheit Arbeitslosengeld beantragt und wurde Ihr Anspruch bewilligt (oder besteht er noch)?"@de, "Have you previously applied for unemployment benefits and has your claim been approved?"@en ;
+    rdfs:comment "Ein früher Antrag auf Arbeitslosengeld bedeutet, dass Ihre Versicherungs- und Beschäftigungszeiten bereits von der Agentur für Arbeit geprüft wurden. Diese Information hilft, Ihren Anspruch auf unterschiedliche Leistungen schneller und verlässlich zu bewerten."@de,
+                    "A previous application for unemployment benefits means that your insurance and employment periods have already been verified by the Federal Employment Agency. This information helps to quickly and reliably assess your eligibility for various benefits."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:alg_application ;
+        sh:property [
+            sh:path ff:alg_application ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

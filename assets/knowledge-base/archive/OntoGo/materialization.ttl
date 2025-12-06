@@ -1,0 +1,28 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:DeriveCountyFromCity a ff:MaterializationRule ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        CONSTRUCT {
+            ?person ff:residesInCounty ?county .
+        } WHERE {
+            ?person ff:hasResidence ?city .
+            ff:CityCountyMap ff:mappedCountyToState ?mapping .
+            ?mapping ff:city ?city ;
+                ff:county ?county .
+        }
+    """ .
+
+# CONSTANTS
+
+ff:CityCountyMap a ff:MapOfConstants ;
+    ff:mappedCountyToState [
+        ff:city "Heide" ;
+        ff:county "Dithmarschen"
+    ] ;
+    ff:mappedCountyToState [
+        ff:city "Husum" ;
+        ff:county "Nordfriesland"
+    ] .

@@ -1,0 +1,363 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fim: <https://schema.fim.fitko.net/fields/baukasten/> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+ff:hasFirstNames a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00000154 ;
+    ff:hasFimVersion "1.3" ;
+    ff:hasFimUrl "https://schema.fim.fitko.net/fields/baukasten/F00000154/1.3" ;
+    rdfs:label "Vorname" ; # Vornamen
+    rdfs:comment "Vorname + Mittelnamen" ;
+    ff:similarDatafield foaf:firstName ; # owl equivalentProperty/class? TODO
+    ff:hasShaclShape ff:FirstNamesShape .
+ff:FirstNamesShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasFirstNames ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:hasFamilyName a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00000013 ;
+    ff:hasFimVersion "1.5" ;
+    ff:hasFimUrl "https://schema.fim.fitko.net/fields/baukasten/F00000013/1.5" ;
+    rdfs:label "Nachname" ; # Familienname
+    rdfs:comment "Familienname einer natürlichen Person bestehend aus Nachname, Zuname bzw. Familienname." ;
+    ff:similarDatafield foaf:lastName ;
+    ff:hasShaclShape ff:FamilyNameShape .
+ff:FamilyNameShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+          sh:path ff:hasFamilyName ;
+          sh:datatype xsd:string ;
+          sh:maxCount 1 ;
+      ] .
+
+ff:hasBirthday a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F03008235 ;
+    ff:hasFimVersion "2.0" ;
+    ff:hasFimUrl "https://schema.fim.fitko.net/fields/baukasten/F03008235/2.0" ;
+    rdfs:label "Geburtsdatum" ;
+    rdfs:comment "Dieses Feld beinhaltet das Geburtsdatum, also Tag, Monat und Jahr der Vollendung der Geburt." ;
+    ff:similarDatafield foaf:birthday ;
+    ff:hasShaclShape ff:BirthdayShape .
+ff:BirthdayShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasBirthday ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:hasGender a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F60000332 ;
+    ff:hasFimVersion "1.3" ;
+    ff:hasFimUrl "https://schema.fim.fitko.net/fields/baukasten/F60000332/1.3" ;
+    rdfs:label "Geschlecht" ;
+    rdfs:comment "Beschreibt das Geschlecht einer Person. Folgende Angaben sind möglich: divers, männlich, weiblich, keine Angabe" ;
+    ff:hasShaclShape ff:GenderShape .
+ff:GenderShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasGender ;
+        sh:in ("weiblich" "männlich" "divers" "keine Angabe") ;
+        sh:maxCount 1 ;
+        rdfs:seeAlso <https://schema.fim.fitko.net/fields/baukasten/F60000332/1.3>
+    ] .
+
+ff:hasBirthPlace a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00000067 ;
+    ff:hasFimVersion "1.3" ;
+    ff:hasFimUrl "https://schema.fim.fitko.net/fields/baukasten/F00000067/1.3" ;
+    rdfs:label "Geburtsort" ;
+    rdfs:comment "Der Ort der Geburt einer natürlichen Person." ;
+    ff:hasShaclShape ff:BirthPlaceShape .
+ff:BirthPlaceShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+         sh:path ff:hasBirthPlace ;
+         sh:datatype xsd:string ;
+         sh:maxCount 1 ;
+     ] .
+
+ff:hasResidence a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F03010085 ;
+    ff:hasFimVersion "1.0" ;
+    ff:hasFimUrl "https://schema.fim.fitko.net/fields/baukasten/F03010085/1.0" ;
+    rdfs:label "Wohnort" ;
+    rdfs:comment "Enthält den Namen eines Ortes (Gemeinde, Ortschaft oder Stadt)." ;
+    ff:hasShaclShape ff:ResidenceShape .
+ff:ResidenceShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasResidence ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:hasMaritalStatus a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00000559 ;
+    ff:hasFimVersion "1.3" ;
+    ff:hasFimUrl "https://schema.fim.fitko.net/fields/baukasten/F00000559/1.3" ;
+    rdfs:label "Familienstand" ;
+    ff:hasShaclShape ff:MaritalStatusShape .
+ff:MaritalStatusShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasMaritalStatus ;
+        sh:in ("LD" "VH" "VW" "GS" "EA" "LP" "LV" "LA" "LE" "NB") ;
+        sh:maxCount 1 ;
+        ff:shInAbbrevationsStandFor ("ledig" "verheiratet" "verwitwet" "geschieden" "Ehe aufgehoben" "in eingetragener Lebenspartnerschaft" "durch Tod aufgelöste Lebenspartnerschaft" "aufgehobene Lebenspartnerschaft" "durch Todeserklärung aufgelöste Lebenspartnerschaft" "nicht bekannt") ;
+        rdfs:seeAlso <https://www.xrepository.de/details/urn:de:dsmeld:schluesseltabelle:familienstand>
+    ] .
+
+ff:eligibleForSocialSupport a ff:DataField ;
+    rdfs:label "Sozialbedürftig" ;
+    rdfs:comment "This is a shortcut for demo purposes" ;
+    ff:hasShaclShape ff:EligibleForSocialSupportShape .
+ff:EligibleForSocialSupportShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:eligibleForSocialSupport ;
+        sh:datatype xsd:boolean ;
+    ] .
+
+ff:worksAsFreelancer a ff:DataField ;
+    rdfs:label "Selbstständige Tätigkeiten" ;
+    ff:hasShaclShape ff:WorksAsFreelancerShape .
+ff:WorksAsFreelancerShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:worksAsFreelancer ;
+        sh:datatype xsd:boolean ;
+    ] .
+
+# ------------------------------------------------------
+
+ff:hasAge a ff:DataField ;
+    rdfs:label "Alter" ;
+    ff:similarDatafield foaf:age ;
+    ff:hasShaclShape ff:AgeShape .
+ff:AgeShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasAge ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:paysRentCold a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00000240 ;
+    ff:hasFimVersion "1.5" ;
+    rdfs:label "Höhe der Miete" ;
+    ff:hasShaclShape ff:paysRentColdShape .
+ff:paysRentColdShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+         sh:path ff:paysRentCold ;
+         sh:datatype xsd:integer ;
+         sh:maxCount 1 ;
+         sh:minInclusive 0 ;
+     ] .
+
+ff:hasLivingArea a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00003175 ;
+    ff:hasFimVersion "1.0" ;
+    rdfs:label "Wohnfläche in m²" ;
+    ff:hasShaclShape ff:hasLivingAreaShape .
+ff:hasLivingAreaShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasLivingArea ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:hasNumberOfChildren a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F05011522 ;
+    ff:hasFimVersion "1.0" ;
+    rdfs:label "Anzahl Kinder" ;
+    rdfs:comment "Angabe der Anzahl der im Haushalt lebenden Kinder." .
+ff:hasNumberOfChildrenShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasNumberOfChildren ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:hasIncomeBrutto a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00000575 ;
+    ff:hasFimVersion "1.1" ;
+    rdfs:label "Höhe des Einkommens (Brutto)" ;
+    ff:hasShaclShape ff:hasIncomeBruttoShape .
+ff:hasIncomeBruttoShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasIncomeBrutto ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:hasIncomeNetto a ff:FimDataFieldProperty, ff:DataField ;
+    ff:hasFimId fim:F00001158 ;
+    ff:hasFimVersion "1.0" ;
+    rdfs:label "Nettoeinkommen monatlich" ;
+    ff:hasShaclShape ff:hasIncomeNettoShape .
+ff:hasIncomeNettoShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasIncomeNetto ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:receivesKindergeld a ff:FimLeistung, ff:DataField ;
+    ff:hasFimId 576982 ;
+    ff:hasLeiKaId 99041008000000 ;
+    rdfs:label "Kindergeld" .
+
+ff:parentingSetup a ff:DataField ;
+    rdfs:label "Erziehungsverantwortung" ;
+ff:hasShaclShape ff:parentingSetupShape .
+ff:parentingSetupShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:parentingSetup ;
+        sh:in (ff:Alleinerziehend ff:Elternpaar) ;
+    ] .
+
+ff:receivesWohngeld a ff:DataField ;
+    rdfs:label "Wohngeld" ;
+    ff:hasShaclShape ff:receivesWohngeldShape .
+ff:receivesWohngeldShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:receivesWohngeld ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+   ] .
+
+ff:hasChild a ff:DataField ;
+    rdfs:label "Kind" ;
+    ff:hasShaclShape ff:hasChildShape .
+ff:hasChildShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasChild ;
+        sh:class ff:Child ;
+    ] .
+
+ff:Child a ff:Class ;
+    rdfs:label "Kind" .
+
+ff:hasToy a ff:DataField ;
+    rdfs:label "Spielzeug" ;
+    ff:hasShaclShape ff:hasToyShape .
+ff:hasToyShape a sh:NodeShape ;
+    sh:targetClass ff:Child ;
+    sh:property [
+        sh:path ff:hasToy ;
+        sh:class ff:Toy ;
+    ] .
+
+ff:Toy a ff:Class ;
+    rdfs:label "Spielzeug" .
+
+ff:hasEmploymentStatus a ff:DataField ;
+    rdfs:label "Beschäftigungsverhältnis" ;
+    ff:hasShaclShape ff:hasEmploymentStatusShape .
+
+ff:hasEmploymentStatusShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    ff:modelledAfter <https://www.xrepository.de/details/urn:xoev-de:xfamilie:codeliste:einkommensart> ;
+    sh:property [
+        sh:path ff:hasEmploymentStatus ;
+        sh:in ( "Angestellt" "Selbststaendig" "Ausbildung" "Arbeitslos" "Gefoerderte Ausbildung" ) ;
+    ] .
+
+ff:hasCompliedRequirementProfile a ff:DataField ;
+    rdfs:label "Bereits erfülltes Anforderungsprofil" ;
+    ff:hasShaclShape ff:hasCompliedRequirementProfileShape .
+ff:hasCompliedRequirementProfileShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasCompliedRequirementProfile ;
+        sh:class ff:CompliedRequirementProfile ;
+    ] .
+
+ff:CompliedRequirementProfile a ff:Class ;
+    rdfs:label "Bereits erfülltes Anforderungsprofil" ;
+    ff:hasShaclShape ff:CompliedRequirementProfileShape .
+ff:CompliedRequirementProfileShape a sh:NodeShape ;
+    sh:targetClass ff:CompliedRequirementProfile ;
+    sh:property [
+        sh:path ff:hasRpUri ;
+        sh:nodeKind sh:IRI ; # "sh:class ff:RequirementProfile ;" would be better, but would require to throw the RPs into the user profile validation because those triples are defined there, e.g.: ff:kinderzuschlag a ff:RequirementProfile
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
+
+ff:hasRpUri a ff:DataField ;
+    rdfs:label "Anforderungsprofil" .
+
+ff:residesInState a ff:DataField ;
+    rdfs:label "Bundesland" .
+
+ff:hasDeferred a ff:DataField ;
+    rdfs:label "Zurückgestellt" ;
+    ff:hasShaclShape ff:hasDeferredShape .
+    ff:hasDeferredShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasDeferred ;
+        sh:class ff:Deferment ;
+    ] .
+
+ff:Deferment a ff:Class ;
+    rdfs:label "Zurückstellung" ;
+    ff:hasShaclShape ff:DefermentShape .
+ff:DefermentShape a sh:NodeShape ;
+    sh:targetClass ff:Deferment ;
+    sh:property [
+        sh:path dcterms:created ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:property [
+        sh:path dcterms:type ;
+        sh:in ( ff:MaterializationRule ff:CompliedRequirementProfile ff:MissingDataField ) ; # was suggested to user via one of these
+    ] ;
+    sh:property [
+        sh:path dcterms:source ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:property [
+        sh:path rdf:subject ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path rdf:predicate ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
+
+dcterms:created a ff:DataField ; rdfs:label "erstellt" .
+dcterms:type a ff:DataField ; rdfs:label "Typ" .
+dcterms:source a ff:DataField ; rdfs:label "Quelle" .
+rdf:subject a ff:DataField ; rdfs:label "Subjekt" .
+rdf:predicate a ff:DataField ; rdfs:label "Attribut" .

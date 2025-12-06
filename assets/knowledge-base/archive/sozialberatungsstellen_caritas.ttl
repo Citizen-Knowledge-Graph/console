@@ -1,0 +1,3708 @@
+@prefix ff: <https://foerderfunke.org/default#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+ff:counselingCentre0 a ff:CounselingCentre;
+  ff:hasAddress "Dieselstraße 11, 12057, Berlin";
+  ff:hasCity "Berlin";
+  ff:hasContactDetails "+030 (666) 33 7 90, asb-neukoelln@caritas-berlin.de";
+  ff:hasCoordinates "52.47561/13.46685";
+  ff:hasTitle "Allgemeine Soziale Beratung Neukölln".
+
+ff:counselingCentre1 a ff:CounselingCentre;
+  ff:hasAddress "Schiede 73, 65549, Limburg";
+  ff:hasCity "Limburg";
+  ff:hasContactDetails "+49 (6431) 200540, alb@caritas-limburg.de";
+  ff:hasCoordinates "50.3850845/8.0635871";
+  ff:hasTitle "Allgemeine Lebens- und Sozialberatung".
+
+ff:counselingCentre10 a ff:CounselingCentre;
+  ff:hasAddress "Pfleggasse 8, 94209, Regen";
+  ff:hasCity "Regen";
+  ff:hasContactDetails "+49 (9921) 94620, info@caritas-regen.de";
+  ff:hasCoordinates "48.9708604/13.1258325";
+  ff:hasTitle "Allgemeine Sozialberatung mit Schuldnerberatung des KCV Regen".
+
+ff:counselingCentre100 a ff:CounselingCentre;
+  ff:hasAddress "Hellefelder Straße 27-29, 59821, Arnsberg";
+  ff:hasCity "Arnsberg";
+  ff:hasContactDetails "+49 (2931) 806613, info@caritas-arnsberg.de";
+  ff:hasCoordinates "51.3937472/8.0699055";
+  ff:hasTitle "Caritasverband Arnsberg-Sundern e.V.".
+
+ff:counselingCentre101 a ff:CounselingCentre;
+  ff:hasAddress "Kasernenstraße 30, 38102, Braunschweig";
+  ff:hasCity "Braunschweig";
+  ff:hasContactDetails "+49 (531) 380080, info@caritas-bs.de";
+  ff:hasCoordinates "52.267801/10.5357831";
+  ff:hasTitle "Caritasverband Braunschweig e.V.".
+
+ff:counselingCentre102 a ff:CounselingCentre;
+  ff:hasAddress "Georg-Gröning-Straße 55, 28209, Bremen";
+  ff:hasCity "Bremen";
+  ff:hasContactDetails "+49 (421) 335730, Onlineberatung-ASB-HB@caritas-os.de";
+  ff:hasCoordinates "53.0839693/8.8331206";
+  ff:hasTitle "Caritasverband Bremen e.V.";
+  ff:hasWebsite "https://www.caritas-bremen.de".
+
+ff:counselingCentre103 a ff:CounselingCentre;
+  ff:hasAddress "Scharfenberger Straße 19, 59929, Brilon";
+  ff:hasCity "Brilon";
+  ff:hasContactDetails "+49 (2961) 971929, info@caritas-brilon.de,t.kupitz@caritas-brilon.de,s.geck@caritas-brilon.de";
+  ff:hasCoordinates "51.4002259/8.5669144";
+  ff:hasTitle "Caritasverband Brilon e.V.".
+
+ff:counselingCentre104 a ff:CounselingCentre;
+  ff:hasAddress "Friedhofstraße 11, 76646, Bruchsal";
+  ff:hasCity "Bruchsal";
+  ff:hasContactDetails "+49 (7251) 80080, joerg.roeder@caritas-bruchsal.de";
+  ff:hasCoordinates "49.1224164/8.6001608";
+  ff:hasTitle "Caritasverband Bruchsal e.V.".
+
+ff:counselingCentre105 a ff:CounselingCentre;
+  ff:hasAddress "Bullenberg 6, 29221, Celle";
+  ff:hasCity "Celle";
+  ff:hasContactDetails "+49 (5141) 750820, caritas-celle@t-online.de";
+  ff:hasCoordinates "52.6205439/10.077621";
+  ff:hasTitle "Caritasverband Celle Stadt und Land e.V.".
+
+ff:counselingCentre106 a ff:CounselingCentre;
+  ff:hasAddress "Klosterstraße 13, 93413, Cham";
+  ff:hasCity "Cham";
+  ff:hasContactDetails "+49 (9971) 84690, singer@caritas-cham.de";
+  ff:hasCoordinates "49.2186516/12.6623262";
+  ff:hasTitle "Caritasverband Cham e.V.".
+
+ff:counselingCentre107 a ff:CounselingCentre;
+  ff:hasAddress "Ernst-Faber-Straße 12, 96450, Coburg";
+  ff:hasCity "Coburg";
+  ff:hasContactDetails "+49 (9561) 814416, n.hartz@caritas-coburg.de";
+  ff:hasCoordinates "50.24893/10.96758";
+  ff:hasTitle "Caritasverband Coburg e.V.".
+
+ff:counselingCentre108 a ff:CounselingCentre;
+  ff:hasAddress "Grodener Chaussee 21, 27472, Cuxhaven";
+  ff:hasCity "Cuxhaven";
+  ff:hasContactDetails "+49 (4721) 62982, caritas-cuxhaven@web.de";
+  ff:hasCoordinates "53.8549364/8.7082126";
+  ff:hasTitle "Caritasverband Cuxhaven e.V.".
+
+ff:counselingCentre109 a ff:CounselingCentre;
+  ff:hasAddress "Heinrichstraße 32A, 64283, Darmstadt";
+  ff:hasCity "Darmstadt";
+  ff:hasContactDetails "+49 (6151) 9990, alb@caritas-darmstadt.de";
+  ff:hasCoordinates "49.8663715/8.6538615";
+  ff:hasTitle "Caritasverband Darmstadt e.V.".
+
+ff:counselingCentre11 a ff:CounselingCentre;
+  ff:hasAddress "Unter den Hecken 44, 41539, Dormagen";
+  ff:hasCity "Dormagen";
+  ff:hasContactDetails "+49 (2133) 2500104, annette.droste@caritas-neuss.de";
+  ff:hasCoordinates "51.0941815/6.8428076";
+  ff:hasTitle "Allgemeine Sozialberatung, Dormagen".
+
+ff:counselingCentre110 a ff:CounselingCentre;
+  ff:hasAddress "Weißturmstraße 29, 64807, Dieburg";
+  ff:hasCity "Dieburg";
+  ff:hasContactDetails "+49 (6071) 986611, alb@caritas-dieburg.de";
+  ff:hasCoordinates "49.8969294/8.8391595";
+  ff:hasTitle "Caritasverband Darmstadt e.V., Außenstelle Dieburg".
+
+ff:counselingCentre111 a ff:CounselingCentre;
+  ff:hasAddress "Untere Seewiese 11, 64711, Erbach";
+  ff:hasCity "Erbach";
+  ff:hasContactDetails "+49 (6062) 955330, alb@caritas-erbach.de";
+  ff:hasCoordinates "49.66181/8.99296";
+  ff:hasTitle "Caritasverband Darmstadt e.V., Außenstelle f.d. Odenwaldkreis".
+
+ff:counselingCentre112 a ff:CounselingCentre;
+  ff:hasAddress "Bensheimer Weg 16, 64646, Heppenheim";
+  ff:hasCity "Heppenheim";
+  ff:hasContactDetails "+49 (6252) 990132, alb@caritas-bergstrasse.de";
+  ff:hasCoordinates "49.6445866/8.6415948";
+  ff:hasTitle "Caritasverband Darmstadt e.V., Außenstelle f.d.Landkreis Bergstraße".
+
+ff:counselingCentre113 a ff:CounselingCentre;
+  ff:hasAddress "Am Pferdemarkt 20, 94469, Deggendorf";
+  ff:hasCity "Deggendorf";
+  ff:hasContactDetails "+49 (991) 38970, schober@caritas-deggendorf.de";
+  ff:hasCoordinates "48.82957/12.96286";
+  ff:hasTitle "Caritasverband Deggendorf e.V.".
+
+ff:counselingCentre114 a ff:CounselingCentre;
+  ff:hasAddress "Reichenbacher Straße 36, 08056, Zwickau";
+  ff:hasCity "Zwickau";
+  ff:hasContactDetails "+49 (375) 3903821, verband@caritas-zwickau.de";
+  ff:hasCoordinates "50.7161488/12.4850382";
+  ff:hasTitle "Caritasverband Dekanat Zwickau e.V.".
+
+ff:counselingCentre115 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 16, 08280, Aue";
+  ff:hasCity "Aue";
+  ff:hasContactDetails "+49 (3771) 598330, aue@caritas-zwickau.de";
+  ff:hasCoordinates "50.5875128/12.7027158";
+  ff:hasTitle "Caritasverband Dekanat Zwickau e.V.".
+
+ff:counselingCentre116 a ff:CounselingCentre;
+  ff:hasAddress "Griesgasse 13, 84130, Dingolfing";
+  ff:hasCity "Dingolfing";
+  ff:hasContactDetails "+49 (8731) 31600, asb@caritas-dingolfing.de";
+  ff:hasCoordinates "48.6277191/12.4977005";
+  ff:hasTitle "Caritasverband Dingolfing e.V.".
+
+ff:counselingCentre117 a ff:CounselingCentre;
+  ff:hasAddress "Osterlandwehr 12 - 14, 44145, Dortmund";
+  ff:hasCity "Dortmund";
+  ff:hasContactDetails "+49 (231) 8610800, bernhard-maerz@caritas-dortmund.de";
+  ff:hasCoordinates "51.521439/7.4817981";
+  ff:hasTitle "Caritasverband Dortmund e.V., Bernhard-März-Haus";
+  ff:hasWebsite "https://www.caritas-dortmund.de".
+
+ff:counselingCentre118 a ff:CounselingCentre;
+  ff:hasAddress "Dr.-Wilhelm-Külz-Straße, 01796, Pirna";
+  ff:hasCity "Pirna";
+  ff:hasContactDetails "+49 (3501) 443470, caritas-pirna@t-online.de";
+  ff:hasCoordinates "50.9607439/13.9406493";
+  ff:hasTitle "Caritasverband Dresden e.V.".
+
+ff:counselingCentre119 a ff:CounselingCentre;
+  ff:hasAddress "Schweriner Straße 27, 01067, Dresden";
+  ff:hasCity "Dresden";
+  ff:hasContactDetails "+49 (351) 4984713, info@caritas-dresden.de";
+  ff:hasCoordinates "51.05222/13.72793";
+  ff:hasTitle "Caritasverband Dresden e.V.".
+
+ff:counselingCentre12 a ff:CounselingCentre;
+  ff:hasAddress "Immigratherstr. 40, 40764, Langenfeld";
+  ff:hasCity "Langenfeld";
+  ff:hasContactDetails "+49 (2173) 394760, sarah.katzmann@skf-langenfeld.de; judith.koesters@skf-langenfeld.de";
+  ff:hasCoordinates "51.1226076/6.9523711";
+  ff:hasTitle "Allgemeine Sozialberatung, Langenfeld";
+  ff:hasWebsite "https://www.skf-langenfeld.de".
+
+ff:counselingCentre120 a ff:CounselingCentre;
+  ff:hasAddress "Klosterstraße 92, 40211, Düsseldorf";
+  ff:hasCity "Düsseldorf";
+  ff:hasContactDetails "+49 (211) 16022183, Sandra.Mueller@caritas-duesseldorf.de";
+  ff:hasCoordinates "51.2301142/6.7928835";
+  ff:hasTitle "Caritasverband Düsseldorf e.V., Referat Berufliche und Soziale Integration".
+
+ff:counselingCentre121 a ff:CounselingCentre;
+  ff:hasAddress "Lessingstraße 36/1, 79312, Emmendingen";
+  ff:hasCity "Emmendingen";
+  ff:hasContactDetails "+49 (7641) 9214113, b.reisenweber@caritas-emmendingen.de";
+  ff:hasCoordinates "48.10638/7.8606";
+  ff:hasTitle "Caritasverband Emmendingen e.V.".
+
+ff:counselingCentre122 a ff:CounselingCentre;
+  ff:hasAddress "Konstantinstraße 50-52, 54329, Konz";
+  ff:hasCity "Konz";
+  ff:hasContactDetails "+49 (6501) 943020, wingertszahn.ulrich@caritas-region-trier.de";
+  ff:hasCoordinates "49.6983965/6.5773097";
+  ff:hasTitle "Caritasverband f.d. Region Trier e.V., Außenstelle Konz (ASD)".
+
+ff:counselingCentre123 a ff:CounselingCentre;
+  ff:hasAddress "Sundgauallee 8, 79110, Freiburg";
+  ff:hasCity "Freiburg";
+  ff:hasContactDetails "+49 (761) 1378210, roswitha.strueber@caritas-freiburg.de";
+  ff:hasCoordinates "48.0049455/7.8226307";
+  ff:hasTitle "Caritasverband Freiburg-Stadt e.V.".
+
+ff:counselingCentre124 a ff:CounselingCentre;
+  ff:hasAddress "Komturstraße 36, 79106, Freiburg";
+  ff:hasCity "Freiburg";
+  ff:hasContactDetails "+49 (761) 5047813, elisabeth.wirth-krieger@caritas-freiburg.de";
+  ff:hasCoordinates "48.0118194/7.852093";
+  ff:hasTitle "Caritasverband Freiburg-Stadt e.V.".
+
+ff:counselingCentre125 a ff:CounselingCentre;
+  ff:hasAddress "Herrenstraße 6, 79098, Freiburg";
+  ff:hasCity "Freiburg";
+  ff:hasContactDetails "+49 (761) 3191666, csd-schuldnerberatung@caritas-freiburg.de";
+  ff:hasCoordinates "47.9963186/7.8539888";
+  ff:hasTitle "Caritasverband Freiburg-Stadt e.V.".
+
+ff:counselingCentre126 a ff:CounselingCentre;
+  ff:hasAddress "Huestraße 15, 44787, Bochum";
+  ff:hasCity "Bochum";
+  ff:hasContactDetails "+49 (234) 964220, webmaster@caritas-bochum.de";
+  ff:hasCoordinates "51.4796046/7.21929";
+  ff:hasTitle "Caritasverband für Bochum e.V.".
+
+ff:counselingCentre127 a ff:CounselingCentre;
+  ff:hasAddress "Frenssenstraße 61, 27576, Bremerhaven";
+  ff:hasCity "Bremerhaven";
+  ff:hasContactDetails "+49 (471) 55025, caritas-bremerhaven@t-online.de";
+  ff:hasCoordinates "53.55853/8.57405";
+  ff:hasTitle "Caritasverband für Bremerhaven, und den Landkreis Cuxhaven e.V.".
+
+ff:counselingCentre128 a ff:CounselingCentre;
+  ff:hasAddress "Ludwig-Kirsch-Straße 13, 09130, Chemnitz";
+  ff:hasCity "Chemnitz";
+  ff:hasContactDetails "+49 (371) 4320824, info@caritas-chemnitz.de";
+  ff:hasCoordinates "50.8373466/12.9365228";
+  ff:hasTitle "Caritasverband für Chemnitz, und Umgebung e.V.".
+
+ff:counselingCentre129 a ff:CounselingCentre;
+  ff:hasAddress "Hospitalweg 2, 09599, Freiberg";
+  ff:hasCity "Freiberg";
+  ff:hasContactDetails "+49 (3731) 202220, freiberg@caritas-chemnitz.de";
+  ff:hasCoordinates "50.91377/13.33586";
+  ff:hasTitle "Caritasverband für Chemnitz, und Umgenburg e.V.".
+
+ff:counselingCentre13 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 16, 17489, Greifswald";
+  ff:hasCity "Greifswald";
+  ff:hasContactDetails "+49 (3834) 79830, allg.soz.ber.greifswald@caritas-vorpommern.de";
+  ff:hasCoordinates "54.09303/13.37521";
+  ff:hasTitle "Allgemeine Soziale Beratung".
+
+ff:counselingCentre130 a ff:CounselingCentre;
+  ff:hasAddress "Theaterstraße 5, 06406, Bernburg";
+  ff:hasCity "Bernburg";
+  ff:hasContactDetails "+49 (3471) 370079, info@caritas-egeln.de";
+  ff:hasCoordinates "51.7944/11.73694";
+  ff:hasTitle "Caritasverband für das Dekanat Egeln e.V., Caritassekretariat Bernburg".
+
+ff:counselingCentre131 a ff:CounselingCentre;
+  ff:hasAddress "Gutleuthhausstraße 8, 72379, Hechingen";
+  ff:hasCity "Hechingen";
+  ff:hasContactDetails "+49 (7471) 93320, csd@caritas-hechingen.de,csd2@caritas-hechingen.de";
+  ff:hasCoordinates "48.3581716/8.98394";
+  ff:hasTitle "Caritasverband für das Dekanat Zollen e.V.".
+
+ff:counselingCentre132 a ff:CounselingCentre;
+  ff:hasAddress "Werdohler Straße 3, 58762, Altena";
+  ff:hasCity "Altena";
+  ff:hasContactDetails "+49 (2352) 919320, eb@caritas-altena.de";
+  ff:hasCoordinates "51.288425/7.6796792";
+  ff:hasTitle "Caritasverband für das Dekanat, Altena-Lüdenscheid e.V.".
+
+ff:counselingCentre133 a ff:CounselingCentre;
+  ff:hasAddress "Gerhard-Rohlfs-Straße 17/18, 28757, Bremen";
+  ff:hasCity "Bremen";
+  ff:hasContactDetails "+49 (421) 660770, info@caritas-bremen-nord.de";
+  ff:hasCoordinates "53.17264/8.61888";
+  ff:hasTitle "Caritasverband für das Dekanat, Bremen Nord e.V.".
+
+ff:counselingCentre134 a ff:CounselingCentre;
+  ff:hasAddress "Königstraße 13, 32423, Minden";
+  ff:hasCity "Minden";
+  ff:hasContactDetails "+49 (571) 828999, info@caritas-minden.de";
+  ff:hasCoordinates "52.2862668/8.9120471";
+  ff:hasTitle "Caritasverband für das Dekenat Minden e.V.".
+
+ff:counselingCentre135 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 23, 45525, Hattingen";
+  ff:hasCity "Hattingen";
+  ff:hasContactDetails "+49 (2324) 22094, info@caritas-hattingen.de";
+  ff:hasCoordinates "51.39986/7.17855";
+  ff:hasTitle "Caritasverband für das Kreisdekanat, Hattingen-Schwelm e.V.".
+
+ff:counselingCentre136 a ff:CounselingCentre;
+  ff:hasAddress "Teichstraße 65, 06844, Dessau";
+  ff:hasCity "Dessau";
+  ff:hasContactDetails "+49 (340) 213943, info@caritas-dessau.de";
+  ff:hasCoordinates "51.8389225/12.247017";
+  ff:hasTitle "Caritasverband für das, Dekanat Dessau e.V.".
+
+ff:counselingCentre137 a ff:CounselingCentre;
+  ff:hasAddress "Klosterplatz 38a, 06295, Lutherstadt Eisleben";
+  ff:hasCity "Lutherstadt Eisleben";
+  ff:hasContactDetails "+49 (3475) 604144, info@caritas-eisleben.de";
+  ff:hasCoordinates "51.53131/11.5490899";
+  ff:hasTitle "Caritasverband für das, Dekanat Eisleben e.V.".
+
+ff:counselingCentre138 a ff:CounselingCentre;
+  ff:hasAddress "Gröperstraße 33, 38820, Halberstadt";
+  ff:hasCity "Halberstadt";
+  ff:hasContactDetails "+49 (3941) 26098, info@caritas-halberstadt.de";
+  ff:hasCoordinates "51.89895/11.04777";
+  ff:hasTitle "Caritasverband für das, Dekanat Halberstadt e.V.".
+
+ff:counselingCentre139 a ff:CounselingCentre;
+  ff:hasAddress "Max-Josef-Metzger-Straße 1a, 39104, Magdeburg";
+  ff:hasCity "Magdeburg";
+  ff:hasContactDetails "+49 (391) 961201, verena.mueller@caritas-magdeburg-stadt.de";
+  ff:hasCoordinates "52.12561/11.63115";
+  ff:hasTitle "Caritasverband für das, Dekanat Magdeburg e.V.".
+
+ff:counselingCentre14 a ff:CounselingCentre;
+  ff:hasAddress "Friedländer Straße 43, 17389, Anklam";
+  ff:hasCity "Anklam";
+  ff:hasContactDetails "+49 (3971) 20350, ;allg.soz.ber.anklam@caritas-vorpommern.de";
+  ff:hasCoordinates "53.8541451/13.6930123";
+  ff:hasTitle "Allgemeine Soziale Beratung".
+
+ff:counselingCentre140 a ff:CounselingCentre;
+  ff:hasAddress "Wettinstraße 15, 01662, Meißen";
+  ff:hasCity "Meißen";
+  ff:hasContactDetails "+49 (3521) 469620, vogt@caritas-meissen.de";
+  ff:hasCoordinates "51.1544009/13.4651744";
+  ff:hasTitle "Caritasverband für das, Dekanat Meißen e.V.".
+
+ff:counselingCentre141 a ff:CounselingCentre;
+  ff:hasAddress "Leopold-Kell-Straße 2a, 06667, Weißenfels";
+  ff:hasCity "Weißenfels";
+  ff:hasContactDetails "+49 (3443) 303617, info@caritas-naumburg-zeitz.de";
+  ff:hasCoordinates "51.2010409/11.9663617";
+  ff:hasTitle "Caritasverband für das, Dekanat Naumburg/Zeitz e.V.".
+
+ff:counselingCentre142 a ff:CounselingCentre;
+  ff:hasAddress "Brüderstraße 25, 39576, Stendal";
+  ff:hasCity "Stendal";
+  ff:hasContactDetails "+49 (3931) 715566, ewald.kittner@caritas-stendal.de";
+  ff:hasCoordinates "52.60422/11.85817";
+  ff:hasTitle "Caritasverband für das, Dekanat Stendal e.V.".
+
+ff:counselingCentre143 a ff:CounselingCentre;
+  ff:hasAddress "Karl-Marx-Platz 1c, 04860, Torgau";
+  ff:hasCity "Torgau";
+  ff:hasContactDetails "+49 (3421) 711679, info@caritas-torgau.de";
+  ff:hasCoordinates "51.55793/12.99734";
+  ff:hasTitle "Caritasverband für das, Dekanat Torgau e.V.".
+
+ff:counselingCentre144 a ff:CounselingCentre;
+  ff:hasAddress "Südring 2, 04924, Bad Liebenwerda";
+  ff:hasCity "Bad Liebenwerda";
+  ff:hasContactDetails "+49 (35341) 31260, karsten.holling@caritas-bad-liebenwerda.de";
+  ff:hasCoordinates "51.5157721/13.3900035";
+  ff:hasTitle "Caritasverband für das, Dekanat Torgau e.V., Caritassekretariat Bad Liebenwerda".
+
+ff:counselingCentre145 a ff:CounselingCentre;
+  ff:hasAddress "Bürgermeisterstraße 12, 06886, Lutherstadt Wittenberg";
+  ff:hasCity "Lutherstadt Wittenberg";
+  ff:hasContactDetails "+49 (3491) 411040, info@caritas-wittenberg.de";
+  ff:hasCoordinates "51.8669396/12.5926233";
+  ff:hasTitle "Caritasverband für das, Dekanat Wittenberg e.V.".
+
+ff:counselingCentre146 a ff:CounselingCentre;
+  ff:hasAddress "Reifferscheidstraße 2 - 4, 50354, Hürth";
+  ff:hasCity "Hürth";
+  ff:hasContactDetails "+49 (2233) 79900, uhler@caritas-rhein-erft.de";
+  ff:hasCoordinates "50.88329/6.88871";
+  ff:hasTitle "Caritasverband für den Erftkreis e.V.".
+
+ff:counselingCentre147 a ff:CounselingCentre;
+  ff:hasAddress "Palaisstraße 27, 32756, Detmold";
+  ff:hasCity "Detmold";
+  ff:hasContactDetails "+49 (5231) 992983, bartonitschek@caritas-dt.de";
+  ff:hasCoordinates "51.9319692/8.8719608";
+  ff:hasTitle "Caritasverband für den Kreis Lippe und die Stadt Bad Pyrmont e.V.".
+
+ff:counselingCentre148 a ff:CounselingCentre;
+  ff:hasAddress "Osthofenstraße 35a, 59494, Soest";
+  ff:hasCity "Soest";
+  ff:hasContactDetails "+49 (2921) 35900, info@caritas-soest.de";
+  ff:hasCoordinates "51.57291/8.1119";
+  ff:hasTitle "Caritasverband für den Kreis Soest e.V.".
+
+ff:counselingCentre149 a ff:CounselingCentre;
+  ff:hasAddress "Hartmannstraße 2a, 97688, Bad Kissingen";
+  ff:hasCity "Bad Kissingen";
+  ff:hasContactDetails "+49 (971) 72469206, asbd@caritas-kissingen.de";
+  ff:hasCoordinates "50.20077/10.0793812";
+  ff:hasTitle "Caritasverband für den Landkreis Bad Kissingen e.V.";
+  ff:hasWebsite "https://www.caritas-kissingen.de/ich-brauche-hilfe/hilfe-in-not-001/sozialberatung".
+
+ff:counselingCentre15 a ff:CounselingCentre;
+  ff:hasAddress "Geyerswörthstr. 2, 96047, Bamberg";
+  ff:hasCity "Bamberg";
+  ff:hasContactDetails "+49 (951) 2995721, luise.loechner@caritas-bamberg.de,klaus.will@caritas-bamberg.de";
+  ff:hasCoordinates "49.890629/10.8881218";
+  ff:hasTitle "Allgemeine Soziale Beratung Bamberg Stadt".
+
+ff:counselingCentre150 a ff:CounselingCentre;
+  ff:hasAddress "Josephstraße 27, 96052, Bamberg";
+  ff:hasCity "Bamberg";
+  ff:hasContactDetails "+49 (951) 981800, cv.bamberg-land@caritas-bamberg.de, beate.roellich@caritas-bamberg.de, boris.goerrissen@caritas-bamberg.de";
+  ff:hasCoordinates "49.9128934/10.8964729";
+  ff:hasTitle "Caritasverband für den Landkreis Bamberg e.V. - Soziale Beratungsstelle -";
+  ff:hasWebsite "https://www.caritas-landkreis-bamberg.de".
+
+ff:counselingCentre151 a ff:CounselingCentre;
+  ff:hasAddress "Burgstraße 30, 49808, Lingen";
+  ff:hasCity "Lingen";
+  ff:hasContactDetails "+49 (591) 800620, ikampf@caritas-os.de";
+  ff:hasCoordinates "52.5231098/7.3205352";
+  ff:hasTitle "Caritasverband für den Landkreis Emsland e.V., Beratungsstelle Lingen".
+
+ff:counselingCentre152 a ff:CounselingCentre;
+  ff:hasAddress "Elsternweg 1, 21423, Winsen";
+  ff:hasCity "Winsen";
+  ff:hasContactDetails "+49 (4171) 653122, caritas-harburg@t-online.de";
+  ff:hasCoordinates "53.36738/10.19967";
+  ff:hasTitle "Caritasverband für den Landkreis Harburg e.V.".
+
+ff:counselingCentre153 a ff:CounselingCentre;
+  ff:hasAddress "Obere Vorstadt 19, 97437, Haßfurt";
+  ff:hasCity "Haßfurt";
+  ff:hasContactDetails "+49 (9521) 69122, asbd@caritas-hassberge.de";
+  ff:hasCoordinates "50.03169/10.51247";
+  ff:hasTitle "Caritasverband für den Landkreis Haßberge e.V.";
+  ff:hasWebsite "https://www.caritas-hassberge.de/ich-brauche-hilfe/beratung/sozialberatung-allgemein".
+
+ff:counselingCentre154 a ff:CounselingCentre;
+  ff:hasAddress "Poststraße 16, 38350, Helmstedt";
+  ff:hasCity "Helmstedt";
+  ff:hasContactDetails "+49 (5351) 8382, th.hartmann@caritas-helmstedt.de";
+  ff:hasCoordinates "52.228966/11.009544";
+  ff:hasTitle "Caritasverband für den Landkreis Helmstedt e.V.".
+
+ff:counselingCentre155 a ff:CounselingCentre;
+  ff:hasAddress "Schrannenstraße 10, 97318, Kitzingen";
+  ff:hasCity "Kitzingen";
+  ff:hasContactDetails "+49 (9321) 22030, juergen.fuchs@caritas-kitzingen.de";
+  ff:hasCoordinates "49.73887/10.16383";
+  ff:hasTitle "Caritasverband für den Landkreis Kitzingen e.V.";
+  ff:hasWebsite "https://www.caritas-kitzingen.de/ich-brauche-hilfe/asbd-kleidermarkt/index.html".
+
+ff:counselingCentre156 a ff:CounselingCentre;
+  ff:hasAddress "Feuewehrstraße 6, 78224, Singen";
+  ff:hasCity "Singen";
+  ff:hasContactDetails "+49 (7731) 956123, scamuffa@caritas-singen.de";
+  ff:hasCoordinates "47.798611/8.8703315";
+  ff:hasTitle "Caritasverband für den Landkreis Konstanz e.V., Bezirksverband Singen".
+
+ff:counselingCentre157 a ff:CounselingCentre;
+  ff:hasAddress "Marktplatz 3, 78333, Stockach";
+  ff:hasCity "Stockach";
+  ff:hasContactDetails "+49 (7771) 2483, starz@caritas-singen.de";
+  ff:hasCoordinates "47.8532925/9.0134513";
+  ff:hasTitle "Caritasverband für den Landkreis Konstanz e.V., Bezirksverband Singen".
+
+ff:counselingCentre158 a ff:CounselingCentre;
+  ff:hasAddress "Vorstadtstraße 68, 97816, Lohr am Main";
+  ff:hasCity "Lohr am Main";
+  ff:hasContactDetails "+49 (9352) 843119, asbd@caritas-msp.de";
+  ff:hasCoordinates "49.9914564/9.5772435";
+  ff:hasTitle "Caritasverband für den Landkreis Main-Spessart e.V.";
+  ff:hasWebsite "https://www.caritas-msp.de/hilfe-und-beratung/allgemeiner-beratungsdienst#allgemeiner-sozialer-beratungsdienst".
+
+ff:counselingCentre159 a ff:CounselingCentre;
+  ff:hasAddress "Hauptstraße 60, 63897, Miltenberg";
+  ff:hasCity "Miltenberg";
+  ff:hasContactDetails "+49 (931) 9789545, w-berninger@caritas-mil.de";
+  ff:hasCoordinates "49.70166/9.25761";
+  ff:hasTitle "Caritasverband für den Landkreis Miltenberg e.V.";
+  ff:hasWebsite "https://www.caritas-mil.de/unsere-einsatzfelder/besondere-lebenslagen/allgemeine-sozialberatung".
+
+ff:counselingCentre16 a ff:CounselingCentre;
+  ff:hasAddress "Birkenfelderstraße 15, 91301, Forchheim";
+  ff:hasCity "Forchheim";
+  ff:hasContactDetails "+49 (9191) 707224, ursula.schneider@caritas-forchheim.de";
+  ff:hasCoordinates "49.7205341/11.0648893";
+  ff:hasTitle "Allgemeine Soziale Beratung Forchheim".
+
+ff:counselingCentre160 a ff:CounselingCentre;
+  ff:hasAddress "Carl-Friedrich-Straße 10, 76437, Rastatt";
+  ff:hasCity "Rastatt";
+  ff:hasContactDetails "+49 (7222) 77529, m.rauscher@caritas-rastatt.de";
+  ff:hasCoordinates "48.8518776/8.2062594";
+  ff:hasTitle "Caritasverband für den Landkreis Rastatt e.V.".
+
+ff:counselingCentre161 a ff:CounselingCentre;
+  ff:hasAddress "Kellereigasse 12-16, 97616, Bad Neustadt/Saale";
+  ff:hasCity "Bad Neustadt/Saale";
+  ff:hasContactDetails "+49 (9771) 61160, eva.bergmann@caritas-nes.de";
+  ff:hasCoordinates "50.3226064/10.2136103";
+  ff:hasTitle "Caritasverband für den Landkreis Rhön-Grabfeld e.V.";
+  ff:hasWebsite "https://www.caritas-rhoengrabfeld.de/ich-brauche-hilfe/allgemeiner-sozialer-beratungsdienst".
+
+ff:counselingCentre162 a ff:CounselingCentre;
+  ff:hasAddress "Hermann-Löns-Straße 6, 86316, Friedberg";
+  ff:hasCity "Friedberg";
+  ff:hasContactDetails "+49 (821) 268910, info@caritas-aichach-friedberg.de";
+  ff:hasCoordinates "48.3574224/10.9858925";
+  ff:hasTitle "Caritasverband für den Landkreis, Aichach-Friedberg e.V.".
+
+ff:counselingCentre163 a ff:CounselingCentre;
+  ff:hasAddress "Adolph-Kolping-Straße 20, 79822, Titisee-Neustadt";
+  ff:hasCity "Titisee-Neustadt";
+  ff:hasContactDetails "+49 (7651) 91180, bernadette.schlosser@caritas-dicv-dr.de";
+  ff:hasCoordinates "47.9131294/8.2165815";
+  ff:hasTitle "Caritasverband für den Landkreis, Breisgau-Hochschwarzwald e.V., Bezirksstelle".
+
+ff:counselingCentre164 a ff:CounselingCentre;
+  ff:hasAddress "Alois-Eckert-Straße 5, 79111, Freiburg";
+  ff:hasCity "Freiburg";
+  ff:hasContactDetails "+49 (761) 8965431, wolfgang.busse@caritas-dicv-fr.de";
+  ff:hasCoordinates "48.0128167/7.8058795";
+  ff:hasTitle "Caritasverband für den Landkreis, Breisgau-Hochschwarzwald e.V., Bezirksstelle Freiburg".
+
+ff:counselingCentre165 a ff:CounselingCentre;
+  ff:hasAddress "Moltkestraße 14, 79379, Müllheim";
+  ff:hasCity "Müllheim";
+  ff:hasContactDetails "+49 (7631) 7482774, benedikt.burget@caritas-dicv-fr.de";
+  ff:hasCoordinates "47.81121/7.6316";
+  ff:hasTitle "Caritasverband für den Landkreis, Breisgau-Hochschwarzwald e.V., Bezirksstelle Müllheim".
+
+ff:counselingCentre166 a ff:CounselingCentre;
+  ff:hasAddress "Müllheimer Straße 23, 79395, Neuenburg";
+  ff:hasCity "Neuenburg";
+  ff:hasContactDetails "+49 (7631) 705504, andrea.elsaesser@caritas-dicv-fr.de";
+  ff:hasCoordinates "47.81293/7.56594";
+  ff:hasTitle "Caritasverband für den Landkreis, Breisgau-Hochschwarzwald e.V., Soziale Bürgerdienste".
+
+ff:counselingCentre167 a ff:CounselingCentre;
+  ff:hasAddress "Nino-Allee 4, 48529, Nordhorn";
+  ff:hasCity "Nordhorn";
+  ff:hasContactDetails "+49 (5921) 8111153, twilger@caritas-os.de";
+  ff:hasCoordinates "52.4281993/7.0695818";
+  ff:hasTitle "Caritasverband für den Landkreis, Grafschaft Bentheim e.V.".
+
+ff:counselingCentre168 a ff:CounselingCentre;
+  ff:hasAddress "Gerwigstraße 6, 78050, Villingen-Schwenningen";
+  ff:hasCity "Villingen-Schwenningen";
+  ff:hasContactDetails "+49 (7721) 84070, werner.gutermann@caritas-sbk.de,andrea.klausmann@caritas-sbk.de,helmut.pfeifle@caritas-sbk.de,sandra.muench@caritas-sbk.de,franziska.king@caritas-sbk.de,vera.bohner@caritas-sbk.de, manuela.braun@caritas-sbk.de";
+  ff:hasCoordinates "48.05497/8.46503";
+  ff:hasTitle "Caritasverband für den Schwarzwald-Baar-Kreis e.V.";
+  ff:hasWebsite "https://www.caritas-sbk.de".
+
+ff:counselingCentre169 a ff:CounselingCentre;
+  ff:hasAddress "Schulstraße 5, 78166, Donaueschingen";
+  ff:hasCity "Donaueschingen";
+  ff:hasContactDetails "+49 (771) 8322811, muench@caritas-sbk.de";
+  ff:hasCoordinates "47.95366/8.49899";
+  ff:hasTitle "Caritasverband für den Schwarzwald-Baar-Kreis e.V., Außenstelle".
+
+ff:counselingCentre17 a ff:CounselingCentre;
+  ff:hasAddress "Leipziger Str. 39, 15232, Frankfurt (Oder)";
+  ff:hasCity "Frankfurt (Oder)";
+  ff:hasContactDetails "+49 (0335) 5654140, asb-frankfurt-oder@caritas-brandenburg.de";
+  ff:hasCoordinates "52.33387/14.53418";
+  ff:hasTitle "Allgemeine Soziale Beratung Frankfurt (Oder)".
+
+ff:counselingCentre170 a ff:CounselingCentre;
+  ff:hasAddress "Erzbergerstraße 11, 78054, Villingen-Schwenningen";
+  ff:hasCity "Villingen-Schwenningen";
+  ff:hasContactDetails "+49 (7720) 994234, gutermann@caritas-sbk.de";
+  ff:hasCoordinates "48.0587159/8.5332895";
+  ff:hasTitle "Caritasverband für den Schwarzwald-Baar-Kreis e.V., Außenstelle".
+
+ff:counselingCentre171 a ff:CounselingCentre;
+  ff:hasAddress "Ob der Kehr 3, 78176, Blumberg";
+  ff:hasCity "Blumberg";
+  ff:hasContactDetails "+49 (7702) 477621, schumacher@caritas-sbk.de";
+  ff:hasCoordinates "47.84083/8.53319";
+  ff:hasTitle "Caritasverband für den Schwarzwald-Baar-Kreis e.V., Außenstelle".
+
+ff:counselingCentre172 a ff:CounselingCentre;
+  ff:hasAddress "Lindenstraße 6, 78120, Furtwangen";
+  ff:hasCity "Furtwangen";
+  ff:hasContactDetails "+49 (7723) 1075, klausmann@caritas-sbk.de";
+  ff:hasCoordinates "48.0509802/8.2065007";
+  ff:hasTitle "Caritasverband für den Schwarzwald-Baar-Kreis e.V., Außenstelle".
+
+ff:counselingCentre173 a ff:CounselingCentre;
+  ff:hasAddress "Krankenhausstraße 4, 78187, Geisingen";
+  ff:hasCity "Geisingen";
+  ff:hasContactDetails "+49 (7704) 922263, schumacher@caritas-sbk.de";
+  ff:hasCoordinates "47.904151/8.6421418";
+  ff:hasTitle "Caritasverband für den Schwarzwald-Baar-Kreis e.V., Außenstelle".
+
+ff:counselingCentre174 a ff:CounselingCentre;
+  ff:hasAddress "Luisenstraße 9, 79539, Lörrach";
+  ff:hasCity "Lörrach";
+  ff:hasContactDetails "+49 (7621) 92750, info@caritas-loerrach.de";
+  ff:hasCoordinates "47.61641/7.66192";
+  ff:hasTitle "Caritasverband für den, Landkreis Lörrach e.V.".
+
+ff:counselingCentre175 a ff:CounselingCentre;
+  ff:hasAddress "Mühlenstraße 10, 36179, Bebra";
+  ff:hasCity "Bebra";
+  ff:hasContactDetails "+49 (6622) 3131, caritas.bebra@caritas-kassel.de";
+  ff:hasCoordinates "50.9716463/9.7935904";
+  ff:hasTitle "Caritasverband für den, Keis Hersfeld-Rotenburg e.V.";
+  ff:hasWebsite "https://www.rcvkassel.caritas.de".
+
+ff:counselingCentre176 a ff:CounselingCentre;
+  ff:hasAddress "Regens-Wagner-Straße 2, 89407, Dillingen";
+  ff:hasCity "Dillingen";
+  ff:hasContactDetails "+49 (9071) 72354, mail@caritas-dillingen.de";
+  ff:hasCoordinates "48.5785477/10.4903726";
+  ff:hasTitle "Caritasverband für den, Landkreis Dillingen e.V.".
+
+ff:counselingCentre177 a ff:CounselingCentre;
+  ff:hasAddress "Zehenthof 2, 86609, Donauwörth";
+  ff:hasCity "Donauwörth";
+  ff:hasContactDetails "+49 (906) 70595650, KCV-Donau-Ries@caritas-augsburg.de";
+  ff:hasCoordinates "48.7186717/10.7771969";
+  ff:hasTitle "Caritasverband für den, Landkreis Donau-Ries e.V.".
+
+ff:counselingCentre178 a ff:CounselingCentre;
+  ff:hasAddress "Kuhstraße 42, 49716, Meppen";
+  ff:hasCity "Meppen";
+  ff:hasContactDetails "+49 (5931) 98420, RSchmitz@caritas-os.de";
+  ff:hasCoordinates "52.7162058/7.264087";
+  ff:hasTitle "Caritasverband für den, Landkreis Emsland e.V.".
+
+ff:counselingCentre179 a ff:CounselingCentre;
+  ff:hasAddress "Am Markt 9, 49751, Sögel";
+  ff:hasCity "Sögel";
+  ff:hasContactDetails "+49 (5952) 93700, mschuermann@caritas-os.de";
+  ff:hasCoordinates "52.8404171/7.5216115";
+  ff:hasTitle "Caritasverband für den, Landkreis Emsland e.V.".
+
+ff:counselingCentre18 a ff:CounselingCentre;
+  ff:hasAddress "c/o Caritas Seniorenzentrum Stella Maris, Waldbühnenweg 6, 17424, Heringsdorf";
+  ff:hasCity "Heringsdorf";
+  ff:hasContactDetails "+49 (38378) 336225, allg.soz.ber.heringsdorf@caritas-vorpommern.de";
+  ff:hasCoordinates "53.9521369/14.1642046";
+  ff:hasTitle "Allgemeine Soziale Beratung Heringsdorf".
+
+ff:counselingCentre180 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 16, 26871, Papenburg";
+  ff:hasCity "Papenburg";
+  ff:hasContactDetails "+49 (4961) 94410, GMiddendorf@caritas-os.de";
+  ff:hasCoordinates "53.08004/7.39595";
+  ff:hasTitle "Caritasverband für den, Landkreis Emsland e.V.".
+
+ff:counselingCentre181 a ff:CounselingCentre;
+  ff:hasAddress "Lorenz-Werthmann-Straße 2, 76275, Ettlingen";
+  ff:hasCity "Ettlingen";
+  ff:hasContactDetails "+49 (7243) 515123, sozialberatung@caritas-ettlingen.de";
+  ff:hasCoordinates "48.9377763/8.3999989";
+  ff:hasTitle "Caritasverband für den, Landkreis Karlsruhe e.V., Bezirksverband".
+
+ff:counselingCentre182 a ff:CounselingCentre;
+  ff:hasAddress "Bauergasse 3 - 5, 95326, Kulmbach";
+  ff:hasCity "Kulmbach";
+  ff:hasContactDetails "+49 (9221) 957420, info@caritas-kulmbach.de";
+  ff:hasCoordinates "50.1057947/11.4584326";
+  ff:hasTitle "Caritasverband für den, Landkreis Kulmbach e.V.".
+
+ff:counselingCentre183 a ff:CounselingCentre;
+  ff:hasAddress "Brudergasse 215, 86899, Landsberg";
+  ff:hasCity "Landsberg";
+  ff:hasContactDetails "+49 (8191) 32957, caritas.landsberg@t-online.de";
+  ff:hasCoordinates "48.0524101/10.8759929";
+  ff:hasTitle "Caritasverband für den, Landkreis Landsberg e.V.".
+
+ff:counselingCentre184 a ff:CounselingCentre;
+  ff:hasAddress "Fischergasse 14, 88131, Lindau";
+  ff:hasCity "Lindau";
+  ff:hasContactDetails "+49 (8382) 94867, mail@caritasverband-lindau.de";
+  ff:hasCoordinates "47.5468059/9.6882906";
+  ff:hasTitle "Caritasverband für den, Landkreis Lindau e.V.".
+
+ff:counselingCentre185 a ff:CounselingCentre;
+  ff:hasAddress "Martin-Luther-Straße 10b, 87527, Sonthofen";
+  ff:hasCity "Sonthofen";
+  ff:hasContactDetails "+49 (8321) 66010, info@caritas-oberallgaeu.de";
+  ff:hasCoordinates "47.5159/10.27709";
+  ff:hasTitle "Caritasverband für den, Landkreis Oberallgäu e.V.".
+
+ff:counselingCentre186 a ff:CounselingCentre;
+  ff:hasAddress "Angerstraße 1, 87616, Marktoberdorf";
+  ff:hasCity "Marktoberdorf";
+  ff:hasContactDetails "+49 (8342) 96190, caritas-ostallgaeu@t-online.de";
+  ff:hasCoordinates "47.78127/10.61699";
+  ff:hasTitle "Caritasverband für den, Landkreis Ostallgäu e.V.".
+
+ff:counselingCentre187 a ff:CounselingCentre;
+  ff:hasAddress "Magisterberg 4, 37412, Herzberg";
+  ff:hasCity "Herzberg";
+  ff:hasContactDetails "+49 (5521) 71461, caritasosterode@aol.com";
+  ff:hasCoordinates "51.6542459/10.3356642";
+  ff:hasTitle "Caritasverband für den, Landkreis Osterode e.V.".
+
+ff:counselingCentre188 a ff:CounselingCentre;
+  ff:hasAddress "Am Amthof 3, 31224, Peine";
+  ff:hasCity "Peine";
+  ff:hasContactDetails "+49 (5171) 700333, sozialberatung@caritaspeine.de";
+  ff:hasCoordinates "52.3243529/10.2226048";
+  ff:hasTitle "Caritasverband für den, Landkreis Peine e.V.".
+
+ff:counselingCentre189 a ff:CounselingCentre;
+  ff:hasAddress "Mühlenstraße 12, 77815, Bühl";
+  ff:hasCity "Bühl";
+  ff:hasContactDetails "+49 (7223) 939030, g.lippert@caritas-rastatt.de";
+  ff:hasCoordinates "48.6956/8.13997";
+  ff:hasTitle "Caritasverband für den, Landkreis Rastatt e.V.".
+
+ff:counselingCentre19 a ff:CounselingCentre;
+  ff:hasAddress "Zimmerstraße 7, 14471, Potsdam";
+  ff:hasCity "Potsdam";
+  ff:hasContactDetails "+49 (331) 710298, potsdam-ib@caritas-brandenburg.de";
+  ff:hasCoordinates "52.39685/13.04816";
+  ff:hasTitle "Allgemeine Soziale Beratung Potsdam".
+
+ff:counselingCentre190 a ff:CounselingCentre;
+  ff:hasAddress "Obernstraße 32, 31655, Stadthagen";
+  ff:hasCity "Stadthagen";
+  ff:hasContactDetails "+49 (5721) 924008, schwan@caritas-schaumburg.de";
+  ff:hasCoordinates "52.3220705/9.2053287";
+  ff:hasTitle "Caritasverband für den, Landkreis Schaumburg e.V.".
+
+ff:counselingCentre191 a ff:CounselingCentre;
+  ff:hasAddress "Fidelisstraße 1, 72488, Sigmaringen";
+  ff:hasCity "Sigmaringen";
+  ff:hasContactDetails "+49 (7571) 73010, susanne.spasov@caritas-sigmaringen.de";
+  ff:hasCoordinates "48.08659/9.21605";
+  ff:hasTitle "Caritasverband für den, Landkreis Sigmaringen e.V.".
+
+ff:counselingCentre192 a ff:CounselingCentre;
+  ff:hasAddress "Waisenhausstraße 1, 82362, Weilheim";
+  ff:hasCity "Weilheim";
+  ff:hasContactDetails "+49 (881) 9095900, caritas-wm-sog@t-online.de";
+  ff:hasCoordinates "47.8341/11.14165";
+  ff:hasTitle "Caritasverband für den, Landkreis Weilheim-Schongau e.V.".
+
+ff:counselingCentre193 a ff:CounselingCentre;
+  ff:hasAddress "Hettinger Straße 2, 74710, Buchen";
+  ff:hasCity "Buchen";
+  ff:hasContactDetails "+49 (6281) 32550, bezirksstelle.buchen@caritas-nok.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritasverband für den, Neckar-Odenwaldkreis, Bezirksstelle Buchen".
+
+ff:counselingCentre194 a ff:CounselingCentre;
+  ff:hasAddress "Markgrafenstraße 17, 68723, Schwetzingen";
+  ff:hasCity "Schwetzingen";
+  ff:hasContactDetails "+49 (6202) 931421, h.hans@caritas-rhein-neckar.de";
+  ff:hasCoordinates "49.37808/8.57736";
+  ff:hasTitle "Caritasverband für den, Rhein-Neckar-Kreis e.V., Bezirks- und Kreisgeschäftsstelle".
+
+ff:counselingCentre195 a ff:CounselingCentre;
+  ff:hasAddress "Muthstraße 18, 74889, Sinsheim";
+  ff:hasCity "Sinsheim";
+  ff:hasContactDetails "+49 (7261) 2382, c.siegle@caritas-rhein-neckar.de";
+  ff:hasCoordinates "49.246625/8.8948387";
+  ff:hasTitle "Caritasverband für den, Rhein-Neckar-Kreis e.V., Bezirksstelle Sinsheim".
+
+ff:counselingCentre196 a ff:CounselingCentre;
+  ff:hasAddress "Paulstraße 2, 69469, Weinheim";
+  ff:hasCity "Weinheim";
+  ff:hasContactDetails "+49 (6201) 994613, c.mendezdevigo@caritas-rhein-neckar.de";
+  ff:hasCoordinates "49.5559416/8.6707209";
+  ff:hasTitle "Caritasverband für den, Rhein-Neckar-Kreis e.V., Bezirksstelle Weinheim".
+
+ff:counselingCentre197 a ff:CounselingCentre;
+  ff:hasAddress "Am Adenauerplatz 1, 69168, Wiesloch";
+  ff:hasCity "Wiesloch";
+  ff:hasContactDetails "+49 (6222) 8718, r.koch@caritas-rhein-neckar.de";
+  ff:hasCoordinates "49.3215905/8.685557";
+  ff:hasTitle "Caritasverband für den, Rhein-Neckar-Kreis e.V., Bezirksstelle Wiesoch".
+
+ff:counselingCentre198 a ff:CounselingCentre;
+  ff:hasAddress "Luisenstraße 10, 79098, Triberg";
+  ff:hasCity "Triberg";
+  ff:hasContactDetails "+49 (7722) 3217, rombach@caritas-sbk.de";
+  ff:hasCoordinates "47.9938544/7.8467583";
+  ff:hasTitle "Caritasverband für den, Schwarzwald-Baar-Kreis e.V., Außenstelle".
+
+ff:counselingCentre199 a ff:CounselingCentre;
+  ff:hasAddress "Moritz-Werner-Straße 4, 37269, Eschwege";
+  ff:hasCity "Eschwege";
+  ff:hasContactDetails "+49 (5651) 50018, caritas.eschwege@caritas-kassel.de";
+  ff:hasCoordinates "51.1882331/10.0480474";
+  ff:hasTitle "Caritasverband für den, Werra-Meißner-Kreis e.V.";
+  ff:hasWebsite "https://www.rcvkassel.caritas.de".
+
+ff:counselingCentre2 a ff:CounselingCentre;
+  ff:hasAddress "Affentorplatz 1, 60594, Frankfurt";
+  ff:hasCity "Frankfurt";
+  ff:hasContactDetails "+49 (69) 25493122, alb@caritas-frankfurt.de";
+  ff:hasCoordinates "50.1046909/8.6901082";
+  ff:hasTitle "Allgemeine Lebensberatung, für Frauen in Frankfurt".
+
+ff:counselingCentre20 a ff:CounselingCentre;
+  ff:hasAddress "Friedrich-Engels-Ring 31, 15562, Rüdersdorf";
+  ff:hasCity "Rüdersdorf";
+  ff:hasContactDetails "+49 (33638) 129637, asb-ruedersdorf@caritas-brandenburg.de";
+  ff:hasCoordinates "52.465671/13.7915194";
+  ff:hasTitle "Allgemeine Soziale Beratung Rüdersdorf".
+
+ff:counselingCentre200 a ff:CounselingCentre;
+  ff:hasAddress "Bürgermeister-Heuvemann-Straße 8, 31592, Stolzenau";
+  ff:hasCity "Stolzenau";
+  ff:hasContactDetails "+49 (5761) 908456, MBloemer@caritas-os.de";
+  ff:hasCoordinates "52.5116312/9.0602808";
+  ff:hasTitle "Caritasverband für die Landkreise, Diepholz und Nienburg links der Weser".
+
+ff:counselingCentre201 a ff:CounselingCentre;
+  ff:hasAddress "Stellerstraße 22, 27239, Twistringen";
+  ff:hasCity "Twistringen";
+  ff:hasContactDetails "+49 (4243) 933424, cwengorz@caritas-os.de";
+  ff:hasCoordinates "52.80012/8.64268";
+  ff:hasTitle "Caritasverband für die Landkreise, Diepholz und Nienburg links der Weser".
+
+ff:counselingCentre202 a ff:CounselingCentre;
+  ff:hasAddress "Ostertorwall 6, 31785, Hameln";
+  ff:hasCity "Hameln";
+  ff:hasContactDetails "+49 (5151) 23950, caritas.hameln@t-online.de";
+  ff:hasCoordinates "52.103246/9.3613799";
+  ff:hasTitle "Caritasverband für die Landkreise, Hameln/Holzminden e.V.".
+
+ff:counselingCentre203 a ff:CounselingCentre;
+  ff:hasAddress "Schiffertorstraße 19a, 21682, Stade";
+  ff:hasCity "Stade";
+  ff:hasContactDetails "+49 (4141) 47697, caritas-stade@t-online.de";
+  ff:hasCoordinates "53.6030554/9.468054";
+  ff:hasTitle "Caritasverband für die Landkreise, Stade und Rotenburg/Wümme e.V.".
+
+ff:counselingCentre204 a ff:CounselingCentre;
+  ff:hasAddress "Dieterichstraße 40a, 29525, Uelzen";
+  ff:hasCity "Uelzen";
+  ff:hasContactDetails "+49 (581) 976550, geschaeftsstelle@caritas-uelzen.de";
+  ff:hasCoordinates "52.9828429/10.5961231";
+  ff:hasTitle "Caritasverband für die Landkreise, Uelzen/Lüchow-Dannenberg e.V.".
+
+ff:counselingCentre205 a ff:CounselingCentre;
+  ff:hasAddress "Andreaswall 11, 27283, Verden";
+  ff:hasCity "Verden";
+  ff:hasContactDetails "+49 (4231) 5655, aumann@caritas-verden.de";
+  ff:hasCoordinates "52.916573/9.2323063";
+  ff:hasTitle "Caritasverband für die Landkreise, Verden, Soltau-Fallingbostel e.V.".
+
+ff:counselingCentre206 a ff:CounselingCentre;
+  ff:hasAddress "Wilhelmstraße 8, 36037, Fulda";
+  ff:hasCity "Fulda";
+  ff:hasContactDetails "+49 (661) 2428322, manfred.sauer@caritas-fulda.de";
+  ff:hasCoordinates "50.5527566/9.6718837";
+  ff:hasTitle "Caritasverband für die Region Fulda und Geisa e.V.";
+  ff:hasWebsite "https://www.rcvfulda.caritas.de".
+
+ff:counselingCentre207 a ff:CounselingCentre;
+  ff:hasAddress "Kirchplatz 3, 36088, Hünfeld";
+  ff:hasCity "Hünfeld";
+  ff:hasContactDetails "+49 (6652) 2513, jutta.michel-neu@caritas-fulda.de";
+  ff:hasCoordinates "50.67198/9.76588";
+  ff:hasTitle "Caritasverband für die Region Fulda und Geisa e.V.";
+  ff:hasWebsite "https://www.rcvfulda.caritas.de".
+
+ff:counselingCentre208 a ff:CounselingCentre;
+  ff:hasAddress "Pfortengasse 1, 36419, Geisa";
+  ff:hasCity "Geisa";
+  ff:hasContactDetails "+49 (36967) 70660, caritas@geisa.net";
+  ff:hasCoordinates "50.7166108/9.9505168";
+  ff:hasTitle "Caritasverband für die Region Fulda und Geisa e.V.";
+  ff:hasWebsite "https://www.rcvfulda.caritas.de".
+
+ff:counselingCentre209 a ff:CounselingCentre;
+  ff:hasAddress "Kurfürstenstraße 10-12, 52351, Düren";
+  ff:hasCity "Düren";
+  ff:hasContactDetails "+49 (2421) 4810, info@caritas-dueren.de";
+  ff:hasCoordinates "50.79891/6.48894";
+  ff:hasTitle "Caritasverband für die Region, Düren-Jülich e.V.".
+
+ff:counselingCentre21 a ff:CounselingCentre;
+  ff:hasAddress "August-Bebel-Str. 12, 15344, Strausberg";
+  ff:hasCity "Strausberg";
+  ff:hasContactDetails "+49 (3341) 390072, asb-strausberg@caritas-brandenburg.de";
+  ff:hasCoordinates "52.57454/13.87927";
+  ff:hasTitle "Allgemeine Soziale Beratung Strausberg".
+
+ff:counselingCentre210 a ff:CounselingCentre;
+  ff:hasAddress "Zankerstraße 1a, 89312, Günzburg";
+  ff:hasCity "Günzburg";
+  ff:hasContactDetails "+49 (8221) 36760, info@caritas-guenzburg.de";
+  ff:hasCoordinates "48.4559652/10.2696573";
+  ff:hasTitle "Caritasverband für die Region, Günzburg und Neu-Ulm e.V.".
+
+ff:counselingCentre211 a ff:CounselingCentre;
+  ff:hasAddress "Geroldsauer Straße 2, 76530, Baden-Baden";
+  ff:hasCity "Baden-Baden";
+  ff:hasContactDetails "+49 (7221) 923940, csd@caritas-baden-baden.de";
+  ff:hasCoordinates "48.7349014/8.2544232";
+  ff:hasTitle "Caritasverband für die Stadt Baden-Baden e.V.".
+
+ff:counselingCentre212 a ff:CounselingCentre;
+  ff:hasAddress "Paßstraße 2, 46236, Bottrop";
+  ff:hasCity "Bottrop";
+  ff:hasContactDetails "+49 (2041) 132070, martin.schindler@caritas-bottrop.de";
+  ff:hasCoordinates "51.52205/6.92915";
+  ff:hasTitle "Caritasverband für die Stadt Bottrop e.V.".
+
+ff:counselingCentre213 a ff:CounselingCentre;
+  ff:hasAddress "Duissernplatz 15, 47051, Duisburg";
+  ff:hasCity "Duisburg";
+  ff:hasContactDetails "+49 (203) 295920, info@caritas-duisburg.de";
+  ff:hasCoordinates "51.4380409/6.7811425";
+  ff:hasTitle "Caritasverband für die Stadt Duisburg e.V.".
+
+ff:counselingCentre214 a ff:CounselingCentre;
+  ff:hasAddress "Niederstraße 12-16, 45141, Essen";
+  ff:hasCity "Essen";
+  ff:hasContactDetails "+49 (201) 320030, info@caritas-essen.de";
+  ff:hasCoordinates "51.4633767/7.0009439";
+  ff:hasTitle "Caritasverband für die Stadt Essen e.V.".
+
+ff:counselingCentre215 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 51, 45789, Gelsenkirchen";
+  ff:hasCity "Gelsenkirchen";
+  ff:hasContactDetails "+49 (209) 1580645, info@caritasverband-gelsenkirchen.de";
+  ff:hasCoordinates "51.517744/7.0857172";
+  ff:hasTitle "Caritasverband für die Stadt Gelsenkirchen e.V.".
+
+ff:counselingCentre216 a ff:CounselingCentre;
+  ff:hasAddress "Franziskanerstraße 3, 59065, Hamm";
+  ff:hasCity "Hamm";
+  ff:hasContactDetails "+49 (2381) 1440, kwiasowski@caritas-hamm.de";
+  ff:hasCoordinates "51.683303/7.8220297";
+  ff:hasTitle "Caritasverband für die Stadt Hamm e.V.";
+  ff:hasWebsite "https://www.caritas-hamm.de".
+
+ff:counselingCentre217 a ff:CounselingCentre;
+  ff:hasAddress "Franziskanerstraße 3, 59065, Hamm";
+  ff:hasCity "Hamm";
+  ff:hasContactDetails "+49 (2381) 1440, info@caritas-hamm.de";
+  ff:hasCoordinates "51.683303/7.8220297";
+  ff:hasTitle "Caritasverband für die Stadt Hamm e.V.".
+
+ff:counselingCentre218 a ff:CounselingCentre;
+  ff:hasAddress "Clarenstraße 24, 32052, Herford";
+  ff:hasCity "Herford";
+  ff:hasContactDetails "+49 (5221) 167330, info-geschaeftsstelle@caritasverband-herford.de";
+  ff:hasCoordinates "52.11342/8.67044";
+  ff:hasTitle "Caritasverband für die Stadt und den Kreis Herford e.V.".
+
+ff:counselingCentre219 a ff:CounselingCentre;
+  ff:hasAddress "Treibgasse 26, 63739, Aschaffenburg";
+  ff:hasCity "Aschaffenburg";
+  ff:hasContactDetails "+49 (6021) 392206, a.maskow@caritas-aschaffenburg.de";
+  ff:hasCoordinates "49.97714/9.14406";
+  ff:hasTitle "Caritasverband für die Stadt und den Landkreis Aschaffenburg e.V.";
+  ff:hasWebsite "https://www.caritas-aschaffenburg.de/dienste/sozialberatung.html".
+
+ff:counselingCentre22 a ff:CounselingCentre;
+  ff:hasAddress "Pfalzburger Straße 18, 10719, Berlin-Wilmersdorf";
+  ff:hasCity "Berlin-Wilmersdorf";
+  ff:hasContactDetails "+49 (30) 66633963, ausb.charlottenburg-wilmersdorf@caritas-berlin.de,A.Dohr@caritas-berlin.de";
+  ff:hasCoordinates "52.49476/13.32143";
+  ff:hasTitle "Allgemeine Soziale Beratung Wilmersdorf";
+  ff:hasWebsite "https://https://www.caritas-berlin.de/beratungundhilfe/berlin/allgemeinesozialeberatung/beratung/".
+
+ff:counselingCentre220 a ff:CounselingCentre;
+  ff:hasAddress "Depotstraße 5, 86199, Augsburg";
+  ff:hasCity "Augsburg";
+  ff:hasContactDetails "+49 (821) 570480, info@caritas-augsburg-stadt.de";
+  ff:hasCoordinates "48.3504928/10.8817381";
+  ff:hasTitle "Caritasverband für die Stadt und den Landkreis Augsburg e. V.";
+  ff:hasWebsite "https://www.der-sozialmarkt.de/".
+
+ff:counselingCentre221 a ff:CounselingCentre;
+  ff:hasAddress "Königstr. 112 - 114, 90762, Fürth";
+  ff:hasCity "Fürth";
+  ff:hasContactDetails "+49 (911) 740500, zentrale@caritas-fuerth.de,franziska.seidl@caritas-fuerth.de,alexia.fischer@mitarbeiten-fuerth.de";
+  ff:hasCoordinates "49.4759693/10.99113";
+  ff:hasTitle "Caritasverband für die Stadt und den Landkreis Fürth e.V.";
+  ff:hasWebsite "https://www.caritas-fuerth.de".
+
+ff:counselingCentre222 a ff:CounselingCentre;
+  ff:hasAddress "Deutschhöfer Straße 7, 97422, Schweinfurt";
+  ff:hasCity "Schweinfurt";
+  ff:hasContactDetails "+49 (9721) 71580, asbd@caritas-schweinfurt.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritasverband für die Stadt und den Landkreis Schweinfurt e.V.";
+  ff:hasWebsite "https://www.caritas-sw.de/asbd/".
+
+ff:counselingCentre223 a ff:CounselingCentre;
+  ff:hasAddress "Röntgenring 3, 97070, Würzburg";
+  ff:hasCity "Würzburg";
+  ff:hasContactDetails "+49 (931) 38659121, asd@caritas-wuerzburg.org";
+  ff:hasCoordinates "49.80033/9.93373";
+  ff:hasTitle "Caritasverband für die Stadt und den Landkreis Würzburg e.V.";
+  ff:hasWebsite "https://www.caritas-wuerzburg.org/einrichtungen/allgemeiner-sozialdienst/".
+
+ff:counselingCentre224 a ff:CounselingCentre;
+  ff:hasAddress "Schützenring 1, 37115, Duderstadt";
+  ff:hasCity "Duderstadt";
+  ff:hasContactDetails "+49 (5527) 98130, info@caritas-goettingen.de";
+  ff:hasCoordinates "51.5086141/10.2577836";
+  ff:hasTitle "Caritasverband für die Stadt, und Landkreis Göttingen e.V.".
+
+ff:counselingCentre225 a ff:CounselingCentre;
+  ff:hasAddress "Lambertusplatz 16, 44575, Castrop-Rauxel";
+  ff:hasCity "Castrop-Rauxel";
+  ff:hasContactDetails "+49 (2305) 923550, mail@caritas-castrop-rauxel.de";
+  ff:hasCoordinates "51.5484634/7.3107304";
+  ff:hasTitle "Caritasverband für die Stadt, Castrop-Rauxel e.V.".
+
+ff:counselingCentre226 a ff:CounselingCentre;
+  ff:hasAddress "Hingbergstraße 176, 45470, Müllheim an der Ruhr";
+  ff:hasCity "Müllheim an der Ruhr";
+  ff:hasContactDetails "+49 (208) 300080, info@caritas-muelheim.de";
+  ff:hasCoordinates "51.4335192/6.9088164";
+  ff:hasTitle "Caritasverband für die Stadt, Mülheim an der Ruhr e.V.".
+
+ff:counselingCentre227 a ff:CounselingCentre;
+  ff:hasAddress "Mülheimer Straße 188, 46045, Oberhausen";
+  ff:hasCity "Oberhausen";
+  ff:hasContactDetails "+49 (208) 940400, info@caritas-oberhausen.de";
+  ff:hasCoordinates "51.47132/6.86428";
+  ff:hasTitle "Caritasverband für die Stadt, Oberhausen e.V.".
+
+ff:counselingCentre228 a ff:CounselingCentre;
+  ff:hasAddress "Bürgerreuther Straße 9, 95444, Bayreuth";
+  ff:hasCity "Bayreuth";
+  ff:hasContactDetails "+49 (921) 7890217, info@caritas-bayreuth.de";
+  ff:hasCoordinates "49.95181/11.57841";
+  ff:hasTitle "Caritasverband für die Stadt, und den Landkreis Bayreuth e.V.".
+
+ff:counselingCentre229 a ff:CounselingCentre;
+  ff:hasAddress "Steinweg 55a, 38518, Gifhorn";
+  ff:hasCity "Gifhorn";
+  ff:hasContactDetails "+49 (5371) 98740, info@caritas-gifhorn.de";
+  ff:hasCoordinates "52.48436/10.54715";
+  ff:hasTitle "Caritasverband für die Stadt, und den Landkreis Gifhorn e.V.".
+
+ff:counselingCentre23 a ff:CounselingCentre;
+  ff:hasAddress "Blumenstr. 9, 42853, Remscheid";
+  ff:hasCity "Remscheid";
+  ff:hasContactDetails "undefined, info@caritas-remscheid.de";
+  ff:hasCoordinates "51.1791828/7.1930821";
+  ff:hasTitle "Allgemeine Soziale Beratung, Caritasverband Remscheid e.V.".
+
+ff:counselingCentre230 a ff:CounselingCentre;
+  ff:hasAddress "Godehardstraße 18, 38081, Göttingen";
+  ff:hasCity "Göttingen";
+  ff:hasContactDetails "+49 (551) 9995914, cdg@caritas-goettingen.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritasverband für die Stadt, und den Landkreis Göttingen e.'V.".
+
+ff:counselingCentre231 a ff:CounselingCentre;
+  ff:hasAddress "Johannisstraße 36, 21335, Lüneburg";
+  ff:hasCity "Lüneburg";
+  ff:hasContactDetails "+49 (4131) 400500, caritaslueneburg@t-online.de";
+  ff:hasCoordinates "53.24528/10.41294";
+  ff:hasTitle "Caritasverband für die Stadt, und den Landkreis Lüneburg e.V.".
+
+ff:counselingCentre232 a ff:CounselingCentre;
+  ff:hasAddress "Kohlbrink 8, 49324, Melle";
+  ff:hasCity "Melle";
+  ff:hasContactDetails "+49 (5422) 9625950, chaarmann@caritas-os.de";
+  ff:hasCoordinates "52.2026324/8.336253";
+  ff:hasTitle "Caritasverband für die Stadt, und den Landkreis Osnabrück e.V.".
+
+ff:counselingCentre233 a ff:CounselingCentre;
+  ff:hasAddress "Bürgermeister-Kreke-Straße 3, 49593, Bersenbrück";
+  ff:hasCity "Bersenbrück";
+  ff:hasContactDetails "+49 (5439) 94230, dwierper@caritas-os.de";
+  ff:hasCoordinates "52.5544811/7.9470203";
+  ff:hasTitle "Caritasverband für die Stadt, und den Landkreis Osnabrück e.V.".
+
+ff:counselingCentre234 a ff:CounselingCentre;
+  ff:hasAddress "Johannisstraße 91, 49074, Osnabrück";
+  ff:hasCity "Osnabrück";
+  ff:hasContactDetails "+49 (541) 341443, GBuehrs@caritas-os.de";
+  ff:hasCoordinates "52.2701276/8.0511848";
+  ff:hasTitle "Caritasverband für die Stadt, und den Landreis Osnabrück e.V.".
+
+ff:counselingCentre235 a ff:CounselingCentre;
+  ff:hasAddress "Krumme Straße 56, 38300, Wolfenbüttel";
+  ff:hasCity "Wolfenbüttel";
+  ff:hasContactDetails "+49 (5331) 26005, info@caritas-wolfenbuettel.de";
+  ff:hasCoordinates "52.159843/10.5364693";
+  ff:hasTitle "Caritasverband für die Stadt, und Kreis Wolfenbüttel e.V.".
+
+ff:counselingCentre236 a ff:CounselingCentre;
+  ff:hasAddress "Lindenplan 18, 38640, Goslar";
+  ff:hasCity "Goslar";
+  ff:hasContactDetails "+49 (5321) 75810, mail@caritas-goslar.de";
+  ff:hasCoordinates "51.9121546/10.4184795";
+  ff:hasTitle "Caritasverband für die Stadt, und Landkreis Goslar e.V.".
+
+ff:counselingCentre237 a ff:CounselingCentre;
+  ff:hasAddress "Pfaffenstieg 12, 31134, Hildesheim";
+  ff:hasCity "Hildesheim";
+  ff:hasContactDetails "+49 (5121) 16770, alsb@caritas-hildesheim.de";
+  ff:hasCoordinates "52.1506718/9.9475183";
+  ff:hasTitle "Caritasverband für die Stadt, und Landkreis Hildesheim e.V.".
+
+ff:counselingCentre238 a ff:CounselingCentre;
+  ff:hasAddress "Breiter Weg 2, 37154, Northeim";
+  ff:hasCity "Northeim";
+  ff:hasContactDetails "+49 (5551) 911770, Caritasverband-Northeim@t-online.de";
+  ff:hasCoordinates "51.70576/9.99383";
+  ff:hasTitle "Caritasverband für die Stadt, und Landkreis Northeim e.V.".
+
+ff:counselingCentre239 a ff:CounselingCentre;
+  ff:hasAddress "Von-der-Tann-Straße 7, 93047, Regensburg";
+  ff:hasCity "Regensburg";
+  ff:hasContactDetails "+49 (941) 50210, asb@caritas-regensburg.de";
+  ff:hasCoordinates "49.0161864/12.1027914";
+  ff:hasTitle "Caritasverband für die, Diözese Regensburg e.V.".
+
+ff:counselingCentre24 a ff:CounselingCentre;
+  ff:hasAddress "Altdorferstr.45, 91207, Lauf an der Pegnitz";
+  ff:hasCity "Lauf an der Pegnitz";
+  ff:hasContactDetails "+49 (9123) 962680, info@caritas-nuernberger-land.de,franziska.grashey@caritas-nuernberger-land.de,grazyna.jahn@caritas-nuernberger-land.de,silke.eckert@caritas-nuernberger-land.de,christian.ziervogel@caritas-nuernberger-land.de";
+  ff:hasCoordinates "49.5073989/11.2834162";
+  ff:hasTitle "Allgemeine Soziale Beratung, Lauf".
+
+ff:counselingCentre240 a ff:CounselingCentre;
+  ff:hasAddress "Klosterplatz 1, 53937, Schleiden";
+  ff:hasCity "Schleiden";
+  ff:hasContactDetails "+49 (2445) 8507123, a.zens@caritas-eifel.de";
+  ff:hasCoordinates "50.5287/6.47634";
+  ff:hasTitle "Caritasverband für die, Region Eifel e.V.".
+
+ff:counselingCentre241 a ff:CounselingCentre;
+  ff:hasAddress "Freudenberg 9, 87435, Kempten";
+  ff:hasCity "Kempten";
+  ff:hasContactDetails "+49 (831) 27051, asd@caritas-kempten.de";
+  ff:hasCoordinates "47.72391/10.31645";
+  ff:hasTitle "Caritasverband für die, Stadt Kempten e.V.".
+
+ff:counselingCentre242 a ff:CounselingCentre;
+  ff:hasAddress "Saldersche Straße 3, 38226, Salzgitter";
+  ff:hasCity "Salzgitter";
+  ff:hasContactDetails "+49 (5341) 189160, info@caritas-sz.de";
+  ff:hasCoordinates "52.14823/10.32747";
+  ff:hasTitle "Caritasverband für die, Stadt Salzgitter e.V.".
+
+ff:counselingCentre243 a ff:CounselingCentre;
+  ff:hasAddress "Bernburger Straße 12, 06108, Halle";
+  ff:hasCity "Halle";
+  ff:hasContactDetails "+49 (345) 5812950, soziale.dienste@caritasverband-halle.de";
+  ff:hasCoordinates "51.4946567/11.9658935";
+  ff:hasTitle "Caritasverband für die, Stadt und das Dekanat Halle e.V.".
+
+ff:counselingCentre244 a ff:CounselingCentre;
+  ff:hasAddress "Greizer Straße 20, 07545, Gera";
+  ff:hasCity "Gera";
+  ff:hasContactDetails "+49 (365) 8212215, asbberatunggera@caritas-ostthueringen.info";
+  ff:hasCoordinates "50.874845/12.0861345";
+  ff:hasTitle "Caritasverband für Ostthüringen e.V.".
+
+ff:counselingCentre245 a ff:CounselingCentre;
+  ff:hasAddress "Kreppstraße 1, 66333, Völklingen";
+  ff:hasCity "Völklingen";
+  ff:hasContactDetails "+49 (6898) 23016, beratungszentrum@caritas-vk.de";
+  ff:hasCoordinates "49.2539031/6.8569";
+  ff:hasTitle "Caritasverband für Saarbrücken und Umgebung e.V., Beratungszentrum Völklingen (ASD)".
+
+ff:counselingCentre246 a ff:CounselingCentre;
+  ff:hasAddress "Krusenrotter Weg 37, 24113, Kiel";
+  ff:hasCity "Kiel";
+  ff:hasContactDetails "+49 (431) 590220, schmitz@caritas-sh.de";
+  ff:hasCoordinates "54.3037/10.12261";
+  ff:hasTitle "Caritasverband für, Schleswig-Holstein e.V. - Sozialreferat -".
+
+ff:counselingCentre247 a ff:CounselingCentre;
+  ff:hasAddress "Frankfurter Straße 44, 35392, Gießen";
+  ff:hasCity "Gießen";
+  ff:hasContactDetails "+49 (641) 79480, alb-giessen@caritas-giessen.de";
+  ff:hasCoordinates "50.57795/8.66483";
+  ff:hasTitle "Caritasverband Gießen e.V.".
+
+ff:counselingCentre248 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 82a, 36341, Lauterbach";
+  ff:hasCity "Lauterbach";
+  ff:hasContactDetails "+49 (6641) 2816, alb.lauterbach@caritas-giessen.de";
+  ff:hasCoordinates "50.6403575/9.4019109";
+  ff:hasTitle "Caritasverband Gießen e.V., Außenstelle f.d. Vogelsbergkreis".
+
+ff:counselingCentre249 a ff:CounselingCentre;
+  ff:hasAddress "Kl. Klostergasse 16, 61169, Friedberg";
+  ff:hasCity "Friedberg";
+  ff:hasContactDetails "+49 (6031) 5834, s.kelm@caritas-giessen.de";
+  ff:hasCoordinates "50.3379423/8.7565124";
+  ff:hasTitle "Caritasverband Gießen e.V., Außenstelle Friedberg".
+
+ff:counselingCentre25 a ff:CounselingCentre;
+  ff:hasAddress "Dänenstraße 19, 10439, Pankow";
+  ff:hasCity "Pankow";
+  ff:hasContactDetails "+49 (30) 4457430, asb-pankow@caritas-berlin.de";
+  ff:hasCoordinates "52.5517268/13.4123013";
+  ff:hasTitle "Allgemeine Soziale Beratung/ ARM-Projekt".
+
+ff:counselingCentre250 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 5-7, 45964, Gladbeck";
+  ff:hasCity "Gladbeck";
+  ff:hasContactDetails "+49 (2043) 27910, info@caritas-gladbeck.de";
+  ff:hasCoordinates "51.5727661/6.9964697";
+  ff:hasTitle "Caritasverband Gladbeck e.V.".
+
+ff:counselingCentre251 a ff:CounselingCentre;
+  ff:hasAddress "Hochstraße 83a, 58095, Hagen";
+  ff:hasCity "Hagen";
+  ff:hasContactDetails "+49 (2331) 91840, info@caritas-hagen.de";
+  ff:hasCoordinates "51.3554083/7.4751581";
+  ff:hasTitle "Caritasverband Hagen e.V.".
+
+ff:counselingCentre252 a ff:CounselingCentre;
+  ff:hasAddress "Leibnizufer 13-15, 30169, Hannover";
+  ff:hasCity "Hannover";
+  ff:hasContactDetails "+49 (511) 126000, info@caritas-hannover.de";
+  ff:hasCoordinates "52.37296/9.72814";
+  ff:hasTitle "Caritasverband Hannover e.V.";
+  ff:hasWebsite "https://www.caritas-hannover.de".
+
+ff:counselingCentre253 a ff:CounselingCentre;
+  ff:hasAddress "Turnerstraße 38, 69126, Heidelberg";
+  ff:hasCity "Heidelberg";
+  ff:hasContactDetails "+49 (6221) 330314, sb@caritas-heidelberg.de";
+  ff:hasCoordinates "49.38801/8.68878";
+  ff:hasTitle "Caritasverband Heidelberg e.V.".
+
+ff:counselingCentre254 a ff:CounselingCentre;
+  ff:hasAddress "Rathausplatz 17, 79713, Bad Säckingen";
+  ff:hasCity "Bad Säckingen";
+  ff:hasContactDetails "+49 (7761) 569853, w.diemer@caritas-hochrhein.de";
+  ff:hasCoordinates "47.553067/7.950302";
+  ff:hasTitle "Caritasverband Hochrhein e.V.".
+
+ff:counselingCentre255 a ff:CounselingCentre;
+  ff:hasAddress "Poststraße 1, 79761, Waldshut";
+  ff:hasCity "Waldshut";
+  ff:hasContactDetails "+49 (7751) 801126, u.boehler@caritas-hochrhein.de";
+  ff:hasCoordinates "47.62199/8.21761";
+  ff:hasTitle "Caritasverband Hochrhein e.V.".
+
+ff:counselingCentre256 a ff:CounselingCentre;
+  ff:hasAddress "Briloner Straße 9, 33142, Büren";
+  ff:hasCity "Büren";
+  ff:hasContactDetails "+49 (2951) 98751, info@caritas-bueren.de";
+  ff:hasCoordinates "51.5515639/8.5572761";
+  ff:hasTitle "Caritasverband im Dekanat Büren e.V.".
+
+ff:counselingCentre257 a ff:CounselingCentre;
+  ff:hasAddress "Schützenstraße 13, 97877, Wertheim";
+  ff:hasCity "Wertheim";
+  ff:hasContactDetails "+49 (9341) 922014, b.martin@caritas-tbb.de";
+  ff:hasCoordinates "49.75643/9.51313";
+  ff:hasTitle "Caritasverband im Tauberkreis e.V.".
+
+ff:counselingCentre258 a ff:CounselingCentre;
+  ff:hasAddress "Luisenstraße 5, 97922, Lauda-Königshofen";
+  ff:hasCity "Lauda-Königshofen";
+  ff:hasContactDetails "+49 (9343) 627946, i.kaspar@caritas-tbb.de";
+  ff:hasCoordinates "49.5473018/9.7313085";
+  ff:hasTitle "Caritasverband im Tauberkreis e.V.".
+
+ff:counselingCentre259 a ff:CounselingCentre;
+  ff:hasAddress "Schlossplatz 6, 97941, Tauberbischofsheim";
+  ff:hasCity "Tauberbischofsheim";
+  ff:hasContactDetails "+49 (9341) 922014, csd@caritas-tbb.de";
+  ff:hasCoordinates "49.620887/9.661982";
+  ff:hasTitle "Caritasverband im Tauberkreis e.V.".
+
+ff:counselingCentre26 a ff:CounselingCentre;
+  ff:hasAddress "Mozartstraße 2, 91052, Erlangen";
+  ff:hasCity "Erlangen";
+  ff:hasContactDetails "+49 (9131) 885616, stark@caritas-erlangen.de,gawehn@caritas-erlangen.de,giering@caritas-erlangen.de,zepter@caritas-erlangen.de,burkert@caritas-erlangen.de,grunow@caritas-erlangen.de";
+  ff:hasCoordinates "49.5890363/11.0118679";
+  ff:hasTitle "Allgemeine Soziale Beratungsstelle Erlangen".
+
+ff:counselingCentre260 a ff:CounselingCentre;
+  ff:hasAddress "Stockacher Straße 26, 88605, Meßkirch";
+  ff:hasCity "Meßkirch";
+  ff:hasContactDetails "+49 (7575) 925413, karin.lehmann@caritas-sigmaringen.de";
+  ff:hasCoordinates "47.99427/9.10653";
+  ff:hasTitle "Caritasverband im, Landkreis Sigmaringen e.V.".
+
+ff:counselingCentre261 a ff:CounselingCentre;
+  ff:hasAddress "Sophienstraße 33, 76133, Karlsruhe";
+  ff:hasCity "Karlsruhe";
+  ff:hasContactDetails "+49 (721) 912430, d.finke@caritas-karlsruhe.de,p.frank@caritas-karlsruhe.de,e.grich@caritas-karlsruhe.de,c.kern@caritas-karlsruhe.de,m.beha@caritas-karlsruhe.de";
+  ff:hasCoordinates "49.0067031/8.3917386";
+  ff:hasTitle "Caritasverband Karlsruhe e.V.";
+  ff:hasWebsite "https://www.caritas-karlsruhe.de/hilfen-und-beratung/hilfen-in-notlagen/caritassozialdienst".
+
+ff:counselingCentre262 a ff:CounselingCentre;
+  ff:hasAddress "Hirschzeller Straße 8, 87600, Kaufbeuren";
+  ff:hasCity "Kaufbeuren";
+  ff:hasContactDetails "+49 (8341) 909240, kcv-kaufbeuren@caritas-augsburg.de";
+  ff:hasCoordinates "47.88143/10.63007";
+  ff:hasTitle "Caritasverband Kaufbeuren e.V.".
+
+ff:counselingCentre263 a ff:CounselingCentre;
+  ff:hasAddress "Hauptstraße 60, 77694, Kehl";
+  ff:hasCity "Kehl";
+  ff:hasContactDetails "+49 (7851) 2148, CaritasKehl@t-online.de";
+  ff:hasCoordinates "48.5731677/7.8121625";
+  ff:hasTitle "Caritasverband Kehl-Hanauerland e.V.".
+
+ff:counselingCentre264 a ff:CounselingCentre;
+  ff:hasAddress "Pfarrhofgasse 1, 93309, Kelheim";
+  ff:hasCity "Kelheim";
+  ff:hasContactDetails "+49 (9441) 50070, h.kuffer@caritas-kelheim.de";
+  ff:hasCoordinates "48.9188742/11.8739272";
+  ff:hasTitle "Caritasverband Kelheim e.V.".
+
+ff:counselingCentre265 a ff:CounselingCentre;
+  ff:hasAddress "Sandhaasstr. 4, 77716, Haslach im Kinzigtal";
+  ff:hasCity "Haslach im Kinzigtal";
+  ff:hasContactDetails "+49 (7832) 99955 200, constanze.blank@caritas-kinzigtal.de";
+  ff:hasCoordinates "48.2759825/8.0893661";
+  ff:hasTitle "Caritasverband Kinzigtal e.V.".
+
+ff:counselingCentre266 a ff:CounselingCentre;
+  ff:hasAddress "Hohenzollernstraße 118-120, 56068, Koblenz";
+  ff:hasCity "Koblenz";
+  ff:hasContactDetails "+49 (261) 139060, info@caritas-koblenz.de";
+  ff:hasCoordinates "50.34487/7.58834";
+  ff:hasTitle "Caritasverband Koblenz e.V., Allgemeiner Sozialer Dienst".
+
+ff:counselingCentre267 a ff:CounselingCentre;
+  ff:hasAddress "Bartholomäus-Schink-Str. 6, 50825, Köln";
+  ff:hasCity "Köln";
+  ff:hasContactDetails "+49 (221) 955700, Allgemeine-Sozialberatung@caritas-koeln.de";
+  ff:hasCoordinates "50.9520654/6.9167726";
+  ff:hasTitle "Caritasverband Köln".
+
+ff:counselingCentre268 a ff:CounselingCentre;
+  ff:hasAddress "Uhlandstraße 15, 78464, Konstanz";
+  ff:hasCity "Konstanz";
+  ff:hasContactDetails "+49 (7531) 1200235, sutter@caritas-kn.de";
+  ff:hasCoordinates "47.67816/9.1876";
+  ff:hasTitle "Caritasverband Konstanz e.V.".
+
+ff:counselingCentre269 a ff:CounselingCentre;
+  ff:hasAddress "Inselgasse 7, 78464, Konstanz";
+  ff:hasCity "Konstanz";
+  ff:hasContactDetails "+49 (7531) 2827760, sutter@caritas-kn.de";
+  ff:hasCoordinates "47.6645497/9.1761797";
+  ff:hasTitle "Caritasverband Konstanz e.V.".
+
+ff:counselingCentre27 a ff:CounselingCentre;
+  ff:hasAddress "Pfalzburger Str. 18, 10719 Berlin, 10719, Berlin-Wilmersdorf";
+  ff:hasCity "Berlin-Wilmersdorf";
+  ff:hasContactDetails "+49 (30) 66633963, ausb.charlottenburg-wilmersdorf@caritas-berlin.de,a.dohr@caritas-berlin.de,S.Mehnert@caritas-berlin.de";
+  ff:hasCoordinates "52.4946841/13.3218058";
+  ff:hasTitle "Allgemeine Unabhängige Sozialberatung Charlottenburg-Wilmersdorf";
+  ff:hasWebsite "https://www.caritas-berlin.de".
+
+ff:counselingCentre270 a ff:CounselingCentre;
+  ff:hasAddress "Kaiserstraße 85, 77933, Lahr";
+  ff:hasCity "Lahr";
+  ff:hasContactDetails "+49 (7821) 90660, csd@caritas-lahr.de";
+  ff:hasCoordinates "48.34168/7.86767";
+  ff:hasTitle "Caritasverband Lahr e.V.".
+
+ff:counselingCentre271 a ff:CounselingCentre;
+  ff:hasAddress "Freyung 619, 84028, Landshut";
+  ff:hasCity "Landshut";
+  ff:hasContactDetails "+49 (871) 805100, ingrid.lobmeier@caritas-landshut.de";
+  ff:hasCoordinates "48.5353089/12.1560759";
+  ff:hasTitle "Caritasverband Landshut e.V.".
+
+ff:counselingCentre272 a ff:CounselingCentre;
+  ff:hasAddress "Elsterstraße 15, 04109, Leipzig";
+  ff:hasCity "Leipzig";
+  ff:hasContactDetails "+49 (341) 9636120, info@caritas-leipzig.de";
+  ff:hasCoordinates "51.339184/12.3662149";
+  ff:hasTitle "Caritasverband Leipzig e.V.".
+
+ff:counselingCentre273 a ff:CounselingCentre;
+  ff:hasAddress "Jahnstraße 3, 88662, Überlingen";
+  ff:hasCity "Überlingen";
+  ff:hasContactDetails "+49 (7551) 83030, monika.weishaupt@caritas-linzgau.de";
+  ff:hasCoordinates "47.7640223/9.1663459";
+  ff:hasTitle "Caritasverband Linzgau e.V.".
+
+ff:counselingCentre274 a ff:CounselingCentre;
+  ff:hasAddress "Fegefeuer 2, 23552, Lübeck";
+  ff:hasCity "Lübeck";
+  ff:hasContactDetails "+49 (451) 7994621, caritasverband-luebeck@t-online.de";
+  ff:hasCoordinates "53.862423/10.686849";
+  ff:hasTitle "Caritasverband Lübeck e.V.".
+
+ff:counselingCentre275 a ff:CounselingCentre;
+  ff:hasAddress "Aspeltstraße 10, 55118, Mainz";
+  ff:hasCity "Mainz";
+  ff:hasContactDetails "+49 (6131) 9083256, c.bollwin@caritas-mz.de";
+  ff:hasCoordinates "50.0048/8.2577";
+  ff:hasTitle "Caritasverband Mainz e.V., Caritaszentrum Delbrel".
+
+ff:counselingCentre276 a ff:CounselingCentre;
+  ff:hasAddress "Rochusstraße 8, 55411, Bingen";
+  ff:hasCity "Bingen";
+  ff:hasContactDetails "+49 (6721) 91770, alb@caritas-bingen.de";
+  ff:hasCoordinates "49.9676182/7.8990962";
+  ff:hasTitle "Caritasverband Mainz e.V., Caritaszentrum St. Elisabeth".
+
+ff:counselingCentre277 a ff:CounselingCentre;
+  ff:hasAddress "Marie-Bernay-Platz 13, 68309, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 7273848, jugendintegration@caritas-mannheim.de";
+  ff:hasCoordinates "49.5050119/8.527238";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre278 a ff:CounselingCentre;
+  ff:hasAddress "B 5, 19a, 68159, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 1260218, csd-md@caritas.mannheim.de";
+  ff:hasCoordinates "49.487081/8.4598205";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre279 a ff:CounselingCentre;
+  ff:hasAddress "Heilsberger Straße 11, 68307, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 775560, kind-und-kegel@caritas-mannheim.de";
+  ff:hasCoordinates "49.5493037/8.4696076";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre28 a ff:CounselingCentre;
+  ff:hasAddress "Heidmühlenstraße 17, 17033, Neubrandenburg";
+  ff:hasCity "Neubrandenburg";
+  ff:hasContactDetails "(0395) 5814570, kilian.schneider@caritas-im-norden.de";
+  ff:hasCoordinates "53.5538414/13.2745304";
+  ff:hasTitle "Beratungszentrum".
+
+ff:counselingCentre280 a ff:CounselingCentre;
+  ff:hasAddress "Industriestraße 8, 68169, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 8623996, fluechtlingsberatung@caritas-mannheim.de";
+  ff:hasCoordinates "49.5202754/8.4544733";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre281 a ff:CounselingCentre;
+  ff:hasAddress "Relaisstraße 126, 68219, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 8604792, migrationsberatung@caritas-mannheim.de";
+  ff:hasCoordinates "49.430681/8.5292636";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre282 a ff:CounselingCentre;
+  ff:hasAddress "Luisenstraße 64, 68199, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 86250515, portugiesenberatung@caritas-mannheim.de";
+  ff:hasCoordinates "49.4557376/8.485973";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre283 a ff:CounselingCentre;
+  ff:hasAddress "Jungbuschstraße 19, 68159, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 152114, soziale-stadt-jungbusch@caritas-mannheim.de";
+  ff:hasCoordinates "49.4936578/8.4582912";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre284 a ff:CounselingCentre;
+  ff:hasAddress "Rheingönheimer Straße 15, 68199, Mannheim";
+  ff:hasCity "Mannheim";
+  ff:hasContactDetails "+49 (621) 893360, migrationserstberatung@caritas-mannheim.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritasverband Mannheim e.V., Caritassozial- und Migrationsdienst".
+
+ff:counselingCentre285 a ff:CounselingCentre;
+  ff:hasAddress "Marienrain 4, 87700, Memmingen";
+  ff:hasCity "Memmingen";
+  ff:hasContactDetails "+49 (8331) 9272860, caritas-memmingen@freenet.de";
+  ff:hasCoordinates "47.98701/10.19086";
+  ff:hasTitle "Caritasverband Memmingen-Unterallgäu e.V.".
+
+ff:counselingCentre286 a ff:CounselingCentre;
+  ff:hasAddress "Steinstraße 12, 59872, Meschede";
+  ff:hasCity "Meschede";
+  ff:hasContactDetails "+49 (291) 90210, info@caritas-meschede.de";
+  ff:hasCoordinates "51.34416/8.2826";
+  ff:hasTitle "Caritasverband Meschede e.V.".
+
+ff:counselingCentre287 a ff:CounselingCentre;
+  ff:hasAddress "Lutterbecker Str. 31, 40822, Mettmann";
+  ff:hasCity "Mettmann";
+  ff:hasContactDetails "+49 (2104) 807564, gaertner@caritas-mettmann.de";
+  ff:hasCoordinates "51.25466/6.97715";
+  ff:hasTitle "Caritasverband Mettmann  Wohnungslosenhilfe, Allgemeine Sozialberatung online";
+  ff:hasWebsite "https://www.caritas-mettmann.de".
+
+ff:counselingCentre288 a ff:CounselingCentre;
+  ff:hasAddress "Kurfürstenstraße 6, 54516, Wittlich";
+  ff:hasCity "Wittlich";
+  ff:hasContactDetails "+49 (6571) 9155-0, Info-wittlich@caritas-meh.de";
+  ff:hasCoordinates "49.9847899/6.893657";
+  ff:hasTitle "Caritasverband Mosel-Eifel-Hunsrück e. V.".
+
+ff:counselingCentre289 a ff:CounselingCentre;
+  ff:hasAddress "Winzerstraße 7, 56856, Zell";
+  ff:hasCity "Zell";
+  ff:hasContactDetails "+49 (6542) 969779-0, info-cochem@caritas-meh.de";
+  ff:hasCoordinates "50.020432/7.1781202";
+  ff:hasTitle "Caritasverband Mosel-Eifel-Hunsrück e. V.".
+
+ff:counselingCentre29 a ff:CounselingCentre;
+  ff:hasAddress "Hannes-Meyer-Platz 27, 18147, Rostock";
+  ff:hasCity "Rostock";
+  ff:hasContactDetails "(0381) 6009110, ulrich.kakowski@caritas-im-norden.de";
+  ff:hasCoordinates "54.1044592/12.1678051";
+  ff:hasTitle "Beratungszentrum Dierkow".
+
+ff:counselingCentre290 a ff:CounselingCentre;
+  ff:hasAddress "Gartenstraße 20, 54470, Bernkastel-Kues";
+  ff:hasCity "Bernkastel-Kues";
+  ff:hasContactDetails "+49 (6531) 96600, Info-bernkastel@caritas-meh.de";
+  ff:hasCoordinates "49.91549/7.0677719";
+  ff:hasTitle "Caritasverband Mosel-Eifel-Hunsrück e. V.".
+
+ff:counselingCentre291 a ff:CounselingCentre;
+  ff:hasAddress "Herrenstraße 9, 56812, Cochem";
+  ff:hasCity "Cochem";
+  ff:hasContactDetails "+49 (2671) 9752-0, Info-cochem@caritas-meh.de";
+  ff:hasCoordinates "50.1450573/7.1664683";
+  ff:hasTitle "Caritasverband Mosel-Eifel-Hunsrück e. V.".
+
+ff:counselingCentre292 a ff:CounselingCentre;
+  ff:hasAddress "Spitalplatz C 193, 86633, Neuburg";
+  ff:hasCity "Neuburg";
+  ff:hasContactDetails "+49 (8431) 64880, caritasverband-nd-sob@t-online.de";
+  ff:hasCoordinates "48.73565/11.18505";
+  ff:hasTitle "Caritasverband Neuburg-Schrobenhausen e.V.".
+
+ff:counselingCentre293 a ff:CounselingCentre;
+  ff:hasAddress "Talstraße 1, 51643, Gummersbach";
+  ff:hasCity "Gummersbach";
+  ff:hasContactDetails "+49 (2261) 3060, Michael.rogalski@caritas-oberberg.de";
+  ff:hasCoordinates "51.0231596/7.5723338";
+  ff:hasTitle "Caritasverband Oberbergischer Kreis e.V.".
+
+ff:counselingCentre294 a ff:CounselingCentre;
+  ff:hasAddress "Lessingstraße 16, 02763, Zittau";
+  ff:hasCity "Zittau";
+  ff:hasContactDetails "+49 (3583) 510290, ";
+  ff:hasCoordinates "50.9241386/14.7701227";
+  ff:hasTitle "Caritasverband Oberlausitz e.V.".
+
+ff:counselingCentre295 a ff:CounselingCentre;
+  ff:hasAddress "Haydnstraße 8, 01719, Kamenz";
+  ff:hasCity "Kamenz";
+  ff:hasContactDetails "+49 (3578) 374320, kamzen@caritas-oberlausitz.de";
+  ff:hasCoordinates "51.2749068/14.102488";
+  ff:hasTitle "Caritasverband Oberlausitz e.V.".
+
+ff:counselingCentre296 a ff:CounselingCentre;
+  ff:hasAddress "Kirchplatz 2, 02625, Bautzen";
+  ff:hasCity "Bautzen";
+  ff:hasContactDetails "+49 (3591) 4982, verband@caritas-oberlausitz.de";
+  ff:hasCoordinates "51.1806236/14.4289502";
+  ff:hasTitle "Caritasverband Oberlausitz e.V.".
+
+ff:counselingCentre297 a ff:CounselingCentre;
+  ff:hasAddress "Platz der Deutschen Einheit 7, 63065, Offenbach";
+  ff:hasCity "Offenbach";
+  ff:hasContactDetails "+49 (69) 80064266, alb-offenbach@caritas-offenbach.de";
+  ff:hasCoordinates "50.1054666/8.7606824";
+  ff:hasTitle "Caritasverband Offenbach e.V.".
+
+ff:counselingCentre298 a ff:CounselingCentre;
+  ff:hasAddress "Taunusstraße 47, 63303, Dreieich";
+  ff:hasCity "Dreieich";
+  ff:hasContactDetails "+49 (6103) 81156, caritas-dreieich@caritas-offenbach.de";
+  ff:hasCoordinates "50.0040509/8.7106828";
+  ff:hasTitle "Caritasverband Offenbach e.V., Außenstelle Dreieich".
+
+ff:counselingCentre299 a ff:CounselingCentre;
+  ff:hasAddress "Waldstraße 34, 65428, Rüsselsheim";
+  ff:hasCity "Rüsselsheim";
+  ff:hasContactDetails "+49 (6142) 17230, caritas-ruesselsheim@caritas-offenbach.de";
+  ff:hasCoordinates "49.9901899/8.4327982";
+  ff:hasTitle "Caritasverband Offenbach e.V., Außenstelle Rüsselsheim".
+
+ff:counselingCentre3 a ff:CounselingCentre;
+  ff:hasAddress "Oldenburger Straße 47, 10551, Berlin-Mitte";
+  ff:hasCity "Berlin-Mitte";
+  ff:hasContactDetails "+49 (30) 666337170, asb-mitte@caritas-berlin.de";
+  ff:hasCoordinates "52.5274165/13.3353155";
+  ff:hasTitle "Allgemeine Sozial Beratung Berlin-Mitte".
+
+ff:counselingCentre30 a ff:CounselingCentre;
+  ff:hasAddress "Hauptstraße 42, 91154, Roth";
+  ff:hasCity "Roth";
+  ff:hasContactDetails "+49 (9171) 84080, kreisstelle@caritas-roth.de";
+  ff:hasCoordinates "49.24786/11.09164";
+  ff:hasTitle "Caritas - Kreisstelle Roth, Allgemeine Sozialberatung".
+
+ff:counselingCentre300 a ff:CounselingCentre;
+  ff:hasAddress "Dudenhöfer Straße 10, 63500, Seligenstadt";
+  ff:hasCity "Seligenstadt";
+  ff:hasContactDetails "+49 (6182) 26289, caritas-seligenstadt@caritas-offenbach.de";
+  ff:hasCoordinates "50.04144/8.96619";
+  ff:hasTitle "Caritasverband Offenbach e.V., Außenstelle Seligenstadt".
+
+ff:counselingCentre301 a ff:CounselingCentre;
+  ff:hasAddress "Okenstraße 26, 77652, Offenburg";
+  ff:hasCity "Offenburg";
+  ff:hasContactDetails "+49 (781) 790132, barbara.buchele@caritas-offenburg.de";
+  ff:hasCoordinates "48.475374/7.9432808";
+  ff:hasTitle "Caritasverband Offenburg e.V.".
+
+ff:counselingCentre302 a ff:CounselingCentre;
+  ff:hasAddress "Bollwerkstraße 43, 26725, Emden";
+  ff:hasCity "Emden";
+  ff:hasContactDetails "+49 (4921) 28620, ocordes@caritas-os.de";
+  ff:hasCoordinates "53.3692589/7.2113058";
+  ff:hasTitle "Caritasverband Ostfriesland e.V., Beratungsstelle Emden".
+
+ff:counselingCentre303 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 24, 26789, Leer";
+  ff:hasCity "Leer";
+  ff:hasContactDetails "+49 (491) 9279560, ocordes@caritas-os.de";
+  ff:hasCoordinates "53.22814/7.44859";
+  ff:hasTitle "Caritasverband Ostfriesland e.V., Beratungsstelle Leer".
+
+ff:counselingCentre304 a ff:CounselingCentre;
+  ff:hasAddress "Kilianstraße 28, 33098, Paderborn";
+  ff:hasCity "Paderborn";
+  ff:hasContactDetails "+49 (5251) 12210, info@caritas-pb.de";
+  ff:hasCoordinates "51.7127263/8.753223";
+  ff:hasTitle "Caritasverband Paderborn e.V.".
+
+ff:counselingCentre305 a ff:CounselingCentre;
+  ff:hasAddress "Blumenhof 6, 75175, Pforzheim";
+  ff:hasCity "Pforzheim";
+  ff:hasContactDetails "+49 (7231) 128120, ralf.gratzer@caritas-pforzheim.de";
+  ff:hasCoordinates "48.89202/8.70085";
+  ff:hasTitle "Caritasverband Pforzheim e.V.".
+
+ff:counselingCentre306 a ff:CounselingCentre;
+  ff:hasAddress "Cederwaldstraße 22-24, 51465, Bergisch Gladbach";
+  ff:hasCity "Bergisch Gladbach";
+  ff:hasContactDetails "+49 (2202) 1008306, sozialberatung@caritas-rheinberg.de";
+  ff:hasCoordinates "50.9853838/7.1224173";
+  ff:hasTitle "Caritasverband Rheinisch-Bergischer -Kreis e.V.".
+
+ff:counselingCentre307 a ff:CounselingCentre;
+  ff:hasAddress "Johannisstraße 2, 66111, Saarbrücken";
+  ff:hasCity "Saarbrücken";
+  ff:hasContactDetails "+49 (681) 309060, info@caritas-saarbruecken.de";
+  ff:hasCoordinates "49.2362842/6.9973523";
+  ff:hasTitle "Caritasverband Saarbrücken u. Umgebung e.V., Allgemeiner Sozialer Dienst (ASD)".
+
+ff:counselingCentre308 a ff:CounselingCentre;
+  ff:hasAddress "Torstraße 24, 66663, Merzig";
+  ff:hasCity "Merzig";
+  ff:hasContactDetails "+49 (6861) 912070, info@caritas-merzig.de";
+  ff:hasCoordinates "49.4440494/6.643126";
+  ff:hasTitle "Caritasverband Saar-Hochwald e.V., Geschäftsstelle Merzig (ASD)".
+
+ff:counselingCentre309 a ff:CounselingCentre;
+  ff:hasAddress "Lisdorfer Straße 13, 66740, Saarlouis";
+  ff:hasCity "Saarlouis";
+  ff:hasContactDetails "+49 (6831) 93990, info@caritas-saarlouis.de";
+  ff:hasCoordinates "49.3124135/6.7545253";
+  ff:hasTitle "Caritasverband Saar-Hochwald e.V., Geschäftsstelle Saarlouis (ASD)".
+
+ff:counselingCentre31 a ff:CounselingCentre;
+  ff:hasAddress "Kolpingstraße 43, 88400, Biberach";
+  ff:hasCity "Biberach";
+  ff:hasContactDetails "+49 (7351) 5005120, slb@caritas-biberach.de";
+  ff:hasCoordinates "48.0941413/9.7893199";
+  ff:hasTitle "Caritas Biberach, Zentrum Biberach -Sozial u. Lebensberatung-";
+  ff:hasWebsite "https://www.caritas-biberach.de".
+
+ff:counselingCentre310 a ff:CounselingCentre;
+  ff:hasAddress "Merziger Straße 34, 66679, Losheim am See";
+  ff:hasCity "Losheim am See";
+  ff:hasContactDetails "+49 (6872) 4289, d.schmitt@asd.caritas-merzig.de";
+  ff:hasCoordinates "49.5068252/6.7405003";
+  ff:hasTitle "Caritasverband Saar-Hochwald, Geschäftsstelle Losheim am See (ASD)".
+
+ff:counselingCentre311 a ff:CounselingCentre;
+  ff:hasAddress "Ansbacher Straße 6, 91413, Neustadt/Aisch";
+  ff:hasCity "Neustadt/Aisch";
+  ff:hasContactDetails "+49 (9161) 888915, info@caritas-nea.de";
+  ff:hasCoordinates "49.57739/10.60573";
+  ff:hasTitle "Caritasverband Scheinfeld und Landkreis, Neustadt/A. - Bad Windsheim e.V.".
+
+ff:counselingCentre312 a ff:CounselingCentre;
+  ff:hasAddress "Ettmannsdorfer Straße 19-21, 92421, Schwandorf";
+  ff:hasCity "Schwandorf";
+  ff:hasContactDetails "+49 (9431) 38160, g.utz@caritas-schwandorf.de";
+  ff:hasCoordinates "49.3290517/12.1026562";
+  ff:hasTitle "Caritasverband Schwandorf e.V.".
+
+ff:counselingCentre313 a ff:CounselingCentre;
+  ff:hasAddress "Theresienstraße 6, 82319, Starnberg";
+  ff:hasCity "Starnberg";
+  ff:hasContactDetails "+49 (8151) 91370, info@caritas-starnberg.de";
+  ff:hasCoordinates "47.99714/11.3411";
+  ff:hasTitle "Caritasverband Stanberg e.V.".
+
+ff:counselingCentre314 a ff:CounselingCentre;
+  ff:hasAddress "Obere Bachstraße 12, 94315, Straubing";
+  ff:hasCity "Straubing";
+  ff:hasContactDetails "+49 (9421) 99120, i.schrott@caritas-straubing.de";
+  ff:hasCoordinates "48.8780319/12.5698642";
+  ff:hasTitle "Caritasverband Straubing e.V.".
+
+ff:counselingCentre315 a ff:CounselingCentre;
+  ff:hasAddress "Kirchplatz 6, 95643, Tischenreuth";
+  ff:hasCity "Tischenreuth";
+  ff:hasContactDetails "+49 (9631) 798920, k.weis@caritas-tischenreuth.de";
+  ff:hasCoordinates "49.8795784/12.336528";
+  ff:hasTitle "Caritasverband Tirschenreuth e.V.".
+
+ff:counselingCentre316 a ff:CounselingCentre;
+  ff:hasAddress "Bergstraße 39, 08523, Plauen";
+  ff:hasCity "Plauen";
+  ff:hasContactDetails "+49 (3741) 222832, caritasverband-plauen@t-online.de";
+  ff:hasCoordinates "50.4994672/12.1420529";
+  ff:hasTitle "Caritasverband Vogtland e.V.".
+
+ff:counselingCentre317 a ff:CounselingCentre;
+  ff:hasAddress "Propst-Hellmich-Promenade 29, 44866, Bochum";
+  ff:hasCity "Bochum";
+  ff:hasContactDetails "+49 (2327) 94610, geschaeftstelle@caritas-wattenscheid.de";
+  ff:hasCoordinates "51.4795657/7.1338257";
+  ff:hasTitle "Caritasverband Wattenscheid e.V.".
+
+ff:counselingCentre318 a ff:CounselingCentre;
+  ff:hasAddress "Nikolaistraße 6, 92637, Weiden";
+  ff:hasCity "Weiden";
+  ff:hasContactDetails "+49 (961) 389140, a.konz@caritas-weiden.de";
+  ff:hasCoordinates "49.6784026/12.1586979";
+  ff:hasTitle "Caritasverband Weiden e.V.".
+
+ff:counselingCentre319 a ff:CounselingCentre;
+  ff:hasAddress "Brodenheckstraße 1, 54634, Bitburg";
+  ff:hasCity "Bitburg";
+  ff:hasContactDetails "+49 (6561) 96710, caritasverband@bitburg.caritas-westeifel.de";
+  ff:hasCoordinates "49.968385/6.5195898";
+  ff:hasTitle "Caritasverband Westeifel e.V., Geschäftsstelle Bitburg (ASD)".
+
+ff:counselingCentre32 a ff:CounselingCentre;
+  ff:hasAddress "Blauwstraße 25, 88348, Saulgau";
+  ff:hasCity "Saulgau";
+  ff:hasContactDetails "+49 (7581) 4955, caritaszentrum-badsaulgau@caritas-biberach.de";
+  ff:hasCoordinates "48.0173236/9.5048874";
+  ff:hasTitle "Caritas Biberach, Zentrum Saulgau -Sozial u. Lebensberatung".
+
+ff:counselingCentre320 a ff:CounselingCentre;
+  ff:hasAddress "Mehrener Straße 1, 54550, Daun";
+  ff:hasCity "Daun";
+  ff:hasContactDetails "+49 (6592) 95730, caritasverband@daun.caritas-westeifel.de";
+  ff:hasCoordinates "50.1958961/6.8354225";
+  ff:hasTitle "Caritasverband Westeifel e.V., Geschäftsstelle Daun (ASD)".
+
+ff:counselingCentre321 a ff:CounselingCentre;
+  ff:hasAddress "Kalvarienbergstraße 1, 54595, Prüm";
+  ff:hasCity "Prüm";
+  ff:hasContactDetails "+49 (6551) 971090, caritasverband@pruem.caritas-westeifel.de";
+  ff:hasCoordinates "50.2056013/6.4217307";
+  ff:hasTitle "Caritasverband Westeifel e.V., Geschäftsstelle Prüm (ASD)".
+
+ff:counselingCentre322 a ff:CounselingCentre;
+  ff:hasAddress "Antonius-Holling-Weg 8/10, 38440, Wolfsburg";
+  ff:hasCity "Wolfsburg";
+  ff:hasContactDetails "+49 (5361) 890090, carita@wolfsburg.de";
+  ff:hasCoordinates "52.4219331/10.7906714";
+  ff:hasTitle "Caritasverband Wolfsburg e.V.".
+
+ff:counselingCentre323 a ff:CounselingCentre;
+  ff:hasAddress "Kriemhildenstraße 6, 67547, Worms";
+  ff:hasCity "Worms";
+  ff:hasContactDetails "+49 (6241) 268123, allgemeine-lebensberatung@caritas-worms.de";
+  ff:hasCoordinates "49.63228/8.35904";
+  ff:hasTitle "Caritasverband Worms e.V.".
+
+ff:counselingCentre324 a ff:CounselingCentre;
+  ff:hasAddress "Kemnather Straße 3, 95632, Wunsiedel";
+  ff:hasCity "Wunsiedel";
+  ff:hasContactDetails "+49 (9232) 2288, info@caritas-wunsiedel.de";
+  ff:hasCoordinates "50.0359644/12.0007073";
+  ff:hasTitle "Caritasverband Wunsiedel e.V.".
+
+ff:counselingCentre325 a ff:CounselingCentre;
+  ff:hasAddress "Kolpingstr. 13, 42103, Wuppertal";
+  ff:hasCity "Wuppertal";
+  ff:hasContactDetails "+49 (202) 3890325, allgemeine.sozialberatung@caritas-wuppertal.de";
+  ff:hasCoordinates "51.2569313/7.1404624";
+  ff:hasTitle "Caritasverband Wuppertal".
+
+ff:counselingCentre326 a ff:CounselingCentre;
+  ff:hasAddress "Bellheimer Straße 17, 76726, Germersheim";
+  ff:hasCity "Germersheim";
+  ff:hasContactDetails "+49 (7274) 49116, michael.manz@caritas-speyer.de";
+  ff:hasCoordinates "49.2124365/8.3659279";
+  ff:hasTitle "Caritas-Zentrum".
+
+ff:counselingCentre327 a ff:CounselingCentre;
+  ff:hasAddress "Rosengartenstraße 10a, 66482, Zweibrücken";
+  ff:hasCity "Zweibrücken";
+  ff:hasContactDetails "+49 (6332) 568111, josefa.simon-baldus@caritas-speyer.de";
+  ff:hasCoordinates "49.25045/7.365";
+  ff:hasTitle "Caritas-Zentrum".
+
+ff:counselingCentre328 a ff:CounselingCentre;
+  ff:hasAddress "Salzstraße 2, 83646, Bad Tölz";
+  ff:hasCity "Bad Tölz";
+  ff:hasContactDetails "+49 (8041) 9027, thomas.faller@caritasmuenchen.de";
+  ff:hasCoordinates "47.7614737/11.5651524";
+  ff:hasTitle "Caritas-Zentrum Bad Tölz/Wolfratshausen, Außenstelle Bad Tölz".
+
+ff:counselingCentre329 a ff:CounselingCentre;
+  ff:hasAddress "Obermarkt 7, 82515, Wolfratshausen";
+  ff:hasCity "Wolfratshausen";
+  ff:hasContactDetails "+49 (8171) 29859, ines.lobenstein@caritasmuenchen.de";
+  ff:hasCoordinates "47.9137312/11.4181628";
+  ff:hasTitle "Caritas-Zentrum Bad Tölz/Wolfratshausen, Außenstelle Wolfratshausen".
+
+ff:counselingCentre33 a ff:CounselingCentre;
+  ff:hasAddress "Robert-Koch-Straße 52, 88339, Bad Waldsee";
+  ff:hasCity "Bad Waldsee";
+  ff:hasContactDetails "+49 (7524) 4011680, slb-bw@caritas-bodensee-oberschwaben.de";
+  ff:hasCoordinates "47.92518/9.75886";
+  ff:hasTitle "Caritas Bodensee-Oberschwaben, Sozial- und Lebensberatung".
+
+ff:counselingCentre330 a ff:CounselingCentre;
+  ff:hasAddress "Landsbergerstraße 11, 85221, Dachau";
+  ff:hasCity "Dachau";
+  ff:hasContactDetails "+49 (8131) 298-1800, gsa-dachau@caritasmuenchen.de";
+  ff:hasCoordinates "48.25466/11.44801";
+  ff:hasTitle "Caritas-Zentrum Dachau".
+
+ff:counselingCentre331 a ff:CounselingCentre;
+  ff:hasAddress "Am Bahnhof 2, 85229, Markt Indersdorf";
+  ff:hasCity "Markt Indersdorf";
+  ff:hasContactDetails "+49 (8136) 12900, czindersdorf@caritasmuenchen.de";
+  ff:hasCoordinates "48.3524786/11.3816335";
+  ff:hasTitle "Caritas-Zentrum Dachau, Außenstelle Markt Indersdorf".
+
+ff:counselingCentre332 a ff:CounselingCentre;
+  ff:hasAddress "Kirchenplatz 3b, 85567, Grafing";
+  ff:hasCity "Grafing";
+  ff:hasContactDetails "+49 (8121) 220713, cz-ebe@caritasmuenchen.de";
+  ff:hasCoordinates "48.0468965/11.9689058";
+  ff:hasTitle "Caritas-Zentrum Ebersberg".
+
+ff:counselingCentre333 a ff:CounselingCentre;
+  ff:hasAddress "Färbergasse 32, 85570, Markt Schwaben";
+  ff:hasCity "Markt Schwaben";
+  ff:hasContactDetails "+49 (8121) 220711, cs-ebe@caritasmuenchen.de";
+  ff:hasCoordinates "48.1887002/11.8690249";
+  ff:hasTitle "Caritas-Zentrum Ebersberg, Außenstelle Markt Schwaben".
+
+ff:counselingCentre334 a ff:CounselingCentre;
+  ff:hasAddress "Kirchgasse 7, 85435, Erding";
+  ff:hasCity "Erding";
+  ff:hasContactDetails "+49 (8122) 955940, czedverwaltung@caritasmuenchen.de";
+  ff:hasCoordinates "48.3064994/11.9059671";
+  ff:hasTitle "Caritas-Zentrum Erding".
+
+ff:counselingCentre335 a ff:CounselingCentre;
+  ff:hasAddress "Ruprechtsberg 6, 84405, Dorfen";
+  ff:hasCity "Dorfen";
+  ff:hasContactDetails "+49 (8081) 514, czedverwaltung@caritasmuenchen.de";
+  ff:hasCoordinates "48.27579/12.14825";
+  ff:hasTitle "Caritas-Zentrum Erding, Außenstelle Dorfen".
+
+ff:counselingCentre336 a ff:CounselingCentre;
+  ff:hasAddress "Westl. Ringstraße 30, 67227, Frankenthal";
+  ff:hasCity "Frankenthal";
+  ff:hasContactDetails "+49 (6233) 327035, caritas-zentrum.frankenthal@caritas-speyer.de,Mathias.Muenster@Caritas-Speyer.de,Rouven.Anspach@Caritas-Speyer.de";
+  ff:hasCoordinates "49.53774/8.3523501";
+  ff:hasTitle "Caritas-Zentrum Frankenthal".
+
+ff:counselingCentre337 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 20, 85354, Freising";
+  ff:hasCity "Freising";
+  ff:hasContactDetails "+49 (8161) 5387910, gsa.freising@caritasmuenchen.de";
+  ff:hasCoordinates "48.3970322/11.7430284";
+  ff:hasTitle "Caritas-Zentrum Freising".
+
+ff:counselingCentre338 a ff:CounselingCentre;
+  ff:hasAddress "Kastulusplatz 2, 85368, Moosburg";
+  ff:hasCity "Moosburg";
+  ff:hasContactDetails "+49 (8761) 8586, gsa.freising@caritasmuenchen.de";
+  ff:hasCoordinates "48.4691612/11.9370637";
+  ff:hasTitle "Caritas-Zentrum Freising, Außenstelle Moosburg".
+
+ff:counselingCentre339 a ff:CounselingCentre;
+  ff:hasAddress "Hauptstraße 5, 82256, Fürstenfeldbruck";
+  ff:hasCity "Fürstenfeldbruck";
+  ff:hasContactDetails "+49 (8141) 320714, thilo.wimmer@caritasmuenchen.de";
+  ff:hasCoordinates "48.17755/11.25527";
+  ff:hasTitle "Caritas-Zentrum Fürstenfeldbruck".
+
+ff:counselingCentre34 a ff:CounselingCentre;
+  ff:hasAddress "Katharinenstraße 16, 88045, Friedrichshafen";
+  ff:hasCity "Friedrichshafen";
+  ff:hasContactDetails "+49 (7541) 30000, slb-fn@caritas-bodensee-oberschwaben.de";
+  ff:hasCoordinates "47.65511/9.47829";
+  ff:hasTitle "Caritas Bodensee-Oberschwaben, Zentrum Friedrichshafen, Sozial- und Lebensberatung".
+
+ff:counselingCentre340 a ff:CounselingCentre;
+  ff:hasAddress "Otto-Wagner-Straße 11, 82110, Gemering";
+  ff:hasCity "Gemering";
+  ff:hasContactDetails "+49 (89) 84807910, cz-germering@caritasmuenchen.de";
+  ff:hasCoordinates "48.1233156/11.3669001";
+  ff:hasTitle "Caritas-Zentrum Fürstenfeldbruck, Außenstelle Germering".
+
+ff:counselingCentre341 a ff:CounselingCentre;
+  ff:hasAddress "Daisenbergerstraße 4, 82487, Oberammergau";
+  ff:hasCity "Oberammergau";
+  ff:hasContactDetails "+49 (8822) 94376, oberammergau@caritasmuenchen.de";
+  ff:hasCoordinates "47.59699/11.06641";
+  ff:hasTitle "Caritas-Zentrum Garmisch-Partenkirchen, Außenstelle Oberammergau".
+
+ff:counselingCentre342 a ff:CounselingCentre;
+  ff:hasAddress "17-er Str. 1, 76727, Germersheim";
+  ff:hasCity "Germersheim";
+  ff:hasContactDetails "+49 (7274) 949116, Caritas-Zentrum.Germersheim@caritas-speyer.de,regina.huwe-wittmann@caritas-speyer.de,Klaus.Fichtinger@Caritas-Speyer.de,Jana.Mohr@Caritas-Speyer.de";
+  ff:hasCoordinates "49.2155747/8.3735968";
+  ff:hasTitle "Caritas-Zentrum Germersheim".
+
+ff:counselingCentre343 a ff:CounselingCentre;
+  ff:hasAddress "Landwehrstraße 26, 80336, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 23114968, gsa-czinnenstadt@caritasmuenchen.de";
+  ff:hasCoordinates "48.1364729/11.5617294";
+  ff:hasTitle "Caritas-Zentrum Innenstadt".
+
+ff:counselingCentre344 a ff:CounselingCentre;
+  ff:hasAddress "Engelsgasse 1, 67657, Kaiserslautern";
+  ff:hasCity "Kaiserslautern";
+  ff:hasContactDetails "+49 (631) 36120225, Caritas-Zentrum.Kaiserslautern@caritas-speyer.de,michael.rinder@caritas-speyer.de,claudia.schoch@caritas-speyer.de,ingrid.deubel@caritas-speyer.de,roswitha.ames-scherer@caritas-speyer.de";
+  ff:hasCoordinates "49.4463/7.77305";
+  ff:hasTitle "Caritas-Zentrum Kaiserslautern".
+
+ff:counselingCentre345 a ff:CounselingCentre;
+  ff:hasAddress "Schlossplatz 1, 67292, Kichheimlanden";
+  ff:hasCity "Kichheimlanden";
+  ff:hasContactDetails "+49 (6352) 401213, ingrid.deubel@caritas-speyer.de";
+  ff:hasCoordinates "49.6664503/8.0109038";
+  ff:hasTitle "Caritas-Zentrum Kaiserslautern, Außenstelle Kirchheimlanden".
+
+ff:counselingCentre346 a ff:CounselingCentre;
+  ff:hasAddress "Schwelbelstraße 8, 66869, Kusel";
+  ff:hasCity "Kusel";
+  ff:hasContactDetails "+49 (6381) 425767, roswitha.ames-scherer@caritas-speyer.de";
+  ff:hasCoordinates "49.5383747/7.4064528";
+  ff:hasTitle "Caritas-Zentrum Kaiserslautern, Außenstelle Kusel".
+
+ff:counselingCentre347 a ff:CounselingCentre;
+  ff:hasAddress "Gutenbergstraße 8, 56112, Lahnstein";
+  ff:hasCity "Lahnstein";
+  ff:hasContactDetails "+49 (2621) 920813, dorothea.westermayer@cv-ww-tl.de";
+  ff:hasCoordinates "50.3024922/7.6051919";
+  ff:hasTitle "Caritas-Zentrum Lahnstein".
+
+ff:counselingCentre348 a ff:CounselingCentre;
+  ff:hasAddress "Friedrich-Hebbel-Straße 18, 81369, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 7693912, czm-sendling@caritsmuenchen.de";
+  ff:hasCoordinates "48.110275/11.5264238";
+  ff:hasTitle "Caritas-Zentrum Laim/Sendling".
+
+ff:counselingCentre349 a ff:CounselingCentre;
+  ff:hasAddress "Ludwigstraße 67-69, 67059, Ludwigshafen";
+  ff:hasCity "Ludwigshafen";
+  ff:hasContactDetails "+49 (621) 598020, Caritaswerk.Ludwigshafen@caritas-speyer.de";
+  ff:hasCoordinates "49.4825461/8.4487277";
+  ff:hasTitle "Caritas-Zentrum Ludwigshafen".
+
+ff:counselingCentre35 a ff:CounselingCentre;
+  ff:hasAddress "Bischof-Sproll-Straße 9, 88299, Leutkirch";
+  ff:hasCity "Leutkirch";
+  ff:hasContactDetails "+49 (7561) 906619, slb-ltk@bodensee-oberschwaben.de";
+  ff:hasCoordinates "47.81982/10.02148";
+  ff:hasTitle "Caritas Bodensee-Oberschwaben, Zentrum Leutkirch, Sozial- und Lebensberatung".
+
+ff:counselingCentre350 a ff:CounselingCentre;
+  ff:hasAddress "Franz-u.-, oh.-Wallach-Straße 12, 83714";
+  ff:hasCity "83714";
+  ff:hasContactDetails "+49 (8025) 280622, caritas-miesbach@caritasmuenchen.de";
+  ff:hasCoordinates "47.7906355/11.8388546";
+  ff:hasTitle "Caritas-Zentrum Miesbach".
+
+ff:counselingCentre351 a ff:CounselingCentre;
+  ff:hasAddress "Philipp-Gehling-Straße 4, 56410, Montabaur";
+  ff:hasCity "Montabaur";
+  ff:hasContactDetails "+49 (2602) 160613, christa.huemmerich@cv-ww-rl.de";
+  ff:hasCoordinates "50.4359579/7.8260363";
+  ff:hasTitle "Caritas-Zentrum Montabaur".
+
+ff:counselingCentre352 a ff:CounselingCentre;
+  ff:hasAddress "Kirchenplatz 7, 84453, Mühldorf am Inn";
+  ff:hasCity "Mühldorf am Inn";
+  ff:hasContactDetails "+49 (8631) 37630, czsmue@caritasmuenchen.de";
+  ff:hasCoordinates "48.24111/12.52763";
+  ff:hasTitle "Caritas-Zentrum Mühldorf".
+
+ff:counselingCentre353 a ff:CounselingCentre;
+  ff:hasAddress "Kopernikusstraße 18a, 84478, Waldkraiburg";
+  ff:hasCity "Waldkraiburg";
+  ff:hasContactDetails "+49 (8638) 941800, bz-waldkraiburg@caritasmuenchen.de";
+  ff:hasCoordinates "48.2117269/12.4040446";
+  ff:hasTitle "Caritas-Zentrum Mühldorf, Außenstelle Waldkraiburg".
+
+ff:counselingCentre354 a ff:CounselingCentre;
+  ff:hasAddress "Karlsbader Straße 3, 80937, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 31202843, czmnord-sb@caritasmuenchen.de";
+  ff:hasCoordinates "48.1947915/11.5785531";
+  ff:hasTitle "Caritas-Zentrum München Nord".
+
+ff:counselingCentre355 a ff:CounselingCentre;
+  ff:hasAddress "Paul-Gerhardt-Allee 24, 81245, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 8299200, sabine.mueller@caritasmuenchen.de";
+  ff:hasCoordinates "48.15158/11.47591";
+  ff:hasTitle "Caritas-Zentrum München, West und Würmtal".
+
+ff:counselingCentre356 a ff:CounselingCentre;
+  ff:hasAddress "Königswieser Straße 12, 81475, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 7591051, czm-neuforied@caritasmuenchen.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritas-Zentrum Neuforstenried".
+
+ff:counselingCentre357 a ff:CounselingCentre;
+  ff:hasAddress "Kreittmayrstraße 29, 80335, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 12660020, czneuh-moosach@caritasmuenchen.de";
+  ff:hasCoordinates "48.1443383/11.5548236";
+  ff:hasTitle "Caritas-Zentrum Neuhausen/Moosach".
+
+ff:counselingCentre358 a ff:CounselingCentre;
+  ff:hasAddress "Schwesternstraße 16, 67433, Neustadt";
+  ff:hasCity "Neustadt";
+  ff:hasContactDetails "+49 (6321) 392912, caritas-zentrum.neustadt@caritas-speyer.de,irmtraud.jungmann-foerster@caritas-speyer.de";
+  ff:hasCoordinates "49.3527258/8.1344499";
+  ff:hasTitle "Caritas-Zentrum Neustadt".
+
+ff:counselingCentre359 a ff:CounselingCentre;
+  ff:hasAddress "Kreillerstraße 24, 81673, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 43669610, cz-m-ost-land@caritasmuenchen.de";
+  ff:hasCoordinates "48.1272742/11.6335955";
+  ff:hasTitle "Caritas-Zentrum Ost/Land".
+
+ff:counselingCentre36 a ff:CounselingCentre;
+  ff:hasAddress "Seestraße 44, 88214, Ravensburg";
+  ff:hasCity "Ravensburg";
+  ff:hasContactDetails "+49 (751) 362560, slb-rv@caritas-bodensee-oberschwaben.de";
+  ff:hasCoordinates "47.7757874/9.6103586";
+  ff:hasTitle "Caritas Bodensee-Oberschwaben, Zentrum Ravensburg, Sozial- und Lebensberatung".
+
+ff:counselingCentre360 a ff:CounselingCentre;
+  ff:hasAddress "Spitalstraße 7, 85276, Pfaffenhofen";
+  ff:hasCity "Pfaffenhofen";
+  ff:hasContactDetails "+49 (8441) 80830, astrid.benda@caritasmuenchen.de";
+  ff:hasCoordinates "48.53287/11.50859";
+  ff:hasTitle "Caritas-Zentrum Pfaffenhofen".
+
+ff:counselingCentre361 a ff:CounselingCentre;
+  ff:hasAddress "Spitalstraße 7, 85276, Pfaffenhofen";
+  ff:hasCity "Pfaffenhofen";
+  ff:hasContactDetails "+49 (8441) 80830, hhauf@caritasmuenchen.de";
+  ff:hasCoordinates "48.53287/11.50859";
+  ff:hasTitle "Caritas-Zentrum Pfaffenhofen".
+
+ff:counselingCentre362 a ff:CounselingCentre;
+  ff:hasAddress "Klosterstraße 9a, 66953, Pirmasens";
+  ff:hasCity "Pirmasens";
+  ff:hasContactDetails "+49 (6331) 274014, Caritas-Zentrum.Pirmasens@caritas-speyer.de,josefa.simon-baldus@caritas-speyer.de,Eva.Wetzke@Caritas-Speyer.de,Beate.Weber@Caritas-Speyer.de,Jana.Wendel@Caritas-Speyer.de";
+  ff:hasCoordinates "49.20063/7.60761";
+  ff:hasTitle "Caritas-Zentrum Pirmasens".
+
+ff:counselingCentre363 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofplatz 3, 83209, Prien am Chiemsee";
+  ff:hasCity "Prien am Chiemsee";
+  ff:hasContactDetails "+49 (8051) 1323, cb-prien@caritasmuenchen.de";
+  ff:hasCoordinates "47.8545589/12.3465467";
+  ff:hasTitle "Caritas-Zentrum Prien".
+
+ff:counselingCentre364 a ff:CounselingCentre;
+  ff:hasAddress "Lüdersstraße 10, 81737, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 67820221, gsaperlach@caritasmuenchen.de";
+  ff:hasCoordinates "48.0966931/11.6274071";
+  ff:hasTitle "Caritas-Zentrum Ramersdorf/, Perlach/Ottobrunn".
+
+ff:counselingCentre365 a ff:CounselingCentre;
+  ff:hasAddress "Reichenbachstraße 5, 83022, Rosenheim";
+  ff:hasCity "Rosenheim";
+  ff:hasContactDetails "+49 (8031) 20370, czrosenheim@caritasmuenchen.de";
+  ff:hasCoordinates "48.1314531/11.5760211";
+  ff:hasTitle "Caritas-Zentrum Rosenheim".
+
+ff:counselingCentre366 a ff:CounselingCentre;
+  ff:hasAddress "Kaiserstraße 63, 66386, St. Ingbert";
+  ff:hasCity "St. Ingbert";
+  ff:hasContactDetails "+49 (6894) 926329, Caritas-Zentrum.St.Ingbert@caritas-speyer.de,Caritas-Zentrum.Homburg@caritas-speyer.de,Carmen.Gasper@caritas-speyer.de,doris.lehmann2@caritas-speyer.de,christine.blass@caritas-speyer.de";
+  ff:hasCoordinates "49.27949/7.11676";
+  ff:hasTitle "Caritas-Zentrum Saarpfalz".
+
+ff:counselingCentre367 a ff:CounselingCentre;
+  ff:hasAddress "Bexbacher Straße 4, 66424, Homburg";
+  ff:hasCity "Homburg";
+  ff:hasContactDetails "+49 (6841) 9348512, Caritas-Zentrum.Homburg@caritas-speyer.de,Caritas-Zentrum.St.Ingbert@caritas-speyer.de,christine.blass@caritas-speyer.de,doris.lehmann2@caritas-speyer.de,Carmen.Gasper@caritas-speyer.de";
+  ff:hasCoordinates "49.3313158/7.3186917";
+  ff:hasTitle "Caritas-Zentrum Saarpfalz - Außenstelle".
+
+ff:counselingCentre368 a ff:CounselingCentre;
+  ff:hasAddress "Im Klosterfeld 14b, 85716, Unterschleißheim";
+  ff:hasCity "Unterschleißheim";
+  ff:hasContactDetails "+49 (89) 3218320, zentrumsleitung-schleissheim-garching@caritasmuenchen.de";
+  ff:hasCoordinates "48.27434/11.56475";
+  ff:hasTitle "Caritas-Zentrum Schleißheim/, Garching".
+
+ff:counselingCentre369 a ff:CounselingCentre;
+  ff:hasAddress "Hiltenspergerstraße 80, 80796, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 30007653, gsa-schwabing@caritasmuenchen.de";
+  ff:hasCoordinates "48.1629494/11.5664589";
+  ff:hasTitle "Caritas-Zentrum Schwabing".
+
+ff:counselingCentre37 a ff:CounselingCentre;
+  ff:hasAddress "Ziegelstraße 14, 73033, Göppingen";
+  ff:hasCity "Göppingen";
+  ff:hasContactDetails "+49 (7161) 6585813, stoevhase@caritas-fils-neckar-alb.de";
+  ff:hasCoordinates "48.7062502/9.6553985";
+  ff:hasTitle "Caritas Fils-Neckar-Alb, Allgemeine Sozial- und, Lebensberatung".
+
+ff:counselingCentre370 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 31, 67346, Speyer";
+  ff:hasCity "Speyer";
+  ff:hasContactDetails "+49 (6232) 209117, caritas-zentrum.speyer@caritas-speyer.de,mathias.muenster@caritas-speyer.de,irmtraud.jungmann-foerster@caritas-speyer.de,Rouven.Anspach@Caritas-Speyer.de";
+  ff:hasCoordinates "49.3206337/8.4302605";
+  ff:hasTitle "Caritas-Zentrum Speyer".
+
+ff:counselingCentre371 a ff:CounselingCentre;
+  ff:hasAddress "Herzog-Wilhelm-Straße 20, 83278, Traunstein";
+  ff:hasCity "Traunstein";
+  ff:hasContactDetails "+49 (861) 9887712, gemeindecaritas-ts@caritasmuenchen.de";
+  ff:hasCoordinates "47.87406/12.63481";
+  ff:hasTitle "Caritas-Zentrum Traunstein".
+
+ff:counselingCentre372 a ff:CounselingCentre;
+  ff:hasAddress "Heiserplatz 7, 83512, Wasserburg";
+  ff:hasCity "Wasserburg";
+  ff:hasContactDetails "+49 (8071) 90630, cz-wasserburg@caritasmuenchen.de";
+  ff:hasCoordinates "48.06332/12.2322";
+  ff:hasTitle "Caritas-Zentrum Wasserburg".
+
+ff:counselingCentre373 a ff:CounselingCentre;
+  ff:hasAddress "Balanstraße 28, 81669, München";
+  ff:hasCity "München";
+  ff:hasContactDetails "+49 (89) 4587400, gsa-au-haidhausen-giesing@caritasmuenchen.de";
+  ff:hasCoordinates "48.1253031/11.5957018";
+  ff:hasTitle "Caritas-Zentrum, Au/Haidhausen/Giesing".
+
+ff:counselingCentre374 a ff:CounselingCentre;
+  ff:hasAddress "Rathausplatz 19, 83471, Berchtesgaden";
+  ff:hasCity "Berchtesgaden";
+  ff:hasContactDetails "+49 (8652) 2943, rosmarie.schmidlechner@caritasmuenchen.de";
+  ff:hasCoordinates "47.63492/13.004";
+  ff:hasTitle "Caritas-Zentrum, Außenstelle Berchtesgaden".
+
+ff:counselingCentre375 a ff:CounselingCentre;
+  ff:hasAddress "Lindenstraße 6, 83395, Freilassing";
+  ff:hasCity "Freilassing";
+  ff:hasContactDetails "+49 (8654) 65805, cb-freilassing@caritasmuenchen.de";
+  ff:hasCoordinates "47.8391483/12.9800136";
+  ff:hasTitle "Caritas-Zentrum, Außenstelle Freilassing".
+
+ff:counselingCentre376 a ff:CounselingCentre;
+  ff:hasAddress "Kirchzeile 17, 83043, Bad Aibling";
+  ff:hasCity "Bad Aibling";
+  ff:hasContactDetails "+49 (8061) 35040, czbadaibling@caritasmuenchen.de";
+  ff:hasCoordinates "47.8655619/12.010748";
+  ff:hasTitle "Caritas-Zentrum, Bad Aibling".
+
+ff:counselingCentre377 a ff:CounselingCentre;
+  ff:hasAddress "Graslitzer Straße 13, 82538, Geretsried";
+  ff:hasCity "Geretsried";
+  ff:hasContactDetails "+49 (8041) 9027, thomas.faller@caritasmuenchen.de";
+  ff:hasCoordinates "47.87551/11.46321";
+  ff:hasTitle "Caritas-Zentrum, Bad Tölz/Wolfratshausen".
+
+ff:counselingCentre378 a ff:CounselingCentre;
+  ff:hasAddress "Salzburger Straße 29b, 83435, Bad Reichenhall";
+  ff:hasCity "Bad Reichenhall";
+  ff:hasContactDetails "+49 (8651) 71690, caritaszentrumbgl@caritasmuenchen.de";
+  ff:hasCoordinates "47.7313199/12.8866599";
+  ff:hasTitle "Caritas-Zentrum, Berchtesgadener Land".
+
+ff:counselingCentre379 a ff:CounselingCentre;
+  ff:hasAddress "Weilheimer Straße 15 E 120, 82418, Murnau";
+  ff:hasCity "Murnau";
+  ff:hasContactDetails "+49 (8841) 628113, murnau@caritasmuenchen.de";
+  ff:hasCoordinates "47.6905765/11.2028063";
+  ff:hasTitle "Caritas-Zentrum, Garmisch-Partenkirchen".
+
+ff:counselingCentre38 a ff:CounselingCentre;
+  ff:hasAddress "Kaiserstraße 27, 72764, Reutlingen";
+  ff:hasCity "Reutlingen";
+  ff:hasContactDetails "+49 (7121) 16560, rist@caritas-fils-neckar-alb.de";
+  ff:hasCoordinates "48.49515/9.21372";
+  ff:hasTitle "Caritas Fils-Neckar-Alb, Orte des Zuhörens - Solidarisches Handeln".
+
+ff:counselingCentre380 a ff:CounselingCentre;
+  ff:hasAddress "Dompfaffstraße 1, 82467, Garmisch-Partenkirchen";
+  ff:hasCity "Garmisch-Partenkirchen";
+  ff:hasContactDetails "+49 (8821) 9434889, caritas-gap@caritasmuenchen.de";
+  ff:hasCoordinates "47.4976305/11.0969436";
+  ff:hasTitle "Caritas-Zentrum, Garmisch-Partenkirchen".
+
+ff:counselingCentre381 a ff:CounselingCentre;
+  ff:hasAddress "Lindenring 56, 82024, Taufkirchen";
+  ff:hasCity "Taufkirchen";
+  ff:hasContactDetails "+49 (89) 9605170, gsa-taufkirchen@caritasmuenchen.de";
+  ff:hasCoordinates "48.04706/11.60242";
+  ff:hasTitle "Caritas-Zentrum, Taufkirchen".
+
+ff:counselingCentre382 a ff:CounselingCentre;
+  ff:hasAddress "Weißenburger Straße 17, 85072, Eichstätt";
+  ff:hasCity "Eichstätt";
+  ff:hasContactDetails "+49 (8421) 97550, kreisstelle@caritas-eichstaett.de";
+  ff:hasCoordinates "48.8944535/11.1780037";
+  ff:hasTitle "CKS Eichstätt".
+
+ff:counselingCentre383 a ff:CounselingCentre;
+  ff:hasAddress "Pfarrgasse 5, 92339, Beilngries";
+  ff:hasCity "Beilngries";
+  ff:hasContactDetails "+49 (8421) 97550, kreisstelle@caritas-eichstaett.de";
+  ff:hasCoordinates "49.03457/11.47346";
+  ff:hasTitle "CKS Eichstätt, Außenstelle Beilngries".
+
+ff:counselingCentre384 a ff:CounselingCentre;
+  ff:hasAddress "Obere Marktstraße 12, 85092, Kösching";
+  ff:hasCity "Kösching";
+  ff:hasContactDetails "+49 (8421) 97550, kreisstelle@caritas-eichstaett.de";
+  ff:hasCoordinates "48.8108316/11.4990367";
+  ff:hasTitle "CKS Eichstätt, Außenstelle Kösching".
+
+ff:counselingCentre385 a ff:CounselingCentre;
+  ff:hasAddress "Deocarplatz 3, 91567, Herrieden";
+  ff:hasCity "Herrieden";
+  ff:hasContactDetails "+49 (9825) 923880, kreisstelle@caritas-herrieden.de";
+  ff:hasCoordinates "49.2320811/10.4981616";
+  ff:hasTitle "CKS Herrieden".
+
+ff:counselingCentre386 a ff:CounselingCentre;
+  ff:hasAddress "Jesuitenstraße 1, 85049, Ingolstadt";
+  ff:hasCity "Ingolstadt";
+  ff:hasContactDetails "+49 (841) 309126, julia.miesauer@caritas-ingolstadt.de; bernhard.gruber@caritas-ingolstadt.de; nicole.ohrner@caritas-ingolstadt.de";
+  ff:hasCoordinates "48.76587/11.42064";
+  ff:hasTitle "CKS Ingolstadt".
+
+ff:counselingCentre387 a ff:CounselingCentre;
+  ff:hasAddress "Friedenstraße 33, 92318, Neumarkt";
+  ff:hasCity "Neumarkt";
+  ff:hasContactDetails "+49 (9181) 511270, kreisstelle@caritas-neumarkt.de,bernhard.schinner@caritas-neumarkt.de,brigitte.falkner@caritas-neumarkt.de,michael.glaser@caritas-neumarkt.de,hermann-josef.emonds@caritas-neumarkt.de";
+  ff:hasCoordinates "49.2792906/11.4714585";
+  ff:hasTitle "CKS Neumarkt".
+
+ff:counselingCentre388 a ff:CounselingCentre;
+  ff:hasAddress "Oberer Markt 21, 90518, Altdorf";
+  ff:hasCity "Altdorf";
+  ff:hasContactDetails "+49 (9187) 3754, gertrud.ziegler@caritas-nuernberg-sued.de";
+  ff:hasCoordinates "49.3853322/11.3537467";
+  ff:hasTitle "CKS Nürnberg-Süd, Außenstelle Altdorf".
+
+ff:counselingCentre389 a ff:CounselingCentre;
+  ff:hasAddress "Eibenweg 10, 90451, Nürnberg-Eichbach";
+  ff:hasCity "Nürnberg-Eichbach";
+  ff:hasContactDetails "+49 (911) 6493160, gertrud.ziegler@caritas-nuernberg-sued.de";
+  ff:hasCoordinates "49.4084509/11.0364165";
+  ff:hasTitle "CKS Nürnberg-Süd, Außenstelle Eibach".
+
+ff:counselingCentre39 a ff:CounselingCentre;
+  ff:hasAddress "Schillerstraße 13, 74564, Crailsheim";
+  ff:hasCity "Crailsheim";
+  ff:hasContactDetails "+49 (7951) 94310, cz-crailsheim@caritas-heilbronn-hohenlohe.de";
+  ff:hasCoordinates "49.139597/10.0736835";
+  ff:hasTitle "Caritas Heilbronn Hohenlohe, Zentrum Crailsheim".
+
+ff:counselingCentre390 a ff:CounselingCentre;
+  ff:hasAddress "Heidecker Straße 12, 91161, Hilpoltstein";
+  ff:hasCity "Hilpoltstein";
+  ff:hasContactDetails "+49 (9174) 97770, kreisstelle@caritas-roth.de";
+  ff:hasCoordinates "49.18674/11.19152";
+  ff:hasTitle "CKS Roth, Außenstelle Hilpoltstein".
+
+ff:counselingCentre391 a ff:CounselingCentre;
+  ff:hasAddress "Holzgasse 12, 91781, Weißenburg";
+  ff:hasCity "Weißenburg";
+  ff:hasContactDetails "+49 (9141) 2616, kreisstelle@caritas-weissenburg.de";
+  ff:hasCoordinates "49.0260994/10.9699275";
+  ff:hasTitle "CKS Weißenburg".
+
+ff:counselingCentre392 a ff:CounselingCentre;
+  ff:hasAddress "Nürnberger Straße 29, 91710, Gunzenhausen";
+  ff:hasCity "Gunzenhausen";
+  ff:hasContactDetails "+49 (9831) 8809553, alexandra.troegl@caritas-weissenburg.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "CKS Weißenburg, Außenstelle Gunzenhausen".
+
+ff:counselingCentre393 a ff:CounselingCentre;
+  ff:hasAddress "Pfarrhofgasse 1, 86650, Wemding";
+  ff:hasCity "Wemding";
+  ff:hasContactDetails "+49 (9092) 208, kreisstelle@caritas-wemding.de";
+  ff:hasCoordinates "48.8742/10.72465";
+  ff:hasTitle "CKS Weißenburg, Außenstelle Wemding".
+
+ff:counselingCentre394 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofsplatz 11, 91522, Ansbach";
+  ff:hasCity "Ansbach";
+  ff:hasContactDetails "+49 (981) 9716823, betreuungen@caritas-ansbach.de";
+  ff:hasCoordinates "49.29909/10.57695";
+  ff:hasTitle "CV Ansbach e.V.".
+
+ff:counselingCentre395 a ff:CounselingCentre;
+  ff:hasAddress "Eschenauer Hauptstr. 57, 90542, Eckental";
+  ff:hasCity "Eckental";
+  ff:hasContactDetails "+49 (9126) 281095, sobe.eckental@caritas-erlangen.de";
+  ff:hasCoordinates "49.5744154/11.201421";
+  ff:hasTitle "CV ER (Eckenthal)".
+
+ff:counselingCentre396 a ff:CounselingCentre;
+  ff:hasAddress "Erlanger Straße 14, 91074, Herzogenaurach";
+  ff:hasCity "Herzogenaurach";
+  ff:hasContactDetails "+49 (9132) 63915, sobe.hzg@caritas-erlangen.de";
+  ff:hasCoordinates "49.567555/10.886661";
+  ff:hasTitle "CV ER (Herzogenaurach)".
+
+ff:counselingCentre397 a ff:CounselingCentre;
+  ff:hasAddress "Steinwegstr. 1, 91315, Höchstadt/Aisch";
+  ff:hasCity "Höchstadt/Aisch";
+  ff:hasContactDetails "+49 (9193) 698584, sobe.hoech@caritas-erlangen.de";
+  ff:hasCoordinates "49.7055226/10.8062763";
+  ff:hasTitle "CV ER (Höchstadt)".
+
+ff:counselingCentre398 a ff:CounselingCentre;
+  ff:hasAddress "Bahnstraße 26, 55543, Bad Kreuznach";
+  ff:hasCity "Bad Kreuznach";
+  ff:hasContactDetails "+49 (671) 838280, info@caritas-kh.de";
+  ff:hasCoordinates "49.83882/7.86121";
+  ff:hasTitle "CV f.d. Reg. Rhein-Hunsrück-Nahe e.V., Geschäftsstelle Bad Kreuznach (ASD)".
+
+ff:counselingCentre399 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 4, 56288, Kastellaun";
+  ff:hasCity "Kastellaun";
+  ff:hasContactDetails "+49 (6762) 401226, info@caritas-simmern.de";
+  ff:hasCoordinates "50.0720327/7.4401201";
+  ff:hasTitle "CV f.d. Region Hunsrück-Nahe e.V., Außenstelle Kastellaun (ASD)".
+
+ff:counselingCentre4 a ff:CounselingCentre;
+  ff:hasAddress "Dr.-Godron-Str. 3, 94405, Landau";
+  ff:hasCity "Landau";
+  ff:hasContactDetails "+49 (9951) 9851-50, sozialberatung@caritas-landau.de";
+  ff:hasCoordinates "48.66864/12.69374";
+  ff:hasTitle "Allgemeine Sozialberatung - Kreis-Caritasverband Landau a. d. Isar e. V.";
+  ff:hasWebsite "https://www.caritas-landau.de".
+
+ff:counselingCentre40 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofplatz 3, 97980, Bad Mergentheim";
+  ff:hasCity "Bad Mergentheim";
+  ff:hasContactDetails "+49 (7931) 6362, rein.u@caritas-heilbronn-hohenlohe.de";
+  ff:hasCoordinates "49.49333/9.77112";
+  ff:hasTitle "Caritas Heilbronn-Hohenlohe, Caritas-Zentrum Bad Mergentheim".
+
+ff:counselingCentre400 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 1, 55469, Simmern";
+  ff:hasCity "Simmern";
+  ff:hasContactDetails "+49 (6761) 919670, info@caritas-simmern.de";
+  ff:hasCoordinates "49.983324/7.5260323";
+  ff:hasTitle "CV f.d. Region Hunsrück-Nahe e.V., Geschäftsstelle Simmern (ASD)".
+
+ff:counselingCentre401 a ff:CounselingCentre;
+  ff:hasAddress "Marienberger Straße 1, 56154, Boppard";
+  ff:hasCity "Boppard";
+  ff:hasContactDetails "+49 (6742) 87860, info@caritas.boppard.de";
+  ff:hasCoordinates "50.22874/7.59763";
+  ff:hasTitle "CV f.d. Region Rhein-Hunsrück-Nahe e.V., Geschäftsstelle Boppard (ASD)".
+
+ff:counselingCentre402 a ff:CounselingCentre;
+  ff:hasAddress "Friedrichstraße 1, 55743, Idar-Oberstein";
+  ff:hasCity "Idar-Oberstein";
+  ff:hasContactDetails "+49 (6781) 22019, posteingang@caritas-idar-oberstein.de";
+  ff:hasCoordinates "49.7017903/7.3356992";
+  ff:hasTitle "CV f.d. Region Rhein-Hunsrück-Nahe e.V., Geschäftsstelle Idar-Oberstein (ASD)".
+
+ff:counselingCentre403 a ff:CounselingCentre;
+  ff:hasAddress "Hüttenbergstraße 42, 66538, Neunkirchen";
+  ff:hasCity "Neunkirchen";
+  ff:hasContactDetails "+49 (6821) 92090, info@caritas.nk.de";
+  ff:hasCoordinates "49.34527/7.17784";
+  ff:hasTitle "CV f.d. Region Schaumber-Blies e.V., Geschäftsstelle Neunkirchen (ASD)".
+
+ff:counselingCentre404 a ff:CounselingCentre;
+  ff:hasAddress "Luisenstraße 2-14, 66606, St. Wendel";
+  ff:hasCity "St. Wendel";
+  ff:hasContactDetails "+49 (6851) 93560, info@caritas-wnd.de";
+  ff:hasCoordinates "49.46832/7.17015";
+  ff:hasTitle "CV f.d. Region Schaumberg-Blies e.V., Geschäftsstelle St. Wendel (ASD)".
+
+ff:counselingCentre405 a ff:CounselingCentre;
+  ff:hasAddress "Heddesdorfer Straße 5, 56564, Neuwied";
+  ff:hasCity "Neuwied";
+  ff:hasContactDetails "+49 (2631) 98750, verband@caritas-neuwied.de";
+  ff:hasCoordinates "50.43067/7.46279";
+  ff:hasTitle "CV f.d. Rhein-Wied-Sieg e.V., Geschäftsstelle Neuwied (ASD)".
+
+ff:counselingCentre406 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 2-4, 56281, Emmelshausen";
+  ff:hasCity "Emmelshausen";
+  ff:hasContactDetails "+49 (6747) 93770, info@caritas-simmern.de";
+  ff:hasCoordinates "50.15484/7.55237";
+  ff:hasTitle "CV f.d.Region Rhein-Hunsrück-Nahe e.V., Außenstelle Emmelshausen (ASD)".
+
+ff:counselingCentre407 a ff:CounselingCentre;
+  ff:hasAddress "Petrusstraße 28, 54292, Trier";
+  ff:hasCity "Trier";
+  ff:hasContactDetails "+49 (651) 20960, posteingang@caritas-region-trier.de";
+  ff:hasCoordinates "49.7602748/6.6479644";
+  ff:hasTitle "CV für die Region Trier e.V., Allgemeiner Sozialer Dienst (ASD)".
+
+ff:counselingCentre408 a ff:CounselingCentre;
+  ff:hasAddress "Marienstraße 56, 95028, Hof";
+  ff:hasCity "Hof";
+  ff:hasContactDetails "+49 (9281) 140170, mattthias.beck@caritas-hof.de";
+  ff:hasCoordinates "50.3152179/11.91275";
+  ff:hasTitle "CV Hof".
+
+ff:counselingCentre409 a ff:CounselingCentre;
+  ff:hasAddress "Schloßberg 2, 96215, Lichtenfels";
+  ff:hasCity "Lichtenfels";
+  ff:hasContactDetails "+49 (9571) 939162, spfh@caritas-lif.de";
+  ff:hasCoordinates "50.1432/11.06388";
+  ff:hasTitle "CV Lichtenfels".
+
+ff:counselingCentre41 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 13, 74072, Heilbronn";
+  ff:hasCity "Heilbronn";
+  ff:hasContactDetails "+49 (7131) 89809200, cz-heilbronn@caritas-heilbronn-hohenlohe.de";
+  ff:hasCoordinates "49.1425723/9.2116398";
+  ff:hasTitle "Caritas Heilbronn-Hohenlohe, Zentrum Heilbronn".
+
+ff:counselingCentre410 a ff:CounselingCentre;
+  ff:hasAddress "Obstmarkt 28, 90403, Nürnberg";
+  ff:hasCity "Nürnberg";
+  ff:hasContactDetails "+49 (911) 2354141, allgemeine-soziale-beratung@caritas-nuernberg.de";
+  ff:hasCoordinates "49.4548666/11.0788191";
+  ff:hasTitle "CV Nürnberg e.V.".
+
+ff:counselingCentre411 a ff:CounselingCentre;
+  ff:hasAddress "Ludwig-Hillesheimer-Straße 3, 56626, Andernach";
+  ff:hasCity "Andernach";
+  ff:hasContactDetails "+49 (2632) 25020, info@caritas-andernach.de";
+  ff:hasCoordinates "50.4321123/7.4038797";
+  ff:hasTitle "CV Region Rhein-Mosel-Ahr e.V., Geschäftsstelle Andernach (ASD)".
+
+ff:counselingCentre412 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 5, 53474, Bad Neuenahr-Ahrweiler";
+  ff:hasCity "Bad Neuenahr-Ahrweiler";
+  ff:hasContactDetails "+49 (2641) 759860, info@caritas-ahrweiler.de";
+  ff:hasCoordinates "50.54593/7.10714";
+  ff:hasTitle "CV Region Rhein-Mosel-Ahr e.V., Geschäftsstelle Bad Neuenahr-Ahrweiler (ASD)".
+
+ff:counselingCentre413 a ff:CounselingCentre;
+  ff:hasAddress "Brückenstraße 7, 56727, Mayen";
+  ff:hasCity "Mayen";
+  ff:hasContactDetails "+49 (2651) 98690, info@caritas-mayen.de";
+  ff:hasCoordinates "50.3279651/7.2272625";
+  ff:hasTitle "CV Region Rhein-Mosel-Ahr e.V., Geschäftsstelle Mayen (ASD)".
+
+ff:counselingCentre414 a ff:CounselingCentre;
+  ff:hasAddress "Wagnerstraße 1, 57518, Betzdorf";
+  ff:hasCity "Betzdorf";
+  ff:hasContactDetails "+49 (2741) 97600, info@caritas-betzdorf.de";
+  ff:hasCoordinates "50.7915258/7.872344";
+  ff:hasTitle "CV Rhein-Wied-Sieg e.V., Geschäftsstelle Betzdorf (ASD)".
+
+ff:counselingCentre415 a ff:CounselingCentre;
+  ff:hasAddress "Alte Mainzer Gasse 10, 60311, Frankfurt";
+  ff:hasCity "Frankfurt";
+  ff:hasContactDetails "+49 (69) 2982123, erstkontaktstelle@caritas-frankfurt.de";
+  ff:hasCoordinates "50.1090112/8.6792761";
+  ff:hasTitle "Erstkontaktstelle Frankfurt".
+
+ff:counselingCentre416 a ff:CounselingCentre;
+  ff:hasAddress "Strelitzer Straße 28a, 17235, Neustrelitz";
+  ff:hasCity "Neustrelitz";
+  ff:hasContactDetails "(03981) 205200, max-stefan.lill@caritas-in-norden.de";
+  ff:hasCoordinates "53.3586916/13.0694863";
+  ff:hasTitle "Haus der Caritas".
+
+ff:counselingCentre417 a ff:CounselingCentre;
+  ff:hasAddress "Beethovenstraße 7, 17109, Demmin";
+  ff:hasCity "Demmin";
+  ff:hasContactDetails "(03998) 2123999, nora.tschoetschel@caritas-im-norden.de";
+  ff:hasCoordinates "53.90112/13.04769";
+  ff:hasTitle "Haus der Caritas".
+
+ff:counselingCentre418 a ff:CounselingCentre;
+  ff:hasAddress "Schweriner Straße 97, 17283, Güstrow";
+  ff:hasCity "Güstrow";
+  ff:hasContactDetails "(03843) 721351, sonja.hartig@caritas-im-norden.de";
+  ff:hasCoordinates "53.6355022/11.4012499";
+  ff:hasTitle "Haus der Caritas".
+
+ff:counselingCentre419 a ff:CounselingCentre;
+  ff:hasAddress "Schweriner Straße 97, 17283, Güstrow";
+  ff:hasCity "Güstrow";
+  ff:hasContactDetails "(03843) 721341, claudia.rahmlow@caritas-im-norden.de";
+  ff:hasCoordinates "53.6355022/11.4012499";
+  ff:hasTitle "Haus der Caritas".
+
+ff:counselingCentre42 a ff:CounselingCentre;
+  ff:hasAddress "Kirchplatz 12, 74653, Künzelsau";
+  ff:hasCity "Künzelsau";
+  ff:hasContactDetails "+49 (7940) 93530, cz-kuenzelsau@caritas-heilbronn-hohenlohe.de";
+  ff:hasCoordinates "49.2799878/9.6895523";
+  ff:hasTitle "Caritas Heilbronn-Hohenlohe, Zentrum Künzelsau".
+
+ff:counselingCentre420 a ff:CounselingCentre;
+  ff:hasAddress "Klosterstraße 24, 19053, Schwerin";
+  ff:hasCity "Schwerin";
+  ff:hasContactDetails "(0385) 5916917, rainer.jung@caritas-im-norden.de";
+  ff:hasCoordinates "53.6271086/11.4132707";
+  ff:hasTitle "Haus der Caritas I".
+
+ff:counselingCentre421 a ff:CounselingCentre;
+  ff:hasAddress "Kopenhagenerstraße 5, 50765, Köln";
+  ff:hasCity "Köln";
+  ff:hasContactDetails "+49 (221) 7001887, sozialbuero@st-johannes-chorweiler.de";
+  ff:hasCoordinates "51.0242454/6.879553";
+  ff:hasTitle "Kath. Pfarrgemeinde St. Johannes, in der Neuen Stadt".
+
+ff:counselingCentre422 a ff:CounselingCentre;
+  ff:hasAddress "Brüderstraße 12, 59065, Hamm";
+  ff:hasCity "Hamm";
+  ff:hasContactDetails "+49 (2381) 924510, info@ksd-hamm.de";
+  ff:hasCoordinates "51.6905221/7.8117261";
+  ff:hasTitle "Katholischer Sozialdienst Hamm".
+
+ff:counselingCentre423 a ff:CounselingCentre;
+  ff:hasAddress "Kolpingstr. 14, 57462, Olpe";
+  ff:hasCity "Olpe";
+  ff:hasContactDetails "+49 (2761) 83680, ausweg@ksd-olpe.de";
+  ff:hasCoordinates "51.0269114/7.8476426";
+  ff:hasTitle "Katholischer Sozialdienst Olpe, Allgemeine Sozialberatung";
+  ff:hasWebsite "https://www.ksd-olpe.de".
+
+ff:counselingCentre424 a ff:CounselingCentre;
+  ff:hasAddress "Wilhemstraße 2, 36037, Fulda";
+  ff:hasCity "Fulda";
+  ff:hasContactDetails "+49 (661) 2428120, online@caritas-fulda.de";
+  ff:hasCoordinates "50.55461/9.6850955";
+  ff:hasTitle "Onlineberatungsstelle des DICV Fulda";
+  ff:hasWebsite "https://www.caritas-fulda.de; www.dicvfulda.caritas.de".
+
+ff:counselingCentre425 a ff:CounselingCentre;
+  ff:hasAddress "Linienstraße 1, 24534, Neumünster";
+  ff:hasCity "Neumünster";
+  ff:hasContactDetails "+49 (4321) 14505, caritas-nms@foni.net";
+  ff:hasCoordinates "54.07434/9.97839";
+  ff:hasTitle "Orstcaritasverband Neumünster".
+
+ff:counselingCentre426 a ff:CounselingCentre;
+  ff:hasAddress "Hafendamm 31a, 24937, Flensburg";
+  ff:hasCity "Flensburg";
+  ff:hasContactDetails "+49 (461) 23174, caritas-flensburg@t-online.de";
+  ff:hasCoordinates "54.78935/9.43907";
+  ff:hasTitle "Ortscaritasverband Flensburg".
+
+ff:counselingCentre427 a ff:CounselingCentre;
+  ff:hasAddress "Muhliusstraße 67, 24103, Kiel";
+  ff:hasCity "Kiel";
+  ff:hasContactDetails "+49 (431) 3801591, koch@caritas-kiel.de";
+  ff:hasCoordinates "54.3254601/10.1310244";
+  ff:hasTitle "Ortscaritasverband Kiel".
+
+ff:counselingCentre428 a ff:CounselingCentre;
+  ff:hasAddress "Augustenstraße 85, 18055, Rostock";
+  ff:hasCity "Rostock";
+  ff:hasContactDetails "(0381) 454720, markus.mueller@caritas-im-norden.de";
+  ff:hasCoordinates "54.0840192/12.1316815";
+  ff:hasTitle "Prälat Wilhelm Leffers Haus".
+
+ff:counselingCentre429 a ff:CounselingCentre;
+  ff:hasAddress "Im Bangert 4, 63450, Hanau";
+  ff:hasCity "Hanau";
+  ff:hasContactDetails "+49 (6181) 9233521, holger.franz@caritas-mkk.de,nicole.glonek@caritas-mkk.de";
+  ff:hasCoordinates "50.13539/8.9154";
+  ff:hasTitle "Regional-Caritasverband für den Main-Kinzig-Kreis";
+  ff:hasWebsite "https://www.rcvmain-kinzig-kreis.caritas.de".
+
+ff:counselingCentre43 a ff:CounselingCentre;
+  ff:hasAddress "Am Cappelrain 6, 74613, Öhringen";
+  ff:hasCity "Öhringen";
+  ff:hasContactDetails "+49 (7941) 2074141, cz-oehringen@caritas-heilbronn-hohenlohe.de";
+  ff:hasCoordinates "49.1973481/9.5077839";
+  ff:hasTitle "Caritas Heilbronn-Hohenlohe, Zentrum Öhringen".
+
+ff:counselingCentre430 a ff:CounselingCentre;
+  ff:hasAddress "Die Freiheit 2, 34117, Kassel";
+  ff:hasCity "Kassel";
+  ff:hasContactDetails "+49 (561) 7004221, karin.stuerznickel-holst@caritas-kassel.de";
+  ff:hasCoordinates "51.3164256/9.5016096";
+  ff:hasTitle "Regional-Caritasverband Kassel e.V.";
+  ff:hasWebsite "https://www.rcvkassel.caritas.de".
+
+ff:counselingCentre431 a ff:CounselingCentre;
+  ff:hasAddress "Schückingstraße 28, 35037, Marburg";
+  ff:hasCity "Marburg";
+  ff:hasContactDetails "+49 (6421) 26342, bernd.kraemer@caritas-marburg.de";
+  ff:hasCoordinates "50.8018364/8.7639985";
+  ff:hasTitle "Regional-Caritasverband Marburg e.V.";
+  ff:hasWebsite "https://www.caritas-marburg.de".
+
+ff:counselingCentre432 a ff:CounselingCentre;
+  ff:hasAddress "Thomas-Morus-Straße 4, 18106, Rostock";
+  ff:hasCity "Rostock";
+  ff:hasContactDetails "(0381) 37559989, anika.wellnitz@caritas-im-norden.de";
+  ff:hasCoordinates "54.12342/12.05193";
+  ff:hasTitle "Servicecenter Evershagen".
+
+ff:counselingCentre433 a ff:CounselingCentre;
+  ff:hasAddress "Schloßstraße 9, 19288, Ludwigslust";
+  ff:hasCity "Ludwigslust";
+  ff:hasContactDetails "(03874) 21870, pamperin@skf-ludwigslust.de";
+  ff:hasCoordinates "53.3241637/11.4908864";
+  ff:hasTitle "SKF e.V. Ludwigslust".
+
+ff:counselingCentre434 a ff:CounselingCentre;
+  ff:hasAddress "Schloßstraße 9, 19288, Ludwigslust";
+  ff:hasCity "Ludwigslust";
+  ff:hasContactDetails "(03874) 21116, manzei@skf-ludwigslust.de";
+  ff:hasCoordinates "53.3241637/11.4908864";
+  ff:hasTitle "SKF e.V. Ludwigslust".
+
+ff:counselingCentre435 a ff:CounselingCentre;
+  ff:hasAddress "Hansaring 20, 50670, Köln";
+  ff:hasCity "Köln";
+  ff:hasContactDetails "+49 (221) 126950, hueppe@skf-koeln.de";
+  ff:hasCoordinates "50.9456739/6.9447018";
+  ff:hasTitle "SkF Köln e.V.".
+
+ff:counselingCentre436 a ff:CounselingCentre;
+  ff:hasAddress "Immigratherstraße 40, 49764, Langenfeld";
+  ff:hasCity "Langenfeld";
+  ff:hasContactDetails "+49 (2173) 3947613, nadine.buettner@skf-langenfeld.de";
+  ff:hasCoordinates "51.1191898/6.9512663";
+  ff:hasTitle "SkF Langenfeld e.V.".
+
+ff:counselingCentre437 a ff:CounselingCentre;
+  ff:hasAddress "Ulmenstraße 67, 40476, Düsseldorf";
+  ff:hasCity "Düsseldorf";
+  ff:hasContactDetails "+49 (211) 4696170, allgemeine-sozialberatung@skfm-duesseldorf.de";
+  ff:hasCoordinates "51.2482308/6.7833119";
+  ff:hasTitle "SKFM e.V., Düsseldorf";
+  ff:hasWebsite "https://www.skfm-duesseldorf.de".
+
+ff:counselingCentre438 a ff:CounselingCentre;
+  ff:hasAddress "Helena-Rubinstein-Straße 4c, 40699, Erkrath-Hochdahl";
+  ff:hasCity "Erkrath-Hochdahl";
+  ff:hasContactDetails "+49 (211) 2496131, norbert.baumgarten@skfm-erkrath.de";
+  ff:hasCoordinates "51.2195521/6.909373";
+  ff:hasTitle "SKFM Erkrath e.V.".
+
+ff:counselingCentre439 a ff:CounselingCentre;
+  ff:hasAddress "Grünstraße 3, 42551, Velbert";
+  ff:hasCity "Velbert";
+  ff:hasContactDetails "+49 (2051) 288911, info@skfm-velbert.de";
+  ff:hasCoordinates "51.3378765/7.0471104";
+  ff:hasTitle "SKFM Velbert e.V.".
+
+ff:counselingCentre44 a ff:CounselingCentre;
+  ff:hasAddress "Lange Straße 55, 74523, Schwäbisch Hall";
+  ff:hasCity "Schwäbisch Hall";
+  ff:hasContactDetails "+49 (791) 970200, cz-schwaebisch-hall@caritas-heilbronn-hohenlohe.de";
+  ff:hasCoordinates "49.10971/9.73262";
+  ff:hasTitle "Caritas Heilbronn-Hohenlohe, Zentrum Schwäbisch Hall".
+
+ff:counselingCentre440 a ff:CounselingCentre;
+  ff:hasAddress "Waisenhausstraße 22, 41236, Mönchengladbach/Rheydt";
+  ff:hasCity "Mönchengladbach/Rheydt";
+  ff:hasContactDetails "+49 (2166) 130970, info@skm-ry.de";
+  ff:hasCoordinates "51.1651913/6.4446471";
+  ff:hasTitle "SKM - Katholischer Verein für soziale Dienste e.V.".
+
+ff:counselingCentre441 a ff:CounselingCentre;
+  ff:hasAddress "Lindenstraße 13, 49808, Lingen";
+  ff:hasCity "Lingen";
+  ff:hasContactDetails "+49 (591) 912460, Sabine.broeker@skm-lingen.de";
+  ff:hasCoordinates "52.5166159/7.3159104";
+  ff:hasTitle "SKM - Katholischer Verein für, soziale Dienste in Lingen e.V.".
+
+ff:counselingCentre442 a ff:CounselingCentre;
+  ff:hasAddress "Heinrichsallee 56, 52062, Aachen";
+  ff:hasCity "Aachen";
+  ff:hasContactDetails "+49 (241) 41355500, info@skm-aachen.de";
+  ff:hasCoordinates "50.7771931/6.0951382";
+  ff:hasTitle "SKM - Katholischer Verein, für soziale Dienste e.V.".
+
+ff:counselingCentre443 a ff:CounselingCentre;
+  ff:hasAddress "Hubertusstraße 97, 47798, Krefeld";
+  ff:hasCity "Krefeld";
+  ff:hasContactDetails "+49 (2151) 84120, adolphsen@skm-krefeld.de";
+  ff:hasCoordinates "51.3317692/6.5570171";
+  ff:hasTitle "SKM - Katholischer Verein, für soziale Dienste e.V.".
+
+ff:counselingCentre444 a ff:CounselingCentre;
+  ff:hasAddress "Margaretenstraße 23, 49716, Meppen";
+  ff:hasCity "Meppen";
+  ff:hasContactDetails "+49 (5931) 931112, a.esters@skm-meppen.de";
+  ff:hasCoordinates "52.69784/7.30503";
+  ff:hasTitle "SKM - Katholischer Verein, für Soziale Dienste e.V.".
+
+ff:counselingCentre445 a ff:CounselingCentre;
+  ff:hasAddress "Foxiusstraße 2, 52223, Stolberg";
+  ff:hasCity "Stolberg";
+  ff:hasContactDetails "+49 (2402) 81007, beckers@skm-stolberg.de";
+  ff:hasCoordinates "50.7715/6.21092";
+  ff:hasTitle "SKM - Katholischer Verein, für soziale Dienste in der, Region Aachen-Land e.V.".
+
+ff:counselingCentre446 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 1, 47906, Kempen";
+  ff:hasCity "Kempen";
+  ff:hasContactDetails "+49 (2152) 4745, ";
+  ff:hasCoordinates "51.3704929/6.4273577";
+  ff:hasTitle "SKM - Katholischer Verein, für soziale Dienste in der, Region Kempen-Viersen e.V.".
+
+ff:counselingCentre447 a ff:CounselingCentre;
+  ff:hasAddress "Alte Poststraße 11, 49074, Osnabrück";
+  ff:hasCity "Osnabrück";
+  ff:hasContactDetails "+49 (541) 331440, k.baeumer@soziale-dienste-skm.de";
+  ff:hasCoordinates "52.2773395/8.0552914";
+  ff:hasTitle "SKM - Verein für Soziale Dienste, in Osnabrück e.V.".
+
+ff:counselingCentre448 a ff:CounselingCentre;
+  ff:hasAddress "Propsteihof 10, 44137, Dortmund";
+  ff:hasCity "Dortmund";
+  ff:hasContactDetails "+49 (231) 1848117, rekittke@skm-dortmund.de";
+  ff:hasCoordinates "51.5130274/7.4617544";
+  ff:hasTitle "SKM -Kath. Verein für soziale Dienste in Dortmund e.V.";
+  ff:hasWebsite "https://www.skm-dortmund.de".
+
+ff:counselingCentre449 a ff:CounselingCentre;
+  ff:hasAddress "Gartenstr. 5, 51379, Leverkusen";
+  ff:hasCity "Leverkusen";
+  ff:hasContactDetails "+49 (2171) 45611, info@skm-leverkusen.de, zeihen@skm-leverkusen.de, krone@skm-leverkusen.de";
+  ff:hasCoordinates "51.0647754/7.0001303";
+  ff:hasTitle "SKM Leverkusen e.V.";
+  ff:hasWebsite "https://www.skm-leverkusen.de".
+
+ff:counselingCentre45 a ff:CounselingCentre;
+  ff:hasAddress "Alexanderstraße 45, 99817, Eisenach";
+  ff:hasCity "Eisenach";
+  ff:hasContactDetails "+49 (3691) 204890, ifland.a@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.97713/10.3246301";
+  ff:hasTitle "Caritas in Eisenach".
+
+ff:counselingCentre450 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofstraße 27, 53721, Siegburg";
+  ff:hasCity "Siegburg";
+  ff:hasContactDetails "+49 (2241) 17780, norbert.dahm@skm-rhein-sieg.de";
+  ff:hasCoordinates "50.795852/7.2025963";
+  ff:hasTitle "SKM Rhein-Sieg-Kreis e.V.".
+
+ff:counselingCentre451 a ff:CounselingCentre;
+  ff:hasAddress "Röntgenstraße 4, 54292, Trier";
+  ff:hasCity "Trier";
+  ff:hasContactDetails "+49 (651) 147880, info@skm-trier.de";
+  ff:hasCoordinates "49.7686574/6.6613539";
+  ff:hasTitle "SKM Trier e.V., Allgemeiner Sozialer Dienst (ASD)".
+
+ff:counselingCentre452 a ff:CounselingCentre;
+  ff:hasAddress "Reitallee 6, 65307, Bad Schwalbach";
+  ff:hasCity "Bad Schwalbach";
+  ff:hasContactDetails "+49 (6124) 729223, hanne.wirtz@caritas-wirt.de";
+  ff:hasCoordinates "50.1403952/8.0660278";
+  ff:hasTitle "Sozial- und Lebensberatung, der Caritas für den Untertaunus".
+
+ff:counselingCentre453 a ff:CounselingCentre;
+  ff:hasAddress "Dotzheimer Straße 124, 65197, Wiesbaden";
+  ff:hasCity "Wiesbaden";
+  ff:hasContactDetails "+49 (611) 45020914, carrion-jaulis@katholischer-sozialladen.de";
+  ff:hasCoordinates "50.077084/8.2194125";
+  ff:hasTitle "Sozial- und Lebensberatung, der Caritas für Wiesbaden".
+
+ff:counselingCentre454 a ff:CounselingCentre;
+  ff:hasAddress "Winkeler Straße 92, 65366, Geisenheim";
+  ff:hasCity "Geisenheim";
+  ff:hasContactDetails "+49 (6722) 960230, thomas.kersting@caritas-wirt.de";
+  ff:hasCoordinates "49.9868551/7.9725583";
+  ff:hasTitle "Sozial- und Lebensberatung, der Caritas fürden Rheingau".
+
+ff:counselingCentre455 a ff:CounselingCentre;
+  ff:hasAddress "Olgastraße 137, 89073, Ulm";
+  ff:hasCity "Ulm";
+  ff:hasContactDetails "+49 (731) 206320, betz@caritas-ulm.de";
+  ff:hasCoordinates "48.40296/9.9983";
+  ff:hasTitle "Sozial- und Lebensberatung, Ulm";
+  ff:hasWebsite "https://www.caritas-ulm.de".
+
+ff:counselingCentre456 a ff:CounselingCentre;
+  ff:hasAddress "Hainstraße 86, 35216, Biedenkopf";
+  ff:hasCity "Biedenkopf";
+  ff:hasContactDetails "+49 (6461) 74322, p.kolody@caritas-wetzlar.Ide.de";
+  ff:hasCoordinates "50.915603/8.5220219";
+  ff:hasTitle "Sozialbüro Biedenkopf".
+
+ff:counselingCentre457 a ff:CounselingCentre;
+  ff:hasAddress "Hintergasse 2, 35683, Dillenburg";
+  ff:hasCity "Dillenburg";
+  ff:hasContactDetails "+49 (2771) 831916, service@caritas-wetzlar-Ide.de";
+  ff:hasCoordinates "50.73981/8.2844631";
+  ff:hasTitle "Sozialbüro Dillenburg".
+
+ff:counselingCentre458 a ff:CounselingCentre;
+  ff:hasAddress "Burgstraße 40, 35080, Gladenbach";
+  ff:hasCity "Gladenbach";
+  ff:hasContactDetails "+49 (6462) 1351, b.blecker@caritas-wetzlar-Ide.de";
+  ff:hasCoordinates "50.7679862/8.5788294";
+  ff:hasTitle "Sozialbüro Galdenbach".
+
+ff:counselingCentre459 a ff:CounselingCentre;
+  ff:hasAddress "Hauptstraße 52, 65760, Eschborn";
+  ff:hasCity "Eschborn";
+  ff:hasContactDetails "+49 (6196) 777733, eschborn@sozialbuero-main-taunus.de";
+  ff:hasCoordinates "50.14235/8.56542";
+  ff:hasTitle "Sozialbüro Main-Taunus Eschborn".
+
+ff:counselingCentre46 a ff:CounselingCentre;
+  ff:hasAddress "Regierungsstraße 55, 99084, Erfurt";
+  ff:hasCity "Erfurt";
+  ff:hasContactDetails "+49 (361) 5553320, traubel.c@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.9737936/11.0247742";
+  ff:hasTitle "Caritas in Erfurt".
+
+ff:counselingCentre460 a ff:CounselingCentre;
+  ff:hasAddress "Kurhausstraße 11, 65719, Hofheim";
+  ff:hasCity "Hofheim";
+  ff:hasContactDetails "+49 (6192) 207890, info@sozialbuero-main-taunus.de";
+  ff:hasCoordinates "50.0879189/8.4431565";
+  ff:hasTitle "Sozialbüro Main-Taunus-Hofheim".
+
+ff:counselingCentre461 a ff:CounselingCentre;
+  ff:hasAddress "Goethestraße 13, 35578, Wetzlar";
+  ff:hasCity "Wetzlar";
+  ff:hasContactDetails "+49 (6441) 90260, service@caritas-wetzlar-Ide.de";
+  ff:hasCoordinates "50.556578/8.5043169";
+  ff:hasTitle "Sozialbüro Wetzlar".
+
+ff:counselingCentre462 a ff:CounselingCentre;
+  ff:hasAddress "Sadelstraße 13, 48429, Rheine";
+  ff:hasCity "Rheine";
+  ff:hasContactDetails "undefined, undefined";
+  ff:hasCoordinates "52.2833635/7.4452496";
+  ff:hasTitle "Sozialbüro, Rheine".
+
+ff:counselingCentre463 a ff:CounselingCentre;
+  ff:hasAddress "Römerwall 67, 55131, Mainz";
+  ff:hasCity "Mainz";
+  ff:hasContactDetails "+49 (6131) 233895, info@skf-mainz.de";
+  ff:hasCoordinates "49.9976648/8.2570915";
+  ff:hasTitle "Sozialdienst kath. Frauen e.V.".
+
+ff:counselingCentre464 a ff:CounselingCentre;
+  ff:hasAddress "Apothekerstr. 12, 59755, Arnsberg - Neheim";
+  ff:hasCity "Arnsberg - Neheim";
+  ff:hasContactDetails "+49 (2932) 6398815, c.hengesbach@skf-arnsberg.de";
+  ff:hasCoordinates "51.45207/7.9637201";
+  ff:hasTitle "Sozialdienst kath. Frauen e.V. Arnsberg".
+
+ff:counselingCentre465 a ff:CounselingCentre;
+  ff:hasAddress "Saarbrücker Straße 29, 66822, Lebach";
+  ff:hasCity "Lebach";
+  ff:hasContactDetails "+49 (6881) 4101, beratungsstelle-lebach@skf-saarbruecken.de";
+  ff:hasCoordinates "49.40552/6.91333";
+  ff:hasTitle "Sozialdienst kath. Frauen e.V., Allgemeiner Sozialer Dienst (ASD)".
+
+ff:counselingCentre466 a ff:CounselingCentre;
+  ff:hasAddress "Krahnenstraße 33-34, 54290, Trier";
+  ff:hasCity "Trier";
+  ff:hasContactDetails "+49 (651) 94960, skf@skf-trier.de";
+  ff:hasCoordinates "49.7556881/6.6308149";
+  ff:hasTitle "Sozialdienst kath. Frauen e.V., Allgemeiner Sozialer Dienst (ASD)".
+
+ff:counselingCentre467 a ff:CounselingCentre;
+  ff:hasAddress "Richard-Wagner-Straße 11, 66111, Saarbrücken";
+  ff:hasCity "Saarbrücken";
+  ff:hasContactDetails "+49 (681) 9362590, sekretariat@skf-saarbruecken.de";
+  ff:hasCoordinates "49.2389644/6.9957831";
+  ff:hasTitle "Sozialdienst kath. Frauen e.V., Allgemeiner Sozialer Dienst (ASD)".
+
+ff:counselingCentre468 a ff:CounselingCentre;
+  ff:hasAddress "Kurfürstenstraße 87, 56068, Koblenz";
+  ff:hasCity "Koblenz";
+  ff:hasContactDetails "+49 (261) 304240, info@skf-koblenz.de";
+  ff:hasCoordinates "50.34666/7.59335";
+  ff:hasTitle "Sozialdienst kath.Frauen e.V., Allgemeiner Sozialer Dienst (ASD)".
+
+ff:counselingCentre469 a ff:CounselingCentre;
+  ff:hasAddress "Stiftsgasse 17, 53111, Bonn";
+  ff:hasCity "Bonn";
+  ff:hasContactDetails "+49 (228) 982410, regina.wollschlaeger@skf-bonn-rhein-sieg.de";
+  ff:hasCoordinates "50.7382049/7.0996614";
+  ff:hasTitle "Sozialdienst katholischer Frauen Bonn";
+  ff:hasWebsite "https://www.skf-bonn-rhein-sieg.de".
+
+ff:counselingCentre47 a ff:CounselingCentre;
+  ff:hasAddress "Moßlerstr. 17, 99867, Gotha";
+  ff:hasCity "Gotha";
+  ff:hasContactDetails "+49 (3621) 404550, weise.s@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.9524488/10.7046498";
+  ff:hasTitle "Caritas in Gotha".
+
+ff:counselingCentre470 a ff:CounselingCentre;
+  ff:hasAddress "Steinweg 5, 59929, Brilon";
+  ff:hasCity "Brilon";
+  ff:hasContactDetails "+49 (2961) 96060, skf-brilon@t-online.de";
+  ff:hasCoordinates "51.3965887/8.5684194";
+  ff:hasTitle "Sozialdienst katholischer Frauen Brilon e.V.".
+
+ff:counselingCentre471 a ff:CounselingCentre;
+  ff:hasAddress "Münsterstr. 57, 44145, Dortmund";
+  ff:hasCity "Dortmund";
+  ff:hasContactDetails "+49 (231) 8610850, asb@skf-dortmund.de,a.luebberstedt@skf-dortmund.de";
+  ff:hasCoordinates "51.5340175/7.492579";
+  ff:hasTitle "Sozialdienst katholischer Frauen e. V. Dortmund";
+  ff:hasWebsite "https://www.skf-dortmund.de".
+
+ff:counselingCentre472 a ff:CounselingCentre;
+  ff:hasAddress "Pastoratstraße 20, 58706, Menden";
+  ff:hasCity "Menden";
+  ff:hasContactDetails "+49 (2373) 92870, info@skf-menden.de";
+  ff:hasCoordinates "51.4377681/7.7977398";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre473 a ff:CounselingCentre;
+  ff:hasAddress "Kemnastraße 7, 45657, Recklinghausen";
+  ff:hasCity "Recklinghausen";
+  ff:hasContactDetails "+49 (2361) 485980, skf-re@skf-recklinghausen.de";
+  ff:hasCoordinates "51.61171/7.19406";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-recklinghausen.de".
+
+ff:counselingCentre474 a ff:CounselingCentre;
+  ff:hasAddress "Goethestraße 22, 58239, Schwerte";
+  ff:hasCity "Schwerte";
+  ff:hasContactDetails "+49 (2304) 16761, skf@schwerterkirchen.de";
+  ff:hasCoordinates "51.4431/7.5686";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre475 a ff:CounselingCentre;
+  ff:hasAddress "Stfitsherrenstraße 7, 52428, Jülich";
+  ff:hasCity "Jülich";
+  ff:hasContactDetails "+49 (2461) 50453, skf-juelich@t-online.de";
+  ff:hasCoordinates "50.9418933/6.3944308";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-juelich.de".
+
+ff:counselingCentre476 a ff:CounselingCentre;
+  ff:hasAddress "Eckstraße 1, 52477, Alsdorf";
+  ff:hasCity "Alsdorf";
+  ff:hasContactDetails "+49 (2404) 93222, info@skf-alsdorf.de";
+  ff:hasCoordinates "50.8772431/6.161483";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-alsdorf.de".
+
+ff:counselingCentre477 a ff:CounselingCentre;
+  ff:hasAddress "Saarbrücker Straße 29, 66822, Lebach";
+  ff:hasCity "Lebach";
+  ff:hasContactDetails "+49 (6881) 4101, beratungsstelle-lebach@skf-saarbruecken.de";
+  ff:hasCoordinates "49.40552/6.91333";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre478 a ff:CounselingCentre;
+  ff:hasAddress "Lebzeltergasse 3, 85049, Ingolstadt";
+  ff:hasCity "Ingolstadt";
+  ff:hasContactDetails "+49 (841) 937550, info@skf-ingolstadt.de";
+  ff:hasCoordinates "48.7636991/11.4234661";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre479 a ff:CounselingCentre;
+  ff:hasAddress "Liudostraße 13, 59348, Lüdinghausen";
+  ff:hasCity "Lüdinghausen";
+  ff:hasContactDetails "+49 (2591) 23712-0, asb@skf-luedinghausen.de";
+  ff:hasCoordinates "51.7689289/7.4432788";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-luedinghausen.de".
+
+ff:counselingCentre48 a ff:CounselingCentre;
+  ff:hasAddress "Bahnhofplatz 3, 37308, Heiligenstadt";
+  ff:hasCity "Heiligenstadt";
+  ff:hasContactDetails "+49 (3606) 509732, nacke.c@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "51.3766262/10.1246233";
+  ff:hasTitle "Caritas in Heiligenstadt".
+
+ff:counselingCentre480 a ff:CounselingCentre;
+  ff:hasAddress "Bergstraße 224, 44807, Bochum";
+  ff:hasCity "Bochum";
+  ff:hasContactDetails "+49 (234) 955010, info@skf-bochum.de";
+  ff:hasCoordinates "51.49962/7.22493";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-bochum.de".
+
+ff:counselingCentre481 a ff:CounselingCentre;
+  ff:hasAddress "Breloh 5, 59759, Arnsberg";
+  ff:hasCity "Arnsberg";
+  ff:hasContactDetails "+49 (2932) 6398812, b.padberg@skf-arnsberg.de";
+  ff:hasCoordinates "51.4355/8.0038";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre482 a ff:CounselingCentre;
+  ff:hasAddress "Wilhelmstraße 22, 52070, Aachen";
+  ff:hasCity "Aachen";
+  ff:hasContactDetails "+49 (241) 470450, info@skf-aachen de";
+  ff:hasCoordinates "50.773214/6.0956425";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre483 a ff:CounselingCentre;
+  ff:hasAddress "Oststraße 39, 49477, Ibbenbüren";
+  ff:hasCity "Ibbenbüren";
+  ff:hasContactDetails "+49 (5451) 96860, skf-ibb@t-online.de";
+  ff:hasCoordinates "52.27256/7.7177";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre484 a ff:CounselingCentre;
+  ff:hasAddress "Westpromenade 13, 41812, Erkelenz";
+  ff:hasCity "Erkelenz";
+  ff:hasContactDetails "+49 (2431) 96000, ";
+  ff:hasCoordinates "51.08103/6.31296";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre485 a ff:CounselingCentre;
+  ff:hasAddress "Bürgermeister-Kreke-Straße 3, 49593, Bersenbrück";
+  ff:hasCity "Bersenbrück";
+  ff:hasContactDetails "+49 (5439) 1773, cschumacher@skf-bersenbrueck.de";
+  ff:hasCoordinates "52.5544811/7.9470203";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre486 a ff:CounselingCentre;
+  ff:hasAddress "Pfarrstraße 8a, 46236, Bottrop";
+  ff:hasCity "Bottrop";
+  ff:hasContactDetails "+49 (2041) 186630, info@skfm-bottrop.de";
+  ff:hasCoordinates "51.52056/6.92715";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre487 a ff:CounselingCentre;
+  ff:hasAddress "Hauptstraße 50, 26897, Esterwegen";
+  ff:hasCity "Esterwegen";
+  ff:hasContactDetails "+49 (5955) 2871, skf.esterwegen@ewetel.net";
+  ff:hasCoordinates "52.9942486/7.6326835";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre488 a ff:CounselingCentre;
+  ff:hasAddress "Andreas-Limmer-Straße 5, 96317, Kronach";
+  ff:hasCity "Kronach";
+  ff:hasContactDetails "+49 (9261) 20621, skf-kronach@t-online.de";
+  ff:hasCoordinates "50.24092/11.32852";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre489 a ff:CounselingCentre;
+  ff:hasAddress "Wasserstraße 15, 59423, Unna";
+  ff:hasCity "Unna";
+  ff:hasContactDetails "+49 (2303) 2422, SkF-unna@dokom.net";
+  ff:hasCoordinates "51.53362/7.69079";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre49 a ff:CounselingCentre;
+  ff:hasAddress "Wagnergasse 29, 07743, Jena";
+  ff:hasCity "Jena";
+  ff:hasContactDetails "+49 (3641) 449257, nicoll.g@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.9306529/11.5809551";
+  ff:hasTitle "Caritas in Jena".
+
+ff:counselingCentre490 a ff:CounselingCentre;
+  ff:hasAddress "Bonner Straße 34, 52351, Düren";
+  ff:hasCity "Düren";
+  ff:hasContactDetails "+49 (2421) 95380, info@skf-dueren.de";
+  ff:hasCoordinates "50.7999194/6.4871769";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre491 a ff:CounselingCentre;
+  ff:hasAddress "Häutebachweg 5, 57072, Siegen";
+  ff:hasCity "Siegen";
+  ff:hasContactDetails "+49 (271) 20110, geschaeftsstelle@SkF-Siegen.de";
+  ff:hasCoordinates "50.8723932/8.0219432";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre492 a ff:CounselingCentre;
+  ff:hasAddress "Kalandstraße 9, 34414, Warburg";
+  ff:hasCity "Warburg";
+  ff:hasContactDetails "+49 (5641) 2477, SkF-Warburg@t-online.de";
+  ff:hasCoordinates "51.4883074/9.1485828";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre493 a ff:CounselingCentre;
+  ff:hasAddress "Ellenstraße 29, 47906, Kempen";
+  ff:hasCity "Kempen";
+  ff:hasContactDetails "+49 (2152) 2387, ";
+  ff:hasCoordinates "51.36363/6.41684";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre494 a ff:CounselingCentre;
+  ff:hasAddress "Johannisstraße 91, 49074, Osnabrück";
+  ff:hasCity "Osnabrück";
+  ff:hasContactDetails "+49 (541) 3387618, bschreinemacher@skf-os.de";
+  ff:hasCoordinates "52.2701276/8.0511848";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre495 a ff:CounselingCentre;
+  ff:hasAddress "Haagstraße 30, 47441, Moers";
+  ff:hasCity "Moers";
+  ff:hasContactDetails "+49 (2841) 922510, info@skf-moers.de";
+  ff:hasCoordinates "51.4508243/6.6261567";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-moers.de".
+
+ff:counselingCentre496 a ff:CounselingCentre;
+  ff:hasAddress "Cappelstraße 27, 59555, Lippstadt";
+  ff:hasCity "Lippstadt";
+  ff:hasContactDetails "+49 (2941) 2868228, info@skf-lippstadt.de";
+  ff:hasCoordinates "51.6747976/8.3431757";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre497 a ff:CounselingCentre;
+  ff:hasAddress "Postfach 10 33 51, 45033, Essen";
+  ff:hasCity "Essen";
+  ff:hasContactDetails "+49 (201) 275080, r.engels@skf-essen.de";
+  ff:hasCoordinates "51.4556432/7.0115552";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-essen.de".
+
+ff:counselingCentre498 a ff:CounselingCentre;
+  ff:hasAddress "Birkengangstraße 5, 52222, Stolberg";
+  ff:hasCity "Stolberg";
+  ff:hasContactDetails "+49 (2402) 951640, info@skf-stolberg.de";
+  ff:hasCoordinates "50.7794224/6.2248707";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre499 a ff:CounselingCentre;
+  ff:hasAddress "Hochstraße 47, 45894, Gelsenkirchen";
+  ff:hasCity "Gelsenkirchen";
+  ff:hasContactDetails "+49 (209) 16587743, sekretariat@skf-gebuer.de";
+  ff:hasCoordinates "51.58075/7.04947";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre5 a ff:CounselingCentre;
+  ff:hasAddress "Ludwig-Penzkofer-Str. 3, 94078, Freyung";
+  ff:hasCity "Freyung";
+  ff:hasContactDetails "+49 (8551) 58522, sozialberatung@caritas-freyung.de";
+  ff:hasCoordinates "48.80383/13.54217";
+  ff:hasTitle "Allgemeine Sozialberatung d. KCV Freyung-Grafenau".
+
+ff:counselingCentre50 a ff:CounselingCentre;
+  ff:hasAddress "Bonifatiusweg 2, 37327, Leinefelde";
+  ff:hasCity "Leinefelde";
+  ff:hasContactDetails "+49 (3605) 504436, hoeppner.h@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "51.3780722/10.3181497";
+  ff:hasTitle "Caritas in Leinefelde".
+
+ff:counselingCentre500 a ff:CounselingCentre;
+  ff:hasAddress "Mellinstraße 5, 59457, Werl";
+  ff:hasCity "Werl";
+  ff:hasContactDetails "+49 (2922) 87040, info@skf-werl.de";
+  ff:hasCoordinates "51.5526893/7.9189256";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre501 a ff:CounselingCentre;
+  ff:hasAddress "Crispinusstraße 9, 46399, Bocholt";
+  ff:hasCity "Bocholt";
+  ff:hasContactDetails "+49 (2871) 2518212, info@skf-bocholt.de";
+  ff:hasCoordinates "51.8387363/6.613206";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-bocholt.de".
+
+ff:counselingCentre502 a ff:CounselingCentre;
+  ff:hasAddress "Burgstraße 30, 49808, Lingen";
+  ff:hasCity "Lingen";
+  ff:hasContactDetails "+49 (591) 800620, Brigitte.Hellen@skf-lingen.de";
+  ff:hasCoordinates "52.5231098/7.3205352";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre503 a ff:CounselingCentre;
+  ff:hasAddress "Zingel 36, 31134, Hildesheim";
+  ff:hasCity "Hildesheim";
+  ff:hasContactDetails "+49 (5121) 408821, skf-hi@t-online.de";
+  ff:hasCoordinates "52.1513/9.95555";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre504 a ff:CounselingCentre;
+  ff:hasAddress "Turnerstraße 4, 33602, Bielefeld";
+  ff:hasCity "Bielefeld";
+  ff:hasContactDetails "+49 (521) 9619140, info@skf-bielefeld.de";
+  ff:hasCoordinates "52.0229766/8.5366312";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://skf-bielefeld.de/".
+
+ff:counselingCentre505 a ff:CounselingCentre;
+  ff:hasAddress "Dionysiusplatz 24, 47798, Krefeld";
+  ff:hasCity "Krefeld";
+  ff:hasContactDetails "+49 (2151) 62910, info@skf-krefeld.de";
+  ff:hasCoordinates "51.33293/6.55972";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre506 a ff:CounselingCentre;
+  ff:hasAddress "Palaisstraße 27, 32756, Detmold";
+  ff:hasCity "Detmold";
+  ff:hasContactDetails "+49 (5231) 20574, skf_detmold_robrecht@freenet.de";
+  ff:hasCoordinates "51.9319692/8.8719608";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.".
+
+ff:counselingCentre507 a ff:CounselingCentre;
+  ff:hasAddress "Kirchstraße 51, 45879, Gelsenkirchen";
+  ff:hasCity "Gelsenkirchen";
+  ff:hasContactDetails "+49 (209) 923300, verwaltung@skf-gelsenkirchen.de";
+  ff:hasCoordinates "51.51048/7.10225";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.";
+  ff:hasWebsite "https://www.skf-gelsenkirchen.de".
+
+ff:counselingCentre508 a ff:CounselingCentre;
+  ff:hasAddress "Steinstraße 12, 59872, Meschede";
+  ff:hasCity "Meschede";
+  ff:hasContactDetails "+49 (291) 997413, F.Lenze@Caritas-Meschede.de";
+  ff:hasCoordinates "51.34416/8.2826";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V. - Ortsverein Meschede".
+
+ff:counselingCentre509 a ff:CounselingCentre;
+  ff:hasAddress "Baslerstraße 10, 79189, Bad Krozingen";
+  ff:hasCity "Bad Krozingen";
+  ff:hasContactDetails "+49 (7633) 8069090, buero@skf-staufen.de";
+  ff:hasCoordinates "47.9169227/7.7009547";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V.  Staufen".
+
+ff:counselingCentre51 a ff:CounselingCentre;
+  ff:hasAddress "Anton-Ulrich-Straße 56, 98617, Meiningen";
+  ff:hasCity "Meiningen";
+  ff:hasContactDetails "+49 (3693) 44220, guenther.k@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.56411/10.4143";
+  ff:hasTitle "Caritas in Meiningen".
+
+ff:counselingCentre510 a ff:CounselingCentre;
+  ff:hasAddress "Hopfengartenstraße 16, 53721, Siegburg";
+  ff:hasCity "Siegburg";
+  ff:hasContactDetails "+49 (2241) 958046, Regina.Wollschlaeger@skf-bonn-rhein-sieg.de,Ingrid.Klein@skf-bonn-rhein-sieg.de,Ines.Mildner-Rest@skf-bonn-rhein-sieg.de,heike.giessrigl@skf-bonn-rhein-sieg.de";
+  ff:hasCoordinates "50.7919641/7.2092901";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V. Bonn und Rhein-Sieg-Kreis";
+  ff:hasWebsite "https://www.skf-bonn-rhein-sieg.de".
+
+ff:counselingCentre511 a ff:CounselingCentre;
+  ff:hasAddress "Königstraße 13, 32423, Minden";
+  ff:hasCity "Minden";
+  ff:hasContactDetails "+49 (571) 828999, info@skfminden.de,terhaar@skfminden.de,tenspolde@skfminden.de";
+  ff:hasCoordinates "52.2862668/8.9120471";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V. Minden";
+  ff:hasWebsite "https://www.skfminden.de".
+
+ff:counselingCentre512 a ff:CounselingCentre;
+  ff:hasAddress "Hauptstraße 210, 44649, Herne";
+  ff:hasCity "Herne";
+  ff:hasContactDetails "+49 (2325) 71488, skf.herne-wanne@t-online.de";
+  ff:hasCoordinates "51.5293034/7.1601616";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V. Wanne-Eickel".
+
+ff:counselingCentre513 a ff:CounselingCentre;
+  ff:hasAddress "Unter den Ulmen 23, 33330, Gütersloh";
+  ff:hasCity "Gütersloh";
+  ff:hasContactDetails "undefined, info@skf-guetersloh.de";
+  ff:hasCoordinates "51.9010865/8.3742978";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V., Allgemeine Sozialberatung Gütersloh".
+
+ff:counselingCentre514 a ff:CounselingCentre;
+  ff:hasAddress "Niederhofener Straße 52, 44263, Dortmund-Hörde";
+  ff:hasCity "Dortmund-Hörde";
+  ff:hasContactDetails "+49 (231) 42579960, smolen@skf-hoerde.de,info-service@skf-hoerde.de";
+  ff:hasCoordinates "51.4798181/7.4977335";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V., Dortmund-Hörde";
+  ff:hasWebsite "https://www.skf-hoerde.de".
+
+ff:counselingCentre515 a ff:CounselingCentre;
+  ff:hasAddress "Peilsgasse 1-3, 52249, Eschweiler";
+  ff:hasCity "Eschweiler";
+  ff:hasContactDetails "+49 (2403) 609180, info@skf-eschweilere.de";
+  ff:hasCoordinates "50.8180543/6.2735168";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V., Eschweiler".
+
+ff:counselingCentre516 a ff:CounselingCentre;
+  ff:hasAddress "Berliner Straße 10, 32052, Herford";
+  ff:hasCity "Herford";
+  ff:hasContactDetails "+49 (5221) 10370, kontakt@skf-herford.de";
+  ff:hasCoordinates "52.11726/8.67347";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V., Herford";
+  ff:hasWebsite "https://skf-herford.de".
+
+ff:counselingCentre517 a ff:CounselingCentre;
+  ff:hasAddress "Bleichstr. 20, 41460 Neuss, 41460, Neuss";
+  ff:hasCity "Neuss";
+  ff:hasContactDetails "+49 (2131) 92040, undefined";
+  ff:hasCoordinates "51.2030086/6.6872816";
+  ff:hasTitle "Sozialdienst katholischer Frauen e.V., Neuss".
+
+ff:counselingCentre518 a ff:CounselingCentre;
+  ff:hasAddress "Wilhelmstr. 96, 42489, Wülfrath";
+  ff:hasCity "Wülfrath";
+  ff:hasContactDetails "+49 (2058) 4031, info@skfm-wuelfrath.de";
+  ff:hasCoordinates "51.2816702/7.0348787";
+  ff:hasTitle "Sozialdienst katholischer Frauen und Männer Wülfrath".
+
+ff:counselingCentre519 a ff:CounselingCentre;
+  ff:hasAddress "Hammer Landstraße 5, 41460, Neuss";
+  ff:hasCity "Neuss";
+  ff:hasContactDetails "+49 (2131) 924850, beering-katthagen@skm-neuss.de";
+  ff:hasCoordinates "51.199064/6.6976626";
+  ff:hasTitle "Sozialdienst Katholischer Männer Neuss e.V.";
+  ff:hasWebsite "https://www.skmneuss.de".
+
+ff:counselingCentre52 a ff:CounselingCentre;
+  ff:hasAddress "Kleine Waidstraße 3, 99974, Mühlhausen";
+  ff:hasCity "Mühlhausen";
+  ff:hasContactDetails "+49 (3601) 83280, montag.w@caritas-bistu-erfurt.de";
+  ff:hasCoordinates "51.2098908/10.46881";
+  ff:hasTitle "Caritas in Mühlhausen".
+
+ff:counselingCentre520 a ff:CounselingCentre;
+  ff:hasAddress "Adolf-Kolping-Str. 18, 96317, Kronach";
+  ff:hasCity "Kronach";
+  ff:hasContactDetails "+49 (9261) 605610, soziale-beratung@caritas-kronach.de";
+  ff:hasCoordinates "50.24213/11.32291";
+  ff:hasTitle "Soziale Beratungsstelle, Kronach".
+
+ff:counselingCentre53 a ff:CounselingCentre;
+  ff:hasAddress "Domstraße 6, 99734, Nordhausen";
+  ff:hasCity "Nordhausen";
+  ff:hasContactDetails "+49 (3631) 467152, klodt.n@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "51.50392/10.79087";
+  ff:hasTitle "Caritas in Nordhausen".
+
+ff:counselingCentre54 a ff:CounselingCentre;
+  ff:hasAddress "Darrtorstraße 11, 07318, Saalfeld";
+  ff:hasCity "Saalfeld";
+  ff:hasContactDetails "+49 (3671) 358214, tippelt.d@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.64926/11.36127";
+  ff:hasTitle "Caritas in Saalfeld".
+
+ff:counselingCentre55 a ff:CounselingCentre;
+  ff:hasAddress "Hohe Röder 1, 98527, Suhl";
+  ff:hasCity "Suhl";
+  ff:hasContactDetails "+49 (3681) 711811, wittek.a@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.6114/10.69555";
+  ff:hasTitle "Caritas in Suhl".
+
+ff:counselingCentre56 a ff:CounselingCentre;
+  ff:hasAddress "Thomas-Müntzer-Straße 18, 99423, Weimar";
+  ff:hasCity "Weimar";
+  ff:hasContactDetails "+49 (3643) 202149, osburg.b@caritas-bistum-erfurt.de";
+  ff:hasCoordinates "50.97521/11.32055";
+  ff:hasTitle "Caritas in Weimar".
+
+ff:counselingCentre57 a ff:CounselingCentre;
+  ff:hasAddress "Ziegelstraße 11, 74321, Bietigheim-Bissingen";
+  ff:hasCity "Bietigheim-Bissingen";
+  ff:hasContactDetails "+49 (7142) 91350, schlebach@caritas-ludwigsburg-waiblingen-enz.de";
+  ff:hasCoordinates "48.9604328/9.1288865";
+  ff:hasTitle "Caritas Ludwigsburg-Waiblingen-Enz, Integrierte Hilfen für Familien".
+
+ff:counselingCentre58 a ff:CounselingCentre;
+  ff:hasAddress "Albertstraße 8, 71522, Backnang";
+  ff:hasCity "Backnang";
+  ff:hasContactDetails "+49 (7191) 9115613, eichhorn-wenz@caritas-ludwigsburg-waiblingen-enz.de";
+  ff:hasCoordinates "48.9451/9.42929";
+  ff:hasTitle "Caritas Ludwigsburg-Waiblingen-Enz, Zentrum Backnang".
+
+ff:counselingCentre59 a ff:CounselingCentre;
+  ff:hasAddress "Eberhardstraße 29, 71634, Ludwigsburg";
+  ff:hasCity "Ludwigsburg";
+  ff:hasContactDetails "+49 (741) 9750514, tolksdorf@caritas-ludwigsburg-waiblingen-enz.de";
+  ff:hasCoordinates "48.8983358/9.1926718";
+  ff:hasTitle "Caritas Ludwigsburg-Waiblingen-Enz, Zentrum Ludwigsburg".
+
+ff:counselingCentre6 a ff:CounselingCentre;
+  ff:hasAddress "Fritz-Tillmann-Str. 8, 53113, Bonn";
+  ff:hasCity "Bonn";
+  ff:hasContactDetails "+49 (228) 108280, sozialberatung@caritas-bonn.de";
+  ff:hasCoordinates "50.73068/7.10374";
+  ff:hasTitle "Allgemeine Sozialberatung des Caritasverbandes für die Stadt Bonn e.V.";
+  ff:hasWebsite "https://www.caritas-bonn.de".
+
+ff:counselingCentre60 a ff:CounselingCentre;
+  ff:hasAddress "Zeppelinstraße 7, 75417, Mühlacker";
+  ff:hasCity "Mühlacker";
+  ff:hasContactDetails "+49 (7041) 5953, muthsam-polimeni@caritas-ludwigsburg-waiblingen.de";
+  ff:hasCoordinates "48.94999/8.8387";
+  ff:hasTitle "Caritas Ludwigsburg-Waiblingen-Enz, Zentrum Mühlacker".
+
+ff:counselingCentre61 a ff:CounselingCentre;
+  ff:hasAddress "Talstraße 12, 71332, Waiblingen";
+  ff:hasCity "Waiblingen";
+  ff:hasContactDetails "+49 (7151) 172414, sangermano@caritas-ludwigsburg-waiblingen-enz.de";
+  ff:hasCoordinates "48.8350598/9.3096389";
+  ff:hasTitle "Caritas Ludwigsburg-Waiblingen-Enz, Zentrum Waiblingen".
+
+ff:counselingCentre62 a ff:CounselingCentre;
+  ff:hasAddress "Augustastraße 7-9, 47441, Moers";
+  ff:hasCity "Moers";
+  ff:hasContactDetails "+49 (2841) 901015, sozialberatung@caritas-moers-xanten.de";
+  ff:hasCoordinates "51.4494345/6.6344687";
+  ff:hasTitle "Caritas Moers-Xanten e.V.";
+  ff:hasWebsite "https://www.caritas-moers-xanten.de".
+
+ff:counselingCentre63 a ff:CounselingCentre;
+  ff:hasAddress "Stadtfischergasse 3, 73479, Ellwangen";
+  ff:hasCity "Ellwangen";
+  ff:hasContactDetails "+49 (7961) 569782, beck@caritas-ost-wuerttemberg.de";
+  ff:hasCoordinates "48.960158/10.1322032";
+  ff:hasTitle "Caritas Ost-Württemberg, Außenstelle Ellwangen".
+
+ff:counselingCentre64 a ff:CounselingCentre;
+  ff:hasAddress "Weidenfelder Straße 12, 73430, Aalen";
+  ff:hasCity "Aalen";
+  ff:hasContactDetails "+49 (7361) 59044, heusel.p@caritas-ost-wuerttemberg.de";
+  ff:hasCoordinates "48.84099/10.09235";
+  ff:hasTitle "Caritas Ost-Württemberg, Zentrum Aalen".
+
+ff:counselingCentre65 a ff:CounselingCentre;
+  ff:hasAddress "Kurt-Bittel-Straße 8, 89518, Heidenheim";
+  ff:hasCity "Heidenheim";
+  ff:hasContactDetails "+49 (7321) 359011, geiger@caritas-ost-wurttemberg.de";
+  ff:hasCoordinates "48.6808164/10.1540143";
+  ff:hasTitle "Caritas Ost-Württemberg, Zentrum Heidenheim".
+
+ff:counselingCentre66 a ff:CounselingCentre;
+  ff:hasAddress "Franziskanergasse 3, 73525, Schwäbisch Gmünd";
+  ff:hasCity "Schwäbisch Gmünd";
+  ff:hasContactDetails "+49 (7171) 1042032, kuschmann@caritas-ost-wuerttemberg.de";
+  ff:hasCoordinates "48.8005/9.79918";
+  ff:hasTitle "Caritas Ost-Württemberg, Zentrum Schwäbisch Gmünd".
+
+ff:counselingCentre67 a ff:CounselingCentre;
+  ff:hasAddress "Mettinger Str. 123, 73728, Esslingen";
+  ff:hasCity "Esslingen";
+  ff:hasContactDetails "+49 (711) 39695424, ruetten@caritas-fils-neckar-alb.de";
+  ff:hasCoordinates "48.7422278/9.2909845";
+  ff:hasTitle "Caritas Region Fils-Neckar-Alb, Orte des Zuhörens - Solidarisches Handeln".
+
+ff:counselingCentre68 a ff:CounselingCentre;
+  ff:hasAddress "An der Hoffischerei 08, 06217, Merseburg";
+  ff:hasCity "Merseburg";
+  ff:hasContactDetails "+49 (3461) 333900, grit.vrieze@caritas-halle.de";
+  ff:hasCoordinates "51.3589/11.99511";
+  ff:hasTitle "Caritas Regionalverband Halle e.V. - Bereich Saalekreis";
+  ff:hasWebsite "https://www.caritasverband-halle.de".
+
+ff:counselingCentre69 a ff:CounselingCentre;
+  ff:hasAddress "Bergstraße 14, 78532, Tuttlingen";
+  ff:hasCity "Tuttlingen";
+  ff:hasContactDetails "+49 (7461) 9697171, sorg@caritas-schwarzwald-alb-donau.de";
+  ff:hasCoordinates "47.98064/8.81726";
+  ff:hasTitle "Caritas Schwarzwald-Alb-Donau, Sozial- und Lebensberatung".
+
+ff:counselingCentre7 a ff:CounselingCentre;
+  ff:hasAddress "Obere Donaulände 8, 94032, Passau";
+  ff:hasCity "Passau";
+  ff:hasContactDetails "+49 (851) 5018732, info@caritas-pa-la.de";
+  ff:hasCoordinates "48.5751743/13.454027";
+  ff:hasTitle "Allgemeine Sozialberatung des Caritasverbandes für Stadt und Landkreis Passau e. V.".
+
+ff:counselingCentre70 a ff:CounselingCentre;
+  ff:hasAddress "Alter Markt 1, 72336, Balingen";
+  ff:hasCity "Balingen";
+  ff:hasContactDetails "+49 (7433) 968816, mestrovic@caritas-schwarzwald-alb.donau.de";
+  ff:hasCoordinates "48.2752119/8.8518072";
+  ff:hasTitle "Caritas Schwarzwald-Alb-Donau, Zentrum Balingen".
+
+ff:counselingCentre71 a ff:CounselingCentre;
+  ff:hasAddress "Königstraße 47, 78626, Rottweil";
+  ff:hasCity "Rottweil";
+  ff:hasContactDetails "+49 (741) 246135, schmidt.b@caritas-schwarzwald-alb-donau.de";
+  ff:hasCoordinates "48.1652577/8.628453";
+  ff:hasTitle "Caritas Schwarzwald-Alb-Donau, Zentrum Rottweil".
+
+ff:counselingCentre72 a ff:CounselingCentre;
+  ff:hasAddress "Hans-Klemm-Straße 1, 71034, Böblingen";
+  ff:hasCity "Böblingen";
+  ff:hasContactDetails "+49 (7031) 64960, boeblingen@caritas-schwarzwald-gaeu.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritas Schwarzwald-Gäu, Zentrum Böblingen".
+
+ff:counselingCentre73 a ff:CounselingCentre;
+  ff:hasAddress "Biergasse 11, 75365, Calw";
+  ff:hasCity "Calw";
+  ff:hasContactDetails "+49 (7051) 92590, calw@caritas-schwarzwald-gaeu.de";
+  ff:hasCoordinates "48.7155784/8.738698";
+  ff:hasTitle "Caritas Schwarzwald-Gäu, Zentrum Calw".
+
+ff:counselingCentre74 a ff:CounselingCentre;
+  ff:hasAddress "Marktplatz 27, 72160, Horb";
+  ff:hasCity "Horb";
+  ff:hasContactDetails "+49 (7451) 55140, horb@caritas-schwarzwald-gaeu.de";
+  ff:hasCoordinates "48.4452978/8.6868253";
+  ff:hasTitle "Caritas Schwarzwald-Gäu, Zentrum Horb".
+
+ff:counselingCentre75 a ff:CounselingCentre;
+  ff:hasAddress "Ammerstraße 3/1, 71065, Sindelfingen";
+  ff:hasCity "Sindelfingen";
+  ff:hasContactDetails "+49 (7031) 611680, sindelfingen@caritas-schwarzwald-gaeu.de";
+  ff:hasCoordinates "48.70581/9.00562";
+  ff:hasTitle "Caritas Schwarzwald-Gäu, Zentrum Sindelfingen".
+
+ff:counselingCentre76 a ff:CounselingCentre;
+  ff:hasAddress "Albrechtstraße 4, 72072, Tübingen";
+  ff:hasCity "Tübingen";
+  ff:hasContactDetails "+49 (7071) 79620, tuebingen@caritas-schwarzwald-gaeu.de";
+  ff:hasCoordinates "48.51298/9.05677";
+  ff:hasTitle "Caritas Schwarzwald-Gäu, Zentrum Tübingen".
+
+ff:counselingCentre77 a ff:CounselingCentre;
+  ff:hasAddress "Hehlestraße 2, 89584, Ehingen";
+  ff:hasCity "Ehingen";
+  ff:hasContactDetails "+49 (7391) 707311, wichert@caritas-ulm.de";
+  ff:hasCoordinates "48.28167/9.72871";
+  ff:hasTitle "Caritas Ulm, Außenstelle Ehingen".
+
+ff:counselingCentre78 a ff:CounselingCentre;
+  ff:hasAddress "Dorotheenstraße 9-11, 61348, Bad Homburg";
+  ff:hasCity "Bad Homburg";
+  ff:hasContactDetails "+49 (6172) 597600, beratungsstelle@caritas-hochtaunus.de";
+  ff:hasCoordinates "50.2266372/8.6132533";
+  ff:hasTitle "Caritas-Beratung Hochtaunus".
+
+ff:counselingCentre79 a ff:CounselingCentre;
+  ff:hasAddress "Coriansberg 20, 25524, Itzehoe";
+  ff:hasCity "Itzehoe";
+  ff:hasContactDetails "+49 (4821) 407846, heckmann@kath-itzehoe.de";
+  ff:hasCoordinates "53.9235457/9.5251468";
+  ff:hasTitle "Caritas-Beratungsstelle".
+
+ff:counselingCentre8 a ff:CounselingCentre;
+  ff:hasAddress "Neuöttingerstr. 62a, 84503, Altötting";
+  ff:hasCity "Altötting";
+  ff:hasContactDetails "+49 (8671) 96730, info@caritas-altoetting.de";
+  ff:hasCoordinates "48.23102/12.68066";
+  ff:hasTitle "Allgemeine Sozialberatung des KCV Altötting".
+
+ff:counselingCentre80 a ff:CounselingCentre;
+  ff:hasAddress "Feldstraße 24a, 25335, Elmshorn";
+  ff:hasCity "Elmshorn";
+  ff:hasContactDetails "+49 (4121) 268937, caritas-elmshorn@gmx.de";
+  ff:hasCoordinates "53.75672/9.65501";
+  ff:hasTitle "Caritas-Beratungsstelle".
+
+ff:counselingCentre81 a ff:CounselingCentre;
+  ff:hasAddress "Anton-Saefkow-Platz 3-4, 10369, Berlin";
+  ff:hasCity "Berlin";
+  ff:hasContactDetails "+49 (30) 666340500, asb-fennpfuhl@caritas-berlin.de";
+  ff:hasCoordinates "52.52982/13.47236";
+  ff:hasTitle "Caritas-Beratungszentrum Am Fennpfuhl".
+
+ff:counselingCentre82 a ff:CounselingCentre;
+  ff:hasAddress "Weißenburger Str. 17, 85072, Eichstätt";
+  ff:hasCity "Eichstätt";
+  ff:hasContactDetails "+49 (8421) 97550, Josef.Wintergerst@caritas-ingolstadt.de,Hans.Wiesner@caritas-eichstaett.de,Renate.Wolf-Forsthofer@caritas-eichstaett.de";
+  ff:hasCoordinates "48.89438/11.17778";
+  ff:hasTitle "Caritas-Kreisstelle Eichstätt - Allgemeine Sozialberatung".
+
+ff:counselingCentre83 a ff:CounselingCentre;
+  ff:hasAddress "Giesbertsstraße 67c, 90473, Nürnberg";
+  ff:hasCity "Nürnberg";
+  ff:hasContactDetails "+49 (911) 8001107, kreisstelle@caritas-nuernberg-sued.de,michael.glaser@caritas-nuernberg-sued.de,gertrud.ziegler@caritas-nuernberg-sued.de";
+  ff:hasCoordinates "49.4014613/11.1435122";
+  ff:hasTitle "Caritas-Kreisstelle Nürnberg-Süd";
+  ff:hasWebsite "https://www.caritas-nuernberg-sued.de".
+
+ff:counselingCentre84 a ff:CounselingCentre;
+  ff:hasAddress "Penzendorferstraße 20, 91122, Schwabach";
+  ff:hasCity "Schwabach";
+  ff:hasContactDetails "+49 (9171) 879341, kreisstelle@caritas-roth.de";
+  ff:hasCoordinates "49.3288905/11.0244827";
+  ff:hasTitle "Caritas-Kreisstelle Roth, Außenstelle Schwabach".
+
+ff:counselingCentre85 a ff:CounselingCentre;
+  ff:hasAddress "Straße der Jugend 23, 03046, Cottbus";
+  ff:hasCity "Cottbus";
+  ff:hasContactDetails "+49 (355) 38003730, regionalstelle@caritas-cottbus.de";
+  ff:hasCoordinates "51.7520649/14.3334005";
+  ff:hasTitle "Caritas-Regionalstelle Cottbus, Allgemeine Soziale Beratung".
+
+ff:counselingCentre86 a ff:CounselingCentre;
+  ff:hasAddress "Straße der Republik 2a, 15890, Eisenhüttenstadt";
+  ff:hasCity "Eisenhüttenstadt";
+  ff:hasContactDetails "+49 (3364) 800380, Nebenstelle.Eisenhuettenstadt@caritas-cottbus.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritas-Regionalstelle Cottbus, Nebenstelle Eisenhüttenstadt (ASB)".
+
+ff:counselingCentre87 a ff:CounselingCentre;
+  ff:hasAddress "Wilhelmplatz 2, 02826, Görlitz";
+  ff:hasCity "Görlitz";
+  ff:hasContactDetails "+49 (3581) 420020, kreisstelle@caritasgoerlitz.de";
+  ff:hasCoordinates "51.1481975/14.975409";
+  ff:hasTitle "Caritas-Regionalstelle Görlitz, Allgemeine Soziale Beratung".
+
+ff:counselingCentre88 a ff:CounselingCentre;
+  ff:hasAddress "Ludwig-von-Beethoven-Straße 26, 02977, Hoyerswerda";
+  ff:hasCity "Hoyerswerda";
+  ff:hasContactDetails "+49 (3571) 979256, sozialberatung@caritas-hoyerswerda.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritas-Regionalstelle Hoyerswerda, Allgemeine Soziale Beratung".
+
+ff:counselingCentre89 a ff:CounselingCentre;
+  ff:hasAddress "Bahnmeistergasse 6, 01968, Senftenberg";
+  ff:hasCity "Senftenberg";
+  ff:hasContactDetails "+49 (3573) 140493, kreisstelle@caritas-senftenberg.de";
+  ff:hasCoordinates "51.5252937/13.999569";
+  ff:hasTitle "Caritas-Regionalstelle Senftenberg, Allgemeine Soziale Beratung".
+
+ff:counselingCentre9 a ff:CounselingCentre;
+  ff:hasAddress "Spitalplatz 4, 84347, Pfarrkirchen";
+  ff:hasCity "Pfarrkirchen";
+  ff:hasContactDetails "+49 (8561) 960715, geschaeftsstelle@caritas-rottal-inn.de";
+  ff:hasCoordinates "48.43112/12.94062";
+  ff:hasTitle "Allgemeine Sozialberatung des KCV Rottal-Inn e.V.".
+
+ff:counselingCentre90 a ff:CounselingCentre;
+  ff:hasAddress "Karl-Liebknecht-Straße 30, 01963, Großräschen";
+  ff:hasCity "Großräschen";
+  ff:hasContactDetails "+49 (35753) 6050, caritas-sozialstation-gross@t-online.de";
+  ff:hasCoordinates "45.4101245/12.0044819";
+  ff:hasTitle "Caritas-Regionalstelle Senftenberg, Caritas-Sozialstation (ASB)".
+
+ff:counselingCentre91 a ff:CounselingCentre;
+  ff:hasAddress "Bahnmeistergasse 6, 01968, Senftenberg";
+  ff:hasCity "Senftenberg";
+  ff:hasContactDetails "+49 (3573) 795689, sozialstation.senftenberg@caritas-senftenberg.de";
+  ff:hasCoordinates "51.5252937/13.999569";
+  ff:hasTitle "Caritas-Regionalstelle Senftenberg, Caritas-Sozialstation (ASB)".
+
+ff:counselingCentre92 a ff:CounselingCentre;
+  ff:hasAddress "Geschwister-Scholl-Straße 2, 03238, Finsterwalde";
+  ff:hasCity "Finsterwalde";
+  ff:hasContactDetails "+49 (3531) 61362, nebenstelle.finsterwalde@caritas-senftenberg.de";
+  ff:hasCoordinates "51.6278943/13.7122434";
+  ff:hasTitle "Caritas-Regionalstelle Senftenberg, Nebenstelle Finsterwalde (ASB)".
+
+ff:counselingCentre93 a ff:CounselingCentre;
+  ff:hasAddress "Am kleinen Hain 28, 15907, Lübben";
+  ff:hasCity "Lübben";
+  ff:hasContactDetails "+49 (3546) 181980, CaritaskreisstelleLuebben@t-online.de";
+  ff:hasCoordinates "51.9433023/13.8975627";
+  ff:hasTitle "Caritas-Regionalstelle Senftenberg, Nebenstelle Lübben (ASB)".
+
+ff:counselingCentre94 a ff:CounselingCentre;
+  ff:hasAddress "Otto-Grotewohl-Straße 4a, 03233, Lübbenau";
+  ff:hasCity "Lübbenau";
+  ff:hasContactDetails "+49 (3542) 2320, sozialberatung-luebbenau@caritas-senftenberg.de";
+  ff:hasCoordinates "51.8603587/13.94093";
+  ff:hasTitle "Caritas-Regionalstelle Senftenberg, Nebenstelle Lübbenau (ASB)".
+
+ff:counselingCentre95 a ff:CounselingCentre;
+  ff:hasAddress "Stadtplatz 1, 84307, Eggenfelden";
+  ff:hasCity "Eggenfelden";
+  ff:hasContactDetails "+49 (8721) 911105, caritassekretariat.eg@freenet.de";
+  ff:hasCoordinates "48.4037839/12.7618212";
+  ff:hasTitle "Caritassekretariat Eggenfelden e.V.".
+
+ff:counselingCentre96 a ff:CounselingCentre;
+  ff:hasAddress "Dr.-Schellerer-Straße 22b, 94234, Viechtach";
+  ff:hasCity "Viechtach";
+  ff:hasContactDetails "+49 (9942) 94880, asb-sb@caritas-viechtach.de";
+  ff:hasCoordinates "49.07582/12.8914";
+  ff:hasTitle "Caritassekretariat Viechtach e.V.".
+
+ff:counselingCentre97 a ff:CounselingCentre;
+  ff:hasAddress "Martinstraße 56, 77855, Achern";
+  ff:hasCity "Achern";
+  ff:hasContactDetails "+49 (7841) 62140, scalisi@caritas-acher-renchtal.de";
+  ff:hasCoordinates "48.62888/8.08243";
+  ff:hasTitle "Caritasverband Acher-Renchtal e.V.".
+
+ff:counselingCentre98 a ff:CounselingCentre;
+  ff:hasAddress "Rathausstr. 5, 57610, Altenkirchen";
+  ff:hasCity "Altenkirchen";
+  ff:hasContactDetails "+49 (2681) 2056, info@caritas-altenkirchen.de";
+  ff:hasCoordinates "50.68835/7.6482";
+  ff:hasTitle "Caritasverband Altenkirchen e.V.".
+
+ff:counselingCentre99 a ff:CounselingCentre;
+  ff:hasAddress "Dreifaltigkeitsstraße 3, 92224, Amberg";
+  ff:hasCity "Amberg";
+  ff:hasContactDetails "+49 (9621) 47550, Michael.Imgrund@caritas-amberg.de";
+  ff:hasCoordinates "49.4427986/11.8727271";
+  ff:hasTitle "Caritasverband Amberg-Sulzbach e.V.".

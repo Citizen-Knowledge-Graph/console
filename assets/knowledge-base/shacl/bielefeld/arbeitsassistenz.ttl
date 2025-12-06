@@ -1,0 +1,156 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:aas a ff:RequirementProfile ;
+    ff:title "Arbeitsassistenz"@de ,
+              "Job Assistance"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:integrationsamt ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "Arbeitsassistenz ist eine Unterstützung für Menschen mit Behinderungen, bei der eine Hilfsperson am Arbeitsplatz notwendige Tätigkeiten übernimmt, um die Ausübung der beruflichen Aufgaben zu ermöglichen oder zu erleichtern."@de ,
+                "Job assistance is a support for people with disabilities, where an assistant at the workplace takes over necessary tasks to enable or facilitate the performance of professional duties."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:aasMainShape ;
+    ff:hasFlowShape ff:aasFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:aasMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [ sh:path ff:disability ; sh:in (true) ] ;
+    sh:property [ sh:path ff:disabilityDegreeDetermined; sh:in (true) ] ;
+    sh:property [
+        sh:or (
+            [ 
+                sh:property [ sh:path ff:disabilityDegree ; sh:in(
+                    ff:disabilityDegree-50
+                    ff:disabilityDegree-60 
+                    ff:disabilityDegree-70 
+                    ff:disabilityDegree-80 
+                    ff:disabilityDegree-90 
+                    ff:disabilityDegree-100
+                ) ] 
+            ]
+            [ 
+                sh:and (
+                    sh:property [ sh:path ff:disabilityDegree ; sh:in(
+                        ff:disabilityDegree-30
+                        ff:disabilityDegree-40
+                    ) ]                     
+                    sh:property [ sh:path ff:equalStatusNeeded ; sh:in (true) ]
+                )
+            ]
+        )
+    ] ;
+    sh:property [ sh:path ff:regularWorkSupport ; sh:in (true) ] ;
+    sh:property [ sh:path ff:coreWorkWithoutHelp ; sh:in (true) ] ;
+    sh:property [ sh:path ff:workplaceAccommodationSufficient ; sh:in (false) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property ff:aasInclusiveWorkplacePS ]            
+            [ sh:property ff:aasSocialSecurityEmploymentPS ]
+            [ sh:property ff:aasSelfEmployedPS ] 
+        )
+    ] .
+
+ff:aasInclusiveWorkplacePS a sh:PropertyShape ;
+    sh:and (
+        sh:property [ sh:path ff:workplaceType ; sh:in (ff:workplaceType-inclusive) ]
+        sh:property [ sh:path ff:primaryEmploymentHours ; sh:minInclusive 12 ]
+    ) .
+
+ff:aasSelfEmployedPS a sh:PropertyShape ;
+    sh:and (
+        sh:property [ sh:path ff:workplaceType ; sh:in (ff:workplaceType-selfEmployed) ]
+        sh:property [ sh:path ff:primaryEmploymentHours ; sh:minInclusive 15 ]
+        sh:property [ sh:path ff:incomeSource ; sh:in (ff:incomeSource-selfEmployment) ]
+    ) .
+
+ff:aasSocialSecurityEmploymentPS a sh:PropertyShape ;
+    sh:and (
+        sh:property [ sh:path ff:employmentStatus ; sh:in (ff:employmentStatus-employed) ]
+        sh:property [ sh:path ff:primaryEmploymentHours ; sh:minInclusive 15 ]
+    ) .    
+    
+
+# ----- DECISION TREE LOGIC -----
+
+ff:aasFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property ff:aasBaseRequirements ;
+    sh:property ff:aasDegreeEvaluatedPS ;
+    sh:property ff:aasJobRiskPS ;
+    sh:property ff:aasInsufficientWorkplacePS ;
+    sh:property ff:aasWorkplaceRequirementsPS .
+
+ff:aasBaseRequirements a sh:PropertyShape ;    
+    sh:property [ sh:path ff:disability ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:disabilityDegreeDetermined ; sh:minCount 1 ] .
+
+ff:aasDegreeEvaluatedPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:disabilityDegreeDetermined ] true ) 
+        ]
+    ] ;
+    sh:property [ sh:path ff:disabilityDegree ; sh:minCount 1 ] .
+
+ff:aasJobRiskPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:path ff:disabilityDegree ; sh:in( ff:disabilityDegree-30 ff:disabilityDegree-40 )
+        ]
+    ] ;
+    sh:property [ sh:path ff:equalStatusNeeded ; sh:minCount 1 ] .
+    
+ff:aasInsufficientWorkplacePS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:or (
+            [ sh:not [  
+                sh:path ff:disabilityDegree ; sh:in(
+                    ff:disabilityDegree-50
+                    ff:disabilityDegree-60
+                    ff:disabilityDegree-70
+                    ff:disabilityDegree-80
+                    ff:disabilityDegree-90
+                    ff:disabilityDegree-100
+                )
+            ] ]
+            [
+                sh:not [
+                    sh:and (
+                        [ 
+                            sh:path ff:disabilityDegree ; sh:in(
+                                ff:disabilityDegree-30
+                                ff:disabilityDegree-40
+                            )
+                        ]
+                        [ sh:path ff:equalStatusNeeded ; sh:in (true) ]
+                    )
+                ]
+            ]
+        )
+    ] ;
+    sh:property [ sh:path ff:regularWorkSupport ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:coreWorkWithoutHelp ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:workplaceAccommodationSufficient ; sh:minCount 1 ] .
+
+ff:aasWorkplaceRequirementsPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:and (
+                shn:eq ( [ sh:path ff:regularWorkSupport ] true ) 
+                shn:eq ( [ sh:path ff:coreWorkWithoutHelp ] true )
+                shn:eq ( [ sh:path ff:workplaceAccommodationSufficient ] false )
+            )  
+        ]
+    ] ;
+    sh:property [ sh:path ff:workplaceType ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:primaryEmploymentHours ; sh:minCount 1 ] .

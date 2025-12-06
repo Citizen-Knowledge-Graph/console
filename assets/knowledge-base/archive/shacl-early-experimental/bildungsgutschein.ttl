@@ -1,0 +1,18 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff:   <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:bildungsgutschein a ff:RequirementProfile ;
+    ff:author    ff:benglaeser ;
+    ff:created   "2024-04-02"^^xsd:date ;
+    ff:title     "Bildungsgutschein" ;
+    ff:category   ff:Bildungsteilhabe ;
+    rdfs:comment "Checks for eligibility for the Bildungsgutschein" ;
+    rdfs:seeAlso <https://mein-now.de/privatpersonen/foerderungen/suche/bildungsgutschein> .
+
+ff:BildungsgutscheinCitizenshipShape
+    a              sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:nodeKind    sh:IRI ;
+    sh:message     "The entity must be of type ff:Citizen to be eligible for Bildungsgutschein." .

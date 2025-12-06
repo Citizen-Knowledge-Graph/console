@@ -1,0 +1,12 @@
+# logical consistency checks
+
+@prefix ff:  <https://foerderfunke.org/default#> .
+@prefix sh:  <http://www.w3.org/ns/shacl#> .
+
+ff:ParentMustBeOlderThanChildShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+          sh:path ( ff:hasChild ff:hasAge ) ;
+          sh:lessThan ff:hasAge ;
+          sh:message "A parent must be older than their child." ;
+      ] .

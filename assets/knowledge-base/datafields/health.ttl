@@ -1,0 +1,461 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:careNeed a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Pflegebedürftigkeit"@de , "Need for Care"@en ;
+    schema:question "Sind Sie pflegebedürftig?"@de , "Are you in need of care?"@en ;
+    rdfs:comment "Pflegebedürftig sind Personen, die wegen gesundheitlicher Einschränkungen in erheblichem oder vollständigem Maß auf Hilfe bei den Verrichtungen des täglichen Lebens angewiesen sind. Die Feststellung erfolgt nach den Regelungen des Elften Buches Sozialgesetzbuch (SGB XI)."@de ,
+                 "A person is considered in need of care if, due to health impairments, they require substantial or complete assistance with activities of daily living. The determination is made according to the German Social Code, Book XI (SGB XI)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:careNeed ;
+        sh:property [
+            sh:path ff:careNeed ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:disability a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Behinderung"@de , "Disability"@en ;
+    schema:question "Haben Sie eine Behinderung?"@de , "Do you have a disability?"@en ;
+    rdfs:comment "Als Menschen mit Behinderung gelten Personen, deren körperliche Funktion, geistige Fähigkeit oder seelische Gesundheit mit hoher Wahrscheinlichkeit länger als sechs Monate von dem für das Lebensalter typischen Zustand abweicht und die daher in ihrer Teilhabe am Leben in der Gesellschaft beeinträchtigt sind (§ 2 SGB IX)."@de ,
+                 "Persons are considered to have a disability if their physical function, mental ability, or psychological health deviates from the typical state for their age for more than six months and thus impairs their participation in society (§ 2 German Social Code, Book IX)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disability ;
+        sh:property [
+            sh:path ff:disability ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:addictionDisorder a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Suchterkrankung"@de , "Addiction Disorder"@en ;
+    schema:question "Leiden Sie an einer Suchterkrankung?"@de , "Do you have an addiction disorder?"@en ;
+    rdfs:comment "Eine Suchterkrankung bezeichnet eine anhaltende Abhängigkeit oder einen schädlichen Gebrauch von Substanzen, zum Beispiel Alkohol, illegale Drogen oder Medikamente, oder eine nicht stoffgebundene Abhängigkeit, zum Beispiel Glücksspiel. Die Diagnose erfolgt in der Regel durch eine ärztliche oder psychotherapeutische Fachperson."@de ,
+                 "An addiction disorder refers to a persistent dependence or harmful use of substances, for example alcohol, illicit drugs or medications, or a non substance related addiction, for example gambling. The diagnosis is usually made by a medical or psychotherapeutic professional."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:addictionDisorder ;
+        sh:property [
+            sh:path ff:addictionDisorder ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:pregnancy a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Schwangerschaft"@de , "Pregnancy"@en ;
+    schema:question "Sind Sie schwanger?"@de , "Are you pregnant?"@en ;
+    rdfs:comment "Die Frage erfasst, ob aktuell eine Schwangerschaft besteht."@de ,
+                 "This question asks whether a pregnancy currently exists."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:pregnancy ;
+        sh:property [
+            sh:path ff:pregnancy ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:recentChildbirth a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Kürzliche Geburt"@de , "Recent Childbirth"@en ;
+    schema:question "Haben Sie vor kurzem ein Kind geboren?"@de , "Have you recently given birth to a child?"@en ;
+    rdfs:comment "Die Frage erfasst, ob eine Person in jüngerer Vergangenheit ein Kind geboren hat. Eine genauere zeitliche Eingrenzung kann je nach Kontext erforderlich sein, zum Beispiel die letzten sechs oder zwölf Monate."@de ,
+                 "This question captures whether a person has given birth to a child in the recent past. A more precise time frame may be required depending on the context, for example within the last six or twelve months."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:recentChildbirth ;
+        sh:property [
+            sh:path ff:recentChildbirth ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:severeDisease a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Schwere Erkrankung"@de , "Severe Disease"@en ;
+    schema:question "Liegt bei Ihnen eine schwere Erkrankung vor, wie zum Beispiel Krebs, HIV, Hepatitis A oder Hepatitis C?"@de ,
+                    "Do you have a severe disease, such as cancer, HIV, hepatitis A or hepatitis C?"@en ;
+    rdfs:comment "Schwere Erkrankungen sind insbesondere lebensbedrohliche oder chronische Krankheiten, wie zum Beispiel Krebs, HIV oder Virushepatitis."@de ,
+                 "Severe diseases are particularly life-threatening or chronic illnesses, such as cancer, HIV, or viral hepatitis."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:severeDisease ;
+        sh:property [
+            sh:path ff:severeDisease ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+# specific
+
+ff:reducedEarningCapacityBySpecialCause a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Erwerbsminderung durch besondere Ursache"@de , "Reduced Earning Capacity by Special Cause"@en ;
+    schema:question "Ist Ihre Erwerbsminderung durch einen Arbeitsunfall, eine Berufskrankheit, einen Unfall im Wehr- oder Freiwilligendienst, einen Impfschaden oder durch Gewalt entstanden?"@de ,
+                    "Was your reduced earning capacity caused by an occupational accident, an occupational disease, an accident during military or voluntary service, a vaccine injury, or by violence?"@en ;
+    rdfs:comment "Diese Frage bezieht sich auf spezifische anerkannte Ursachen einer Erwerbsminderung, darunter Arbeitsunfall, Berufskrankheit, Unfall im Wehr- oder Freiwilligendienst, Impfschaden und Gewalt (§§ SGB VII, OEG, IfSG)."@de ,
+                 "This question refers to specific recognized causes of reduced earning capacity, including occupational accident, occupational disease, accident during military or voluntary service, vaccine injury, and violence (according to the German Social Code, Book VII, Crime Victims Compensation Act, and Infection Protection Act)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:reducedEarningCapacityBySpecialCause ;
+        sh:property [
+            sh:path ff:reducedEarningCapacityBySpecialCause ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:disabilityDegreeDetermined a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Feststellung des Grades der Behinderung"@de , "Determination of Disability Degree"@en ;
+    schema:question "Wurde der Grad Ihrer Behinderung bereits festgestellt?"@de ,
+                    "Has the degree of your disability already been determined?"@en ;
+    rdfs:comment "Die Feststellung dieses Wertes ist Voraussetzung für verschiedene Leistungen. Der Grad der Behinderung (GdB) wird in Deutschland von den zuständigen Versorgungsämtern oder anderen zuständigen Behörden festgestellt und in Zehnerschritten von 20 bis 100 angegeben (§ 152 SGB IX)."@de ,
+                 "Determining this value is a prerequisite for various benefits. The degree of disability (GdB) in Germany is determined by the competent pension offices or other authorities and is specified in increments of ten from 20 to 100 (§ 152 German Social Code, Book IX)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disabilityDegreeDetermined ;
+        sh:property [
+            sh:path ff:disabilityDegreeDetermined ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:disabilityDegree a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Grad der Behinderung"@de , "Degree of Disability"@en ;
+    schema:question "Wie hoch ist der Grad Ihrer Behinderung?"@de , "What is the degree of your disability?"@en ;
+    rdfs:comment "Der Grad der Behinderung (GdB) wird in Deutschland von den zuständigen Behörden festgestellt. Er wird in Zehnerschritten zwischen 20 und 100 angegeben (§ 152 SGB IX)."@de ,
+                 "The degree of disability (GdB) is determined in Germany by the competent authorities. It is specified in increments of ten between 20 and 100 (§ 152 German Social Code, Book IX)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:disabilityDegree ;
+        sh:property [
+            sh:path ff:disabilityDegree ;
+            sh:in (
+                ff:disabilityDegree-20
+                ff:disabilityDegree-30
+                ff:disabilityDegree-40
+                ff:disabilityDegree-50
+                ff:disabilityDegree-60
+                ff:disabilityDegree-70
+                ff:disabilityDegree-80
+                ff:disabilityDegree-90
+                ff:disabilityDegree-100
+                ff:disabilityDegree-none
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:disabilityDegree-20 a ff:AnswerOption ; rdfs:label "20"@de , "20"@en .
+ff:disabilityDegree-30 a ff:AnswerOption ; rdfs:label "30"@de , "30"@en .
+ff:disabilityDegree-40 a ff:AnswerOption ; rdfs:label "40"@de , "40"@en .
+ff:disabilityDegree-50 a ff:AnswerOption ; rdfs:label "50"@de , "50"@en .
+ff:disabilityDegree-60 a ff:AnswerOption ; rdfs:label "60"@de , "60"@en .
+ff:disabilityDegree-70 a ff:AnswerOption ; rdfs:label "70"@de , "70"@en .
+ff:disabilityDegree-80 a ff:AnswerOption ; rdfs:label "80"@de , "80"@en .
+ff:disabilityDegree-90 a ff:AnswerOption ; rdfs:label "90"@de , "90"@en .
+ff:disabilityDegree-100 a ff:AnswerOption ; rdfs:label "100"@de , "100"@en .
+ff:disabilityDegree-none a ff:AnswerOption ; rdfs:label "Keine Angabe"@de , "No indication"@en .
+
+ff:equalStatusNeeded a ff:DataField ;
+    schema:category ff:beschaeftigungDfKategorie ;
+    rdfs:label "Gleichstellung erforderlich"@de , "Equal Status Needed"@en ;
+    schema:question "Würden Sie ohne Gleichstellung wegen Ihrer Behinderung keinen passenden Job finden oder behalten können?"@de ,
+                    "Would you be unable to find or keep a suitable job without being granted equal status due to your disability?"@en ;
+    rdfs:comment "Gleichstellung bedeutet, dass Menschen mit einer Behinderung rechtlich so behandelt werden wie schwerbehinderte Menschen – etwa beim Kündigungsschutz oder bei Förderungen im Job –, auch wenn ihr Grad der Behinderung unter 50 liegt."@de ,
+                    "Equal status means that people with disabilities are legally treated the same as severely disabled people – for example, in terms of protection against dismissal or job promotions – even if their degree of disability is below 50."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:equalStatusNeeded ;
+        sh:property [
+            sh:path ff:equalStatusNeeded ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:regularWorkSupport a ff:DataField ;
+    schema:category ff:beschaeftigungDfKategorie ;
+    rdfs:label "Unterstützungsbedarf bei der Arbeit"@de , "Regular Support Need at Work"@en ;
+    schema:question "Benötigen Sie regelmäßige, erhebliche und dauerhafte Unterstützung, um Ihre Arbeit auszuführen?"@de ,
+                    "Do you require regular, substantial, and lasting support to perform your work?"@en ;
+    rdfs:comment "Erfasst wird, ob eine Person für die Ausführung ihrer Arbeit wiederkehrend, in erheblichem Umfang und dauerhaft auf Unterstützung angewiesen ist. Beispiele können persönliche Assistenz, Jobcoaching, Gebärdensprachdolmetschen, technische Hilfsmittel oder Anpassungen des Arbeitsplatzes sein."@de ,
+                 "This captures whether a person requires recurring, substantial, and lasting support to perform their work. Examples can include personal assistance, job coaching, sign language interpretation, assistive technologies, or workplace adjustments."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:regularWorkSupport ;
+        sh:property [
+            sh:path ff:regularWorkSupport ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:coreWorkWithoutHelp a ff:DataField ;
+    schema:category ff:beschaeftigungDfKategorie ;
+    rdfs:label "Kerntätigkeit ohne Hilfe"@de , "Core Work Without Help"@en ;
+    schema:question "Können Sie die Kerntätigkeit Ihrer Arbeit ohne Hilfe erledigen?"@de ,
+                    "Can you perform the core tasks of your work without help?"@en ;
+    rdfs:comment "Mit Kerntätigkeit ist der wesentliche, nicht delegierbare Teil der beruflichen Aufgaben gemeint. Die Frage erfasst, ob diese Tätigkeiten selbstständig und ohne fremde Unterstützung ausgeführt werden können."@de ,
+                 "Core tasks refer to the essential, non-delegable parts of one's occupational duties. This question captures whether these tasks can be carried out independently and without external support."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:coreWorkWithoutHelp ;
+        sh:property [
+            sh:path ff:coreWorkWithoutHelp ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:workplaceAccommodationSufficient a ff:DataField ;
+    schema:category ff:beschaeftigungDfKategorie ;
+    rdfs:label "Ausreichende behindertengerechte Arbeitsplatzgestaltung"@de , "Sufficient Workplace Accommodation"@en ;
+    schema:question "Ist die vorhandene behindertengerechte Gestaltung Ihres Arbeitsplatzes ausreichend, um Ihre Arbeit zu ermöglichen?"@de ,
+                    "Is the existing accessible design of your workplace sufficient to enable you to perform your work?"@en ;
+    rdfs:comment "Gemeint sind Maßnahmen und Anpassungen am Arbeitsplatz, die Barrieren reduzieren oder beseitigen und die Ausübung der Tätigkeit ermöglichen. Dazu zählen zum Beispiel technische Hilfsmittel, ergonomische Anpassungen, Assistenzleistungen, Änderungen der Arbeitsorganisation sowie bauliche Anpassungen."@de ,
+                 "This refers to measures and adjustments at the workplace that reduce or remove barriers and enable the performance of work. Examples include assistive technologies, ergonomic adjustments, personal assistance, changes to work organization, and structural modifications."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:workplaceAccommodationSufficient ;
+        sh:property [
+            sh:path ff:workplaceAccommodationSufficient ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:opioidAddiction a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Opioidabhängigkeit"@de , "Opioid addiction"@en ;
+    schema:question "Liegt bei Ihnen eine ärztlich anerkannte Opioid-Abhängigkeitserkrankung vor?"@de , "Sind Sie abhängig von Opioiden und wurde diese Abhängigkeit von einem Arzt oder einer Ärztin bestätigt?"@de-x-es , "Do you have a medically recognized opioid addiction?"@en ;
+    rdfs:comment "Eine Substitutionstherapie ist eine Therapieform, die nur bei Personen mit einer Opioidabhängigkeit vermittelt wird."@de , "Eine Substitutionstherapie ist nur für Menschen mit einer Abhängigkeit von Opioiden."@de-x-es , "Substitution therapy is a form of treatment that is only provided to individuals with opioid dependence."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:opioidAddiction ;
+        sh:property [
+            sh:path ff:opioidAddiction ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .    
+
+ff:sobrietyWish a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Abstinenz Wunsch"@de , "Sobriety wish"@en ;
+    schema:question "Besteht bei Ihnen der Wunsch, abstinent von Opioiden, also vollkommen ohne Opioide zu leben?"@de , "Haben Sie den Wunsch, in Ihrem Leben keine Opioide mehr zu nehmen?"@de-x-es , "Do you wish to abstain from opioids, i.e., to live completely without opioids?"@en ;
+    rdfs:comment "Der Wille zur Abstinenz ist in der Regel ein Kriterium, unter dem eine Substitutionstherapie begonnen wird."@de , "Der Wille, keine Opioide zu nehmen, ist meistens eine Bedingung für die Substitutions-Therapie."@de-x-es , "The desire to abstain is usually a criterion for starting substitution therapy."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:sobrietyWish ;
+        sh:property [
+            sh:path ff:sobrietyWish ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:opioidAddictionMoreThanTwoYears a ff:DataField ;
+    schema:category ff:gesundheitDfKategorie ;
+    rdfs:label "Opioidabhängigkeit seit mehr als 2 Jahren"@de , "Opioid Addiction for More Than 2 Years"@en ;
+    schema:question "Besteht Ihre Opioidabhängigkeit seit mehr als 2 Jahren?"@de ,
+                    "Has your opioid addiction lasted for more than 2 years?"@en ;
+    rdfs:comment "Die Frage erfasst die Dauer einer bestehenden Opioidabhängigkeit. Maßgeblich ist, ob diese seit mehr als zwei Jahren besteht."@de ,
+                 "This question captures the duration of an existing opioid addiction. The key aspect is whether it has lasted for more than two years."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:opioidAddictionMoreThanTwoYears ;
+        sh:property [
+            sh:path ff:opioidAddictionMoreThanTwoYears ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:addictionDamage a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Suchtschäden"@de, "Addiction damage"@en ;
+    schema:question "Weisen Sie erhebliche Defizite in medizinischer, psychologischer oder sozialer Hinsicht auf, die auf den Gebrauch von unerlaubt erworbenen Opioiden zurückzuführen sind?"@de , "Haben Sie große Probleme mit Ihrer Gesundheit, Ihrer Psyche oder in Ihrem sozialen Umfeld? Haben Sie diese Probleme, weil Sie illegale Opioide zu sich genommen haben?"@de-x-es , "Do you have significant medical, psychological, or social deficits attributable to the use of illicitly obtained opioids?"@en ;
+    rdfs:comment "Solche Probleme können zum Beispiel schlechte körperliche Gesundheit, Traurigkeit oder Angst, Streit mit Familie oder Freund:innen, Verlust der Arbeit oder Schwierigkeiten mit Wohnung oder Geld sein."@de , "Such problems can include poor physical health, feeling depressed or anxious, trouble with family or friends, losing your job, or difficulties with housing or money."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:addictionDamage ;
+        sh:property [
+            sh:path ff:addictionDamage ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .    
+
+ff:regularSubstitutiontherapy6months a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Reguläre Substitutionstherapie von mindestens 6 Monaten"@de , "Regular substitution therapy of at least 6 months"@en ;
+    schema:question "Waren Sie bereits in Ihrem Leben mindestens 6 Monate in einer Substitutionstherapie?"@de ,
+        "Waren Sie schon einmal mindestens 6 Monate in einer Substitutionstherapie?"@de-x-es ,
+        "Have you already been in substitution therapy for at least 6 months in your life?"@en ;
+    rdfs:comment "Eine Substitutionstherapie ist eine medizinische Behandlung, bei der Opioide (zum Beispiel Heroin) durch andere, länger wirkende und weniger schädliche Substanzen (zum Beispiel Methadon oder Buprenorphin) ersetzt werden."@de ,
+        "Eine Substitutionstherapie ist eine Behandlung. Dabei wird ein Rauschmittel wie Heroin durch ein anderes Medikament ersetzt. Zum Beispiel Methadon oder Buprenorphin. Diese Medikamente wirken länger und sind weniger schädlich."@de-x-es ,
+        "Substitution therapy is a medical treatment in which opioids (for example, heroin) are replaced by other, longer-acting and less harmful substances (for example, methadone or buprenorphine)."@en ;        
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:regularSubstitutiontherapy6months ;
+        sh:property [
+            sh:path ff:regularSubstitutiontherapy6months ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .
+
+ff:regularSubstitutiontherapyUnsuccessful a ff:DataField ;
+    schema:category ff:gesundheit-pflege-df-kategorie ;
+    rdfs:label "Erfolglose Substitutionstherapie"@de, "Unsuccessful substitution therapy"@en ;
+    schema:question "Können Sie nachweisen, dass Sie bereits eine Substitutionstherapie zur Behandlung einer Opioidabhängigkeit über einen Zeitraum von 6 Monaten gemacht haben, welche sich als nicht geeignet oder erfolglos erwiesen hat?"@de , 
+        "Können Sie belegen, dass Sie schon eine Substitutionstherapie gegen eine Abhängigkeit von Opioiden gemacht haben, die mindestens 6 Monate gedauert hat und nicht geholfen hat?"@de-x-es , 
+        "Can you prove that you have already undergone substitution therapy for the treatment of opioid dependence for a period of 6 months, which proved to be unsuitable or unsuccessful?"@en ;
+    rdfs:comment "Bei einer Substitutionstherapie zur Behandlung einer Opioidabhängigkeit bekommen Betroffene ein Ersatzmedikament wie Methadon, Polamidon oder Buprenorphin. Wenn diese Behandlung mindestens 6 Monate lang durchgeführt wurde und sich als ungeeignet oder erfolglos erwiesen hat, gilt sie als nicht wirksam."@de , 
+        "In einer Substitutionstherapie gegen eine Abhängigkeit von Opioiden bekommen Menschen ein Ersatzmedikament. Beispiele sind Methadon, Polamidon oder Buprenorphin. Hat die Behandlung mindestens 6 Monate gedauert und nicht geholfen, gilt sie als erfolglos."@de-x-es , 
+        "In substitution therapy for the treatment of opioid dependence, patients are given a substitute medication such as methadone, polamidone, or buprenorphine. If this treatment has been carried out for at least 6 months and has proven to be unsuitable or unsuccessful, it is considered ineffective."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:regularSubstitutiontherapyUnsuccessful ;
+        sh:property [
+            sh:path ff:regularSubstitutiontherapyUnsuccessful ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;        
+    ] .    
+
+ff:acuteCareSituation a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Akute Pflegesituation"@de , "Acute Care Situation"@en ;
+    schema:question "Befindet sich eine Person in Ihrem Umfeld in einer akuten Pflegesituation?"@de ,
+        "Is there a person in your environment in an acute care situation?"@en ;
+    rdfs:comment "Eine akute Pflegesituation liegt vor, wenn bei einer Person unerwartet ein Pflegebedarf eintritt (z. B. durch Unfall oder plötzlichen Krankheitsschub), sodass unverzüglich Pflege organisiert oder selbst geleistet werden muss und dafür sofortiger persönlicher Einsatz erforderlich ist."@de ,
+        "An acute care situation exists when a person unexpectedly requires care (e.g. due to an accident or sudden illness), so that care must be organized or provided immediately and immediate personal commitment is required."@en ;        
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:acuteCareSituation ;
+        sh:property [
+            sh:path ff:acuteCareSituation ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:careRecipientCloseRelative a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Pflegebedürftiger naher Angehöriger"@de , "Care recipient close relative"@en ;
+    schema:question "Ist die pflegebedürftige Person eine nahe Angehörige oder Angehöriger?"@de ,
+        "Is the person in need of care a close relative?"@en ;
+    rdfs:comment "Zu „nahen Angehörigen“ zählen Großeltern, Eltern, Schwieger- und Stiefeltern, Ehegatten, Lebenspartner oder Partner einer ehe- bzw. lebenspartnerschaftsähnlichen Gemeinschaft, Geschwister sowie deren Ehe- oder Lebenspartner, Kinder, Adoptiv-, Pflege- und Stiefkinder, Schwiegerkinder und Enkelkinder."@de ,
+        "Close relatives include grandparents, parents, parents-in-law and step-parents, spouses, life partners or partners in a marriage or life partnership-like community, siblings and their spouses or life partners, children, adopted, foster and step-children, children-in-law and grandchildren."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:careRecipientCloseRelative ;
+        sh:property [
+            sh:path ff:careRecipientCloseRelative ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .    
+
+ff:requiredForCare a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Erforderlich für Pflege"@de , "Required for Care"@en ;
+    schema:question "Ist Ihre persönliche Mitwirkung erforderlich, um die Pflege der betroffenen Person sicherzustellen?"@de ,
+        "Is your personal involvement required to ensure the care of the affected person?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:requiredForCare ;
+        sh:property [
+            sh:path ff:requiredForCare ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:significantDailyLifeLimitation a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Wesentliche Beeinträchtigung im Alltag"@de , "Significant Daily Life Limitation"@en ;
+    schema:question "Werden Sie durch die Behinderung in Ihrem täglichen Leben wesentlich beeinträchtigt?"@de ,
+        "Are you significantly impaired in your daily life by the disability?"@en ;
+    rdfs:comment "Eine wesentliche Beeinträchtigung liegt vor, wenn die Behinderung zentrale Lebensbereiche wie Mobilität, Selbstversorgung, Kommunikation oder soziale Teilhabe dauerhaft einschränkt. Erkennbar ist dies, wenn alltägliche Aufgaben ohne Hilfe, Hilfsmittel oder Assistenz nicht oder nur sehr eingeschränkt möglich sind. Entscheidend ist also nicht die Diagnose, sondern die spürbare Einschränkung im täglichen Leben."@de ,
+        "A significant impairment exists when the disability permanently restricts central areas of life such as mobility, self-care, communication, or social participation. This is evident when everyday tasks cannot be performed without help, aids, or assistance, or can only be performed to a very limited extent. Thus, the decisive factor is not the diagnosis but the noticeable limitation in daily life."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:significantDailyLifeLimitation ;
+        sh:property [
+            sh:path ff:significantDailyLifeLimitation ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:visualImpairment a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Beeinträchtigte Sicht"@de , "Impaired Visibility"@en ;
+    schema:question "Liegt bei Ihnen eine erhebliche Beeinträchtigung des Sehvermögens vor?"@de , 
+        "Do you have a significant impairment of vision?"@en ;
+    rdfs:comment "Eine erhebliche Beeinträchtigung des Sehvermögens liegt vor, wenn die Sehkraft so eingeschränkt ist, dass alltägliche Aktivitäten wie Lesen, Erkennen von Gesichtern oder Navigieren in der Umgebung ohne Hilfsmittel oder Unterstützung nicht oder nur sehr eingeschränkt möglich sind."@de ,
+        "A significant impairment of vision exists when visual acuity is so limited that everyday activities such as reading, recognizing faces, or navigating the environment are not possible or only very limited without aids or assistance."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:visualImpairment ;
+        sh:property [
+            sh:path ff:visualImpairment ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:visualImpairmentDegree a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Grad der Beeinträchtigung des Sehvermögens"@de , "Degree of Impairment of Vision"@en ;
+    schema:question "Wie stark ist das Sehvermögen auf Ihrem besseren Auge beeinträchtigt?"@de ,
+        "To what extent is the vision in your better eye impaired?"@en ;
+    rdfs:comment "Der Grad der Beeinträchtigung des Sehvermögens wird in Deutschland durch den Visuswert bestimmt. Er zeigt, wie scharf jemand im Vergleich zu einer Person ohne Sehbeeinträchtigung sehen kann und wird von Augenärzt:innen mit standardisierten Sehtests ermittelt. Neben der Sehschärfe gelten auch gleichgestellte Störungen wie stark eingeschränkte Gesichtsfelder, große zentrale Ausfälle oder Rindenblindheit als erhebliche Beeinträchtigungen des Sehvermögens."@de ,
+        "The degree of impairment of vision in Germany is determined by the visual acuity value. It indicates how sharply someone can see compared to a person without visual impairment and is determined by ophthalmologists using standardized vision tests. In addition to visual acuity, equivalent disorders such as severely restricted visual fields, large central defects, or cortical blindness are also considered significant impairments of vision."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:visualImpairmentDegree ;
+        sh:property [
+            sh:path ff:visualImpairmentDegree ;
+            sh:in (
+                ff:visualImpairmentDegree-fullyBlind
+                ff:visualImpairmentDegree-below02
+                ff:visualImpairmentDegree-below02Equivalent
+                ff:visualImpairmentDegree-below05
+                ff:visualImpairmentDegree-below05Equivalent
+                ff:visualImpairmentDegree-above05
+                ff:visualImpairmentDegree-none
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:visualImpairmentDegree-fullyBlind a ff:AnswerOption ; rdfs:label "Vollständig blind"@de , "Completely blind"@en .
+ff:visualImpairmentDegree-below02 a ff:AnswerOption ; rdfs:label "Visuswert von 0,02 oder geringer"@de , "Below 0.02"@en .
+ff:visualImpairmentDegree-below02Equivalent a ff:AnswerOption ; rdfs:label "Störung des Sehvermögens gleichwertig zu einem Visuswert von 0,02 oder geringer"@de , "Equivalent to a visual acuity value of 0.02 or lower"@en .
+ff:visualImpairmentDegree-below05 a ff:AnswerOption ; rdfs:label "Visuswert von 0,05 oder geringer"@de , "Below 0.05"@en .
+ff:visualImpairmentDegree-below05Equivalent a ff:AnswerOption ; rdfs:label "Störung des Sehvermögens gleichwertig zu einem Visuswert von 0,05 oder geringer"@de , "Equivalent to a visual acuity value of 0.05 or lower"@en .
+ff:visualImpairmentDegree-above05 a ff:AnswerOption ; rdfs:label "Visuswert von 0,05 oder höher"@de , "0.05 or higher"@en .
+ff:visualImpairmentDegree-none a ff:AnswerOption ; rdfs:label "Keine Angabe"@de , "No indication"@en .

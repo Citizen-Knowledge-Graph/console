@@ -1,0 +1,150 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:martialStatus a ff:DataField ;
+    schema:category ff:familienstand-df-kategorie;
+    rdfs:label "Familienstand"@de , "Marital Status"@en ;
+    schema:question "Wie ist Ihr Familienstand?"@de , "What is your marital status?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:martialStatus ;
+        sh:property [
+            sh:path ff:martialStatus ;
+            sh:in (
+                ff:martialStatus-single
+                ff:martialStatus-married
+                ff:martialStatus-divorced
+                ff:martialStatus-widowed
+                ff:martialStatus-registeredPartnership
+                ff:martialStatus-seperated
+                ff:martialStatus-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:martialStatus-single a ff:AnswerOption ; rdfs:label "Ledig"@de , "Single"@en .
+ff:martialStatus-married a ff:AnswerOption ; rdfs:label "Verheiratet"@de , "Married"@en .
+ff:martialStatus-divorced a ff:AnswerOption ; rdfs:label "Geschieden"@de , "Divorced"@en .
+ff:martialStatus-widowed a ff:AnswerOption ; rdfs:label "Verwitwet"@de , "Widowed"@en .
+ff:martialStatus-registeredPartnership a ff:AnswerOption ; rdfs:label "Eingetragene Lebenspartnerschaft"@de , "Registered partnership"@en .
+ff:martialStatus-seperated a ff:AnswerOption ; rdfs:label "Getrennt lebend"@de , "Separated"@en .
+ff:martialStatus-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:children a ff:DataField ;
+    schema:category ff:familienstand-df-kategorie;
+    rdfs:label "Kinder"@de , "Children"@en ;
+    schema:question "Haben Sie Kinder?"@de , "Do you have children?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:children ;
+        sh:property [
+            sh:path ff:children ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:childrenAge a ff:DataField ;
+    schema:category ff:familienstand-df-kategorie;
+    rdfs:label "Alter der Kinder"@de , "Age of Children"@en ;
+    schema:question "Wie alt ist Ihr Kind / sind Ihre Kinder?"@de , "What is the age of your child / children?"@en ;
+    rdfs:comment "Bitte geben Sie das Alter Ihrer Kinder in Jahren an. Wenn Sie mehrere Kinder haben, trennen Sie die Altersangaben bitte mit Kommas."@de ,
+        "Please provide the age of your children in years. If you have multiple children, please separate the ages with commas."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:childrenAge ;
+        sh:property [
+            sh:path ff:childrenAge ;
+            sh:in (
+                ff:childrenAge-sub_18
+                ff:childrenAge-18_25
+                ff:childrenAge-over_25
+                ff:childrenAge-no_children
+            ) ;
+        ] ;
+    ] .
+ff:childrenAge-sub_18 a ff:AnswerOption ; rdfs:label "Unter 18 Jahre"@de , "Under 18 years"@en .
+ff:childrenAge-18_25 a ff:AnswerOption ; rdfs:label "18-25 Jahre"@de , "18-25 years"@en .
+ff:childrenAge-over_25 a ff:AnswerOption ; rdfs:label "Über 25 Jahre"@de , "Over 25 years"@en .
+ff:childrenAge-no_children a ff:AnswerOption ; rdfs:label "Keine Kinder"@de , "No children"@en .
+
+ff:householdMembers a ff:DataField ;
+    schema:category ff:familienstand-df-kategorie;
+    rdfs:label "Mitglieder im Haushalt"@de , "Household Members"@en ;
+    schema:question "Wie viele Personen leben in Ihrem Haushalt (inkl. Ihnen)?"@de , "How many people live in your household (including you)?"@en ;
+    rdfs:comment "Bitte geben Sie die Gesamtzahl der Personen an, die in Ihrem Haushalt leben, einschließlich Ihnen selbst."@de ,
+        "Please provide the total number of people living in your household, including yourself."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:householdMembers ;
+        sh:property [
+            sh:path ff:householdMembers ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 1 ;
+            sh:maxInclusive 1000 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+# specific
+
+ff:parentingSituation a ff:DataField ;
+    schema:category ff:familienstand-df-kategorie ;
+    rdfs:label "Erziehungssituation"@de , "Parenting Situation"@en ;
+    schema:question "Wie ist Ihre aktuelle Erziehungssituation?"@de , "What is your current parenting situation?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Sie Kinder gemeinsam mit einem Partner oder einer Partnerin erziehen, ob Sie alleinerziehend sind oder ob Ihre Kinder nicht in Ihrem Haushalt leben."@de ,
+                 "Please indicate whether you are raising children together with a partner, as a single parent, or if your children do not live in your household."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:parentingSituation ;
+        sh:property [
+            sh:path ff:parentingSituation ;
+            sh:in (
+                ff:parentingSituation-coParenting
+                ff:parentingSituation-singleParent
+                ff:parentingSituation-noChildrenInHousehold
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:parentingSituation-coParenting a ff:AnswerOption ; rdfs:label "Gemeinsam erziehend"@de , "Co-parenting"@en .
+ff:parentingSituation-singleParent a ff:AnswerOption ; rdfs:label "Alleinerziehend"@de , "Single parent"@en .
+ff:parentingSituation-noChildrenInHousehold a ff:AnswerOption ; rdfs:label "Kinder nicht im eigenen Haushalt"@de , "Children not in household"@en .
+
+ff:adultChildInEducation a ff:DataField ;
+    schema:category ff:familienstand-df-kategorie;
+    rdfs:label "Volljährige Kinder in Ausbildung"@de , "Adult Children in Education"@en ;
+    schema:question "Haben Sie Kinder, die zwischen 18 und 25 Jahren alt sind und sich in Ausbildung befinden?"@de , "Do you have children who are between 18 and 25 years old and are in education?"@en ;
+    rdfs:comment "Bitte beachten Sie, dass diese Frage nur für volljährige Kinder gilt, die sich in einer schulischen oder beruflichen Ausbildung befinden. Dazu gehören z.B. Schüler:innen, Studierende, Auszubildende oder Teilnehmer:innen an Weiterbildungsmaßnahmen."@de ,
+        "Please note that this question only applies to adult children who are in school or vocational training. This includes, for example, pupils, students, trainees or participants in further training measures."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:adultChildInEducation ;
+        sh:property [
+            sh:path ff:adultChildInEducation ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:livesWithParents a ff:DataField ;
+    schema:category ff:familienstand-df-kategorie;
+    rdfs:label "Wohnen bei Eltern"@de , "Living with Parents"@en ;
+    schema:question "Wohnen Sie bei Ihren Eltern?"@de , "Do you live with your parents?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Sie derzeit bei Ihren Eltern wohnen. Dies kann Auswirkungen auf Ihren Anspruch auf bestimmte Leistungen haben."@de ,
+        "Please indicate whether you currently live with your parents. This may affect your entitlement to certain benefits."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:livesWithParents ;
+        sh:property [
+            sh:path ff:livesWithParents ;
+            sh:in (ff:livesWithParents-no ff:livesWithParents-yes) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

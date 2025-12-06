@@ -1,0 +1,3056 @@
+# This file is a generated merge of the following source files:
+# - shacl/01-hilfe-zum-lebensunterhalt.ttl
+# - shacl/02-kindergeld.ttl
+# - shacl/03-kinderzuschlag.ttl
+# - shacl/04-bafoeg.ttl
+# - shacl/05-buergergeld.ttl
+# - shacl/06-arbeitslosengeld.ttl
+# - shacl/07-berufsausbildungsbeihilfe-bab.ttl
+# - shacl/08-wohngeld.ttl
+# - shacl/09-grundsicherung-im-alter-und-bei-erwerbsminderung.ttl
+# - shacl/10-bildung-und-teilhabe-bei-bezug-von-buergergeld.ttl
+# - shacl/beta/ausbildungsgeld.ttl
+# - shacl/beta/blindengeld.ttl
+# - shacl/beta/blindenhilfe.ttl
+# - shacl/beta/bundesfoerderung-effiziente-gebaeude.ttl
+# - shacl/beta/exist-gruendungsstipendium.ttl
+# - shacl/beta/forschungszulage.ttl
+# - shacl/beta/ibb-altersgerecht-wohnen.ttl
+# - shacl/beta/ibb-gruendungsbonus.ttl
+# - shacl/beta/ifb-gruendung-nachfolge.ttl
+# - shacl/beta/ilb-kredit-gruendung.ttl
+# - shacl/beta/kurzzeitige-arbeitsverhinderung.ttl
+# - shacl/beta/uebergangsgeld.ttl
+# - shacl/beta/wolfenbuettel-ansiedlung.ttl
+# - shacl/beta/wolfenbuettel-gastronomische-aussenmoeblierung.ttl
+# - shacl/beta/wolfenbuettel-stiftung-organisation.ttl
+# - shacl/beta/wolfenbuettel-stiftung-person.ttl
+# - shacl/bielefeld/allgemeine-krankenversicherungspflicht.ttl
+# - shacl/bielefeld/arbeitsassistenz.ttl
+# - shacl/bielefeld/eingliederungshilfe.ttl
+# - shacl/bielefeld/erwerbsminderungsrente-teilweise.ttl
+# - shacl/bielefeld/erwerbsminderungsrente-voll.ttl
+# - shacl/bielefeld/persoenliches-budget.ttl
+# - shacl/bielefeld/schwerbehindertenausweis.ttl
+# - shacl/bielefeld/substitutionstherapie-diamorphin.ttl
+# - shacl/bielefeld/substitutionstherapie-regulaer.ttl
+
+@prefix ff: <https://foerderfunke.org/default#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix shn: <https://schemas.link/shacl-next#>.
+
+ff:aas a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Arbeitsassistenz ist eine Unterstützung für Menschen mit Behinderungen, bei der eine Hilfsperson am Arbeitsplatz notwendige Tätigkeiten übernimmt, um die Ausübung der beruflichen Aufgaben zu ermöglichen oder zu erleichtern."@de,
+    "Job assistance is a support for people with disabilities, where an assistant at the workplace takes over necessary tasks to enable or facilitate the performance of professional duties."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:aasFlowShape;
+  ff:hasMainShape ff:aasMainShape;
+  ff:legalBasis ff:sgb-ix;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:integrationsamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Arbeitsassistenz"@de,
+    "Job Assistance"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:aasBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:disability
+    ], [
+      sh:minCount 1;
+      sh:path ff:disabilityDegreeDetermined
+    ].
+
+ff:aasDegreeEvaluatedPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b1 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:disabilityDegree
+    ].
+
+ff:aasFlowShape a sh:NodeShape;
+  sh:property
+    ff:aasBaseRequirements,
+    ff:aasDegreeEvaluatedPS,
+    ff:aasInsufficientWorkplacePS,
+    ff:aasJobRiskPS,
+    ff:aasWorkplaceRequirementsPS;
+  sh:targetClass ff:Citizen.
+
+ff:aasInclusiveWorkplacePS a sh:PropertyShape;
+  sh:and (sh:property _:b2 sh:property _:b3).
+
+ff:aasInsufficientWorkplacePS a sh:PropertyShape;
+  sh:deactivated [
+      sh:or (_:b4 _:b5)
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:regularWorkSupport
+    ], [
+      sh:minCount 1;
+      sh:path ff:coreWorkWithoutHelp
+    ], [
+      sh:minCount 1;
+      sh:path ff:workplaceAccommodationSufficient
+    ].
+
+ff:aasJobRiskPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:in (ff:disabilityDegree-30 ff:disabilityDegree-40);
+          sh:path ff:disabilityDegree
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:equalStatusNeeded
+    ].
+
+ff:aasMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:disability
+    ], [
+      sh:in (true);
+      sh:path ff:disabilityDegreeDetermined
+    ], [
+      sh:or (_:b6 _:b7)
+    ], [
+      sh:in (true);
+      sh:path ff:regularWorkSupport
+    ], [
+      sh:in (true);
+      sh:path ff:coreWorkWithoutHelp
+    ], [
+      sh:in (false);
+      sh:path ff:workplaceAccommodationSufficient
+    ], [
+      sh:or (_:b8 _:b9 _:b10)
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:aasSelfEmployedPS a sh:PropertyShape;
+  sh:and (sh:property _:b11 sh:property _:b12 sh:property _:b13).
+
+ff:aasSocialSecurityEmploymentPS a sh:PropertyShape;
+  sh:and (sh:property _:b14 sh:property _:b15).
+
+ff:aasWorkplaceRequirementsPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (shn:eq _:b16 shn:eq _:b17 shn:eq _:b18)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:workplaceType
+    ], [
+      sh:minCount 1;
+      sh:path ff:primaryEmploymentHours
+    ].
+
+ff:akv a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "In Deutschland besteht eine allgemeine Krankenversicherungspflicht: Jeder mit Wohnsitz oder gewöhnlichem Aufenthalt muss versichert sein, entweder in der gesetzlichen (GKV) oder der privaten Krankenversicherung (PKV). Welche Absicherung gilt, hängt von der Lebenssituation ab; bei Unklarheiten hilft die Clearingstelle weiter."@de,
+    "In Germany, there is a general health insurance obligation: Everyone with a residence or habitual abode must be insured, either in statutory health insurance (GKV) or private health insurance (PKV). The type of coverage depends on the life situation; in case of uncertainties, the clearing office can assist."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:akvFlowShape;
+  ff:hasMainShape ff:akvMainShape;
+  ff:legalBasis ff:sgb-ix;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:integrationsamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Allgemeine Krankenversicherungspflicht"@de,
+    "General Health Insurance Obligation"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:akvFlowShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:akvMainShape a sh:NodeShape;
+  sh:property [
+      sh:property [
+          sh:in (ff:habitualResidence-ger);
+          sh:path ff:habitualResidence
+        ]
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:alg a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/arbeitslosengeld>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Das Arbeitslosengeld (ALG) sichert Sie sozial ab, wenn Sie Ihre Arbeit oder Ihren Ausbildungsplatz verlieren. Es ersetzt einen Teil Ihres fehlenden Einkommens, damit Sie weiterhin Ihren Lebensunterhalt bestreiten können. Sie haben Anspruch auf diese Leistung, wenn Sie vor Ihrer Arbeitslosigkeit eine bestimmte Zeit pflichtversichert oder freiwillig versichert waren und monatlich Versicherungsbeiträge gezahlt haben."@de,
+    "Unemployment benefit, or ALG (from the German word Arbeitslosengeld), provides a social safety net in case you lose your job or training position. It replaces part of your missing income so that you can continue to pay your bills."@en;
+  ff:category ff:arbeitslosigkeit-bc-kategorie;
+  ff:hasMainShape ff:algMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Für den Anspruch auf Arbeitslosengeld gelten im Wesentlichen diese Voraussetzungen: Sie erfüllen die Anwartschaftszeit. Das bedeutet meist: Sie waren in den 30 Monaten vor Arbeitslosmeldung mindestens 12 Monate versicherungspflichtig beschäftigt. Dabei können mehrere Beschäftigungen zusammengerechnet werden. Sie haben sich bei Ihrer Agentur für Arbeit arbeitslos gemeldet. Sie sind ohne Beschäftigung, können aber eine versicherungspflichtige Beschäftigung ausüben (mindestens 15 Stunden pro Woche). Sie suchen eine versicherungspflichtige Beschäftigung und arbeiten dabei mit der Agentur für Arbeit zusammen. Waren Sie häufig befristet beschäftigt, gilt unter bestimmten Voraussetzungen eine kürzere Anwartschaftszeit: Dann genügen mindestens 6 Monate versicherungspflichtiger Beschäftigung in den 30 Monaten vor Arbeitslosmeldung. Zu den Voraussetzungen gehört, dass die meisten Beschäftigungen auf bis zu 14 Wochen befristet waren."@de,
+    "You are probably not entitled to this benefit. The main requirements for entitlement to unemployment benefit are as follows: You fulfill the qualifying period. This usually means that you were employed for at least 12 months in the 30 months prior to registering as unemployed. Several jobs can be added together. You have registered as unemployed with your employment agency. You are unemployed, but you can work in a job that is subject to compulsory insurance (at least 15 hours per week). You are looking for employment that is subject to compulsory insurance and you are working together with the employment agency. If you were often in temporary employment, a shorter entitlement period applies under certain conditions: At least 6 months of employment subject to compulsory insurance in the 30 months before registering as unemployed are then sufficient. One of the requirements is that most jobs were limited to up to 14 weeks."@en;
+  ff:legalBasis ff:sgb-iii;
+  ff:leikaId "99038001017000";
+  ff:providingAgency ff:bundesagentur-fuer-arbeit;
+  ff:title
+    "Arbeitslosengeld"@de,
+    "Unemployment benefit"@en;
+  ff:validationStage ff:complete-validation.
+
+ff:algMainShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:pensionable
+    ], [
+      sh:minCount 1;
+      sh:path ff:citizenship
+    ], [
+      sh:minCount 1;
+      sh:path ff:residencyStatus
+    ], [
+      sh:or (sh:property _:b19 sh:property _:b20)
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:workAbility-none)
+        ];
+      sh:path ff:workAbility
+    ], [
+      sh:in (ff:employmentStatus-unemployed);
+      sh:minCount 1;
+      sh:path ff:employmentStatus
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:incomeSource-selfEmployment ff:incomeSource-socialBenefits)
+        ];
+      sh:path ff:incomeSource
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:socialBenefitsReceiving-maternityAllowance ff:socialBenefitsReceiving-pension)
+        ];
+      sh:path ff:socialBenefitsReceiving
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:asg a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.gesetze-im-internet.de/sgb_3/__122.html>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Menschen mit Behinderungen können zur Sicherung des Lebensunterhaltes Ausbildungsgeld erhalten, wenn sie an bestimmten Bildungsmaßnahmen teilnehmen. (Quelle: §§ 122 bis 126 SGB III)"@de,
+    "People with disabilities can receive a training allowance to cover their living expenses if they participate in specific educational programs. (Source: §§ 122 to 126 SGB III)"@en;
+  ff:category
+    ff:gesundheit-pflege-bc-kategorie,
+    ff:schule-studium-ausbildung-bc-kategorie;
+  ff:hasMainShape ff:asgMainShape;
+  ff:legalBasis ff:sgb-iii;
+  ff:providingAgency ff:bundesagentur-fuer-arbeit;
+  ff:tag ff:beta;
+  ff:title
+    "Ausbildungsgeld"@de,
+    "Training Allowance"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:asgMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:message "Sie müssen eine anerkannte Behinderung haben. (Quelle: 'Sie haben eine Behinderung...')"@de;
+      sh:minCount 1;
+      sh:path ff:disability
+    ], [
+      sh:in (ff:rehabilitationProvider-bundesagenturFuerArbeit);
+      sh:message "Die Bundesagentur für Arbeit muss Ihr zuständiger Rehabilitationsträger sein. (Quelle: 'Ihr zuständiger Rehabilitationsträger ist die Bundesagentur für Arbeit')"@de;
+      sh:minCount 1;
+      sh:path ff:rehabilitationProvider
+    ], [
+      sh:in (ff:eligibleTransitionalAllowance-no ff:eligibleTransitionalAllowance-unsure);
+      sh:message "Sie dürfen keinen Anspruch auf Übergangsgeld haben. (Quelle: 'Sie haben keinen Anspruch auf Übergangsgeld')"@de;
+      sh:minCount 1;
+      sh:path ff:eligibleTransitionalAllowance
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:bab a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/berufsausbildungsbeihilfe-bab>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Berufsausbildungsbeihilfe (BAB) ist ein finanzieller Zuschuss für junge Menschen in ihrer ersten Berufsausbildung. Sie hilft zum Beispiel dabei, Miete, Lebensmittel oder Fahrtkosten zu bezahlen."@de,
+    "Vocational training allowance, or Berufsausbildungsbeihilfe (BAB), is a form of financial assistance for young people who are in vocational training for the first time. It helps them pay for things like rent, food or transport costs."@en;
+  ff:category ff:schule-studium-ausbildung-bc-kategorie;
+  ff:hasMainShape ff:babMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Sie müssen bestimmte Voraussetzungen erfüllen, damit Sie Anspruch auf Berufsausbildungsbeihilfe haben. Einer der folgenden Fälle sollte auf Sie zutreffen, damit Ihr Antrag erfolgreich ist: Sie nehmen an einer berufsvorbereitenden Bildungsmaßnahme (BvB) teil – vielleicht auch, um sich nachträglich auf einen Hauptschulabschluss oder gleichwertigen Schulabschluss vorzubereiten. Sie machen eine betriebliche oder außerbetriebliche Berufsausbildung in einem anerkannten Ausbildungsberuf. Ihr Ausbildungsbetrieb ist zu weit von Ihren Eltern entfernt, um zuhause wohnen zu bleiben. Sie machen eine betriebliche oder außerbetriebliche Berufsausbildung in einem anerkannten Ausbildungsberuf. Außerdem sind Sie über 18 Jahre alt oder verheiratet beziehungsweise leben mit Ihrer Partnerin oder Ihrem Partner zusammen. Sie machen eine betriebliche oder außerbetriebliche Berufsausbildung in einem anerkannten Ausbildungsberuf. Sie haben mindestens ein Kind und leben nicht in der Wohnung Ihrer Eltern. Trifft einer der folgenden Fälle auf Sie zu, haben Sie keinen Anspruch auf finanzielle Unterstützung in Form von BAB: Sie machen eine schulische Ausbildung (zum Beispiel zur Physiotherapeutin beziehungsweise zum Physiotherapeut). Sie erhalten bereits Leistungen von einer anderen Behörde, die mit der BAB vergleichbar sind."@de,
+    "You are probably not entitled to this benefit. You have to meet certain requirements in order to be entitled to a vocational training grant. One of the following cases should apply to you for your application to be successful: You are taking part in a pre-vocational training program – perhaps also in order to prepare for a lower secondary school certificate or an equivalent school certificate. You are doing in-company or external vocational training in a recognized training occupation. Your training company is too far away from your parents to stay at home. You are doing in-company or external vocational training in a recognized training occupation. In addition, you are over 18 years old or married or live with your partner. You are doing in-company or external vocational training in a recognized training occupation. You have at least one child and do not live in your parents' home. If one of the following applies to you, you are not entitled to financial support in the form of BAB: They are doing school-based training (e.g. to become a physiotherapist). You are already receiving services from another authority that are comparable to BAB."@en;
+  ff:legalBasis ff:sgb-iii;
+  ff:leikaId "99007004017000";
+  ff:providingAgency ff:bundesagentur-fuer-arbeit;
+  ff:title
+    "Berufsausbildungsbeihilfe (BAB)"@de,
+    "Vocational training allowance (BAB)"@en;
+  ff:validationStage ff:complete-validation.
+
+ff:babMainShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:pensionable
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:in (ff:employmentStatus-inEducation);
+      sh:minCount 1;
+      sh:path ff:employmentStatus
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:incomeSource-unemploymentBenefit ff:incomeSource-bafoeg ff:incomeSource-pension)
+        ];
+      sh:path ff:incomeSource
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:livesWithParents
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:beg a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestandsimmobilie/F%C3%B6rderprodukte/Bundesf%C3%B6rderung-effiziente-Geb%C3%A4ude-Einzelma%C3%9Fnahmen-Kredit-(261)/>;
+  ff:benefitInfo
+    "Die BEG EM Sanierung fördert Maßnahmen zur Verbesserung der Energieeffizienz und des Anteils erneuerbarer Energien bei bestehenden Gebäuden durch Zuschüsse oder Kredite. Die förderfähigen Maßnahmen umfassen Dämmung, Heizungsmodernisierung, Anlagentechnik und Fachplanung."@de,
+    "BEG EM Renovation supports measures to improve energy efficiency and the share of renewable energy in existing buildings through grants or loans. Eligible measures include insulation, heating modernization, technical systems, and energy planning."@en;
+  ff:category ff:wohnungsbau-modernisierung;
+  ff:hasMainShape ff:begMainShape;
+  ff:tag ff:beta;
+  ff:title
+    "Bundesförderung für effiziente Gebäude – Einzelmaßnahmen: Sanieren"@de,
+    "Federal Funding for Efficient Buildings – Individual Measures: Renovation"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:begMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:propertyOwnerhship
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:propertyRequiresRenovation
+    ], [
+      sh:in (ff:buildingCountry-ger);
+      sh:minCount 1;
+      sh:path ff:buildingCountry
+    ], [
+      sh:in (ff:buildingTypeRenovation-existing);
+      sh:minCount 1;
+      sh:path ff:buildingTypeRenovation
+    ], [
+      sh:in (ff:renovationType-energyEfficiency ff:renovationType-renewableHeating);
+      sh:message "Die Maßnahme muss zur Verbesserung der Energieeffizienz oder zur Erhöhung des Anteils erneuerbarer Energien beitragen. (Quelle: BEG Merkblatt – '... die Energieeffizienz und der Anteil erneuerbarer Energien ... gesteigert werden ...')"@de;
+      sh:minCount 1;
+      sh:path ff:renovationType
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:bfg a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/bafoeg>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Mit dem Bundesausbildungsförderungsgesetz (BAföG) werden junge Menschen finanziell bei der Schulausbildung und dem Studium unterstützt. Es gibt zwei Arten von BAföG: das Schüler-BAföG und das Studenten-BAföG. Schülerinnen und Schüler sowie Studierende können einen Zuschuss oder ein zinsloses Darlehen erhalten. Die Höhe der Förderung ist von den Lebensumständen der Antragstellerinnen und Antragsteller abhängig."@de,
+    "Are you looking to study or complete your secondary school education and require financial support? Then BAföG is just what you need. Keep reading to find out all the details about Germany’s student support scheme and how to apply for BAföG."@en;
+  ff:category ff:schule-studium-ausbildung-bc-kategorie;
+  ff:hasMainShape ff:bfgMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Es handelt sich um eine Ausbildungsförderung, die jungen Menschen ermöglichen soll, unabhängig von ihrer sozialen und wirtschaftlichen Situation eine Schul- bzw. Hochschulausbildung zu absolvieren. Sie kann für den eigenen Lebensunterhalt und für die Ausbildung verwendet werden."@de,
+    "You are probably not entitled to this benefit. This is a training grant that is intended to enable young people to complete school or university education regardless of their social and economic situation. It can be used for one's own livelihood and for education."@en;
+  ff:legalBasis ff:bundesausbildungsfoerderungsgesetz;
+  ff:providingAgency
+    ff:amt-fuer-ausbildungsfoerderung,
+    ff:bundesverwaltungsamt;
+  ff:title
+    "BAföG"@de,
+    "Student support (BAföG)"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:bfgMainShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:maxExclusive 36;
+      sh:minCount 1;
+      sh:minInclusive 15;
+      sh:path ff:hasAge
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:financialDifficulty
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:healthInsurance
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:careInsurance
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:workAbility-none)
+        ];
+      sh:path ff:workAbility
+    ], [
+      sh:in (ff:employmentStatus-inEducation);
+      sh:minCount 1;
+      sh:path ff:employmentStatus
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:socialBenefitsReceiving-pension)
+        ];
+      sh:path ff:socialBenefitsReceiving
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:bgd a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/buergergeld>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Das Bürgergeld (vorher ALG II) ist Teil der sogenannten Grundsicherung für Arbeitsuchende. Bürgergeld wird oft im Anschluss an das Arbeitslosengeld gezahlt, wenn weiterhin Unterstützung notwendig ist. Bürgergeld erhalten auch Personen, die noch nie gearbeitet oder ein geringes Einkommen haben. Für das Bürgergeld sind die Jobcenter zuständig."@de,
+    "If you are not currently employed and are not entitled to unemployment benefit, you may be entitled to unemployment benefit II. This also applies if you earn so little that you cannot meet your living costs."@en;
+  ff:category
+    ff:arbeitslosigkeit-bc-kategorie,
+    ff:leistungen-fuer-familien-bc-kategorie;
+  ff:hasMainShape ff:bgdMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Beim Bürgergeld (vorher ALG II), handelt es sich um eine Sozialleistung für Arbeitsuchende und Aufstocker des Arbeitslosengelds zur Sicherung des Lebensunterhalts. Arbeitsuchend können auch Arbeitnehmer und Selbständige sein. Voraussetzung ist, dass Sie mindestens 15 Jahre alt sind, jedoch die Altersgrenze für Ihre Rente noch nicht erreicht haben, und in der Lage sind, mindestens 3 Stunden täglich zu arbeiten. Zudem muss Ihr gewöhnlicher Aufenthalt in der Bundesrepublik Deutschland sein und Sie oder Mitglieder Ihrer Bedarfsgemeinschaft müssen hilfebedürftig sein."@de,
+    "You are probably not entitled to this benefit. Unemployment benefit II is a social benefit for job seekers and top-up unemployment benefit to secure a living. Jobseekers can also be employed and self-employed. The prerequisite is that you are at least 15 years old but have not yet reached the age limit for your pension and are able to work at least 3 hours a day. In addition, your habitual residence must be in the Federal Republic of Germany and you or members of your benefit community must be in need of assistance."@en;
+  ff:legalBasis ff:sgb-iii;
+  ff:leikaId "99107108017000";
+  ff:providingAgency ff:jobcenter;
+  ff:title
+    "Bürgergeld"@de,
+    "Citizen's benefit"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:bgdMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:financialDifficulty
+    ], [
+      sh:minCount 1;
+      sh:path ff:citizenship
+    ], [
+      sh:minCount 1;
+      sh:path ff:residencyStatus
+    ], [
+      sh:or (sh:property _:b21 sh:property _:b22)
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:minCount 1;
+      sh:minInclusive 15;
+      sh:path ff:hasAge
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:pensionable
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:workAbility-none)
+        ];
+      sh:path ff:workAbility
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:employmentStatus-inEducation ff:employmentStatus-selfEmployed ff:employmentStatus-pension)
+        ];
+      sh:path ff:employmentStatus
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:socialBenefitsReceiving-citizensIncome ff:socialBenefitsReceiving-pension ff:socialBenefitsReceiving-housingAllowance)
+        ];
+      sh:path ff:socialBenefitsReceiving
+    ], [
+      sh:minCount 1;
+      sh:path ff:citizensIncomeLast3Years
+    ], [
+      sh:minCount 1;
+      sh:minInclusive 1;
+      sh:path ff:householdMembers
+    ], [
+      sh:lessThan ff:assetLimitCitizensIncome;
+      sh:minCount 1;
+      sh:path ff:assets
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:blg a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Menschen mit einer wesentlichen Behinderung oder von einer solchen bedrohte Personen haben Anspruch auf Eingliederungshilfe. Sie unterstützt dabei, Einschränkungen auszugleichen und die gleichberechtigte Teilhabe am Leben in der Gesellschaft – etwa in Schule, Ausbildung, Arbeit, Wohnen und Freizeit – zu ermöglichen."@de,
+    "People with a substantial disability, or at risk of such, are entitled to integration assistance. It helps to compensate for limitations and enables equal participation in society – for example in education, training, work, housing, and leisure."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:blgFlowShape;
+  ff:hasMainShape ff:blgMainShape;
+  ff:legalBasis ff:sgb-ix;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:sozialamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Blindengeld"@de,
+    "Blindness Allowance"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:blgBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:disability
+    ].
+
+ff:blgFlowShape a sh:NodeShape;
+  sh:property
+    ff:blgBaseRequirements,
+    ff:blgVisualImpairmentDegreePS,
+    ff:blgVisualImpairmentPS;
+  sh:targetClass ff:Citizen.
+
+ff:blgMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:disability
+    ], [
+      sh:in (true);
+      sh:path ff:visualImpairment
+    ], [
+      sh:in (ff:visualImpairmentDegree-fullyBlind ff:visualImpairmentDegree-below02 ff:visualImpairmentDegree-below02Equivalent);
+      sh:path ff:visualImpairmentDegree
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:blgVisualImpairmentDegreePS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b23 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:visualImpairmentDegree
+    ].
+
+ff:blgVisualImpairmentPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b24 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:visualImpairment
+    ].
+
+ff:blh a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Die Blindenhilfe ist eine einkommensabhängige Sozialhilfeleistung, die blinden Menschen zur Deckung der durch die Blindheit entstehenden Mehraufwendungen gewährt wird."@de,
+    "The blindness benefit is an income-dependent social assistance benefit granted to blind people to cover the additional expenses incurred due to blindness."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:blhFlowShape;
+  ff:hasMainShape ff:blhMainShape;
+  ff:legalBasis ff:sgb-ix;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:sozialamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Blindenhilfe"@de,
+    "Blindness Benefit"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:blhBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:minCount 1;
+      sh:path ff:citizenship
+    ], [
+      sh:minCount 1;
+      sh:path ff:disability
+    ].
+
+ff:blhFlowShape a sh:NodeShape;
+  sh:property
+    ff:blhBaseRequirements,
+    ff:blhLongTermStayPS,
+    ff:blhResidencyStatusPS,
+    ff:blhVisualImpairmentDegreePS,
+    ff:blhVisualImpairmentPS;
+  sh:targetClass ff:Citizen.
+
+ff:blhLongTermStayPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:or (_:b25 _:b26 _:b27)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:longTermStay
+    ].
+
+ff:blhMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (ff:habitualResidence-ger);
+      sh:path ff:habitualResidence
+    ], [
+      sh:or (_:b28 _:b29 _:b30)
+    ], [
+      sh:in (true);
+      sh:path ff:disability
+    ], [
+      sh:in (true);
+      sh:path ff:visualImpairment
+    ], [
+      sh:in (ff:visualImpairmentDegree-fullyBlind ff:visualImpairmentDegree-below02 ff:visualImpairmentDegree-below02Equivalent);
+      sh:path ff:visualImpairmentDegree
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:blhResidencyStatusPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:not [
+              shn:eq (_:b31 ff:citizenship-ger)
+            ]
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:residencyStatus
+    ].
+
+ff:blhVisualImpairmentDegreePS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b32 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:visualImpairmentDegree
+    ].
+
+ff:blhVisualImpairmentPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b33 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:visualImpairment
+    ].
+
+ff:but a ff:RequirementProfile;
+  rdfs:seeAlso
+    <https://sozialplattform.de/inhalt/bildung-und-teilhabe>,
+    <https://sozialplattform.de/leistung/bildung-und-teilhabe-bei-bezug-von-buergergeld>;
+  ff:administrativeLevel
+    ff:bund,
+    ff:kommune,
+    ff:land;
+  ff:benefitInfo
+    "In Deutschland sollen Kinder, Jugendliche und junge Erwachsene die gleichen Chancen haben. Wichtige Voraussetzungen für Chancengleichheit sind Bildung und die Teilnahme am sozialen und kulturellen Leben. Deswegen fördert der Staat Leistungen zur Bildung und Teilhabe, auch Bildungs- und Teilhabepaket genannt."@de,
+    "In Germany, children, teens and young adults are supposed to have equal opportunities. Education and participation in social and cultural activities are important factors in ensuring equal opportunity. For this reason, the state provides benefits to support education and participation. This is also known as the education and participation package."@en;
+  ff:category
+    ff:arbeitslosigkeit-bc-kategorie,
+    ff:leistungen-fuer-familien-bc-kategorie,
+    ff:schule-studium-ausbildung-bc-kategorie,
+    ff:sozialhilfe-grundsicherung-bc-kategorie;
+  ff:hasMainShape ff:butMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Verschiedene Leistungen für Bildung und Teilhabe sollen Kindern und Jugendlichen aus bedürftigen Familien ermöglichen, besser am sozialen und kulturellen Leben in der Schule und Freizeit teilzunehmen. Die Leistungen können Sie zusätzlich zu anderen Leistungen, wie z.B. Bürgergeld (früher ALG II), Sozialhilfe, Kinderzuschlag oder Wohngeld, bekommen."@de,
+    "You are probably not entitled to this benefit. Various services for education and participation are intended to enable children and young people from needy families to participate better in social and cultural life at school and in their free time. You can receive the benefits in addition to other benefits, such as unemployment benefit II, social assistance, child allowance or housing benefit."@en;
+  ff:legalBasis ff:sgb-iii;
+  ff:leikaId "99107032017007";
+  ff:providingAgency ff:jobcenter;
+  ff:title
+    "Bildung und Teilhabe - bei Bezug von Bürgergeld"@de,
+    "Education and participation - with citizen's benefit"@en;
+  ff:validationStage ff:complete-validation.
+
+ff:butMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:children
+    ], [
+      sh:in (ff:childrenAge-sub_18 ff:childrenAge-18_25);
+      sh:minCount 1;
+      sh:path ff:childrenAge
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:parentingSituation-noChildrenInHousehold)
+        ];
+      sh:path ff:parentingSituation
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:in (ff:socialBenefitsReceiving-citizensIncome ff:socialBenefitsReceiving-housingAllowance);
+      sh:minCount 1;
+      sh:path ff:socialBenefitsReceiving
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:egh a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Menschen mit einer wesentlichen Behinderung oder von einer solchen bedrohte Personen haben Anspruch auf Eingliederungshilfe. Sie unterstützt dabei, Einschränkungen auszugleichen und die gleichberechtigte Teilhabe am Leben in der Gesellschaft – etwa in Schule, Ausbildung, Arbeit, Wohnen und Freizeit – zu ermöglichen."@de,
+    "People with a substantial disability, or at risk of such, are entitled to integration assistance. It helps to compensate for limitations and enables equal participation in society – for example in education, training, work, housing, and leisure."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:eghFlowShape;
+  ff:hasMainShape ff:eghMainShape;
+  ff:legalBasis ff:sgb-ix;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:sozialamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Eingliederungshilfe"@de,
+    "Integration Assistance"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:eghBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:disability
+    ], [
+      sh:minCount 1;
+      sh:path ff:significantDailyLifeLimitation
+    ].
+
+ff:eghFlowShape a sh:NodeShape;
+  sh:property
+    ff:eghBaseRequirements,
+    ff:eghLimitationPS;
+  sh:targetClass ff:Citizen.
+
+ff:eghLimitationPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b34 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:significantDailyLifeLimitation
+    ].
+
+ff:eghMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:disability
+    ], [
+      sh:in (true);
+      sh:path ff:significantDailyLifeLimitation
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:emt a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Die Rente wegen teilweiser Erwerbsminderung ist eine Leistung der gesetzlichen Rentenversicherung für Versicherte, die aufgrund von Krankheit oder Behinderung nicht mehr in der Lage sind, vollständig am allgemeinen Arbeitsmarkt erwerbstätig zu sein."@de,
+    "The pension for partial disability is a benefit of the statutory pension insurance for insured persons who, due to illness or disability, are no longer able to work fully in the general labor market."@en;
+  ff:category
+    ff:gesundheit-pflege-bc-kategorie,
+    ff:sozialhilfe-grundsicherung-bc-kategorie;
+  ff:hasFlowShape ff:erwerbsminderungsrenteTeilweiseFlowShape;
+  ff:hasMainShape ff:erwerbsminderungsrenteTeilweiseMainShape;
+  ff:legalBasis ff:sgb-vi;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:sozialamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Rente wegen teilweiser Erwerbsminderung"@de,
+    "Pension for Partial Disability"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:emtBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ].
+
+ff:emtReducedEarningsCapacityPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b35 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:workAbility
+    ], [
+      sh:minCount 1;
+      sh:path ff:workAbilityHours
+    ].
+
+ff:emtSpecialCauseInabilityPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (_:b36 _:b37)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:reducedEarningCapacityCause
+    ].
+
+ff:emtWaitingPeriodPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b38 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:statutoryPensionFiveYears
+    ], [
+      sh:minCount 1;
+      sh:path ff:statutoryPension36Months5Years
+    ].
+
+ff:emv a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Die Rente wegen voller Erwerbsminderung ist eine Leistung der gesetzlichen Rentenversicherung für Versicherte, die aufgrund von Krankheit oder Behinderung dauerhaft nicht mehr in der Lage sind, am allgemeinen Arbeitsmarkt erwerbstätig zu sein."@de,
+    "The pension for full disability is a benefit of the statutory pension insurance for insured persons who, due to illness or disability, are permanently unable to work in the general labor market."@en;
+  ff:category
+    ff:gesundheit-pflege-bc-kategorie,
+    ff:sozialhilfe-grundsicherung-bc-kategorie;
+  ff:hasFlowShape ff:erwerbsminderungsrenteVollFlowShape;
+  ff:hasHowBpmn "erwerbsminderungsrente-voll_how.bpmn";
+  ff:hasMainShape ff:erwerbsminderungsrenteVollMainShape;
+  ff:legalBasis ff:sgb-vi;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:sozialamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Rente wegen voller Erwerbsminderung"@de,
+    "Pension for Full Disability"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:emvBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ].
+
+ff:emvFullyReducedEarningsCapacityPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b39 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:workAbility
+    ], [
+      sh:minCount 1;
+      sh:path ff:workAbilityHours
+    ].
+
+ff:emvSpecialCauseInabilityPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:or (_:b40 _:b41)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:reducedEarningCapacityCause
+    ].
+
+ff:emvWaitingPeriodPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b42 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:statutoryPension20YearsDisability
+    ], [
+      sh:minCount 1;
+      sh:path ff:statutoryPensionFiveYears
+    ], [
+      sh:minCount 1;
+      sh:path ff:statutoryPension36Months5Years
+    ].
+
+ff:erwerbsminderungsrenteTeilweiseFlowShape a sh:NodeShape;
+  sh:property
+    ff:emtBaseRequirements,
+    ff:emtReducedEarningsCapacityPS,
+    ff:emtSpecialCauseInabilityPS,
+    ff:emtWaitingPeriodPS;
+  sh:targetClass ff:Citizen.
+
+ff:erwerbsminderungsrenteTeilweiseMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (false);
+      sh:path ff:pensionable
+    ], [
+      sh:and (sh:property _:b43 sh:property _:b44)
+    ], [
+      sh:or (_:b45 _:b46)
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:erwerbsminderungsrenteVollFlowShape a sh:NodeShape;
+  sh:property
+    ff:emvBaseRequirements,
+    ff:emvFullyReducedEarningsCapacityPS,
+    ff:emvSpecialCauseInabilityPS,
+    ff:emvWaitingPeriodPS;
+  sh:targetClass ff:Citizen.
+
+ff:erwerbsminderungsrenteVollMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (false);
+      sh:path ff:pensionable
+    ], [
+      sh:or (_:b47 _:b48)
+    ], [
+      sh:or (_:b49 _:b50)
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:exs a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.exist.de/EXIST/Navigation/DE/Gruendungsfoerderung/EXIST-Gruendungsstipendium/exist-gruendungsstipendium.html>;
+  ff:benefitInfo
+    "Das EXIST-Gründungsstipendium ist ein Förderprogramm der deutschen Regierung, das Studierende, Absolvent:innen und Wissenschaftler:innen von Hochschulen und Forschungseinrichtungen bei der Gründung innovativer Startups durch finanzielle Unterstützung und Coaching für bis zu ein Jahr fördert."@de,
+    "The EXIST Gründungsstipendium is a German government grant that supports students, graduates, and scientists from universities and research institutions in founding innovative startups by providing financial support and coaching for up to one year."@en;
+  ff:category ff:selbstaendigkeit-gruendung;
+  ff:hasMainShape ff:exsMainShape;
+  ff:tag ff:beta;
+  ff:title
+    "Exist Gründungsstipendium"@de,
+    "Exist Founders Grant"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:exsMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:planingToFound
+    ], [
+      sh:minCount 1;
+      sh:path ff:educationStatus
+    ], [
+      sh:minCount 1;
+      sh:path ff:educationLocation
+    ], [
+      sh:minCount 1;
+      sh:path ff:researchInstitutionEmployment
+    ], [
+      sh:minCount 1;
+      sh:path ff:workplaceLocation
+    ], [
+      sh:or (_:b51 _:b52)
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:employmentStatus-employed)
+        ];
+      sh:path ff:employmentStatus
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:receivesScholarship
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:companyFounded
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:higherEducationEntrepreneurshipSupport
+    ], [
+      sh:in (ff:compositionFoundingTeam-onlyAcademic ff:compositionFoundingTeam-oneNonAcademic);
+      sh:minCount 1;
+      sh:path ff:compositionFoundingTeam
+    ], [
+      sh:maxInclusive 20;
+      sh:minCount 1;
+      sh:path ff:secondaryEmploymentHours
+    ], [
+      sh:in (ff:higherEducationProgress-moreThanHalf ff:higherEducationProgress-completed);
+      sh:minCount 1;
+      sh:path ff:higherEducationProgress
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:fzl a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.bundesfinanzministerium.de>;
+  ff:benefitInfo
+    "Steuerpflichtige Unternehmen in Deutschland können eine Forschungszulage für förderfähige Aufwendungen in Grundlagenforschung, industrieller Forschung und experimenteller Entwicklung erhalten."@de,
+    "Tax-liable companies in Germany may claim a research allowance for eligible expenses related to basic research, industrial research, and experimental development."@en;
+  ff:category ff:innovation-forschung;
+  ff:hasMainShape ff:fzlMainShape;
+  ff:tag ff:beta;
+  ff:title
+    "Forschungszulage - Steuerliche Förderung von Forschung und Entwicklung"@de,
+    "Research Allowance - Tax Incentive for R&D"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:fzlMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:managingCompany
+    ], [
+      sh:in (true);
+      sh:message "Anspruchsberechtigt sind Steuerpflichtige im Sinne des Einkommensteuer- oder Körperschaftsteuergesetzes, sofern sie Einkünfte nach § 2 Abs. 1 Satz 1 Nr. 1–3 EStG erzielen und nicht steuerbefreit sind. (Quelle: §1 Abs. 1 FZulG)"@de;
+      sh:minCount 1;
+      sh:path ff:taxableGermany
+    ], [
+      sh:in (ff:researchType-foundational ff:researchType-industrial ff:researchType-experimental);
+      sh:message "Nur Grundlagenforschung, industrielle Forschung oder experimentelle Entwicklung sind förderfähig. (Quelle: §2 Abs. 1 FZulG)"@de;
+      sh:minCount 1;
+      sh:path ff:researchType
+    ], [
+      sh:in (true);
+      sh:message "Das F&E-Vorhaben muss nach dem 1. Januar 2020 begonnen worden sein. (Quelle: §8 FZulG)"@de;
+      sh:minCount 1;
+      sh:path ff:researchActivitiesSince2020
+    ], [
+      sh:in (false);
+      sh:message "Unternehmen in Schwierigkeiten gemäß AGVO sind ausgeschlossen. (Quelle: §9 Abs. 2 FZulG)"@de;
+      sh:minCount 1;
+      sh:path ff:companyFinancialDifficulty
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:gsi a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/grundsicherung-im-alter-und-bei-erwerbsminderung>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Sie sind im Rentenalter, aber Ihr Geld reicht nicht aus, um Ihren Lebensunterhalt zu bezahlen? Oder sind Sie zwar noch jünger, können aber aus gesundheitlichen Gründen dauerhaft nicht arbeiten? Dann können Sie die finanzielle „Grundsicherung im Alter und bei Erwerbsminderung“ beantragen."@de,
+    "Are you receiving your pension but don’t have enough money to get by? Or are you younger but unable to work for health-related reasons? If so, you may be entitled to claim basic financial welfare for the elderly and people with reduced earnings capacity."@en;
+  ff:category
+    ff:alter-ruhestand-bc-kategorie,
+    ff:sozialhilfe-grundsicherung-bc-kategorie;
+  ff:hasMainShape ff:gsiMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Grundsicherung im Alter und bei Erwerbsminderung können Sie als bedürftiger Mensch bekommen, wenn Sie entweder die Regelaltersgrenze - das ist der Zeitpunkt, an dem Sie die reguläre Altersrente beziehen können – erreicht haben oder mindestens 18 Jahre alt und dauerhaft voll erwerbsgemindert sind oder das Eingangs- und den Berufsbildungsbereich einer Werkstatt für behinderte Menschen durchlaufen oder in einem Ausbildungsverhältnis stehen, für welches Sie ein Budget für die Ausbildung erhalten. Sie müssen außerdem in Deutschland wohnen."@de,
+    "You are probably not entitled to this benefit. You can receive basic welfare for the elderly and people with reduced earnings capacity as a needy person if you have either reached the standard retirement age - that is the point at which you can draw the regular old-age pension - or are at least 18 years old and permanently fully disabled or have the initial and go through the vocational training area of a workshop for disabled people or are in an apprenticeship for which you receive a budget for the apprenticeship. You must also live in Germany."@en;
+  ff:legalBasis ff:sgb-xii;
+  ff:leikaId "99107009017000";
+  ff:providingAgency ff:sozialamt;
+  ff:title
+    "Grundsicherung im Alter und bei Erwerbsminderung"@de,
+    "Basic welfare for the elderly and people with reduced earnings capacity"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:gsiMainShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:financialDifficulty
+    ], [
+      sh:minCount 1;
+      sh:path ff:workAbility
+    ], [
+      sh:minCount 1;
+      sh:path ff:employmentStatus
+    ], [
+      sh:or (_:b53 _:b54)
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:socialBenefitsReceiving-unemploymentBenefit ff:socialBenefitsReceiving-bafoeg)
+        ];
+      sh:path ff:socialBenefitsReceiving
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:hlu a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/hilfe-zum-lebensunterhalt>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Die „Hilfe zum Lebensunterhalt“ richtet sich an Menschen, die eine Zeit lang nicht oder nur wenig arbeiten können. Sie dient dazu grundlegende Bedürfnisse wie Essen, Kleidung und Miete zu bezahlen. Hilfe zum Lebensunterhalt erhalten Personen, für die andere staatliche Leistungen, wie etwa Rente oder Bürgergeld (früher ALG II), nicht infrage kommen."@de,
+    "If you are currently unable to work due to health reasons, you may be entitled to cost of living assistance. The prerequisite is that you are temporarily unable to earn your living yourself or with the help of other people, for example a partner or your family."@en;
+  ff:category
+    ff:gesundheit-pflege-bc-kategorie,
+    ff:leistungen-fuer-familien-bc-kategorie,
+    ff:sozialhilfe-grundsicherung-bc-kategorie;
+  ff:hasMainShape ff:hluMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Einen Anspruch auf Hilfe zum Lebensunterhalt haben erwerbsunfähige Menschen, die ihren Lebensunterhalt nicht aus eigenen Mitteln bestreiten können, weil sie z.B. längerfristig erkrankt sind oder wegen Erwerbsminderung nur eine geringe Rente bekommen. Es dient dazu, das Existenzminimum zu sichern, wenn weder ein Anspruch auf Bürgergeld (früher ALG II) noch auf Grundsicherung im Alter und bei Erwerbsminderung besteht."@de,
+    "You are probably not entitled to this benefit. People who are unable to work and who cannot earn their living from their own means, because they are ill for a long time or only receive a small pension due to a reduced earning capacity, are entitled to cost-of-living assistance. It serves to secure the subsistence level if there is neither an entitlement to unemployment benefit II nor to basic security in old age and in the event of reduced earning capacity."@en;
+  ff:legalBasis ff:sgb-ix;
+  ff:leikaId "99107012017000";
+  ff:providingAgency ff:sozialamt;
+  ff:title
+    "Hilfe zum Lebensunterhalt"@de,
+    "Cost-of-living assistance"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:hluMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:pensionable
+    ], [
+      sh:in (ff:workAbility-none);
+      sh:minCount 1;
+      sh:path ff:workAbility
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:socialBenefitsReceiving-unemploymentBenefit ff:socialBenefitsReceiving-citizensIncome)
+        ];
+      sh:path ff:socialBenefitsReceiving
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:iaw a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.ibb.de/de/foerderprogramme/ibb-altersgerecht-wohnen.html>;
+  ff:benefitInfo
+    "Das Förderprogramm 'IBB Altersgerecht Wohnen' unterstützt Vermieter:innen und Investor:innen bei der Finanzierung von Modernisierungsmaßnahmen zur Barrierereduzierung, Erhöhung des Wohnkomforts und Einbruchschutz in Berlin. Ziel ist es, altersgerechtes Wohnen zu fördern und die Lebensqualität in Wohngebäuden zu verbessern."@de,
+    "The 'IBB Altersgerecht Wohnen' funding program supports landlords and investors in financing modernization measures for barrier reduction, increased living comfort, and burglary protection in Berlin. The goal is to promote age-appropriate living and improve the quality of life in residential buildings."@en;
+  ff:category ff:wohnungsbau-modernisierung;
+  ff:hasMainShape ff:iawMainShape;
+  ff:tag ff:beta;
+  ff:title
+    "IBB Altersgerecht Wohnen"@de,
+    "IBB Age-Appropriate Living"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:iawMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:propertyOwnerhship
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:rentalProperty
+    ], [
+      sh:in (ff:housingInvestmentLocation-berlin);
+      sh:minCount 1;
+      sh:path ff:housingInvestmentLocation
+    ], [
+      sh:in (ff:housingCompanyType-communal ff:housingCompanyType-privateCompany ff:housingCompanyType-cooperative ff:housingCompanyType-landlord ff:housingCompanyType-investor);
+      sh:minCount 1;
+      sh:path ff:housingCompanyType
+    ], [
+      sh:in (ff:housingProjectType-barrierReduction ff:housingProjectType-livingComfort ff:housingProjectType-burglaryProtection);
+      sh:minCount 1;
+      sh:path ff:housingProjectType
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:ifn a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.ifbhh.de/programme/gruender-and-unternehmen/gruenden-und-nachfolgen/unternehmen-gruenden/hamburg-kredit-gruendung-und-nachfolge>;
+  ff:benefitInfo
+    "Der Hamburg-Kredit Gründung und Nachfolge III 2025 unterstützt Existenzgründungen und Unternehmensnachfolgen in Hamburg durch langfristige Finanzierung von Investitionen und Betriebsmitteln. Das Programm bietet günstige Darlehenskonditionen und Zuschüsse für Handwerksbetriebe, die Ausbildungsplätze schaffen."@de,
+    "The Hamburg-Kredit Gründung und Nachfolge III 2025 supports business start-ups and successions in Hamburg through long-term financing of investments and working capital. The program offers favorable loan conditions and grants for craft businesses that create training positions."@en;
+  ff:category ff:selbstaendigkeit-gruendung;
+  ff:hasMainShape ff:ifnMainShape;
+  ff:tag ff:beta;
+  ff:title
+    "Hamburg-Kredit Gründung und Nachfolge III 2025"@de,
+    "Hamburg-Kredit Gründung und Nachfolge III 2025"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:ifnMainShape a sh:NodeShape;
+  sh:or (_:b55 _:b56 _:b57);
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:minCount 1;
+      sh:path ff:planingToFound
+    ], [
+      sh:minCount 1;
+      sh:path ff:recentlyFounded
+    ], [
+      sh:minCount 1;
+      sh:path ff:interestedInSuccession
+    ], [
+      sh:message "Das Unternehmen darf nicht älter als fünf Jahre sein. (Quelle: 'Gefördert werden kleine und mittlere Unternehmen, die nicht länger als fünf Jahre bestehen')."@de;
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:companyAge-greater5Years)
+        ];
+      sh:path ff:companyAge
+    ], [
+      sh:in (ff:industry-construction ff:industry-gastronomy ff:industry-healthcare ff:industry-renewableEnergy ff:industry-creativeIndustries ff:industry-logistics ff:industry-tourism ff:industry-foodIndustry ff:industry-trade ff:industry-manufacturing);
+      sh:message "Das Unternehmen muss einer förderfähigen Branche angehören. (Quelle: 'Förderfähig sind Unternehmen der Branchen Bauwesen, Gastronomie, Gesundheitswesen, erneuerbare Energien, kreative Wirtschaft, Logistik, Tourismus, Lebensmittelindustrie, Handel und verarbeitendes Gewerbe')."@de;
+      sh:minCount 1;
+      sh:path ff:industry
+    ], [
+      sh:in (ff:headquartersLocation-hamburg);
+      sh:message "Der Unternehmenssitz muss sich in Hamburg befinden. (Quelle: 'Anträge sind nur zulässig, wenn das Unternehmen seinen Sitz in Hamburg hat')."@de;
+      sh:minCount 1;
+      sh:path ff:headquartersLocation
+    ], [
+      sh:message "Das Unternehmen darf nicht mehr als 249 Mitarbeiter haben. (Quelle: 'Ein KMU hat weniger als 250 Mitarbeiter gemäß Empfehlung 2003/361/EG')."@de;
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:employeeCount-greater250)
+        ];
+      sh:path ff:employeeCount
+    ], [
+      sh:in (ff:annualTurnover-below50Million);
+      sh:message "Der Jahresumsatz darf 50 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf einen maximalen Jahresumsatz von 50 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de;
+      sh:minCount 1;
+      sh:path ff:annualTurnover
+    ], [
+      sh:in (ff:balanceSheet-below43Million);
+      sh:message "Die Jahresbilanzsumme darf 43 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf eine maximale Jahresbilanzsumme von 43 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de;
+      sh:minCount 1;
+      sh:path ff:balanceSheet
+    ], [
+      sh:in (false);
+      sh:message "Unternehmen, die in der Primärproduktion landwirtschaftlicher Erzeugnisse tätig sind oder unter Artikel 1 Abs. 1 der Verordnung (EU) 2023/2831 fallen, sind nicht förderfähig. (Quelle: 'Unternehmen bzw. Tätigkeiten gemäß Artikel 1 Abs. 1 der Verordnung (EU) 2023/2831 sind nicht förderfähig')."@de;
+      sh:minCount 1;
+      sh:path ff:primaryAgricultureActivity
+    ], [
+      sh:in (false);
+      sh:message "Unternehmen in finanziellen Schwierigkeiten gemäß Art. 2 Nr. 18 AGVO sind ausgeschlossen. (Quelle: 'Unternehmen in Schwierigkeiten im Sinne von Art. 2 Nr. 18 AGVO sind nicht förderfähig')."@de;
+      sh:minCount 1;
+      sh:path ff:companyFinancialDifficulty
+    ], [
+      sh:in (ff:deMinimisAid-no ff:deMinimisAid-unsure);
+      sh:message "Nur Unternehmen, die die De-minimis-Förderung nicht vollständig ausgeschöpft haben oder nicht wissen, ob sie die Grenze erreicht haben, sind förderfähig. (Quelle: 'Unternehmen, die die zulässige De-minimis-Grenze gemäß EU-Verordnung überschreiten, sind nicht förderfähig')."@de;
+      sh:minCount 1;
+      sh:path ff:deMinimisAid
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:igb a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.ibb.de/de/foerderprogramme/gruendungsbonus-plus.html>;
+  ff:benefitInfo
+    "Der IBB Gründungsbonus unterstützt innovative Startups in Berlin durch finanzielle Zuschüsse und Beratung. Ziel ist es, nachhaltige und innovative Geschäftsmodelle zu fördern, die einen positiven Beitrag zur Wirtschaft leisten."@de,
+    "The IBB Gründungsbonus supports innovative startups in Berlin through financial grants and consulting. The goal is to promote sustainable and innovative business models that contribute positively to the economy."@en;
+  ff:category ff:selbstaendigkeit-gruendung;
+  ff:hasMainShape ff:igbMainShape;
+  ff:tag ff:beta;
+  ff:title
+    "IBB Gründungsbonus"@de,
+    "IBB Gründungsbonus"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:igbMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:recentlyFounded
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:bankAccountGermany
+    ], [
+      sh:in (ff:companyAge-below18Months);
+      sh:minCount 1;
+      sh:path ff:companyAge
+    ], [
+      sh:description "Companies in construction, gastronomy, hospitality (except ecological innovation), and retail (except sustainable products) are excluded."@en;
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:industry-construction ff:industry-gastronomy ff:industry-hospitalityNonEcological ff:industry-retailNonSustainable)
+        ];
+      sh:path ff:industry
+    ], [
+      sh:in (ff:headquartersLocation-berlin);
+      sh:minCount 1;
+      sh:path ff:headquartersLocation
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:profitOriented
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:majorityShares
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:doubleFunding
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:ilg a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.ilb.de>;
+  ff:benefitInfo
+    "Der Brandenburg-Kredit Gründung unterstützt junge Unternehmen in Brandenburg mit zinsgünstigen Krediten für Investitionen und Betriebsmittel."@de,
+    "The Brandenburg Start-up Credit supports young businesses in Brandenburg with low-interest loans for investments and working capital."@en;
+  ff:category ff:selbstaendigkeit-gruendung;
+  ff:hasMainShape ff:ilgMainShape;
+  ff:tag ff:beta;
+  ff:title
+    "Brandenburg-Kredit Gründung"@de,
+    "Brandenburg Start-up Credit"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:ilgMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:recentlyFounded
+    ], [
+      sh:message "Das Unternehmen darf nicht älter als fünf Jahre sein. (Quelle: Merkblatt Brandenburg-Kredit Gründung - 'Die ILB fördert mit dem Brandenburg-Kredit Gründung unter der Voraussetzung, dass Sie als Antragsteller sich innerhalb der ersten 5 Jahre nach Aufnahme der Geschäftstätigkeit befinden.')"@de;
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:companyAge-greater5Years)
+        ];
+      sh:path ff:companyAge
+    ], [
+      sh:message "Das Unternehmen muss ein KMU mit weniger als 250 Mitarbeitenden sein. (Quelle: KMU-Definition der EU - 'junge, kleine und mittlere Unternehmen im Sinne der EU-Definition mit weniger als 250 Mitarbeitern.')"@de;
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:employeeCount-greater250)
+        ];
+      sh:path ff:employeeCount
+    ], [
+      sh:message "Der Jahresumsatz darf 50 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf einen maximalen Jahresumsatz von 50 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de;
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:annualTurnover-greater50Million)
+        ];
+      sh:path ff:annualTurnover
+    ], [
+      sh:message "Die Jahresbilanzsumme darf 43 Mio. EUR nicht überschreiten. (Quelle: 'Ein KMU darf eine maximale Jahresbilanzsumme von 43 Mio. EUR haben gemäß Empfehlung 2003/361/EG')."@de;
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:balanceSheet-greater43Million)
+        ];
+      sh:path ff:balanceSheet
+    ], [
+      sh:in (ff:businessActivityLocation-brandenburg);
+      sh:message "Das Unternehmen muss seinen Geschäftssitz in Brandenburg haben. (Quelle: Für Vorhaben im Land Brandenburg sind antragsberechtigt: … mit Unternehmenssitz in Deutschland – für Vorhaben in Brandenburg.')"@de;
+      sh:minCount 1;
+      sh:path ff:businessActivityLocation
+    ], [
+      sh:in (ff:headquartersCountry-ger);
+      sh:message "Der Unternehmenssitz muss sich in Deutschland befinden. (Quelle: Merkblatt Brandenburg-Kredit Gründung - 'Für Vorhaben im Land Brandenburg sind antragsberechtigt: … mit Unternehmenssitz in Deutschland – für Vorhaben in Brandenburg..')"@de;
+      sh:minCount 1;
+      sh:path ff:headquartersCountry
+    ], [
+      sh:in (ff:deMinimisAid-no ff:deMinimisAid-unsure);
+      sh:message "Unternehmen, die die zulässige De-minimis-Grenze überschritten haben, sind nicht förderfähig. (Quelle: Kurzinformation Brandenburg-Kredit Gründung - 'Aktuell erfolgen Darlehenszusagen bis auf Weiteres ausschließlich nach der De-minimis-Verordnung (EU) 2023/2831 vom 13. Dezember 2023.')"@de;
+      sh:minCount 1;
+      sh:path ff:deMinimisAid
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:kav a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.gesetze-im-internet.de/pflegezg/__2.html>;
+  ff:benefitInfo
+    "Kurzfristige Arbeitsverhinderung ermöglicht es Arbeitnehmer:innen, kurzfristig von der Arbeit freigestellt zu werden, um akute Pflegebedarfe zu decken. Diese Regelung gilt für Situationen, in denen eine plötzliche Pflegebedürftigkeit auftritt."@de,
+    "Short-term work interruption allows employees to be temporarily released from work to meet acute care needs. This regulation applies in situations where a sudden need for care arises."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasEvalShape ff:kurzzeitige-arbeitsverhinderung-EvalShape;
+  ff:hasFlowShape ff:kurzzeitige-arbeitsverhinderungg-FlowShape;
+  ff:tag ff:beta;
+  ff:title
+    "Kurzzeitige Arbeitsverhinderung für akute Pflege"@de,
+    "Short-term Work Interruption for Acute Care"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:kdg a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/kindergeld>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Das Kindergeld ist eine staatliche Förderung, die Eltern und Erziehungsberechtigte ab der Geburt des ersten Kindes beantragen können. Damit soll die Grundversorgung eines Kindes gesichert werden. Kindergeld wird mindestens bis zum 18. und höchstens bis zum 25. Geburtstag eines Kindes gezahlt. Alle Familien erhalten Kindergeld, unabhängig davon, wie viel sie verdienen."@de,
+    "Parents and guardians are entitled to receive child benefit from the state starting with their first child. Find out here whether you qualify for child benefit and how you can apply."@en;
+  ff:category ff:leistungen-fuer-familien-bc-kategorie;
+  ff:hasMainShape ff:kdgMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Wenn Ihr Kind unter 18 Jahren alt ist, haben Sie Anspruch auf Kindergeld, wenn Sie Ihren Wohnsitz oder gewöhnlichen Aufenthalt in Deutschland oder einem anderen Land der EU, Norwegen, Lichtenstein, Island oder der Schweiz haben und Ihr Kind in Ihrem Haushalt lebt. Soweit Ihr Kind zwischen 18 und 25 Jahre alt ist, ist zusätzlich erforderlich, dass es eine Ausbildung oder ein Studium absolviert, sich zwischen Schulabschluss und Ausbildungs- oder Studienbeginn in einer Übergangszeit befindet oder sich ernsthaft um eine Ausbildung bemüht."@de,
+    "You are probably not entitled to this benefit. If your child is under the age of 18, you are entitled to child benefit if you are domiciled or habitually resident in Germany or another EU country, Norway, Lichtenstein, Iceland or Switzerland and your child lives in your household. If your child is between 18 and 25 years old, it is also required that it is completing an apprenticeship or study, is in a transitional period between leaving school and starting training or study, or is seriously trying to get an apprenticeship."@en;
+  ff:legalBasis
+    ff:bundeskindergeldgesetz,
+    ff:einkommensteuergesetz;
+  ff:leikaId "99041008017000";
+  ff:providingAgency ff:familienkasse;
+  ff:title
+    "Kindergeld"@de,
+    "Child benefit"@en;
+  ff:validationStage ff:complete-validation.
+
+ff:kdgMainShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:children
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:in (ff:childrenAge-sub_18 ff:childrenAge-18_25);
+      sh:minCount 1;
+      sh:path ff:childrenAge
+    ], [
+      sh:in (false);
+      sh:minCount 1;
+      sh:path ff:pensionable
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:employmentStatus-pension ff:employmentStatus-federalVolunteerService)
+        ];
+      sh:path ff:employmentStatus
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:socialBenefitsReceiving-unemploymentBenefit ff:socialBenefitsReceiving-bafoeg ff:socialBenefitsReceiving-pension)
+        ];
+      sh:path ff:socialBenefitsReceiving
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:kurzzeitige-arbeitsverhinderung-EvalShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:acuteCareSituation
+    ], [
+      sh:in (true);
+      sh:path ff:careRecipientCloseRelative
+    ], [
+      sh:in (true);
+      sh:path ff:requiredForCare
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:kurzzeitige-arbeitsverhinderungg-FlowShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:careRecipientCloseRelative
+    ], [
+      sh:minCount 1;
+      sh:path ff:requiredForCare
+    ], [
+      sh:minCount 1;
+      sh:path ff:acuteCareSituation
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:kzl a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/kinderzuschlag>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Wenn Sie ein geringes Einkommen haben und Kindergeld beziehen, können Sie zusätzlich den Kinderzuschlag, abgekürzt auch KiZ genannt, beantragen."@de,
+    "If you are a low-earner and receive child benefit, you can also apply for the child allowance."@en;
+  ff:category ff:leistungen-fuer-familien-bc-kategorie;
+  ff:hasMainShape ff:kzlMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Der Kinderzuschlag ist ein Zuschlag zum Kindergeld für Eltern, die genug verdienen, um für sich selbst zu sorgen, das Einkommen aber nicht oder nur knapp für die gesamte Familie reicht. Einkommen und Vermögen der Eltern und des Kindes werden auf den Kinderzuschlag teilweise angerechnet und reduzieren die Höhe. Mit dem Kinderzuschlag sind weitere Vergünstigungen möglich, z. B. Bildungs- und Teilhabeleistungen für die Kinder oder eine Befreiung von den KiTa-Gebühren."@de,
+    "You are probably not entitled to this benefit. The child allowance is a supplement to child benefit for parents who earn enough to take care of themselves, but the income is not or only just enough for the entire family. Income and assets of the parents and the child are partly offset against the child allowance and reduce the amount. Additional discounts are possible with the child allowance, e.g. education and participation services for the children or an exemption from the childcare fees."@en;
+  ff:legalBasis ff:bundeskindergeldgesetz;
+  ff:leikaId "99107016017000";
+  ff:providingAgency ff:familienkasse;
+  ff:title
+    "Kinderzuschlag"@de,
+    "Child allowance"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:kzlMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:children
+    ], [
+      sh:in (ff:childrenAge-sub_18 ff:childrenAge-18_25);
+      sh:minCount 1;
+      sh:path ff:childrenAge
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:minCount 1;
+      sh:path ff:citizenship
+    ], [
+      sh:minCount 1;
+      sh:path ff:residencyStatus
+    ], [
+      sh:or (sh:property _:b58 sh:property _:b59)
+    ], [
+      sh:minCount 1;
+      sh:path ff:parentingSituation
+    ], [
+      sh:minCount 1;
+      sh:path ff:householdIncome
+    ], [
+      sh:or (_:b60 _:b61)
+    ], [
+      sh:minCount 1;
+      sh:path ff:socialBenefitsReceiving
+    ], [
+      sh:and (sh:property _:b62 sh:property _:b63)
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:pbg a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Menschen mit einer Behinderung oder von Behinderung bedrohte Personen können Leistungen zur Teilhabe in Form eines Persönlichen Budgets erhalten. Dadurch werden ihnen die erforderlichen Hilfen als Geldleistung oder Gutschein gewährt, sodass sie diese selbstbestimmt organisieren können."@de,
+    "People with a disability or at risk of disability may receive participation benefits in the form of a Personal Budget. This provides them with the necessary support as cash benefits or vouchers, enabling them to organize assistance independently."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:pbgFlowShape;
+  ff:hasMainShape ff:pbgMainShape;
+  ff:legalBasis ff:sgb-ix;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency
+    ff:bundesagentur-fuer-arbeit,
+    ff:gesundheitsamt,
+    ff:integrationsamt,
+    ff:jugendamt,
+    ff:kassenaerztliche-vereinigung,
+    ff:rentenversicherung,
+    ff:sozialamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Persönliches Budget"@de,
+    "Personal Budget"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:pbgBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:disability
+    ].
+
+ff:pbgFlowShape a sh:NodeShape;
+  sh:property ff:pbgBaseRequirements;
+  sh:targetClass ff:Citizen.
+
+ff:pbgMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:disability
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:sba a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Menschen mit einer Behinderung haben je nach Grad der Behinderung und Arbeitsplatzsituation Anspruch auf einen Schwerbehindertenausweis oder eine Gleichstellung."@de,
+    "People with a disability may be entitled to a severely disabled person's ID card or to equal status, depending on the degree of disability and their employment situation."@en;
+  ff:category
+    ff:gesundheit-pflege-bc-kategorie,
+    ff:sozialhilfe-grundsicherung-bc-kategorie;
+  ff:hasFlowShape ff:sbaFlowShape;
+  ff:hasMainShape ff:sbaMainShape;
+  ff:legalBasis ff:sgb-ix;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency ff:sozialamt;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Schwerbehindertenausweis und Gleichstellung"@de,
+    "Severely Disabled ID and Equal Status"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:sbaBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:disability
+    ], [
+      sh:minCount 1;
+      sh:path ff:disabilityDegreeDetermined
+    ].
+
+ff:sbaDegreeEvaluatedPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b64 true)
+        ]
+    ];
+  sh:minCount 1;
+  sh:path ff:disabilityDegree.
+
+ff:sbaFlowShape a sh:NodeShape;
+  sh:property
+    ff:sbaBaseRequirements,
+    ff:sbaDegreeEvaluatedPS;
+  sh:targetClass ff:Citizen.
+
+ff:sbaMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:disability
+    ], [
+      sh:in (true);
+      sh:path ff:disabilityDegreeDetermined
+    ], [
+      sh:in (ff:disabilityDegree-50 ff:disabilityDegree-60 ff:disabilityDegree-70 ff:disabilityDegree-80 ff:disabilityDegree-90 ff:disabilityDegree-100);
+      sh:path ff:disabilityDegree
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:std a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Die diamorphingestützte Therapie ist eine besondere Form der Behandlung für Menschen, die stark von Heroin abhängig sind und bei denen andere Therapien nicht geholfen haben."@de,
+    "Diamorphine-assisted therapy is a special form of treatment for people who are heavily dependent on heroin and for whom other therapies have not helped."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:substitutionstherapieDiamorphinFlowShape;
+  ff:hasMainShape ff:substitutionstherapieDiamorphinMainShape;
+  ff:legalBasis ff:betaeubungsmittelgesetz;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency
+    ff:gesundheitsamt,
+    ff:kassenaerztliche_vereinigung;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Diamorphingestützte Therapie"@de,
+    "Diamorphine-Assisted Therapy"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:stdAddictionDamageRequirementPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b65 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:addictionDamage
+    ].
+
+ff:stdBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:opioidAddiction
+    ], [
+      sh:minCount 1;
+      sh:path ff:healthInsurance
+    ], [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ].
+
+ff:stdDurationRequirementPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:or (_:b66 _:b67 _:b68 _:b69)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:opioidAddictionMoreThanTwoYears
+    ].
+
+ff:stdGenderRequirementsPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b70 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:gender
+    ].
+
+ff:stdPregnancyPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:or (_:b71 _:b72 _:b73)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:pregnancy
+    ].
+
+ff:stdPreviousTherapyRequirementPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b74 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:regularSubstitutiontherapy6months
+    ].
+
+ff:stdRecentBirthPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b75 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:recentChildbirth
+    ].
+
+ff:stdSevereDiseasePS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b76 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:severeDisease
+    ].
+
+ff:stdSobrietyWishPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (_:b77 _:b78)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:sobrietyWish
+    ].
+
+ff:stdUnsuccessfulTherapyRequirementPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b79 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:regularSubstitutiontherapyUnsuccessful
+    ].
+
+ff:str a ff:RequirementProfile;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Substitutionstherapie ist eine medizinische Behandlung für Menschen mit einer Abhängigkeit von Opioiden, die darauf abzielt, die Gesundheit zu stabilisieren und Rückfälle zu verhindern."@de,
+    "Substitution therapy is a medical treatment for people with an opioid addiction, aimed at stabilizing health and preventing relapses."@en;
+  ff:category ff:gesundheit-pflege-bc-kategorie;
+  ff:hasFlowShape ff:substitutionstherapieRegulaerFlowShape;
+  ff:hasMainShape ff:substitutionstherapieRegulaerMainShape;
+  ff:legalBasis ff:betaeubungsmittelgesetz;
+  ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json>;
+  ff:providingAgency
+    ff:gesundheitsamt,
+    ff:kassenaerztliche_vereinigung;
+  ff:tag ff:bielefunke;
+  ff:title
+    "Substitutionstherapie"@de,
+    "Substitution Therapy"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:strBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:opioidAddiction
+    ], [
+      sh:minCount 1;
+      sh:path ff:healthInsurance
+    ], [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ].
+
+ff:strGenderRequirementsPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b80 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:gender
+    ].
+
+ff:strPregnancyPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:or (_:b81 _:b82 _:b83)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:pregnancy
+    ].
+
+ff:strRecentBirthPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b84 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:recentChildbirth
+    ].
+
+ff:strSevereDiseasePS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b85 false)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:severeDisease
+    ].
+
+ff:strSobrietyWishPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (_:b86 _:b87)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:sobrietyWish
+    ].
+
+ff:substitutionstherapieDiamorphinFlowShape a sh:NodeShape;
+  sh:property
+    ff:pregancyRequirementsPS,
+    ff:stdAddictionDamageRequirementPS,
+    ff:stdBaseRequirements,
+    ff:stdDurationRequirementPS,
+    ff:stdGenderRequirementsPS,
+    ff:stdPreviousTherapyRequirementPS,
+    ff:stdRecentBirthPS,
+    ff:stdSevereDiseasePS,
+    ff:stdSobrietyWishPS,
+    ff:stdUnsuccessfulTherapyRequirementPS;
+  sh:targetClass ff:Citizen.
+
+ff:substitutionstherapieDiamorphinMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:opioidAddiction
+    ], [
+      sh:minInclusive 18;
+      sh:path ff:hasAge
+    ], [
+      sh:or (_:b88 _:b89 _:b90)
+    ], [
+      sh:in (true);
+      sh:path ff:opioidAddictionMoreThanTwoYears
+    ], [
+      sh:in (true);
+      sh:path ff:addictionDamage
+    ], [
+      sh:in (true);
+      sh:path ff:regularSubstitutiontherapy6months
+    ], [
+      sh:in (true);
+      sh:path ff:regularSubstitutiontherapyUnsuccessful
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:substitutionstherapieRegulaerFlowShape a sh:NodeShape;
+  sh:property
+    ff:pregancyPS,
+    ff:strBaseRequirements,
+    ff:strGenderRequirementsPS,
+    ff:strRecentBirthPS,
+    ff:strSevereDiseasePS,
+    ff:strSobrietyWishPS;
+  sh:targetClass ff:Citizen.
+
+ff:substitutionstherapieRegulaerMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:opioidAddiction
+    ], [
+      sh:minInclusive 18;
+      sh:path ff:hasAge
+    ], [
+      sh:or (_:b91 _:b92 _:b93)
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:ueg a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.arbeitsagentur.de/datei/uebergangsgeld-fuer-rehabilitanden-der-ba_ba040009.pdf>;
+  ff:administrativeLevel ff:bund;
+  ff:benefitInfo
+    "Menschen mit Behinderungen können zur Sicherung des Lebensunterhaltes Übergangsgeld erhalten, wenn sie an bestimmten Bildungsmaßnahmen teilnehmen. Je nach Rehabilitionträger gelten hier unterschiedliche Voraussetzungen und Leistungsangebote. Die vorliegende Leistung steht Menschen zur Verfügung, deren Rehabilitationsträger die Bundesagentur für Arbeit ist."@de,
+    "People with disabilities can receive transitional allowance to cover their living expenses if they participate in specific educational programs. Depending on the rehabilitation provider, different requirements and benefits apply. This benefit is available to people whose rehabilitation provider is the Federal Employment Agency."@en;
+  ff:category
+    ff:gesundheit-pflege-bc-kategorie,
+    ff:schule-studium-ausbildung-bc-kategorie,
+    ff:sozialhilfe-grundsicherung-bc-kategorie;
+  ff:hasFlowShape ff:uegFlowShape;
+  ff:hasMainShape ff:uegMainShape;
+  ff:legalBasis
+    ff:sgb-iii,
+    ff:sgb-ix;
+  ff:providingAgency ff:bundesagentuFuerArbeit;
+  ff:tag ff:beta;
+  ff:title
+    "Übergangsgeld für Menschen mit Behinderung - Bundesagentur für Arbeit"@de,
+    "Transitional Allowance for People with Disabilities - Federal Employment Agency"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:uegBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:disability
+    ], [
+      sh:minCount 1;
+      sh:path ff:rehabilitationProvider
+    ].
+
+ff:uegEducationPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (_:b94 _:b95)
+        ]
+    ];
+  sh:minCount 1;
+  sh:path ff:vocationalTrainingRecent.
+
+ff:uegFlowShape a sh:NodeShape;
+  sh:property
+    ff:uegBaseRequirements,
+    ff:uegEducationPS,
+    ff:uegPriorEmploymentPeriod3YearsPS,
+    ff:uegPriorEmploymentPeriodPS,
+    ff:uegReturningProfessionalPS;
+  sh:targetClass ff:Citizen.
+
+ff:uegMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:disability
+    ], [
+      sh:in (ff:rehabilitationProvider-bundesagenturFuerArbeit);
+      sh:path ff:rehabilitationProvider
+    ], [
+      sh:or (_:b96 _:b97)
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:uegPriorEmploymentPeriod3YearsPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (_:b98 _:b99 _:b100 _:b101)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:socialInsurance12MonthsLast3Years
+    ], [
+      sh:minCount 1;
+      sh:path ff:unemploymentBenefitApprovedLast3Years
+    ].
+
+ff:uegPriorEmploymentPeriodPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (_:b102 _:b103 _:b104 _:b105)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:socialInsurance12Months
+    ], [
+      sh:minCount 1;
+      sh:path ff:unemploymentBenefitApproved
+    ].
+
+ff:uegReturningProfessionalPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:and (_:b106 _:b107 _:b108)
+        ]
+    ];
+  sh:minCount 1;
+  sh:path ff:careerReturner.
+
+ff:wfa a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.wolfenbuettel.de/loadDocument.phtml?FID=2093.1241.1&Ext=PDF>;
+  ff:benefitInfo
+    "Die Stadt Wolfenbüttel unterstützt die Ansiedlung von Einzelhandelsunternehmen und Gastronomiebetrieben in der Innenstadt mit finanziellen Zuschüssen."@de,
+    "The city of Wolfenbüttel supports the establishment of retail businesses and gastronomy in the city center with financial grants."@en;
+  ff:category ff:gewerbe-foerderung;
+  ff:hasMainShape ff:wfaMainShape;
+  ff:tag
+    ff:beta,
+    ff:wolfenbuettel;
+  ff:title
+    "Förderung der Ansiedlung von Einzelhandelsunternehmen und Gastronomiebetrieben"@de,
+    "Funding for the Establishment of Retail Businesses and Gastronomy"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:wfaMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:in (ff:industry-gastronomy ff:industry-retail);
+      sh:message "Das Unternehmen muss entweder der Gastronomie oder dem Einzelhandel angehören."@de;
+      sh:minCount 1;
+      sh:path ff:industry
+    ], [
+      sh:in (ff:businessActivityLocation-wolfenbuettel);
+      sh:minCount 1;
+      sh:path ff:businessActivityLocation
+    ], [
+      sh:in (true);
+      sh:message "Das Unternehmen muss sich innerhalb der Innenstadt (innere Okerumflut) von Wolfenbüttel befinden."@de;
+      sh:minCount 1;
+      sh:path ff:businessLocationInnerCity
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:wfgam a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.wolfenbuettel.de/loadDocument.phtml?FID=3413.8485.1&Ext=PDF>;
+  ff:benefitInfo
+    "Die Förderung gastronomischer Außenmöblierung unterstützt Betriebe bei der Anschaffung von wetterfesten und nachhaltigen Außenmöbeln für den gastronomischen Bereich."@de,
+    "The funding for gastronomic outdoor furniture supports businesses in acquiring weather-resistant and sustainable outdoor furniture for gastronomy."@en;
+  ff:category ff:gewerbe-foerderung;
+  ff:hasMainShape ff:wfgamMainShape;
+  ff:tag
+    ff:beta,
+    ff:wolfenbuettel;
+  ff:title
+    "Förderung gastronomischer Außenmöblierung in Wolfenbüttel"@de,
+    "Funding for gastronomic outdoor furniture in Wolfenbüttel"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:wfgamMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:interestInBusinessFunding
+    ], [
+      sh:in (ff:businessActivityLocation-wolfenbuettel);
+      sh:message "Das gastronomische Gewerbe muss in Wolfenbüttel sein."@de;
+      sh:minCount 1;
+      sh:path ff:businessActivityLocation
+    ], [
+      sh:in (ff:industry-gastronomy);
+      sh:message "Das Unternehmen muss im gastronomischen Bereich tätig sein."@de;
+      sh:minCount 1;
+      sh:path ff:industry
+    ], [
+      sh:in (true);
+      sh:message "Eine Genehmigung für Außenbestuhlung muss vorliegen."@de;
+      sh:minCount 1;
+      sh:path ff:permitOutdoorSeating
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:wfsto a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.wolfenbuettel.de/index.php?ModID=7&FID=2672.9007.1&object=tx%7C2672.9007.1>;
+  ff:benefitInfo
+    "Die Wolfenbüttel-Stiftung unterstützt soziale Projekte in Wolfenbüttel – ohne Rechtsanspruch auf Förderung."@de,
+    "The Wolfenbüttel Foundation supports social projects in Wolfenbüttel - without a legal claim to funding."@en;
+  ff:category ff:stiftungs-foerderung;
+  ff:hasFlowShape ff:wfstoFlowShape;
+  ff:hasMainShape ff:wfstoMainShape;
+  ff:tag
+    ff:beta,
+    ff:wolfenbuettel;
+  ff:targetClass ff:Organisation;
+  ff:title
+    "Wolfenbüttel Stiftung - Organisation"@de,
+    "Wolfenbüttel Foundation - Organisation"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:wfstoBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:activeInAssociation
+    ].
+
+ff:wfstoFlowShape a sh:NodeShape;
+  sh:property
+    ff:wfstoBaseRequirements,
+    ff:wfstoHeadquartersLocationPS,
+    ff:wfstoOrgIsInWbPS;
+  sh:targetClass ff:Citizen.
+
+ff:wfstoHeadquartersLocationPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b109 true)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:associationHeadquarters
+    ].
+
+ff:wfstoMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (true);
+      sh:path ff:activeInAssociation
+    ], [
+      sh:in (ff:associationHeadquarters-wolfenbuettel);
+      sh:path ff:associationHeadquarters
+    ], [
+      sh:or (_:b110 _:b111 _:b112 _:b113 _:b114)
+    ], [
+      sh:in (false);
+      sh:path ff:wbFoundationOrganisationPreviousYear
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:wfstoOrgIsInWbPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          shn:eq (_:b115 ff:associationHeadquarters-wolfenbuettel)
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:wbFoundationOrganisationPreviousYear
+    ], [
+      sh:minCount 1;
+      sh:path ff:associationTargetGroup
+    ].
+
+ff:wfstp a ff:RequirementProfile;
+  rdfs:seeAlso <https://www.wolfenbuettel.de/index.php?ModID=7&FID=2672.9007.1&object=tx%7C2672.9007.1>;
+  ff:benefitInfo
+    "Die Wolfenbüttel-Stiftung unterstützt bedürftige Kinder, hilfsbedürftige und ältere Menschen in Wolfenbüttel – ohne Rechtsanspruch auf Förderung."@de,
+    "The Wolfenbüttel Foundation supports needy children and needy elderly people in Wolfenbüttel - without a legal claim to funding."@en;
+  ff:category ff:stiftungs-foerderung;
+  ff:hasFlowShape ff:wfstpFlowShape;
+  ff:hasMainShape ff:wfstpMainShape;
+  ff:tag
+    ff:beta,
+    ff:wolfenbuettel;
+  ff:title
+    "Wolfenbüttel Stiftung - Privatperson"@de,
+    "Wolfenbüttel Foundation - Person"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:wfstpBaseRequirements a sh:PropertyShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:hasResidence
+    ].
+
+ff:wfstpFlowShape a sh:NodeShape;
+  sh:property
+    ff:wbFoundationPreviousYearPS,
+    ff:wfstpBaseRequirements,
+    ff:wfstpLivesInWbPS;
+  sh:targetClass ff:Citizen.
+
+ff:wfstpLivesInWbPS a sh:PropertyShape;
+  sh:deactivated [
+      sh:not [
+          sh:in (ff:hasResidence-wolfenbuettel);
+          sh:path ff:hasResidence
+        ]
+    ];
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:wbFoundationPreviousYear
+    ], [
+      sh:minCount 1;
+      sh:path ff:financialDifficulty
+    ].
+
+ff:wfstpMainShape a sh:NodeShape;
+  sh:property [
+      sh:in (ff:hasResidence-wolfenbuettel);
+      sh:path ff:hasResidence
+    ], [
+      sh:in (true);
+      sh:path ff:financialDifficulty
+    ], [
+      sh:in (false);
+      sh:path ff:wbFoundationPreviousYear
+    ];
+  sh:targetClass ff:Citizen.
+
+ff:wog a ff:RequirementProfile;
+  rdfs:seeAlso <https://sozialplattform.de/inhalt/wohngeld>;
+  ff:administrativeLevel
+    ff:bund,
+    ff:kommune,
+    ff:land;
+  ff:benefitInfo
+    "Das „Wohngeld“ ist ein finanzieller Zuschuss zur Miete oder zu den Kosten, die entstehen, falls Sie ein Haus oder eine Eigentumswohnung besitzen. Um Wohngeld zu bekommen, müssen Sie einen Antrag stellen. Die Gemeindeverwaltung in Ihrer Stadt prüft den Antrag und gibt ihnen Bescheid, ob Sie Wohngeld erhalten."@de,
+    "In the event that you earn too little to pay for your apartment, you can apply for housing benefit."@en;
+  ff:category
+    ff:alter-ruhestand-bc-kategorie,
+    ff:schule-studium-ausbildung-bc-kategorie,
+    ff:wohnen-bc-kategorie;
+  ff:hasMainShape ff:wogMainShape;
+  ff:ineligibleGeneralExplanation
+    "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Wohngeld bekommen Personen mit wenig Einkommen. Bei Mieterinnen/Mietern wird von Mietzuschuss und bei Eigentümerinnen/Eigentümern, die in ihrem Haus wohnen, von Lastenzuschuss gesprochen. Wohngeld wird nur an Personen gezahlt, die keine Transferleistungen (wie z. B. Bürgergeld (früher ALG II), Sozialhilfe, Grundsicherung im Alter und bei Erwerbsminderung) bekommen, da bei Transferleistungen die Unterkunftskosten schon berücksichtigt werden."@de,
+    "You are probably not entitled to this benefit. Housing benefit is given to people on low incomes. Tenants are referred to as rent subsidy, and owners who live in their house are referred to as load subsidy. Housing benefit is only paid to people who do not receive any transfer payments (e.g. unemployment benefit II, social assistance, basic security in old age and in the case of reduced earning capacity), since the accommodation costs are already taken into account in the case of transfer payments."@en;
+  ff:legalBasis ff:wohngeldgesetz;
+  ff:leikaId "99107023037000";
+  ff:providingAgency ff:wohngeldbehoerde;
+  ff:title
+    "Wohngeld"@de,
+    "Housing benefit"@en;
+  ff:validationStage ff:preliminary-validation.
+
+ff:wogMainShape a sh:NodeShape;
+  sh:property [
+      sh:minCount 1;
+      sh:path ff:birthDate
+    ], [
+      sh:minCount 1;
+      sh:minInclusive 15;
+      sh:path ff:hasAge
+    ], [
+      sh:in (true);
+      sh:minCount 1;
+      sh:path ff:financialDifficulty
+    ], [
+      sh:in (ff:habitualResidence-ger);
+      sh:minCount 1;
+      sh:path ff:habitualResidence
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:employmentStatus-inEducation)
+        ];
+      sh:path ff:employmentStatus
+    ], [
+      sh:minCount 1;
+      sh:not [
+          sh:in (ff:socialBenefitsReceiving-bafoeg ff:socialBenefitsReceiving-citizensIncome ff:socialBenefitsReceiving-basicSecurity ff:socialBenefitsReceiving-subsistenceAssistance ff:socialBenefitsReceiving-vocationalTrainingAllowance)
+        ];
+      sh:path ff:socialBenefitsReceiving
+    ], [
+      sh:minCount 1;
+      sh:minInclusive 1;
+      sh:path ff:householdMembers
+    ], [
+      sh:lessThan ff:assetLimitHousingAllowance;
+      sh:minCount 1;
+      sh:path ff:assets
+    ];
+  sh:targetClass ff:Citizen.
+
+_:b96
+  sh:property [
+      sh:in (true);
+      sh:path ff:vocationalTrainingRecent
+    ].
+
+_:b97
+  sh:or (_:b116 _:b117);
+  sh:property [
+      sh:in (false);
+      sh:path ff:vocationalTrainingRecent
+    ].
+
+_:b116
+  sh:or (_:b118 _:b119);
+  sh:property [
+      sh:in (false);
+      sh:path ff:careerReturner
+    ].
+
+_:b118
+  sh:property [
+      sh:in (true);
+      sh:path ff:socialInsurance12MonthsLast3Years
+    ].
+
+_:b119
+  sh:property [
+      sh:in (true);
+      sh:path ff:unemploymentBenefitApprovedLast3Years
+    ].
+
+_:b117
+  sh:or (_:b120 _:b121);
+  sh:property [
+      sh:in (true);
+      sh:path ff:careerReturner
+    ].
+
+_:b120
+  sh:property [
+      sh:in (true);
+      sh:path ff:socialInsurance12Months
+    ].
+
+_:b121
+  sh:property [
+      sh:in (true);
+      sh:path ff:unemploymentBenefitApproved
+    ].
+
+_:b94
+  shn:eq (_:b122 true).
+
+_:b122
+  sh:path ff:disability.
+
+_:b95
+  shn:eq (_:b123 ff:rehabilitationProvider-bundesagentuFuerArbeit).
+
+_:b123
+  sh:path ff:rehabilitationProvider.
+
+_:b106
+  shn:eq (_:b124 true).
+
+_:b124
+  sh:path ff:disability.
+
+_:b107
+  shn:eq (_:b125 ff:rehabilitationProvider-bundesagentuFuerArbeit).
+
+_:b125
+  sh:path ff:rehabilitationProvider.
+
+_:b108
+  shn:eq (_:b126 false).
+
+_:b126
+  sh:path ff:vocationalTrainingRecent.
+
+_:b98
+  shn:eq (_:b127 true).
+
+_:b127
+  sh:path ff:disability.
+
+_:b99
+  shn:eq (_:b128 ff:rehabilitationProvider-bundesagentuFuerArbeit).
+
+_:b128
+  sh:path ff:rehabilitationProvider.
+
+_:b100
+  shn:eq (_:b129 false).
+
+_:b129
+  sh:path ff:vocationalTrainingRecent.
+
+_:b101
+  shn:eq (_:b130 false).
+
+_:b130
+  sh:path ff:careerReturner.
+
+_:b102
+  shn:eq (_:b131 true).
+
+_:b131
+  sh:path ff:disability.
+
+_:b103
+  shn:eq (_:b132 ff:rehabilitationProvider-bundesagentuFuerArbeit).
+
+_:b132
+  sh:path ff:rehabilitationProvider.
+
+_:b104
+  shn:eq (_:b133 false).
+
+_:b133
+  sh:path ff:vocationalTrainingRecent.
+
+_:b105
+  shn:eq (_:b134 true).
+
+_:b134
+  sh:path ff:careerReturner.
+
+_:b110
+  sh:maxCount 0;
+  sh:path ff:associationTargetGroup.
+
+_:b111
+  sh:hasValue ff:associationTargetGroup-children;
+  sh:path ff:associationTargetGroup.
+
+_:b112
+  sh:hasValue ff:associationTargetGroup-youth;
+  sh:path ff:associationTargetGroup.
+
+_:b113
+  sh:hasValue ff:associationTargetGroup-women;
+  sh:path ff:associationTargetGroup.
+
+_:b114
+  sh:hasValue ff:associationTargetGroup-sociallyDisadvantaged;
+  sh:path ff:associationTargetGroup.
+
+_:b109
+  sh:path ff:activeInAssociation.
+
+_:b115
+  sh:path ff:associationHeadquarters.
+
+_:b6
+  sh:property [
+      sh:in (ff:disabilityDegree-50 ff:disabilityDegree-60 ff:disabilityDegree-70 ff:disabilityDegree-80 ff:disabilityDegree-90 ff:disabilityDegree-100);
+      sh:path ff:disabilityDegree
+    ].
+
+_:b7
+  sh:and (sh:property _:b135 sh:property _:b136).
+
+_:b135
+  sh:in (ff:disabilityDegree-30 ff:disabilityDegree-40);
+  sh:path ff:disabilityDegree.
+
+_:b136
+  sh:in (true);
+  sh:path ff:equalStatusNeeded.
+
+_:b8
+  sh:property ff:aasInclusiveWorkplacePS.
+
+_:b9
+  sh:property ff:aasSocialSecurityEmploymentPS.
+
+_:b10
+  sh:property ff:aasSelfEmployedPS.
+
+_:b2
+  sh:in (ff:workplaceType-inclusive);
+  sh:path ff:workplaceType.
+
+_:b3
+  sh:minInclusive 12;
+  sh:path ff:primaryEmploymentHours.
+
+_:b11
+  sh:in (ff:workplaceType-selfEmployed);
+  sh:path ff:workplaceType.
+
+_:b12
+  sh:minInclusive 15;
+  sh:path ff:primaryEmploymentHours.
+
+_:b13
+  sh:in (ff:incomeSource-selfEmployment);
+  sh:path ff:incomeSource.
+
+_:b14
+  sh:in (ff:employmentStatus-employed);
+  sh:path ff:employmentStatus.
+
+_:b15
+  sh:minInclusive 15;
+  sh:path ff:primaryEmploymentHours.
+
+_:b1
+  sh:path ff:disabilityDegreeDetermined.
+
+_:b4
+  sh:not [
+      sh:in (ff:disabilityDegree-50 ff:disabilityDegree-60 ff:disabilityDegree-70 ff:disabilityDegree-80 ff:disabilityDegree-90 ff:disabilityDegree-100);
+      sh:path ff:disabilityDegree
+    ].
+
+_:b5
+  sh:not [
+      sh:and (_:b137 _:b138)
+    ].
+
+_:b137
+  sh:in (ff:disabilityDegree-30 ff:disabilityDegree-40);
+  sh:path ff:disabilityDegree.
+
+_:b138
+  sh:in (true);
+  sh:path ff:equalStatusNeeded.
+
+_:b16
+  rdf:first [
+      sh:path ff:regularWorkSupport
+    ];
+  rdf:rest [
+      rdf:first true;
+      rdf:rest rdf:nil
+    ].
+
+_:b139
+  sh:path ff:regularWorkSupport.
+
+_:b17
+  rdf:first [
+      sh:path ff:coreWorkWithoutHelp
+    ];
+  rdf:rest [
+      rdf:first true;
+      rdf:rest rdf:nil
+    ].
+
+_:b140
+  sh:path ff:coreWorkWithoutHelp.
+
+_:b18
+  rdf:first [
+      sh:path ff:workplaceAccommodationSufficient
+    ];
+  rdf:rest [
+      rdf:first false;
+      rdf:rest rdf:nil
+    ].
+
+_:b141
+  sh:path ff:workplaceAccommodationSufficient.
+
+_:b34
+  sh:path ff:disability.
+
+_:b43
+  sh:in (ff:workAbility-limited);
+  sh:path ff:workAbility.
+
+_:b44
+  sh:maxInclusive 6;
+  sh:minInclusive 3;
+  sh:path ff:workAbilityHours.
+
+_:b45
+  sh:property [
+      sh:in (true);
+      sh:path ff:reducedEarningCapacityCause
+    ].
+
+_:b46
+  sh:and (sh:property _:b142 sh:property _:b143).
+
+_:b142
+  sh:in (true);
+  sh:path ff:statutoryPensionFiveYears.
+
+_:b143
+  sh:in (true);
+  sh:path ff:statutoryPension36Months5Years.
+
+_:b35
+  sh:path ff:pensionable.
+
+_:b36
+  shn:eq (_:b144 true).
+
+_:b144
+  sh:path ff:workAbility.
+
+_:b37
+  sh:maxInclusive 6;
+  sh:minInclusive 3;
+  sh:path ff:workAbilityHours.
+
+_:b38
+  sh:path ff:reducedEarningCapacityCause.
+
+_:b47
+  sh:property [
+      sh:in (ff:workAbility-none);
+      sh:path ff:workAbility
+    ].
+
+_:b48
+  sh:and (sh:property _:b145 sh:property _:b146).
+
+_:b145
+  sh:in (ff:workAbility-limited);
+  sh:path ff:workAbility.
+
+_:b146
+  sh:maxInclusive 3;
+  sh:path ff:workAbilityHours.
+
+_:b49
+  sh:property [
+      sh:in (true);
+      sh:path ff:reducedEarningCapacityCause
+    ].
+
+_:b50
+  sh:and (sh:property _:b147 _:b148).
+
+_:b147
+  sh:in (false);
+  sh:path ff:reducedEarningCapacityCause.
+
+_:b148
+  sh:or (_:b149 _:b150).
+
+_:b149
+  sh:property [
+      sh:in (true);
+      sh:path ff:statutoryPension20YearsDisability
+    ].
+
+_:b150
+  sh:and (sh:property _:b151 sh:property _:b152).
+
+_:b151
+  sh:in (true);
+  sh:path ff:statutoryPensionFiveYears.
+
+_:b152
+  sh:in (true);
+  sh:path ff:statutoryPension36Months5Years.
+
+_:b39
+  sh:path ff:pensionable.
+
+_:b40
+  shn:eq (_:b153 ff:workAbility-none).
+
+_:b153
+  sh:path ff:workAbility.
+
+_:b41
+  sh:and (_:b154 _:b155).
+
+_:b154
+  shn:eq (_:b156 ff:workAbility-limited).
+
+_:b156
+  sh:path ff:workAbility.
+
+_:b155
+  sh:maxInclusive 3;
+  sh:minInclusive 0;
+  sh:path ff:workAbilityHours.
+
+_:b42
+  sh:path ff:reducedEarningCapacityCause.
+
+_:b64
+  sh:path ff:disabilityDegreeDetermined.
+
+_:b88
+  sh:property [
+      sh:in (true);
+      sh:path ff:sobrietyWish
+    ].
+
+_:b89
+  sh:property [
+      sh:in (true);
+      sh:path ff:severeDisease
+    ].
+
+_:b90
+  sh:and (_:b157 _:b158).
+
+_:b157
+  sh:not [
+      sh:property [
+          sh:in (sh:male);
+          sh:path ff:gender
+        ]
+    ].
+
+_:b158
+  sh:or (_:b159 _:b160).
+
+_:b159
+  sh:property [
+      sh:in (true);
+      sh:path ff:pregnancy
+    ].
+
+_:b160
+  sh:property [
+      sh:in (true);
+      sh:path ff:recentChildbirth
+    ].
+
+_:b77
+  shn:eq (_:b161 true).
+
+_:b161
+  sh:path ff:opioidAddiction.
+
+_:b78
+  sh:minInclusive 18;
+  sh:path ff:hasAge.
+
+_:b76
+  sh:path ff:sobrietyWish.
+
+_:b70
+  sh:path ff:severeDisease.
+
+_:b71
+  sh:property [
+      sh:in (ff:gender-female);
+      sh:path ff:gender
+    ].
+
+_:b72
+  sh:property [
+      sh:in (ff:gender-diverse);
+      sh:path ff:gender
+    ].
+
+_:b73
+  sh:property [
+      sh:in (ff:gender-other);
+      sh:path ff:gender
+    ].
+
+_:b75
+  sh:path ff:pregnancy.
+
+_:b66
+  shn:eq (_:b162 true).
+
+_:b162
+  sh:path ff:sobrietyWish.
+
+_:b67
+  shn:eq (_:b163 true).
+
+_:b163
+  sh:path ff:severeDisease.
+
+_:b68
+  shn:eq (_:b164 true).
+
+_:b164
+  sh:path ff:pregnancy.
+
+_:b69
+  shn:eq (_:b165 true).
+
+_:b165
+  sh:path ff:recentChildbirth.
+
+_:b65
+  sh:path ff:opioidAddictionMoreThanTwoYears.
+
+_:b74
+  sh:path ff:addictionDamage.
+
+_:b79
+  sh:path ff:regularSubstitutiontherapy6months.
+
+_:b91
+  sh:property [
+      sh:in (true);
+      sh:path ff:sobrietyWish
+    ].
+
+_:b92
+  sh:property [
+      sh:in (true);
+      sh:path ff:severeDisease
+    ].
+
+_:b93
+  sh:and (_:b166 _:b167).
+
+_:b166
+  sh:not [
+      sh:property [
+          sh:in (sh:male);
+          sh:path ff:gender
+        ]
+    ].
+
+_:b167
+  sh:or (_:b168 _:b169).
+
+_:b168
+  sh:property [
+      sh:in (true);
+      sh:path ff:pregnancy
+    ].
+
+_:b169
+  sh:property [
+      sh:in (true);
+      sh:path ff:recentChildbirth
+    ].
+
+_:b86
+  shn:eq (_:b170 true).
+
+_:b170
+  sh:path ff:opioidAddiction.
+
+_:b87
+  sh:minInclusive 18;
+  sh:path ff:hasAge.
+
+_:b85
+  sh:path ff:sobrietyWish.
+
+_:b80
+  sh:path ff:severeDisease.
+
+_:b81
+  sh:property [
+      sh:in (ff:gender-female);
+      sh:path ff:gender
+    ].
+
+_:b82
+  sh:property [
+      sh:in (ff:gender-diverse);
+      sh:path ff:gender
+    ].
+
+_:b83
+  sh:property [
+      sh:in (ff:gender-other);
+      sh:path ff:gender
+    ].
+
+_:b84
+  sh:path ff:pregnancy.
+
+_:b58
+  sh:in (ff:citizenship-ger);
+  sh:path ff:citizenship.
+
+_:b59
+  sh:in (ff:residencyStatus-residencePermit ff:residencyStatus-settlementPermit ff:residencyStatus-ger);
+  sh:path ff:residencyStatus.
+
+_:b60
+  sh:and (sh:property _:b171 sh:property _:b172).
+
+_:b171
+  sh:in (ff:parentingSituation-coParenting);
+  sh:path ff:parentingSituation.
+
+_:b172
+  sh:in (ff:householdIncome-900plus);
+  sh:path ff:householdIncome.
+
+_:b61
+  sh:and (sh:property _:b173 _:b174).
+
+_:b173
+  sh:in (ff:parentingSituation-singleParent);
+  sh:path ff:parentingSituation.
+
+_:b174
+  sh:not (sh:property _:b175).
+
+_:b175
+  sh:in (ff:householdIncome-below600);
+  sh:path ff:householdIncome.
+
+_:b62
+  sh:in (ff:socialBenefitsReceiving-childBenefit);
+  sh:path ff:socialBenefitsReceiving.
+
+_:b63
+  sh:not [
+      sh:in (ff:socialBenefitsReceiving-citizensIncome)
+    ];
+  sh:path ff:socialBenefitsReceiving.
+
+_:b21
+  sh:in (ff:citizenship-ger);
+  sh:path ff:citizenship.
+
+_:b22
+  sh:in (ff:residencyStatus-residencePermit ff:residencyStatus-settlementPermit ff:residencyStatus-ger);
+  sh:path ff:residencyStatus.
+
+_:b19
+  sh:in (ff:citizenship-ger);
+  sh:path ff:citizenship.
+
+_:b20
+  sh:in (ff:residencyStatus-residencePermit ff:residencyStatus-settlementPermit ff:residencyStatus-ger);
+  sh:path ff:residencyStatus.
+
+_:b53
+  sh:property [
+      sh:in (ff:workAbility-none);
+      sh:path ff:workAbility
+    ].
+
+_:b54
+  sh:property [
+      sh:in (ff:employmentStatus-pension);
+      sh:path ff:employmentStatus
+    ].
+
+_:b24
+  sh:path ff:disability.
+
+_:b23
+  sh:path ff:visualImpairment.
+
+_:b28
+  sh:property [
+      sh:in (ff:citizenship-ger);
+      sh:path ff:citizenship
+    ].
+
+_:b29
+  sh:property [
+      sh:in (ff:residencyStatus-residencePermit ff:residencyStatus-settlementPermit ff:residencyStatus-ger);
+      sh:path ff:residencyStatus
+    ].
+
+_:b30
+  sh:property [
+      sh:in (true);
+      sh:path ff:longTermStay
+    ].
+
+_:b31
+  sh:path ff:citizenship.
+
+_:b25
+  shn:eq (_:b176 ff:residencyStatus-asylum).
+
+_:b176
+  sh:path ff:residencyStatus.
+
+_:b26
+  shn:eq (_:b177 ff:residencyStatus-toleration).
+
+_:b177
+  sh:path ff:residencyStatus.
+
+_:b27
+  shn:eq (_:b178 ff:residencyStatus-other).
+
+_:b178
+  sh:path ff:residencyStatus.
+
+_:b33
+  sh:path ff:disability.
+
+_:b32
+  sh:path ff:visualImpairment.
+
+_:b51
+  sh:and (_:b179 _:b180).
+
+_:b179
+  sh:property [
+      sh:in (ff:educationStatus-higherEducation);
+      sh:path ff:educationStatus
+    ].
+
+_:b180
+  sh:property [
+      sh:in (ff:educationLocation-ger);
+      sh:path ff:educationLocation
+    ].
+
+_:b52
+  sh:and (_:b181 _:b182).
+
+_:b181
+  sh:property [
+      sh:in (true);
+      sh:path ff:researchInstitutionEmployment
+    ].
+
+_:b182
+  sh:property [
+      sh:in (ff:workplaceLocation-ger);
+      sh:path ff:workplaceLocation
+    ].
+
+_:b55
+  sh:property [
+      sh:in (true);
+      sh:path ff:planingToFound
+    ].
+
+_:b56
+  sh:property [
+      sh:in (true);
+      sh:path ff:companyFounded
+    ].
+
+_:b57
+  sh:property [
+      sh:in (true);
+      sh:path ff:interestedInSuccession
+    ].

@@ -1,0 +1,97 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:blh a ff:RequirementProfile ;
+    ff:title "Blindenhilfe"@de , "Blindness Benefit"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:sozialamt ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "Die Blindenhilfe ist eine einkommensabhängige Sozialhilfeleistung, die blinden Menschen zur Deckung der durch die Blindheit entstehenden Mehraufwendungen gewährt wird."@de ,
+                "The blindness benefit is an income-dependent social assistance benefit granted to blind people to cover the additional expenses incurred due to blindness."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:blhMainShape ;
+    ff:hasFlowShape ff:blhFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:blhMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [ sh:path ff:habitualResidence ; sh:in (ff:habitualResidence-ger) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:citizenship ; sh:in (ff:citizenship-ger) ] ]
+            [ sh:property [ 
+                sh:path ff:residencyStatus ; sh:in (
+                    ff:residencyStatus-residencePermit 
+                    ff:residencyStatus-settlementPermit
+                    ff:residencyStatus-ger
+                ) 
+            ] ]
+            [ sh:property [ sh:path ff:longTermStay ; sh:in (true) ] ]
+        )
+    ] ;
+    sh:property [ sh:path ff:disability ; sh:in (true) ] ;
+    sh:property [ sh:path ff:visualImpairment; sh:in (true) ] ;
+    sh:property [ sh:path ff:visualImpairmentDegree; sh:in (
+        ff:visualImpairmentDegree-fullyBlind 
+        ff:visualImpairmentDegree-below02 
+        ff:visualImpairmentDegree-below02Equivalent
+    ) ] . 
+
+# ----- DECISION TREE LOGIC -----
+
+ff:blhFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property ff:blhBaseRequirements ;
+	sh:property ff:blhResidencyStatusPS ;
+    sh:property ff:blhLongTermStayPS ;
+    sh:property ff:blhVisualImpairmentPS ;
+    sh:property ff:blhVisualImpairmentDegreePS .
+
+ff:blhBaseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:habitualResidence ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:citizenship ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:disability ; sh:minCount 1 ] .
+
+ff:blhResidencyStatusPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:not [
+                shn:eq ( [ sh:path ff:citizenship ] ff:citizenship-ger )
+            ]
+        ]
+    ] ;
+    sh:property [ sh:path ff:residencyStatus ; sh:minCount 1 ] .    
+
+ff:blhLongTermStayPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:or (
+                [ shn:eq ( [ sh:path ff:residencyStatus ] ff:residencyStatus-asylum ) ]
+                [ shn:eq ( [ sh:path ff:residencyStatus ] ff:residencyStatus-toleration ) ]
+                [ shn:eq ( [ sh:path ff:residencyStatus ] ff:residencyStatus-other ) ]   
+            )
+        ]
+    ];
+    sh:property [ sh:path ff:longTermStay ; sh:minCount 1 ] .    
+
+ff:blhVisualImpairmentPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:disability ] true ) 
+        ]
+    ] ;
+    sh:property [ sh:path ff:visualImpairment ; sh:minCount 1 ] .
+
+ff:blhVisualImpairmentDegreePS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:visualImpairment ] true ) 
+        ]
+    ] ;
+    sh:property [ sh:path ff:visualImpairmentDegree ; sh:minCount 1 ] .

@@ -1,0 +1,33 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:akv a ff:RequirementProfile ;
+    ff:title "Allgemeine Krankenversicherungspflicht"@de, 
+              "General Health Insurance Obligation"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:integrationsamt ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "In Deutschland besteht eine allgemeine Krankenversicherungspflicht: Jeder mit Wohnsitz oder gewöhnlichem Aufenthalt muss versichert sein, entweder in der gesetzlichen (GKV) oder der privaten Krankenversicherung (PKV). Welche Absicherung gilt, hängt von der Lebenssituation ab; bei Unklarheiten hilft die Clearingstelle weiter."@de ,
+                "In Germany, there is a general health insurance obligation: Everyone with a residence or habitual abode must be insured, either in statutory health insurance (GKV) or private health insurance (PKV). The type of coverage depends on the life situation; in case of uncertainties, the clearing office can assist."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:akvMainShape ;
+    ff:hasFlowShape ff:akvFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:akvMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [ sh:property [ sh:path ff:habitualResidence ; sh:in (ff:habitualResidence-ger) ] ] .
+
+# ----- DECISION TREE LOGIC -----
+
+ff:akvFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [ sh:path ff:habitualResidence ; sh:minCount 1 ] .
+
+    

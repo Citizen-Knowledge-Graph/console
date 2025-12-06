@@ -1,0 +1,122 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:incomeSource a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie;
+    rdfs:label "Einkommensquelle"@de , "Source of Income"@en ;
+    schema:question "Was ist die Hauptquelle Ihres Einkommens?"@de , "What is your main source of income?"@en ;
+    rdfs:comment "Bitte wählen Sie die Option aus, die am besten zu Ihrer aktuellen Situation passt. Wenn Sie z.B. hauptsächlich von Ihrem Gehalt leben, wählen Sie 'Gehalt'. Wenn Sie hauptsächlich von Sozialleistungen leben, wählen Sie 'Sozialleistungen'."@de ,
+        "Please select the option that best fits your current situation. For example, if you mainly live on your salary, select 'Salary'. If you mainly live on social benefits, select 'Social benefits'."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:incomeSource ;
+        sh:property [
+            sh:path ff:incomeSource ;
+            sh:in (
+                ff:incomeSource-employment
+                ff:incomeSource-unemploymentBenefit
+                ff:incomeSource-selfEmployment
+                ff:incomeSource-bafoeg
+                ff:incomeSource-pension
+                ff:incomeSource-socialBenefits
+                ff:incomeSource-familySupport
+                ff:incomeSource-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:incomeSource-unemploymentBenefit a ff:AnswerOption ; rdfs:label "Arbeitslosengeld"@de , "Unemployment benefit"@en .
+ff:incomeSource-bafoeg a ff:AnswerOption ; rdfs:label "BAföG"@de , "BAföG"@en .
+ff:incomeSource-employment a ff:AnswerOption ; rdfs:label "Beschäftigung"@de , "Employment"@en .
+ff:incomeSource-selfEmployment a ff:AnswerOption ; rdfs:label "Selbstständigkeit"@de , "Self-employment"@en .
+ff:incomeSource-pension a ff:AnswerOption ; rdfs:label "Rente"@de , "Pension"@en .
+ff:incomeSource-socialBenefits a ff:AnswerOption ; rdfs:label "Sozialleistungen"@de , "Social benefits"@en .
+ff:incomeSource-familySupport a ff:AnswerOption ; rdfs:label "Familienunterstützung"@de , "Family support"@en .
+ff:incomeSource-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:individualIncome a ff:DataField ;
+    schema:category ff:einkommen-df-kategorie ;
+    rdfs:label "Individuelles Einkommen"@de , "Individual Income"@en ;
+    schema:question "Wie hoch ist Ihr persönliches Jahreseinkommen?"@de , "What is your personal annual income?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Ihr individuelles Einkommen oberhalb oder unterhalb der aktuellen Jahresarbeitsentgeltgrenze liegt."@de ,
+                 "Please indicate whether your individual income is above or below the current annual earnings threshold."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:individualIncome ;
+        sh:property [
+            sh:path ff:individualIncome ;
+            sh:in (
+                ff:individualIncome-belowThreshold
+                ff:individualIncome-aboveThreshold
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:individualIncome-belowThreshold a ff:AnswerOption ; rdfs:label "Weniger als 73,800 € pro Jahr (Jahresentgeldgrenze)"@de , "Less than €73,800 per year (annual earnings threshold)"@en .
+ff:individualIncome-aboveThreshold a ff:AnswerOption ; rdfs:label "Mehr als 73,800 € pro Jahr (Jahresentgeldgrenze)"@de , "More than €73,800 per year (annual earnings threshold)"@en .
+
+ff:householdIncome a ff:DataField ;
+    schema:category ff:einkommen-df-kategorie ;
+    rdfs:label "Haushaltseinkommen"@de , "Household Income"@en ;
+    schema:question "Wie hoch ist das monatliche Gesamteinkommen Ihres Haushalts?"@de , "What is your household’s total monthly income?"@en ;
+    rdfs:comment "Haushaltseinkommen bezeichnet die Summe aller monatlichen Einkünfte aller Personen, die im selben Haushalt leben."@de ,
+                 "Household income refers to the total monthly income of all individuals living in the same household."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:householdIncome ;
+        sh:property [
+            sh:path ff:householdIncome ;
+            sh:in (
+                ff:householdIncome-below600
+                ff:householdIncome-600to899
+                ff:householdIncome-900plus
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:householdIncome-below600 a ff:AnswerOption ; rdfs:label "Unter 600 €/Monat"@de , "Below €600/month"@en .
+ff:householdIncome-600to899 a ff:AnswerOption ; rdfs:label "600–899 €/Monat"@de , "€600–899/month"@en .
+ff:householdIncome-900plus a ff:AnswerOption ; rdfs:label "900 €/Monat oder mehr"@de , "€900/month or more"@en .
+
+ff:assets a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Vermögen"@de , "Assets"@en ;
+    schema:question "Wie hoch ist Ihr Vermögen? Runden Sie auf 5.000 Euro auf."@de ,
+                    "What is the amount of your assets? Please round to €5,000."@en ;
+    rdfs:comment "Unter Vermögen werden alle geldwerten Ressourcen einer Person oder eines Haushalts verstanden. Dazu gehören unter anderem Ersparnisse, Bankguthaben, Immobilien, Wertpapiere und sonstige Vermögenswerte."@de ,
+                 "Assets include all financial resources of a person or household. This covers, among others, savings, bank deposits, real estate, securities, and other valuables."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:assets ;
+        sh:property [
+            sh:path ff:assets ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:financialDifficulty a ff:DataField ;
+    schema:category ff:einkommenDfKategorie ;
+    rdfs:label "Finanzielle Schwierigkeiten"@de , "Financial Difficulties"@en ;
+    schema:question "Haben Sie finanzielle Schwierigkeiten, Ihren oder den Lebensunterhalt Ihres Haushalts zu bewältigen?"@de ,
+                    "Do you have financial difficulties in covering your own living expenses or those of your household?"@en ;
+    rdfs:comment "Die Frage bezieht sich darauf, ob die verfügbaren finanziellen Mittel regelmäßig nicht ausreichen, um die grundlegenden Lebenshaltungskosten für eine Person oder deren Haushalt zu decken."@de ,
+                 "This question refers to whether the available financial resources are regularly insufficient to cover the basic living expenses of a person or their household."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:financialDifficulty ;
+        sh:property [
+            sh:path ff:financialDifficulty ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .    
+
+# specific
+

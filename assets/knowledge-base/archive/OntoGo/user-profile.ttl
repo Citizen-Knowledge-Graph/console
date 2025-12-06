@@ -1,0 +1,10 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:mainPerson a ff:Citizen ;
+    ff:hasScenarioProfile ff:scenarioPerson1 .
+
+ff:scenarioPerson1 a ff:Citizen, ff:ScenarioProfile ;
+    ff:hasResidence "Heide" ;
+    ff:occupation ff:ausbildung .
+    # ff:scenarioTarget "Myself" ;
+    # ff:temporalScenarioTarget "Near Future" ;

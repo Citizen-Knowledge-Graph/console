@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Console</title>
+        <script src="./assets/bundle.js" type="module"></script>
+        <script src="./assets/form-default.js" type="module"></script>
+        <script src="./assets/awesomplete.min.js" type="module"></script>
+        <script src="./assets/marked.min.js" type="module"></script>
+        <script src="./assets/force-graph.min.js" type="module"></script>
+        <script src="./utils.js" type="module"></script>
+        <script src="./check-repo-updates.js" type="module"></script>
+        <script src="./contextmenu.js" type="module"></script>
+        <script src="./graph/nodeFactory.js" type="module"></script>
+        <!--<script src="./drawflow.js" type="module"></script>-->
+        <link rel="stylesheet" type="text/css" href="./assets/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="./assets/drawflow.min.css">
+        <link rel="stylesheet" type="text/css" href="./assets/awesomplete.css">
+        <link rel="stylesheet" type="text/css" href="./drawflow.css">
+        <link rel="stylesheet" type="text/css" href="./contextmenu.css">
+        <script defer data-domain="foerderfunke.org" src="https://plausible.io/js/script.js"></script>
+        <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+        <style>
+            #drawflow {
+                width: 100%;
+                margin-top: 40px;
+                top: 0;
+            }
+            :root {
+                --code-font-size: 12px;
+                --default-node-width: 414px;
+            }
+            #drawflow .CodeMirror {
+                font-size: var(--code-font-size);
+            }
+            .drawflow-node {
+                width: var(--default-node-width) !important;
+            }
+            .drawflow_content_node {
+                height: 100%;
+            }
+            .drawflow-node .box {
+                padding-left: 14px !important;
+                padding-bottom: 7px !important;
+            }
+            .result {
+                color: silver;
+                margin-bottom: 8px;
+            }
+            .processor-node {
+                background-color: lightgoldenrodyellow !important;
+            }
+            .view-node {
+                background-color: lightcyan !important;
+            }
+            .edit-node {
+                background-color: lightgreen !important;
+            }
+            .view-leaf-node {
+                background-color: white !important;
+            }
+            .top-menu {
+                padding: 10px;
+                font-size: small;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+            }
+            .spanBtn {
+                cursor: pointer;
+            }
+            .highlighted-edge {
+                filter: drop-shadow(0 0 1px yellow) drop-shadow(0 0 4px yellow) !important;
+                /*stroke: orange !important;*/
+            }
+            .highlighted-node {
+                box-shadow: 0 2px 20px 2px yellow !important;
+            }
+            .highlighted-port {
+                background-color: yellow !important;
+            }
+            .bottom-menu {
+                font-size: x-small;
+                color: silver;
+                cursor: pointer;
+                margin-top: 6px;
+            }
+            .result-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 10px;
+                text-align: left;
+                color: black;
+            }
+            .result-table th, .result-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+            .result-table th {
+                background-color: lightcyan;
+                font-weight: bold;
+            }
+            .result-table .prefix {
+                color: silver;
+            }
+            .result-table .literal {
+                color: green;
+            }
+            .form-table {
+                border-collapse: collapse;
+                margin-bottom: 10px;
+                text-align: left;
+                color: black;
+            }
+            .form-table th, .form-table td {
+                padding: 5px;
+            }
+            .resize-handle {
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-right: 12px solid #ddd;
+                border-top: 12px solid transparent;
+                right: 2px;
+                bottom: 2px;
+                cursor: se-resize;
+            }
+            .title-box {
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            .node-title {
+                display: inline-block;
+            }
+            .hidden {
+                display: none;
+            }
+            #modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 9998;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #modal-window {
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                min-width: 400px;
+                z-index: 9999;
+                position: relative;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
+            .view-mode-button-container {
+                text-align: center;
+                padding: 4px;
+            }
+            .show-content-btn {
+                cursor: pointer;
+                line-height: normal !important;
+            }
+            .input-without-outline {
+                border: 0;
+            }
+            .separator-span {
+                color: silver;
+                margin-left: 4px;
+                margin-right: 1px;
+            }
+            #graphTitle {
+                margin-left: 40px;
+                font-family: monospace;
+                color: gray;
+            }
+            #msgSpan {
+                margin-left: 30px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="modal-container" class="hidden">
+            <div id="modal-overlay" class="modal-overlay">
+                <div id="modal-window">
+                    <div id="modal-window-content"></div>
+                    <div id="modal-button-row" style="margin-top: 25px">
+                        <input type="button" id="modal-close-btn" style="margin-right: 3px" value="Close" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="top-menu">
+            <span style="font-size: large; font-weight: bold;">semOps</span>
+            <span style="color: gray; margin: 0 35px 0 4px">linked data operations flow tool</span>
+            <span id="runBtn" class="spanBtn" title="cmd + e"><strong>Run</strong></span><span class="separator-span">|</span>
+            <!--<span id="stepBtn">Step</span><span class="separator-span">|</span>-->
+            <!--<span id="resetBtn" class="spanBtn" title="clear the value of all processor nodes">Reset</span><span class="separator-span">|</span>-->
+            <span id="saveBtn" class="spanBtn" title="cmd + s / to the local storage of your browser">Save</span><span class="separator-span">|</span>
+            <span id="loadBtn" class="spanBtn" title="cmd + l / from the local storage of your browser">Load</span><span class="separator-span">|</span>
+            <span id="newBtn" class="spanBtn">New</span><span class="separator-span">|</span>
+            <span id="importBtn" class="spanBtn" title="has to be semOps turtle format">Import</span><input type="file" id="fileUpload" style="display: none" /><span class="separator-span">|</span>
+            <span id="exportBtn" class="spanBtn">Export</span><span class="separator-span">|</span>
+            <span id="settingsBtn" class="spanBtn">Settings</span><span class="separator-span">|</span>
+            <span id="examplesBtn" class="spanBtn">Examples</span><span class="separator-span">|</span>
+            <span id="howtoBtn" class="spanBtn">HowTo</span>
+            <span id="graphTitle" class="spanBtn"></span>
+            <span id="msgSpan" class="spanBtn"></span>
+            <span style="float:right">
+                <span id="versionBtn" style="color:silver; margin-right: 4px" class="spanBtn" title="benjamin.degenhart@foerderfunke.org">beta version | feedback welcome</span>
+                <span id="githubBtn" class="spanBtn">GitHub</span>
+            </span>
+        </div>
+        <input type="file" id="nodeImportContentFileUpload" style="display: none" />
+        <div id="drawflow"></div>
+        <script type="module">
+            import { checkForNewRepoCommits } from "./check-repo-updates.js"
+            import { Drawflow, JSZip } from "./assets/bundle.js"
+            import { setupNodeHeaderContextMenu, setupMultipleNodesHeaderContextMenu, setupCanvasContextMenu } from "./contextmenu.js"
+            import { getDetailsFromGraphTurtle, download, getTimestamp, downloadGraph, ensureUniqueId } from "./utils.js"
+            import { Graph } from "./graph/Graph.js"
+            import { exampleData } from "./graph/nodeFactory.js"
+
+            if (window.innerWidth <= 767) alert("semOps is not (yet) optimized for mobile devices. Please use a desktop browser.")
+            // setInterval(checkForNewRepoCommits, 60 * 1000)
+
+            const editor = new Drawflow(document.getElementById("drawflow"))
+            // disabling editor zoom, user should use browser zoom instead
+            editor.zoom_max = 1
+            editor.zoom_min = 1
+            editor.start()
+
+            let graph = new Graph(editor, showMessage)
+            graph.registerNodeImportContentTrigger(() => document.getElementById("nodeImportContentFileUpload").click())
+
+            const wipe = () => {
+                editor.clear()
+                graph.clear()
+                document.title = "Console"
+            }
+
+            const showModal = title => {
+                document.getElementById("modal-container").classList.remove("hidden")
+                const modalContent = document.getElementById("modal-window-content")
+                let h2 = document.createElement("h2")
+                h2.appendChild(document.createTextNode(title))
+                modalContent.appendChild(h2)
+                return modalContent
+            }
+
+            const closeModal = () => {
+                document.getElementById("modal-close-btn").value = "Close"
+                document.getElementById("modal-container").classList.add("hidden")
+                const modalContent = document.getElementById("modal-window-content")
+                while (modalContent.firstChild) modalContent.firstChild.remove()
+                const buttonRow = document.getElementById("modal-button-row");
+                [...buttonRow.children].filter(child => child.id !== "modal-close-btn").forEach(child => child.remove())
+            }
+            document.getElementById("modal-close-btn").addEventListener("click", () => closeModal())
+
+            document.getElementById("runBtn").addEventListener("click", () => graph.run())
+            // document.getElementById("stepBtn").addEventListener("click", () => graph.step())
+            // document.getElementById("resetBtn").addEventListener("click", () => graph.reset())
+            document.getElementById("saveBtn").addEventListener("click", () => graph.save())
+
+            const buildActionSpan = (label, callback) => {
+                let span = document.createElement("span")
+                span.textContent = label
+                span.style = "font-size: small; cursor: pointer; color: gray; margin-right: 6px"
+                span.addEventListener("click", callback)
+                return span
+            }
+
+            const loadTurtle = (turtle) => {
+                if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
+                closeModal()
+                wipe()
+                graph.import(turtle)
+            }
+
+            const buildTableHeader = (headers, table) => {
+                for (let header of headers) {
+                    let th = document.createElement("th")
+                    th.appendChild(document.createTextNode(header))
+                    table.appendChild(th)
+                }
+            }
+
+            const openLoadModal = async () => {
+                const modalContent = showModal("Load from local storage")
+                let div = document.createElement("div")
+                div.style = "font-size: small; color: gray"
+                div.innerHTML = "Make sure to also export graphs that are important for you.<br>Local storage can be unreliable."
+                modalContent.appendChild(div)
+                modalContent.appendChild(document.createElement("br"))
+                const table = document.createElement("table")
+                table.classList.add("result-table")
+                buildTableHeader(["Graph ID", "Name", "Options"], table)
+                let graphIds = Object.keys(localStorage).filter(key => key.startsWith("graph_"))
+                let rows = {}
+                const addRow = (graphId, details) => {
+                    let tr = document.createElement("tr")
+                    rows[graphId] = tr
+                    let td = document.createElement("td")
+                    td.style.fontSize = "small"
+                    let span = document.createElement("span")
+                    span.innerHTML = graphId + (graphId === graph.id ? "<br><span style='color: blue' " +
+                        "title='The content is only exactly the same though, if you made no edits after the last save.'>" +
+                        "currently open</span>" : "")
+                    td.appendChild(span)
+                    tr.appendChild(td)
+                    td = document.createElement("td")
+                    td.appendChild(document.createTextNode(details.name ? details.name : ""))
+                    tr.appendChild(td)
+                    td = document.createElement("td")
+                    td.style.textAlign = "center"
+                    td.appendChild(buildActionSpan("Load", () => loadTurtle(localStorage.getItem(graphId))))
+                    td.appendChild(buildActionSpan("Delete", () => {
+                        if (confirm("Really delete this graph from local storage?")) {
+                            localStorage.removeItem(graphId)
+                            tr.remove()
+                        }
+                    }))
+                    td.appendChild(buildActionSpan("Export", () => {
+                        downloadGraph(details.name, localStorage.getItem(graphId))
+                    }))
+                    td.appendChild(buildActionSpan("Duplicate", () => {
+                        let newGraphId = ensureUniqueId(graphId, localStorage)
+                        localStorage.setItem(newGraphId, localStorage.getItem(graphId))
+                        addRow(newGraphId, details)
+                    }))
+                    tr.appendChild(td)
+                    table.appendChild(tr)
+                }
+                for (let graphId of graphIds) {
+                    let details = await getDetailsFromGraphTurtle(localStorage.getItem(graphId))
+                    addRow(graphId, details)
+                }
+                modalContent.appendChild(table)
+                const buttonRow = document.getElementById("modal-button-row")
+                buttonRow.appendChild(buildActionSpan("Delete-All", () => {
+                    if (confirm("Really delete all graphs from local storage?")) {
+                        for (let graphId of graphIds) localStorage.removeItem(graphId)
+                        Object.values(rows).forEach(row => row.remove())
+                    }
+                }))
+                buttonRow.appendChild(buildActionSpan("Export-All", () => {
+                    let zip = new JSZip()
+                    for (let graphId of graphIds) zip.file(graphId + ".ttl", localStorage.getItem(graphId))
+                    zip.generateAsync({ type: "blob" }).then(content => {
+                        download(content, "application/zip", `semOps_exportAllLocalStorage_${getTimestamp()}.zip`)
+                    })
+                }))
+            }
+            document.getElementById("loadBtn").addEventListener("click", () => openLoadModal())
+            document.getElementById("newBtn").addEventListener("click", () => wipe())
+            document.getElementById("fileUpload").addEventListener("change", () => {
+                const reader = new FileReader()
+                reader.onload = event => {
+                    const content = event.target.result
+                    graph.import(content)
+                }
+                const file = document.getElementById("fileUpload").files[0]
+                if (!file.name.toLowerCase().endsWith(".ttl")) {
+                    alert("Only turtle files (.ttl) are supported")
+                    return
+                }
+                if (Object.keys(graph.nodesMap).length > 0 && !confirm("This will delete your current graph. Continue?")) return
+                wipe()
+                reader.readAsText(file)
+            })
+            document.getElementById("nodeImportContentFileUpload").addEventListener("change", () => {
+                const reader = new FileReader()
+                reader.onload = event => {
+                    const content = event.target.result
+                    graph.nodeToReceiveImportedContent.setValue(content)
+                    graph.nodeToReceiveImportedContent = null
+                }
+                const file = document.getElementById("nodeImportContentFileUpload").files[0]
+                reader.readAsText(file)
+            })
+            document.getElementById("importBtn").addEventListener("click", () => document.getElementById("fileUpload").click())
+            document.getElementById("exportBtn").addEventListener("click", () => {
+                let modalContent = showModal("Export")
+                let ul = document.createElement("ul")
+                let li = document.createElement("li")
+                li.appendChild(document.createTextNode("Turtle format"))
+                let innerUl = document.createElement("ul")
+                let innerLi = document.createElement("li")
+                let div = document.createElement("div")
+                div.style = "cursor: pointer; color: blue"
+                div.append(document.createTextNode("Download"))
+                div.addEventListener("click", () => {
+                    graph.export()
+                    showMsg("Turtle downloaded")
+                })
+                innerLi.appendChild(div)
+                innerUl.appendChild(innerLi)
+                innerLi = document.createElement("li")
+                div = document.createElement("div")
+                div.style = "cursor: pointer; color: blue"
+                div.append(document.createTextNode("Copy to clipboard"))
+                div.addEventListener("click", async () => {
+                    await graph.toTurtle(turtle => navigator.clipboard.writeText(turtle))
+                    showMsg("Turtle copied to clipboard")
+                })
+                innerLi.appendChild(div)
+                innerUl.appendChild(innerLi)
+                li.appendChild(innerUl)
+                ul.appendChild(li)
+                let base64Div = document.createElement("div")
+                base64Div.style = "cursor: pointer; color: blue"
+                base64Div.append(document.createTextNode("Copy shareable link to clipboard"))
+                base64Div.addEventListener("click", async () => {
+                    await graph.toTurtle(turtle => {
+                        let url = new URL(window.location)
+                        let base64
+                        try {
+                            base64 = btoa(turtle)
+                        } catch (e) {
+                            console.error(e)
+                            alert("Failed to encode the graph to base64: " + e.message)
+                            return
+                        }
+                        url.searchParams.set("base64", encodeURIComponent(base64))
+                        navigator.clipboard.writeText(url.href)
+                        showMsg("Link copied to clipboard")
+                    })
+                })
+                li = document.createElement("li")
+                li.appendChild(base64Div)
+                ul.appendChild(li)
+                modalContent.appendChild(ul)
+                let msgDiv = document.createElement("div")
+                msgDiv.style = "color: green; display: none"
+                const showMsg = (msg) => {
+                    msgDiv.style.display = "inline"
+                    msgDiv.innerHTML = `&#10003; ${msg}`
+                    setTimeout(() => closeModal(), 2000)
+                }
+                modalContent.appendChild(msgDiv)
+            })
+            document.getElementById("settingsBtn").addEventListener("click", () => {
+                document.getElementById("modal-close-btn").value = "Cancel"
+                let modalContent = showModal("Settings")
+                let table = document.createElement("table")
+                table.classList.add("result-table")
+                buildTableHeader(["Parameter", "Value"], table)
+                let newSettingValues = {}
+                for (const [key, obj] of Object.entries(graph.settings)) {
+                    let input = document.createElement("input")
+                    input.type = "text"
+                    input.classList.add("input-without-outline")
+                    input.value = obj.value
+                    input.addEventListener("input", () => newSettingValues[key] = input.value)
+                    let tr = document.createElement("tr")
+                    let td = document.createElement("td")
+                    td.appendChild(document.createTextNode(obj.label))
+                    tr.appendChild(td)
+                    td = document.createElement("td")
+                    td.appendChild(input)
+                    tr.appendChild(td)
+                    table.appendChild(tr)
+                }
+                modalContent.appendChild(table)
+                let saveBtn = document.createElement("input")
+                saveBtn.type = "button"
+                saveBtn.value = "Save"
+                saveBtn.addEventListener("click", () => {
+                    closeModal()
+                    graph.updateSettings(newSettingValues)
+                })
+                document.getElementById("modal-button-row").appendChild(saveBtn)
+                let resetBtn = document.createElement("span")
+                resetBtn.textContent = "Reset"
+                resetBtn.style = "cursor: pointer; margin-top: 4px; font-size: small; color: gray; float: right"
+                resetBtn.addEventListener("click", () => {
+                    closeModal()
+                    graph.resetSettings()
+                })
+                document.getElementById("modal-button-row").appendChild(resetBtn)
+            })
+            document.getElementById("examplesBtn").addEventListener("click", async () => {
+                let modalContent = showModal("Examples")
+                let table = document.createElement("table")
+                table.classList.add("result-table")
+                buildTableHeader(["File / Folder", "Name", "Options"], table)
+                let response = await fetch("assets/examples-dir.txt")
+                const fileNameList = await response.text()
+                let structure = { ROOT: { expanded: true, children: [] }}
+                for (const fileName of fileNameList.split("\n")) {
+                    if (!fileName) continue
+                    let parts = fileName.split("/")
+                    if (parts.length === 2) {
+                        structure.ROOT.children.push(parts[1])
+                    }
+                    if (parts.length === 3) {
+                        if (!structure[parts[1]]) structure[parts[1]] = { expanded: false, children: [] }
+                        structure[parts[1]].children.push(parts[2])
+                    }
+                }
+                const buildRow = async (fileName, insertAfterRow = null) => {
+                    response = await fetch(`examples/${fileName}`)
+                    let turtle = await response.text()
+                    let details = await getDetailsFromGraphTurtle(turtle)
+                    let tr = document.createElement("tr")
+                    let td = document.createElement("td")
+                    td.style.fontSize = "small"
+                    td.appendChild(document.createTextNode(fileName.split("/").pop()))
+                    tr.appendChild(td)
+                    td = document.createElement("td")
+                    td.appendChild(document.createTextNode(details.name ? details.name : ""))
+                    tr.appendChild(td)
+                    td = document.createElement("td")
+                    td.appendChild(buildActionSpan("Load", () => loadTurtle(turtle)))
+                    tr.appendChild(td)
+                    if (insertAfterRow && insertAfterRow.parentNode === table) {
+                        table.insertBefore(tr, insertAfterRow.nextSibling)
+                    } else {
+                        table.appendChild(tr)
+                    }
+                    return tr
+                }
+                for (let key of Object.keys(structure)) {
+                    if (key === "ROOT") {
+                        for (let child of structure[key].children) await buildRow(child)
+                        continue
+                    }
+                    let tr = document.createElement("tr")
+                    let td = document.createElement("td")
+                    td.colSpan = 3
+                    td.style.fontSize = "normal"
+                    let span = document.createElement("span")
+                    span.innerHTML = "&#x25BC;" + key.replaceAll("-", " ")
+                    td.appendChild(span)
+                    td.addEventListener("click", async () => {
+                        if (structure[key].expanded) return
+                        structure[key].expanded = true
+                        let lastRow = tr
+                        for (let child of structure[key].children) {
+                            lastRow = await buildRow(`${key}/${child}`, lastRow)
+                        }
+                    })
+                    tr.appendChild(td)
+                    table.appendChild(tr)
+                }
+                modalContent.appendChild(table)
+            })
+            document.getElementById("howtoBtn").addEventListener("click", () => {
+                let modalContent = showModal("HowTo")
+                let div = document.createElement("div")
+                div.innerHTML = `
+                    <div>&#128250; <a href="https://youtu.be/1muHHA0Q8cQ" target="_blank">5 min intro video</a></div>
+                    <br/>
+                    <div><strong>New nodes:</strong> right-click on the canvas</div>
+                    <div><strong>New edges:</strong> left-click and drag from input- to output-port</div>
+                    <br/>
+                    <div><strong>Node options:</strong> right-click on the node</div>
+                    <div><strong>Delete edges:</strong> right-click on the edge</div>
+                    <div><strong>Resize nodes:</strong> lower right corner: dragging for resizing / double clicking for default size</div>
+                    <br/>
+                    <div>Use the browser zoom to zoom in and out if needed.</div>
+                    <br/>
+                    <div>Select multiple nodes by holding shift while clicking \t&rarr; options via right-click on one of them.</div>
+                    <br/>
+                    <strong>URL parameters:</strong>
+                    <ul>
+                        <li><code>?load=graphId</code> loads that graph from local storage</li>
+                        <li><code>?example=filename</code> loads that example</li>
+                    </ul>
+                    <strong>Shortcuts:</strong>
+                    <ul>
+                        <li>Run: <code>cmd + e</code></li>
+                        <li>Save: <code>cmd + s</code></li>
+                        <li>Load: <code>cmd + l</code></li>
+                    </ul>
+                `
+                modalContent.appendChild(div)
+            })
+            document.getElementById("graphTitle").addEventListener("click", () => {
+                let name = prompt("Name your graph", graph.name)
+                if (name) graph.setName(name)
+            })
+
+            document.getElementById("githubBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console", "_blank"))
+            document.getElementById("versionBtn").addEventListener("click", () => window.open("https://github.com/Citizen-Knowledge-Graph/console/issues", "_blank"))
+
+            document.addEventListener("keydown", event => {
+                const isMac = navigator.platform.toLowerCase().includes("mac")
+                const modifierKey = isMac ? event.metaKey : event.ctrlKey
+                if (modifierKey && event.key === "s") {
+                    event.preventDefault()
+                    graph.save()
+                }
+                if (modifierKey && event.key === "e") {
+                    event.preventDefault()
+                    graph.run()
+                }
+                if (modifierKey && event.key === "l") {
+                    event.preventDefault()
+                    openLoadModal()
+                }
+                // if (modifierKey && event.key === "a") {} select all nodes TODO
+                if (event.key === "Escape") closeModal()
+                if (event.key === "Shift") shiftKeyIsPressed = true
+            })
+            document.addEventListener("keyup", event => {
+                if (event.key === "Shift") shiftKeyIsPressed = false
+            })
+
+            editor.on("contextmenu", event => {
+                if (event.target.tagName !== "DIV") return // edges are "path"
+                let nodeDivId
+                if (event.target.classList.contains("title-box")) {
+                    nodeDivId = event.target.parentElement.parentElement.parentElement.id
+                }
+                if (event.target.classList.contains("node-title")) {
+                    nodeDivId = event.target.parentElement.parentElement.parentElement.parentElement.id
+                }
+                if (nodeDivId) {
+                    let node = graph.nodesMap[nodeDivId.split("-")[1]]
+                    if (selectedNodes.length > 1 && selectedNodes.includes(node.id)) {
+                        let disabledItems = ["MultipleDeleteNodeAction", "MultipleDuplicateNodeAction", "MultipleDuplicateNodeWithEdgesAction"]
+                        setupMultipleNodesHeaderContextMenu(event, selectedNodes.length, disabledItems, async (action, label) => {
+                            let nodes = selectedNodes.map(nodeId => graph.nodesMap[nodeId])
+                            switch (action) {
+                                case "MultipleHideContentAction":
+                                    nodes.forEach(node => node.hideContent())
+                                    break;
+                                case "SubgraphBase64":
+                                    await graph.toTurtle(turtle => {
+                                        let url = new URL(window.location)
+                                        url.searchParams.set("base64", encodeURIComponent(btoa(turtle)))
+                                        navigator.clipboard.writeText(url.href)
+                                        showMessage("&#10003; Link copied to clipboard")
+                                    }, nodes)
+                                    break;
+                                case "MultipleDeleteNodeAction":
+                                    break;
+                                case "MultipleDuplicateNodeAction":
+                                    break;
+                                case "MultipleDuplicateNodeWithEdgesAction":
+                                    break;
+                            }
+                            if (action.startsWith("WireIntoNew_")) {
+                                graph.wireIntoNewNode(nodes, action.split("_")[1], label)
+                            }
+                        })
+                        return
+                    }
+                    let disabledItems = []
+                    let hasIncomingEdges = Object.values(graph.edgesMap).some(edge => edge.targetNode === node)
+                    if (!hasIncomingEdges) disabledItems.push("DuplicateNodeWithIncomingEdgesAction")
+                    if (node.contentIsHidden()) disabledItems.push("HideContentAction")
+                    setupNodeHeaderContextMenu(event, node.constructor.name, disabledItems, action => {
+                        switch (action) {
+                            case "RenameAction":
+                                let name = prompt("New name", node.name)
+                                if (name) node.setName(name)
+                                break
+                            case "DeleteNodeAction":
+                                editor.removeNodeId(nodeDivId)
+                                break
+                            case "DuplicateNodeAction":
+                                graph.duplicateNode(node, false)
+                                break
+                            case "DuplicateNodeWithIncomingEdgesAction":
+                                graph.duplicateNode(node, true)
+                                break
+                            case "ToggleViewModeAction":
+                                node.toggleViewMode()
+                                break;
+                            case "AddInputPortAction":
+                                node.addInputPort()
+                                break;
+                            case "HideContentAction":
+                                node.hideContent()
+                                break;
+                            case "SaveInitialValueAction":
+                                node.saveInitialValue()
+                                break;
+                            case "InfoAction":
+                                let modalContent = showModal("Node Info")
+                                let div = document.createElement("div")
+                                div.innerHTML = node.getInfo()
+                                modalContent.appendChild(div)
+                                break;
+                            case "ToggleSettings":
+                                node.toggleSettings()
+                                break;
+                            case "ImportContent":
+                                node.importContent()
+                                break;
+                            case "ExportContent":
+                                node.exportContent()
+                                break;
+                        }
+                    })
+                    return
+                }
+                if (!["drawflow", "parent-drawflow"].includes(event.target.className)) return
+                let disabledItems = []
+                setupCanvasContextMenu(event, disabledItems, (action, defaultLabel, x, y) => {
+                    x -= editor.canvas_x
+                    y -= editor.canvas_y + document.getElementById("drawflow").getBoundingClientRect().top
+                    let initialValues = { pos: [x, y] }
+                    let name
+                    if (action.startsWith("ex_")) { // e.g. ex_TurtleInputNode_UP
+                        initialValues.value = exampleData[action]
+                        name = defaultLabel
+                        action = action.split("_")[1]
+                    } else {
+                        name = prompt("Name of the node", defaultLabel);
+                        if (name == null) return
+                    }
+                    initialValues.name = name
+                    graph.createNode(action, initialValues)
+                })
+            });
+
+            ["mousedown", "mouseup", "mousemove"].forEach(eventType => {
+                editor.container.addEventListener(eventType, event => {
+                    if (event.button === 2 && (
+                        event.target.classList.contains("drawflow") ||
+                        event.target.classList.contains("parent-drawflow") ||
+                        event.target.classList.contains("title-box") ||
+                        event.target.classList.contains("node-title")
+                    )) {
+                        // otherwise mouse movement after right-click translates the canvas or node
+                        event.stopPropagation()
+                    }
+                }, true) // why is this true necessary? doesn't work without it
+            })
+
+            let resizing = null
+
+            export function isResizeEvent(event) {
+                if (!(event.button === 0 && event.target.classList.contains("resize-handle"))) return
+                let nodeDomEl = event.target
+                while (!nodeDomEl.classList.contains("drawflow-node")) nodeDomEl = nodeDomEl.parentElement
+                let node = graph.nodesMap[nodeDomEl.id.split("-")[1]]
+                return { nodeDomEl, node }
+            }
+
+            editor.container.addEventListener("dblclick", event => {
+                let resizeEvent = isResizeEvent(event)
+                if (!resizeEvent) return
+                let { nodeDomEl, node } = resizeEvent
+                node.resetSize()
+            })
+
+            editor.container.addEventListener("mousedown", event => {
+                let resizeEvent = isResizeEvent(event)
+                if (!resizeEvent) return
+                let { nodeDomEl, node } = resizeEvent
+                node.preResize()
+                resizing = {
+                    startX: event.clientX,
+                    startY: event.clientY,
+                    startWidth: nodeDomEl.offsetWidth,
+                    startHeight: nodeDomEl.offsetHeight,
+                    node: node,
+                    nodeDomEl: nodeDomEl
+                }
+            })
+            editor.container.addEventListener("mousemove", event => {
+                if (!resizing) return
+                let dx = event.clientX - resizing.startX
+                let dy = event.clientY - resizing.startY
+                resizing.node.setSize(resizing.startWidth + dx, resizing.startHeight + dy, dy)
+                event.stopPropagation()
+            }, true)
+
+            editor.container.addEventListener("mouseup", e => resizing = null)
+
+            // if (!targetNode.acceptedIncomingFrom(sourceNode, connection.output_class, connection.input_class)) TODO
+            editor.on("connectionCreated", connection => graph.onEditorEdgeCreated(connection))
+            editor.on("nodeRemoved", (id) => graph.onEditorNodeRemoved(id))
+            editor.on("connectionRemoved", (connection) => graph.onEditorEdgeRemoved(connection))
+
+            let selectedNodes = []
+            let shiftKeyIsPressed = false
+            let timeSignals = []
+            // true: a node was selected and the user now clicked directly on another node
+            // false: a node was selected and the user now clicked somewhere else (like the canvas or an edge) to unselect it
+            let wasNodeSelectionJumpCase = false
+
+            function unselectSelectedNodes() {
+                for (let nodeId of selectedNodes) {
+                    let node = graph.nodesMap[nodeId]
+                    if (node) node.removeSelected()
+                }
+                selectedNodes = []
+            }
+
+            editor.on("nodeSelected", (id) => {
+                processTimeSignal(performance.now())
+                if (!shiftKeyIsPressed) unselectSelectedNodes()
+                selectedNodes.push(id)
+                for (let nodeId of selectedNodes) graph.nodesMap[nodeId].setSelected()
+            })
+
+            editor.on("nodeUnselected", () => {
+                processTimeSignal(performance.now())
+                setTimeout(() => {
+                    if (!wasNodeSelectionJumpCase) unselectSelectedNodes()
+                }, 30)
+            })
+
+            function processTimeSignal(t) {
+                timeSignals.push(t)
+                if (timeSignals.length > 1) {
+                    let timeDiff = timeSignals[timeSignals.length - 1] - timeSignals[timeSignals.length - 2]
+                    wasNodeSelectionJumpCase = timeDiff < 15
+                }
+            }
+
+            function showMessage(msg, color = "blue") {
+                let msgSpan = document.getElementById("msgSpan")
+                msgSpan.innerHTML = msg
+                msgSpan.style.display = "inline"
+                msgSpan.style.color = color
+                setTimeout(() => {
+                    msgSpan.style.display = "none"
+                    msgSpan.innerHTML = ""
+                }, 2000)
+            }
+
+            async function loadExample(filename) {
+                let response = await fetch(`examples/${filename}`)
+                if (response.ok) {
+                    let turtle = await response.text()
+                    await graph.import(turtle)
+                } else {
+                    console.error(`Failed to fetch example ${filename}`)
+                }
+            }
+
+            // load initial graph
+            const urlParams = new URLSearchParams(window.location.search)
+            if (urlParams.has("load")) {
+                let graphId = urlParams.get("load")
+                let turtle = localStorage.getItem(graphId)
+                if (turtle) {
+                    graph.import(turtle)
+                } else {
+                    console.log(`No graph with id ${graphId} found in local storage`)
+                }
+            } else if (urlParams.has("example")) {
+                loadExample(urlParams.get("example"))
+            } else if (urlParams.has("base64")) {
+                graph.import(atob(decodeURIComponent(urlParams.get("base64"))))
+                window.history.replaceState({}, "", window.location.pathname)
+                showMessage("&#10003; Graph loaded from URL")
+            } else {
+                loadExample("foerderfunke-mini.ttl")
+            }
+        </script>
+    </body>
+</html>

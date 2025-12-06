@@ -1,0 +1,23 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+ff:municipality-foerderung-x a ff:RequirementProfile ;
+    ff:title "Förderung zum Spielplatzbau" .
+
+ff:MainEntityShape a sh:NodeShape ;
+    sh:targetClass ff:Municipality ;
+    sh:property [
+        sh:path ff:fundingAmountRequired ;
+        sh:minCount 1 ;
+        sh:maxExclusive 1000000 ;
+        sh:message "Der Maximalbetrag beträgt 1M, aber u.U. ist mehr möglich." ;
+    ] ;
+    sh:property [
+        sh:path ff:fundingTarget ;
+        sh:minCount 1 ;
+        sh:in (ff:Spielplatz) ;
+        sh:message "Die Förderung ist für den Bau eines Spielplatzes."
+    ] .

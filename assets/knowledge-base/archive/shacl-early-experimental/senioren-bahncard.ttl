@@ -1,0 +1,22 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:seniorenbahncard a ff:RequirementProfile ;
+    ff:author ff:benjaminaaron ;
+    ff:created "2024-04-16"^^xsd:date ;
+    ff:title "Senioren BahnCard" ;
+    rdfs:seeAlso <https://www.bahn.de/angebot/bahncard> .
+
+# CONDITIONS
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasAge ;
+        sh:minInclusive 65 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "The age must be at least 65" ;
+    ]  .

@@ -1,0 +1,231 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:workAbility a ff:DataField ;
+    schema:category ff:beschaeftigungDfKategorie ;
+    rdfs:label "Erwerbsfähigkeit"@de , "Ability to Work"@en ;
+    schema:question "Sind Sie erwerbsfähig?"@de , "Are you able to work?"@en ;
+    rdfs:comment "Erwerbsfähigkeit bezeichnet die Fähigkeit, unter den üblichen Bedingungen des allgemeinen Arbeitsmarktes mindestens drei Stunden täglich arbeiten zu können (§ 8 SGB II). Sie kann vollständig, eingeschränkt oder nicht gegeben sein."@de ,
+                 "Ability to work refers to the capacity to work at least three hours per day under the usual conditions of the general labor market (§ 8 German Social Code, Book II). It can be full, limited, or none."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:workAbility ;
+        sh:property [
+            sh:path ff:workAbility ;
+            sh:in (
+                ff:workAbility-full
+                ff:workAbility-limited
+                ff:workAbility-none
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:workAbility-full a ff:AnswerOption ; rdfs:label "Voll erwerbsfähig"@de , "Full ability to work"@en .
+ff:workAbility-limited a ff:AnswerOption ; rdfs:label "Eingeschränkt erwerbsfähig"@de , "Limited ability to work"@en .
+ff:workAbility-none a ff:AnswerOption ; rdfs:label "Nicht erwerbsfähig"@de , "No ability to work"@en .
+
+ff:workAbilityHours a ff:DataField ;
+    schema:category ff:beschaeftigungDfKategorie ;
+    rdfs:label "Erwerbsfähigkeit in Stunden"@de , "Ability to Work (hours)"@en ;
+    schema:question "Wie viele Stunden pro Tag sind Sie arbeitsfähig?"@de , "How many hours per day are you able to work?"@en ;
+    rdfs:comment "Die Angabe beschreibt die durchschnittliche Anzahl an Stunden pro Tag, die eine Person unter den üblichen Bedingungen des allgemeinen Arbeitsmarktes arbeiten kann. Nach deutschem Sozialrecht (§ 8 SGB II) gilt eine Person ab mindestens drei Stunden pro Tag als erwerbsfähig."@de ,
+                 "This indicates the average number of hours per day a person can work under the usual conditions of the general labor market. Under German social law (§ 8 SGB II), a person is considered able to work if they can work at least three hours per day."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:workAbilityHours ;
+        sh:property [
+            sh:path ff:workAbilityHours ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxInclusive 24 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:employmentStatus a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie;
+    rdfs:label "Beschäftigungsstatus"@de , "Employment Status"@en ;
+    schema:question "Wie ist Ihr aktueller Beschäftigungsstatus?"@de , "What is your current employment status?"@en ;
+    rdfs:comment "Bitte wählen Sie die Option aus, die am besten zu Ihrer aktuellen Situation passt. Wenn Sie z.B. gerade arbeitslos sind, wählen Sie 'Arbeitslos'. Wenn Sie in Teilzeit arbeiten, wählen Sie 'Teilzeitbeschäftigt'."@de ,
+        "Please select the option that best fits your current situation. For example, if you are currently unemployed, select 'Unemployed'. If you work part-time, select 'Part-time employed'."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:employmentStatus ;
+        sh:property [
+            sh:path ff:employmentStatus ;
+            sh:in (
+                ff:employmentStatus-employed
+                ff:employmentStatus-selfEmployed
+                ff:employmentStatus-unemployed
+                ff:employmentStatus-inEducation
+                ff:employmentStatus-federalVolunteerService
+                ff:employmentStatus-outsideLaborForce
+                ff:employmentStatus-pension
+                ff:employmentStatus-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:employmentStatus-employed a ff:AnswerOption ; rdfs:label "Beschäftigt"@de , "Employed"@en .
+ff:employmentStatus-selfEmployed a ff:AnswerOption ; rdfs:label "Selbstständig"@de , "Self-employed"@en .
+ff:employmentStatus-unemployed a ff:AnswerOption ; rdfs:label "Arbeitslos"@de , "Unemployed"@en .
+ff:employmentStatus-inEducation a ff:AnswerOption ; rdfs:label "In Ausbildung/Studium"@de , "In education/training"@en .
+ff:employmentStatus-federalVolunteerService a ff:AnswerOption ; rdfs:label "Bundesfreiwilligendienst"@de , "Federal volunteer service"@en .
+ff:employmentStatus-outsideLaborForce a ff:AnswerOption ; rdfs:label "Nicht erwerbstätig (z.B. Elternzeit, Pflege)"@de , "Outside the labor force (e.g. parental leave, caregiving)"@en .
+ff:employmentStatus-pension a ff:AnswerOption ; rdfs:label "Rente"@de , "Pension"@en .
+ff:employmentStatus-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:workplaceType a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie ;
+    rdfs:label "Art der Arbeitsstätte"@de , "Type of Workplace"@en ;
+    schema:question "Welche Art von Arbeitsstätte haben Sie?"@de , "What type of workplace do you have?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Ihre Arbeitsstätte ein Büro, eine Fabrik, ein Geschäft, eine Schule, ein Krankenhaus oder eine andere Art von Einrichtung ist."@de ,
+                 "Please indicate whether your workplace is an office, factory, store, school, hospital, or another type of facility."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:workplaceType ;
+        sh:property [
+            sh:path ff:workplaceType ;
+            sh:in (
+                ff:workplaceType-regular
+                ff:workplaceType-inclusive
+                ff:workplaceType-sheltered
+                ff:workplaceType-selfEmployed
+                ff:workplaceType-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:workplaceType-regular a ff:AnswerOption ; rdfs:label "Reguläre Arbeitsstätte"@de , "Regular Workplace"@en .
+ff:workplaceType-inclusive a ff:AnswerOption ; rdfs:label "Inklusive Arbeitsstätte"@de , "Inclusive Workplace"@en .
+ff:workplaceType-sheltered a ff:AnswerOption ; rdfs:label "Geschützte Werkstatt"@de , "Sheltered Workshop"@en .
+ff:workplaceType-selfEmployed a ff:AnswerOption ; rdfs:label "Selbstständig"@de , "Self-employed"@en .
+ff:workplaceType-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:workplaceLocation a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie ;
+    rdfs:label "Ort der Arbeitsstätte"@de , "Place of Work"@en ;
+    schema:question "Wo befindet sich Ihre Arbeitsstätte?"@de , "Where is your workplace located?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob sich Ihre Arbeitsstätte in Deutschland, im Ausland oder an mehreren Orten befindet."@de ,
+                 "Please indicate whether your workplace is located in Germany, abroad, or at multiple locations."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:workplaceLocation ;
+        sh:property [
+            sh:path ff:workplaceLocation ;
+            sh:in (
+                ff:workplaceLocation-ger
+                ff:workplaceLocation-abroad
+                ff:workplaceLocation-remote
+            ) ;
+        ] ;
+    ] .
+ff:workplaceLocation-ger a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:workplaceLocation-abroad a ff:AnswerOption ; rdfs:label "Außerhalb Deutschlands"@de , "Abroad"@en .
+ff:workplaceLocation-remote a ff:AnswerOption ; rdfs:label "Remote / Homeoffice"@de , "Remote / Home office"@en .
+
+ff:primaryEmploymentHours a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie ;
+    rdfs:label "Arbeitsstunden in der Haupttätigkeit"@de , "Hours in Primary Employment"@en ;
+    schema:question "Wie viele Stunden pro Woche arbeiten Sie in Ihrer Haupttätigkeit?"@de , "How many hours per week do you work in your primary employment?"@en ;
+    rdfs:comment "Bitte geben Sie die durchschnittliche Wochenarbeitszeit in Ihrer Hauptbeschäftigung an."@de ,
+                 "Please indicate your average weekly working hours in your primary employment."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:primaryEmploymentHours ;
+        sh:property [
+            sh:path ff:primaryEmploymentHours ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:secondaryEmployment a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie ;
+    rdfs:label "Nebentätigkeit vorhanden"@de , "Secondary Employment"@en ;
+    schema:question "Haben Sie einen Nebenjob?"@de , "Do you have secondary employment?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Sie neben Ihrer Haupttätigkeit eine Nebentätigkeit ausüben."@de ,
+                    "Please indicate whether you have secondary employment in addition to your primary activity."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:secondaryEmployment ;
+        sh:property [
+            sh:path ff:secondaryEmployment ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:secondaryEmploymentHours a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie ;
+    rdfs:label "Arbeitsstunden im Nebenjob"@de , "Hours in Secondary Employment"@en ;
+    schema:question "Wie viele Stunden pro Woche arbeiten Sie in Ihrem Nebenjob?"@de , "How many hours per week do you work in your secondary employment?"@en ;
+    rdfs:comment "Bitte geben Sie die durchschnittliche Wochenarbeitszeit in Ihrer Nebentätigkeit an."@de ,
+                 "Please indicate your average weekly working hours in your secondary employment."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:secondaryEmploymentHours ;
+        sh:property [
+            sh:path ff:secondaryEmploymentHours ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .    
+
+# specific
+
+ff:researchInstitutionEmployment a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie ;
+    rdfs:label "Arbeiten Sie an einer Forschungseinrichtung?"@de , "Do you work at a research institution?"@en ;
+    schema:question "Arbeiten Sie derzeit an einer Forschungseinrichtung (z. B. Universität, außeruniversitäres Forschungsinstitut)?"@de ,
+                   "Are you currently employed at a research institution (e.g., university, non-university research institute)?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Sie aktuell an einer Forschungseinrichtung beschäftigt sind."@de ,
+                 "Please indicate whether you are currently employed at a research institution."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:researchInstitutionEmployment ;
+        sh:property [
+            sh:path ff:researchInstitutionEmployment ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:careerReturner a ff:DataField ;
+    schema:category ff:beschaeftigungDfKategorie ;
+    rdfs:label "Berufsrückkehrer:in"@de , "Career Returner"@en ;
+    schema:question "Sind Sie Berufsrückkehrer:in?"@de , "Are you a career returner?"@en ;
+    rdfs:comment "Als Berufsrückkehrer:innen gelten Personen, die ihre Erwerbstätigkeit wegen familiärer Verpflichtungen, insbesondere wegen Kindererziehung oder Pflege von Angehörigen, länger unterbrochen haben und nun in das Berufsleben zurückkehren möchten (§ 20 SGB III)."@de ,
+                 "Career returners are persons who have interrupted their employment due to family responsibilities, in particular childcare or care of relatives, and now wish to re-enter working life (§ 20 German Social Code, Book III)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:careerReturner ;
+        sh:property [
+            sh:path ff:careerReturner ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:reducedEarningCapacityCause a ff:DataField ;
+    schema:category ff:arbeitswelt-df-kategorie ;
+    rdfs:label "Besondere Gründe für Arbeitsunfähigkeit"@de , "Special reasons for inability to work"@en ;
+    schema:question "Ist Ihre Erwerbsminderung durch einen Arbeitsunfall, eine Berufskrankheit, einen Unfall im Wehr- oder Freiwilligendienst, einen Impfschaden oder durch Gewalt entstanden?"@de ,
+        "Ist Ihre Erwerbsminderung durch einen Arbeitsunfall, eine Krankheit durch den Beruf, einen Unfall im Wehr- oder Freiwilligendienst, einen Impfschaden oder durch Gewalt entstanden?"@de-x-es ,
+        "Is your disability due to a work accident, an occupational disease, an accident during military or voluntary service, a vaccination injury, or violence?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:reducedEarningCapacityCause ;
+        sh:property [
+            sh:path ff:reducedEarningCapacityCause ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

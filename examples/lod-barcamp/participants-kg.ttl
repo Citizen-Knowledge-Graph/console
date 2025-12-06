@@ -1,0 +1,181 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-11-24_11-47-30";
+         ff:hasName "Participants Knowledge Graph";
+         ff:hasExportTimestamp "2025-11-26T11:43:33.101Z";
+         ff:hasTranslateX 235;
+         ff:hasTranslateY 173;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11, ff:node12, ff:node13, ff:node14, ff:node15, ff:node16;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9, ff:edge10, ff:edge11, ff:edge12, ff:edge13, ff:edge14.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Turtle Input";
+         ff:hasPosX "106";
+         ff:hasPosY "7";
+         ff:hasValue "# participants data".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Table of distances";
+         ff:hasPosX "583";
+         ff:hasPosY "415";
+         ff:hasValue "@prefix : <https://foerderfunke.org/lod-barcamp-bielefeld#> .\n@prefix wd: <http://www.wikidata.org/entity/> .\n\nwd:Q2112 :hasLabel \"Bielefeld\" ;\n\t:distanceToBielefeld 0 .\n\nwd:Q64 :hasLabel \"Berlin\" ;\n    :distanceToBielefeld 336 .\n\nwd:Q586 :hasLabel \"Bonn\" ;\n    :distanceToBielefeld 173 .\n\nwd:Q14887 :hasLabel \"Neumarkt i.d.OPf.\" ;\n    :distanceToBielefeld 367 .\n\nwd:Q1721 :hasLabel \"Wiesbaden\" ;\n    :distanceToBielefeld 215 .\n\nwd:Q2742 :hasLabel \"Münster\" ;\n    :distanceToBielefeld 64 .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Particpants need residence";
+         ff:hasPosX "888";
+         ff:hasPosY "1366";
+         ff:hasValue "@prefix : <https://foerderfunke.org/lod-barcamp-bielefeld#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\n:shaclShape a sh:NodeShape ;\n    sh:targetClass :Participant ;\n    sh:property [\n        sh:path :hasResidence ;\n        sh:minCount 1 ;\n    ] .".
+ff:node4 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Skill Matching";
+         ff:hasPosX 549;
+         ff:hasPosY -244;
+         ff:hasWidth 517;
+         ff:hasHeight 218;
+         ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT * WHERE {\n    ?personHavingIt :hasSkill ?skill .\n  \t?personWantingIt :hasDesiredSkill ?skill .\n                     \n    OPTIONAL { ?personHavingIt :hasName ?name1 . }\n    OPTIONAL { ?personWantingIt :hasName ?name2 . }\n}".
+ff:node5 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Travel distance";
+         ff:hasPosX "1043";
+         ff:hasPosY "213";
+         ff:hasWidth 600;
+         ff:hasHeight 326;
+         ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT (SUM(?distance * ?numResidents * 2) AS ?totalDistance)\nWHERE {\n  {\n    SELECT ?city (COUNT(?person) AS ?numResidents)\n    WHERE {\n      ?person :hasResidence ?city .\n    }\n    GROUP BY ?city\n  }\n\n  ?wdId :hasLabel ?city ;\n        :distanceToBielefeld ?distance .\n}".
+ff:node6 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Interest and question tags ranked";
+         ff:hasPosX "760";
+         ff:hasPosY "2008";
+         ff:hasWidth 508;
+         ff:hasHeight 270;
+         ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT ?tag (COUNT(*) AS ?count)\nWHERE {\n  {\n    ?person :hasInterestTag ?tag .\n  } UNION {\n    ?person :hasLodQuestionTag ?tag .\n  }\n}\nGROUP BY ?tag\nORDER BY DESC(?count)".
+ff:node7 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Details for top ranked";
+         ff:hasPosX "1810";
+         ff:hasPosY "2010";
+         ff:hasValue "PREFIX : <https://foerderfunke.org/lod-barcamp-bielefeld#>\n\nSELECT ?question ?interest WHERE {\n  VALUES ?tag {\n    \"Tooling\"\n    \"LOD_Praxis\"\n    \"Zivilgesellschaftliche_Nutzung\"\n  }\n  {\n    ?person :hasInterestTag ?tag ;\n            :hasInterest ?interest .\n  }\n  UNION\n  {\n    ?person :hasLodQuestionTag ?tag ;\n            :hasLodQuestion ?question .\n  }\n}".
+ff:node8 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Population of cities";
+         ff:hasPosX "1773";
+         ff:hasPosY "858";
+         ff:hasWidth 555;
+         ff:hasHeight 280;
+         ff:hasValue "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wikibase: <http://wikiba.se/ontology#>\nPREFIX bd: <http://www.bigdata.com/rdf#>\n\nSELECT ?cityLabel ?population WHERE {\n  VALUES ?city {\n    wd:Q2112 wd:Q64 wd:Q586 wd:Q14887 wd:Q1721 wd:Q2742\n  }\n  ?city wdt:P1082 ?population .\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"de\". }\n}".
+ff:node9 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX 1153;
+         ff:hasPosY -238.
+ff:node10 a ff:Node;
+          ff:hasClass ff:SparqlSelectExecNode;
+          ff:hasName "Run SPARQL SELECT";
+          ff:hasPosX "1746";
+          ff:hasPosY "481".
+ff:node11 a ff:Node;
+          ff:hasClass ff:SparqlSelectExecNode;
+          ff:hasName "Run SPARQL SELECT";
+          ff:hasPosX "1286";
+          ff:hasPosY "2011".
+ff:node12 a ff:Node;
+          ff:hasClass ff:SparqlSelectExecNode;
+          ff:hasName "Run SPARQL SELECT";
+          ff:hasPosX "2253";
+          ff:hasPosY "2011".
+ff:node13 a ff:Node;
+          ff:hasClass ff:SparqlSelectExecNode;
+          ff:hasName "Run SPARQL SELECT";
+          ff:hasPosX "2385";
+          ff:hasPosY "850".
+ff:node14 a ff:Node;
+          ff:hasClass ff:MergeTriplesNode;
+          ff:hasName "Merge triples";
+          ff:hasPosX "1178";
+          ff:hasPosY "581";
+          ff:hasContentHidden true.
+ff:node15 a ff:Node;
+          ff:hasClass ff:ExternalSparqlEndpointInputNode;
+          ff:hasName "Wikidata SPARQL Endpoint";
+          ff:hasPosX "1368";
+          ff:hasPosY "932";
+          ff:hasWidth 329;
+          ff:hasHeight 104;
+          ff:hasValue "https://query.wikidata.org/sparql".
+ff:node16 a ff:Node;
+          ff:hasClass ff:ShaclValidationNode;
+          ff:hasName "Run SHACL validation";
+          ff:hasPosX "1363";
+          ff:hasPosY "1336".
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node11;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node12;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node14;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node16;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node14;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node16;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge8 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge9 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node10;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge10 a ff:Edge;
+          ff:hasSource ff:node6;
+          ff:hasTarget ff:node11;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge11 a ff:Edge;
+          ff:hasSource ff:node7;
+          ff:hasTarget ff:node12;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge12 a ff:Edge;
+          ff:hasSource ff:node8;
+          ff:hasTarget ff:node13;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge13 a ff:Edge;
+          ff:hasSource ff:node14;
+          ff:hasTarget ff:node10;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge14 a ff:Edge;
+          ff:hasSource ff:node15;
+          ff:hasTarget ff:node13;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.

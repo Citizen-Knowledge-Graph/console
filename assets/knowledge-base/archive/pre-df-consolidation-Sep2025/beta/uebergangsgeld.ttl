@@ -1,0 +1,119 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:uebergangsgeld a ff:RequirementProfile ;
+    ff:title "Übergangsgeld für Menschen mit Behinderung - Bundesagentur für Arbeit"@de ,
+        "Transitional Allowance for People with Disabilities - Federal Employment Agency"@en ;
+    ff:category ff:schule-studium-ausbildung-bc-kategorie, ff:gesundheit-pflege-bc-kategorie, ff:sozialhilfe-grundsicherung-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-iii, ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:bundesagentur-fuer-arbeit ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Menschen mit Behinderungen können zur Sicherung des Lebensunterhaltes Übergangsgeld erhalten, wenn sie an bestimmten Bildungsmaßnahmen teilnehmen. Je nach Rehabilitionträger gelten hier unterschiedliche Voraussetzungen und Leistungsangebote. Die vorliegende Leistung steht Menschen zur Verfügung, deren Rehabilitationsträger die Bundesagentur für Arbeit ist."@de ,
+        "People with disabilities can receive transitional allowance to cover their living expenses if they participate in specific educational programs. Depending on the rehabilitation provider, different requirements and benefits apply. This benefit is available to people whose rehabilitation provider is the Federal Employment Agency."@en ;
+    rdfs:seeAlso <https://www.arbeitsagentur.de/datei/uebergangsgeld-fuer-rehabilitanden-der-ba_ba040009.pdf> ;
+    ff:hasMainShape ff:uebergangsgeldMainShape ;
+    ff:hasFlowShape ff:uebergangsgeldFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:uebergangsgeldMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [ sh:path ff:has_disability ; sh:in (true) ] ;
+    sh:property [ sh:path ff:rehabilitation_provider ; sh:in (ff:rehabilitation_provider-bundesagentur-fuer-arbeit) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:vocational_training_completed ; sh:in (true) ] ]
+            [ 
+                sh:property [ sh:path ff:vocational_training_completed ; sh:in (false) ] ;
+                sh:or (
+                    [ 
+                        sh:property [ sh:path ff:returning_professional ; sh:in (false) ] ;
+                        sh:or (
+                            [ sh:property [ sh:path ff:state_insurance_status_3_years ; sh:in (true) ] ]
+                            [ sh:property [ sh:path ff:alg_application_3_years ; sh:in (true) ] ]
+                        )
+                    ]
+                    [ 
+                        sh:property [ sh:path ff:returning_professional ; sh:in (true) ] ;
+                        sh:or (
+                            [ sh:property [ sh:path ff:state_insurance_status ; sh:in (true) ] ]
+                            [ sh:property [ sh:path ff:alg_application ; sh:in (true) ] ]
+                        )
+                    ]
+                )
+            ]
+        )
+    ] .
+
+# ----- DECISION TREE LOGIC -----
+
+ff:uebergangsgeldFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property ff:baseRequirements ;
+    sh:property ff:educationPS ;
+    sh:property ff:returningProfessionalPS ;
+    sh:property ff:priorEmploymentPeriod3YearsPS ;
+    sh:property ff:priorEmploymentPeriodPS .
+
+ff:baseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:has_disability ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:rehabilitation_provider ; sh:minCount 1 ] .
+
+ff:educationPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [ sh:and (
+            [ shn:eq ( [ sh:path ff:has_disability ] true ) ] 
+            [ shn:eq ( [ sh:path ff:rehabilitation_provider ] ff:rehabilitation_provider-bundesagentur-fuer-arbeit ) ] 
+        ) ]
+    ] ;
+    sh:path ff:vocational_training_completed ;
+    sh:minCount 1 .
+
+ff:returningProfessionalPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [ sh:and (
+            [ shn:eq ( [ sh:path ff:has_disability ] true ) ] 
+            [ shn:eq ( [ sh:path ff:rehabilitation_provider ] ff:rehabilitation_provider-bundesagentur-fuer-arbeit ) ] 
+            [ shn:eq ( [ sh:path ff:vocational_training_completed ] false ) ]
+        ) ]
+    ] ;
+    sh:path ff:returning_professional ;
+    sh:minCount 1 .
+
+ff:priorEmploymentPeriod3YearsPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:or (
+            [ sh:not [ sh:and (
+                [ shn:eq ( [ sh:path ff:has_disability ] true ) ] 
+                [ shn:eq ( [ sh:path ff:rehabilitation_provider ] ff:rehabilitation_provider-bundesagentur-fuer-arbeit ) ]
+                [ shn:eq ( [ sh:path ff:vocational_training_completed ] false ) ]
+                [ shn:eq ( [ sh:path ff:returning_professional ] false ) ]
+            ) ] ]
+            [ shn:eq ( [ sh:path ff:state_insurance_status_3_years ] true ) ]
+            [ shn:eq ( [ sh:path ff:alg_application_3_years ] true ) ]
+        )
+    ] ;
+    sh:property [ sh:path ff:state_insurance_status_3_years ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:alg_application_3_years ; sh:minCount 1 ] .
+
+ff:priorEmploymentPeriodPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:or (
+            [ sh:not [ sh:and (
+                [ shn:eq ( [ sh:path ff:has_disability ] true ) ] 
+                [ shn:eq ( [ sh:path ff:rehabilitation_provider ] ff:rehabilitation_provider-bundesagentur-fuer-arbeit ) ] 
+                [ shn:eq ( [ sh:path ff:vocational_training_completed ] false ) ]
+                [ shn:eq ( [ sh:path ff:returning_professional ] true ) ]
+            ) ] ]
+            [ shn:eq ( [ sh:path ff:state_insurance_status ] true ) ]
+            [ shn:eq ( [ sh:path ff:alg_application ] true ) ]
+        )
+    ] ;
+    sh:property [ sh:path ff:state_insurance_status	; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:alg_application ; sh:minCount 1 ] .

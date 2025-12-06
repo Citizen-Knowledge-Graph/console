@@ -1,0 +1,65 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-01-21_23-26-56";
+         ff:hasName "External SPARQL Endpoint";
+         ff:hasExportTimestamp "2025-01-21T22:41:27.213Z";
+         ff:hasTranslateX 181;
+         ff:hasTranslateY 148;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4.
+ff:node1 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "SPARQL Input";
+         ff:hasPosX 13;
+         ff:hasPosY 63;
+         ff:hasValue "PREFIX dcat: <http://www.w3.org/ns/dcat#>\n\nSELECT (COUNT(?dataset) AS ?datasets) WHERE {\n  ?dataset a dcat:Dataset .\n}".
+ff:node2 a ff:Node;
+         ff:hasClass ff:ExternalSparqlEndpointInputNode;
+         ff:hasName "External SPARQL Endpoint";
+         ff:hasPosX 14;
+         ff:hasPosY -78;
+         ff:hasValue "https://www.govdata.de/sparql".
+ff:node3 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX 595;
+         ff:hasPosY -52.
+ff:node4 a ff:Node;
+         ff:hasClass ff:ExternalSparqlEndpointInputNode;
+         ff:hasName "External SPARQL Endpoint";
+         ff:hasPosX 93;
+         ff:hasPosY 360;
+         ff:hasValue "https://query.wikidata.org/sparql".
+ff:node5 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "SPARQL Input";
+         ff:hasPosX 95;
+         ff:hasPosY 515;
+         ff:hasValue "PREFIX ex: <http://example.org/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nCONSTRUCT {\n\t?person ex:label ?label ;\n    \tex:note \"Works in Berlin\" .\n} WHERE {\n\t?person wdt:P31 wd:Q5 ;\n    \twdt:P937 wd:Q64 ;\n       \trdfs:label ?label .\n  FILTER NOT EXISTS { \n    \t?person wdt:P570 ?dateOfDeath\n  }\n  FILTER(LANG(?label) = \"en\")\n}\nLIMIT 3".
+ff:node6 a ff:Node;
+         ff:hasClass ff:SparqlConstructExecNode;
+         ff:hasName "Run SPARQL CONSTRUCT";
+         ff:hasPosX 696;
+         ff:hasPosY 184.
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node3;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node3;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.

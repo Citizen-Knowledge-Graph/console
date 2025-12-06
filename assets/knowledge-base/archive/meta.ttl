@@ -1,0 +1,34 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+
+# Core Criterion and Core Evidence Vocabulary https://github.com/SEMICeu/CCCEV
+@prefix cccev: <http://data.europa.eu/m8g/> .
+
+ff:RequirementProfile a cccev:Criterion .
+ff:EligibilityConstraint a cccev:Constraint .
+ff:DataField a cccev:Evidence .
+
+# Data Product Ontology (DPROD)
+@prefix dprod: <https://ekgf.github.io/dprod/> .
+
+ff:FoerderFunkeDataProduct a dprod:DataProduct ;
+    dct:title "FörderFunke Data Product"@en ;
+    dprod:purpose "To match user profiles with requirement profiles."@en ;
+    dprod:dataProductOwner ff:FoerderFunkeUG ;
+    dprod:inputDataset ff:UserProfileDataset, ff:RequirementProfilesDataset ;
+    dprod:outputDataset ff:MatchingResultsDataset .
+
+ff:UserProfileDataset a dcat:Dataset ;
+    dct:title "User Profile"@en ;
+    dct:description "The user profile in RDF format."@en ;
+    dprod:informationSensitivityClassification ff:SensitivityClassification-PersonalData .
+
+ff:RequirementProfilesDataset a dcat:Dataset ;
+    dct:title "Requirement Profiles"@en ;
+    dct:description "SHACL shapes defining criteria for user profile data points."@en .
+
+ff:MatchingResultsDataset a dcat:Dataset ;
+    dct:title "Matching Results"@en ;
+    dct:description "Results indicating the matches for the user profile. Plus a prioritised list of missing data points."@en ;
+    dprod:informationSensitivityClassification ff:SensitivityClassification-PersonalData .
+
+# dprod:inputPort, dprod:outputPort, ...

@@ -1,0 +1,11 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:mainPerson a ff:Citizen ;
+    ff:hasCompliedRequirementProfile ff:compliedrequirementprofile0 ;
+    ff:hasBirthday "1990-01-02"^^xsd:date .
+    # ff:hasResidence "Jena" ;
+    # ff:eligibleForSocialSupport true .
+
+ff:compliedrequirementprofile0 a ff:CompliedRequirementProfile ;
+    ff:hasRpUri ff:jenabonus .

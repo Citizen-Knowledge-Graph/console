@@ -1,0 +1,208 @@
+------------------------------------------------------------
+DATAFIELDS
+------------------------------------------------------------
+
+I will successively share definitions of data fields and their allowed answers in JSON format with you. My goal is to transform them all to SHACL syntax. I did this transformation manually for two of them and would like you to do it for the rest.
+Furthermore I would like to ask you to "slugify" the questionKeys, so "Staatsbürgerschaft" for instance should become "staatsbuergerschaft". And also in the value/label pairs of the answerOptions, please find sensible ways to slugify the value.
+Also note that I am using "sh:maxCount 1" to indicate "answerType singleOption" whereas "answerType multiOption" doesn't need a count-restriction.
+
+These are the SHACL prefixes I am using:
+
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+Here are the two transformations I did manually so that you understand what I need:
+
+-----
+JSON:
+{
+  "questionKey": "Geburtsdatum",
+  "questionText": "Wie lautet Ihr Geburtsdatum?",
+  "placeholder": "",
+  "noteCitizen": "",
+  "answerType": "date",
+  "answerOptions": []
+}
+
+SHACL:
+
+ff:geburtsdatum a ff:DataField, ff:SozialleistungsfinderDataField ;
+    schema:category ff:persoenliche-angaben ;
+    rdfs:label "Geburtsdatum" ;
+    schema:question  "Wie lautet Ihr Geburtsdatum?" ;
+    ff:objectConstraints [
+        a sh:PropertyShape ;
+        sh:targetObjectsOf ff:geburtsdatum ;
+        sh:datatype xsd:date ;
+    ] ;
+    ff:usageConstraints [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:geburtsdatum ;
+        sh:property [
+            sh:path ff:geburtsdatum ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+-----
+JSON:
+{
+  "questionKey": "Aufenthaltsort",
+  "questionText": "Wo ist Ihr tatsächlicher Aufenthaltsort an dem Sie erreichbar sind?",
+  "placeholder": "",
+  "noteCitizen": "Das ist der Ort, wo Sie sich wirklich aufhalten. Es ist egal, ob Sie dort gemeldet sind oder das Recht haben, hier zu leben. Das kann auch eine Pflegeeinrichtung, ein Frauenhaus, ein Stadtteil oder Ähnliches sein.",
+  "answerType": "singleSelect",
+  "answerOptions": [
+    {
+      "value": "außerhalb",
+      "label": "außerhalb Deutschlands"
+    },
+    {
+      "value": "innerhalb",
+      "label": "innerhalb Deutschlands"
+    }
+  ]
+}
+
+SHACL:
+ff:aufenthaltsort a ff:DataField, ff:SozialleistungsfinderDataField ;
+    schema:category ff:persoenliche-angaben ;
+    rdfs:label "Aufenthaltsort" ;
+    schema:question "Wo ist Ihr tatsächlicher Aufenthaltsort an dem Sie erreichbar sind?" ;
+    rdfs:comment "Das ist der Ort, wo Sie sich wirklich aufhalten. Es ist egal, ob Sie dort gemeldet sind oder das Recht haben, hier zu leben. Das kann auch eine Pflegeeinrichtung, ein Frauenhaus, ein Stadtteil oder Ähnliches sein." ;
+    ff:objectConstraints [
+        a sh:PropertyShape ;
+        sh:targetObjectsOf ff:aufenthaltsort ;
+        sh:in (ff:aufenthaltsort-ao-ausserhalb ff:aufenthaltsort-ao-innerhalb) ;
+    ] ;
+    ff:usageConstraints [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:aufenthaltsort ;
+        sh:property [
+            sh:path ff:aufenthaltsort ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:aufenthaltsort-ao-ausserhalb a ff:AnswerOption ; rdfs:label "außerhalb Deutschlands" .
+ff:aufenthaltsort-ao-innerhalb a ff:AnswerOption ; rdfs:label "innerhalb Deutschlands" .
+-----
+
+Does this make sense? Can I share more JSON definitions for you to transform them to SHACL following the examples I gave you?
+
+
+------------------------------------------------------------
+ADDING ENGLISH TRANSLATIONS AND LANGUAGE TAGS
+------------------------------------------------------------
+
+I used the German version of a JSON file to transform the data fields into SHACL. Now I would like to add the English translations also. Would it work for you, if I give you SHACL shapes and the English JSON and you can add "string"@en triples? You would have to focus on these predicates: rdfs:label, schema:question and rdfs:comment. However, please only do the rdfs:label of ff:AnswerOption triples. And under no circumstances invent anything yourself, just copy paste things into the right places, ok? And please also add @de to the German strings also.
+
+
+------------------------------------------------------------
+BENEFIT RULES
+------------------------------------------------------------
+
+I would like your help in translating rules from a JSON format to a SHACL format. I have done this transformation once manually and would like you to apply the same pattern to more JSON rules. However, to interpret this correctly, I need to supply you with a definition file of the data fields in use. I uploaded it together with this message.
+
+This is the example transformation:
+
+JSON:
+
+[
+    {
+        "questionKey": "Aufenthaltsort",
+        "type": "singleSelect",
+        "operator": "equals",
+        "expectedValue": "innerhalb",
+        "rules": []
+    },
+    {
+        "questionKey": "Aufenthaltsort",
+        "type": "singleSelect",
+        "operator": "equalsNot",
+        "expectedValue": "außerhalb",
+        "rules": []
+    },
+    {
+        "questionKey": "Geburtsdatum",
+        "type": "date",
+        "modifier": "Pensionable",
+        "operator": "equals",
+        "expectedValue": "false",
+        "rules": []
+    },
+    {
+        "questionKey": "Erwerbsfähig_neu",
+        "type": "singleOption",
+        "operator": "equalsNot",
+        "expectedValue": "nein >6 Monate",
+        "rules": []
+    },
+    {
+        "questionKey": "Erwerbsfähig_neu",
+        "type": "singleOption",
+        "operator": "equals",
+        "expectedValue": "nein <6 Monate",
+        "rules": []
+    },
+    {
+        "questionKey": "Beruf_neu",
+        "type": "singleOption",
+        "operator": "equalsNot",
+        "expectedValue": "ALG",
+        "rules": []
+    },
+    {
+        "questionKey": "Einkommen_neu",
+        "type": "multiOption",
+        "operator": "containsNot",
+        "expectedValue": "ALG",
+        "rules": []
+    },
+    {
+        "questionKey": "Einkommen_neu",
+        "type": "multiOption",
+        "operator": "containsNot",
+        "expectedValue": "ALG II",
+        "rules": []
+    }
+]
+
+---
+
+SHACL:
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:aufenthaltsort ;
+        sh:minCount 1 ;
+        sh:hasValue ff:aufenthaltsort-ao-innerhalb ;
+    ] ;
+    sh:property [
+        sh:path ff:pensionable ;
+        sh:minCount 1 ;
+        sh:hasValue false ;
+    ] ;
+    sh:property [
+        sh:path ff:erwerbsfaehig_neu ;
+        sh:minCount 1 ;
+        sh:hasValue ff:erwerbsfaehig_neu-ao-nein-weniger-6-monate ;
+    ] ;
+    sh:property [
+        sh:path ff:beruf_neu ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:hasValue ff:beruf_neu-ao-alg ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ff:einkommen_neu ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:einkommen_neu-ao-alg ff:einkommen_neu-ao-alg-ii) ;
+        ] ;
+    ] .
+
+Does this make sense? Can I provide you with the next set of JSON rules for you to transform it to SHACL?
