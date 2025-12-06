@@ -505,7 +505,7 @@
                         structure[parts[1]].children.push(parts[2])
                     }
                 }
-                const buildRow = async (fileName) => {
+                const buildRow = async (fileName, insertAfterRow = null) => {
                     response = await fetch(`examples/${fileName}`)
                     let turtle = await response.text()
                     let details = await getDetailsFromGraphTurtle(turtle)
@@ -520,7 +520,12 @@
                     td = document.createElement("td")
                     td.appendChild(buildActionSpan("Load", () => loadTurtle(turtle)))
                     tr.appendChild(td)
-                    table.appendChild(tr)
+                    if (insertAfterRow && insertAfterRow.parentNode === table) {
+                        table.insertBefore(tr, insertAfterRow.nextSibling)
+                    } else {
+                        table.appendChild(tr)
+                    }
+                    return tr
                 }
                 for (let key of Object.keys(structure)) {
                     if (key === "ROOT") {
@@ -537,8 +542,9 @@
                     td.addEventListener("click", async () => {
                         if (structure[key].expanded) return
                         structure[key].expanded = true
+                        let lastRow = tr
                         for (let child of structure[key].children) {
-                            await buildRow(`${key}/${child}`)
+                            lastRow = await buildRow(`${key}/${child}`, lastRow)
                         }
                     })
                     tr.appendChild(td)
