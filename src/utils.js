@@ -1,4 +1,4 @@
-import { Parser, QueryEngine, rdf, Store, Validator, sparqlValidations, slugify, formatsPretty } from "./assets/bundle.js"
+import { Parser, Writer, QueryEngine, rdf, Store, Validator, sparqlValidations, slugify, formatsPretty } from "./assets/bundle.js"
 
 export async function fetchAsset(relPath) {
     const response = await fetch("assets/" + relPath, {
@@ -128,11 +128,20 @@ export async function serializeStoreToTurtle(store) {
 
 export async function serializeDatasetToTurtle(dataset) {
     // do both of the next steps once initially? TODO
-    rdf.formats.import(formatsPretty)
+    /*rdf.formats.import(formatsPretty)
     const prefixesArr = Object.entries(prefixes).map(
         ([prefix, iri]) => [prefix, rdf.namedNode(iri)]
     )
-    return await rdf.io.dataset.toText("text/turtle", dataset, { prefixes: prefixesArr })
+    return await rdf.io.dataset.toText("text/turtle", dataset, { prefixes: prefixesArr })*/
+    // this supports RDF-star, but adds all prefixes and check blank node handling TODO
+    return await new Promise((resolve, reject) => {
+        const writer = new Writer({ format: "turtle*", prefixes })
+        writer.addQuads([...dataset])
+        writer.end((err, result) => {
+            if (err) return reject(err)
+            resolve(result)
+        })
+    })
 }
 
 export async function runValidationOnStore(store, debug = false, details = false) {
