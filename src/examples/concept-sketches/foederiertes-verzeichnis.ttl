@@ -1,0 +1,178 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-12-05_22-46-29";
+         ff:hasName "Föderiertes Verzeichnis";
+         ff:hasExportTimestamp "2025-12-06T21:04:49.198Z";
+         ff:hasTranslateX -321;
+         ff:hasTranslateY 606;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9, ff:node10, ff:node11, ff:node12, ff:node13;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9, ff:edge10, ff:edge11, ff:edge12, ff:edge13.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Top-Level-Endpunkt 1: Caritas Datenbank";
+         ff:hasPosX "177";
+         ff:hasPosY "-393";
+         ff:hasWidth 723;
+         ff:hasHeight 526;
+         ff:hasValue "@prefix org:     <https://civic-data.de/org/> .\n@prefix offer:   <https://civic-data.de/offer/> .\n@prefix meta:   <https://civic-data.de/meta/> .\n@prefix cpsv:    <http://purl.org/vocab/cpsv#> . # Core Public Service Vocabulary\n@prefix schema:  <https://schema.org/> .\n\nmeta:this meta:source meta:caritas-db .\n\norg:caritas-berlin-mitte\n    a               schema:Organization ;\n    schema:name     \"Erziehungs- und Familienberatung der Caritas Berlin\" ;\n    schema:url     \t<https://www.caritas-berlin.de/beratungundhilfe/berlin/kinderjugendlichefamilien/erziehungs-und-familienberatung-der-caritas> .\n\noffer:erz-fam-001\n    a                     cpsv:PublicService, schema:Service ;\n    schema:serviceType    \"Erziehungs- und Familienberatung\" ;\n    schema:category       \"Soziale Beratung\" ;\n    schema:audienceType   \"Eltern\", \"Familien\", \"Kinder und Jugendliche\" ;\n\tcpsv:providedBy       org:caritas-berlin-mitte .\n\noffer:jugend-001\n    a                     cpsv:PublicService, schema:Service ;\n    schema:serviceType    \"Jugendsprechstunde\" ;\n    schema:category       \"Soziale Beratung\" ;\n    schema:audienceType   \"Jugendliche\", \"Junge Erwachsene\" ;\n\toffer:openingTimes\t  \"Mo-Do 9:00-15:00\" ;\n\tcpsv:providedBy \t  org:profamilia-berlin .\n\n# << offer:jugend-001 a cpsv:PublicService >> meta:source meta:caritas-db .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Top-Level-Endpunkt 2: Der Paritätische Datenbank";
+         ff:hasPosX "174";
+         ff:hasPosY "210";
+         ff:hasWidth 729;
+         ff:hasHeight 498;
+         ff:hasValue "@prefix org:     <https://civic-data.de/org/> .\n@prefix offer:   <https://civic-data.de/offer/> .\n@prefix meta:   <https://civic-data.de/meta/> .\n@prefix cpsv:    <http://purl.org/vocab/cpsv#> .\n@prefix schema:  <https://schema.org/> .\n\nmeta:this meta:source meta:paritaetische-db .\n\norg:kobra-berlin\n    a                   schema:Organization ;\n    schema:name         \"KOBRA – Beratungszentrum für Mädchen und Frauen\" ;\n    schema:url          <https://www.kobra-berlin.de/> ;\n    schema:memberOf     org:paritaetischer-berlin .\n\norg:paritaetischer-berlin\n    a                   schema:Organization ;\n    schema:name         \"Der Paritätische Wohlfahrtsverband – Landesverband Berlin\" ;\n    schema:url          <https://www.paritaet-berlin.de/> .\n\noffer:soz-frauen-001\n    a                       cpsv:PublicService, schema:Service ;\n    schema:serviceType      \"Sozialberatung zu Lebenslagen, Arbeit & Bildung\" ;\n    schema:category         \"Soziale Beratung\" ;\n    schema:audienceType     \"Frauen\", \"Mädchen\", \"Von Gewalt betroffene Personen\" ;\n\tcpsv:providedBy \t\torg:kobra-berlin .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Nachgelagerte Organisation: pro familia Datenbank";
+         ff:hasPosX "-592";
+         ff:hasPosY "226";
+         ff:hasWidth 661;
+         ff:hasHeight 469;
+         ff:hasValue "@prefix org:     <https://civic-data.de/org/> .\n@prefix offer:   <https://civic-data.de/offer/> .\n@prefix meta:   <https://civic-data.de/meta/> .\n@prefix cpsv:    <http://purl.org/vocab/cpsv#> .\n@prefix schema:  <https://schema.org/> .\n\nmeta:this meta:source meta:profamilia-db .\n\norg:profamilia-berlin\n    a               schema:Organization ;\n    schema:name     \"pro familia Berlin – Beratungsstelle\" ;\n    schema:url      <https://www.profamilia.de/angebote-vor-ort/berlin/beratungszentrum> .\n\noffer:schwanger-001\n    a                     cpsv:PublicService, schema:Service ;\n    schema:serviceType    \"Schwangerschafts- und Schwangerschaftskonfliktberatung\" ;\n    schema:category       \"Soziale Beratung\" ;\n    schema:audienceType   \"Schwangere\", \"Paare\", \"Angehörige\" ;\n\tcpsv:providedBy \t  org:profamilia-berlin .\n\noffer:jugend-001\n    a                     cpsv:PublicService, schema:Service ;\n    schema:serviceType    \"Jugendsprechstunde\" ;\n    schema:category       \"Soziale Beratung\" ;\n    schema:audienceType   \"Jugendliche\", \"Junge Erwachsene\" ;\n\tcpsv:providedBy \t  org:profamilia-berlin .".
+ff:node4 a ff:Node;
+         ff:hasClass ff:MergeTriplesNode;
+         ff:hasName "Merge triples";
+         ff:hasPosX "1740";
+         ff:hasPosY "158";
+         ff:hasWidth 214;
+         ff:hasHeight 116;
+         ff:hasContentHidden true.
+ff:node5 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Auflistung aller Angebote";
+         ff:hasPosX "2121";
+         ff:hasPosY "-204";
+         ff:hasWidth 508;
+         ff:hasHeight 255;
+         ff:hasValue "PREFIX schema: <https://schema.org/>\nPREFIX cpsv: <http://purl.org/vocab/cpsv#>\nPREFIX offer: <https://civic-data.de/offer/>\n\nSELECT ?organisation ?beratungsangebot WHERE {\n    ?offer a schema:Service ;\n    \tschema:serviceType ?beratungsangebot ;\n\t\tcpsv:providedBy ?org .\n  \t?org schema:name ?organisation .\n}".
+ff:node6 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "RDF-star Anreicherung";
+         ff:hasPosX "1015";
+         ff:hasPosY "108";
+         ff:hasWidth 381;
+         ff:hasHeight 205;
+         ff:hasValue "PREFIX meta: <https://civic-data.de/meta/>\n\nINSERT {\n   << ?s ?p ?o >> meta:source ?source .\n} WHERE {\n    ?s ?p ?o .\n  \tmeta:this meta:source ?source .\n}".
+ff:node7 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Quellen der Triples eines Angebots";
+         ff:hasPosX "2039";
+         ff:hasPosY "307";
+         ff:hasWidth 593;
+         ff:hasHeight 352;
+         ff:hasValue "PREFIX offer: <https://civic-data.de/offer/>\nPREFIX meta: <https://civic-data.de/meta/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nSELECT\n  (REPLACE(STR(?p), \"^.*[/#]\", \"\") AS ?datenfeld)\n  ?wert\n  (GROUP_CONCAT(\n      DISTINCT STRAFTER(STR(?source), \"https://civic-data.de/meta/\");\n       separator=\", \"\n   ) AS ?quellen)\nWHERE {\n  ?offer ?p ?wert .\n  FILTER (?p != rdf:type) .\n  << ?offer ?p ?wert >> meta:source ?source .\n  FILTER (?offer = offer:jugend-001) # offer:erz-fam-001\n}\nGROUP BY ?p ?wert".
+ff:node8 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX "2761";
+         ff:hasPosY "-162";
+         ff:hasWidth 790;
+         ff:hasHeight 320.
+ff:node9 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX "2761";
+         ff:hasPosY "283";
+         ff:hasWidth 720;
+         ff:hasHeight 395.
+ff:node10 a ff:Node;
+          ff:hasClass ff:SparqlInsertDeleteExecNode;
+          ff:hasName "Run SPARQL INSERT";
+          ff:hasPosX "1470";
+          ff:hasPosY "40";
+          ff:hasWidth 206;
+          ff:hasHeight 117;
+          ff:hasContentHidden true.
+ff:node11 a ff:Node;
+          ff:hasClass ff:SparqlInsertDeleteExecNode;
+          ff:hasName "Run SPARQL INSERT";
+          ff:hasPosX "1470";
+          ff:hasPosY "166";
+          ff:hasWidth 210;
+          ff:hasHeight 113;
+          ff:hasContentHidden true.
+ff:node12 a ff:Node;
+          ff:hasClass ff:SparqlInsertDeleteExecNode;
+          ff:hasName "Run SPARQL INSERT";
+          ff:hasPosX "1470";
+          ff:hasPosY "290";
+          ff:hasWidth 210;
+          ff:hasHeight 115;
+          ff:hasContentHidden true.
+ff:node13 a ff:Node;
+          ff:hasClass ff:MarkdownNode;
+          ff:hasName "Info";
+          ff:hasPosX 1266;
+          ff:hasPosY -560;
+          ff:hasWidth 698;
+          ff:hasHeight 493;
+          ff:hasValue "### Ein Konzept für eine Liste sozialer Unterstützungsangebote, die nicht aus einer zentralen Datenbank stammt, sondern in Echtzeit durch Abfragen mehrerer dezentraler Datenquellen (Top-Level-Endpunkte) erzeugt wird.\n\n*Im Beispiel zwei Top-Level-Endpunkte mit einer nachgelagerten Organisation und mehreren Angeboten.*\n\n- Die Zusammenführung der Ergebnisse wird durch einen gemeinsamen Standard ermöglicht.\n\t- Guter Startpunkt: [Core Public Organisation Vocabulary](https://interoperable-europe.ec.europa.eu/collection/semic-support-centre/core-vocabularies) der EU\n\n- Die Struktur hinter den Top-Level-Endpunkten könnte ähnlich zum Prozess des Harvesting auf Open Data Portalen gestaltet werden: als umgedrehte Baumstruktur.\n\n- Datenquellen können flexibel angeschlossen werden\n\t- Triple Store\n    - RDF Files\n    - [CSV zu RDF](https://www.w3.org/ns/csvw)\n    - [RDF-Mapping](https://github.com/ontop/ontop) auf relationalen Datenbanken\n    \n- Leichtgewichtige Weboberfläche der \"Allianz/Konsortium\" mit Query-Funktion?\n\t- Keine Cloud Infra nötig: [Comunica](https://comunica.dev) + statische GitHub Pages Seite\n    \n- Periodische Daten-Dumps, bspw. zur Einspeisung in den [Datenatlas Zivilgesellschaft](https://datenatlas-zivilgesellschaft.de)?".
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node10;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node12;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node11;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node8;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node10;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge8 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node12;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge9 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node11;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge10 a ff:Edge;
+          ff:hasSource ff:node7;
+          ff:hasTarget ff:node9;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge11 a ff:Edge;
+          ff:hasSource ff:node10;
+          ff:hasTarget ff:node4;
+          ff:hasPortOut 1;
+          ff:hasPortIn 1.
+ff:edge12 a ff:Edge;
+          ff:hasSource ff:node11;
+          ff:hasTarget ff:node4;
+          ff:hasPortOut 1;
+          ff:hasPortIn 2.
+ff:edge13 a ff:Edge;
+          ff:hasSource ff:node12;
+          ff:hasTarget ff:node4;
+          ff:hasPortOut 1;
+          ff:hasPortIn 3.
