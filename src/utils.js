@@ -139,6 +139,15 @@ export async function serializeDatasetToTurtle(dataset) {
         writer.addQuads([...dataset])
         writer.end((err, result) => {
             if (err) return reject(err)
+            // remove unused prefixes
+            const lines = result.split("\n")
+            const allPrefixes = lines
+                .filter(l => l.trim().startsWith("@prefix"))
+                .map(l => l.split(/\s+/)[1])
+            const keepPrefixes = new Set(allPrefixes.filter(prefix => [...result.matchAll(new RegExp(prefix, "g"))].length > 1))
+            result = lines
+                .filter(l => !l.trim().startsWith("@prefix") || keepPrefixes.has(l.split(/\s+/)[1]))
+                .join("\n")
             resolve(result)
         })
     })
