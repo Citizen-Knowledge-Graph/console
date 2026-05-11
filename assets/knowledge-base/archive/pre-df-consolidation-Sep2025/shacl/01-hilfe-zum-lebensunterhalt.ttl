@@ -1,0 +1,56 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+ff:hilfe-zum-lebensunterhalt a ff:RequirementProfile ;
+    ff:leikaId "99107012017000" ;
+    ff:title "Hilfe zum Lebensunterhalt"@de , "Cost-of-living assistance"@en ;
+    ff:category ff:sozialhilfe-grundsicherung-bc-kategorie, ff:leistungen-fuer-familien-bc-kategorie, ff:gesundheit-pflege-bc-kategorie ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/hilfe-zum-lebensunterhalt> ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:sozialamt ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:benefitInfo "Die „Hilfe zum Lebensunterhalt“ richtet sich an Menschen, die eine Zeit lang nicht oder nur wenig arbeiten können. Sie dient dazu grundlegende Bedürfnisse wie Essen, Kleidung und Miete zu bezahlen. Hilfe zum Lebensunterhalt erhalten Personen, für die andere staatliche Leistungen, wie etwa Rente oder Bürgergeld (früher ALG II), nicht infrage kommen."@de ,
+        "If you are currently unable to work due to health reasons, you may be entitled to cost of living assistance. The prerequisite is that you are temporarily unable to earn your living yourself or with the help of other people, for example a partner or your family."@en ;
+    ff:ineligibleGeneralExplanation "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Einen Anspruch auf Hilfe zum Lebensunterhalt haben erwerbsunfähige Menschen, die ihren Lebensunterhalt nicht aus eigenen Mitteln bestreiten können, weil sie z.B. längerfristig erkrankt sind oder wegen Erwerbsminderung nur eine geringe Rente bekommen. Es dient dazu, das Existenzminimum zu sichern, wenn weder ein Anspruch auf Bürgergeld (früher ALG II) noch auf Grundsicherung im Alter und bei Erwerbsminderung besteht."@de ,
+        "You are probably not entitled to this benefit. People who are unable to work and who cannot earn their living from their own means, because they are ill for a long time or only receive a small pension due to a reduced earning capacity, are entitled to cost-of-living assistance. It serves to secure the subsistence level if there is neither an entitlement to unemployment benefit II nor to basic security in old age and in the event of reduced earning capacity."@en ;
+    ff:hasMainShape ff:hilfe-zum-lebensunterhaltMainShape .
+
+ff:hilfe-zum-lebensunterhaltMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:aufenthaltsort ;
+        sh:minCount 1 ;
+        sh:in (ff:aufenthaltsort-ao-innerhalb) ;
+    ] ;
+    sh:property [
+        sh:path ff:geburtsdatum ; # find a way to not have to declare this explicitly? reverse materialization logic? TODO
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:pensionable ;
+        sh:minCount 1 ;
+        sh:in (false) ;
+    ] ;
+    sh:property [
+        sh:path ff:erwerbsfaehig_neu ;
+        sh:minCount 1 ;
+        sh:in (ff:erwerbsfaehig_neu-ao-nein-weniger-6-monate) ;
+    ] ;
+    sh:property [
+        sh:path ff:beruf_neu ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:beruf_neu-ao-alg) ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ff:bezogene_leistungen ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:bezogene_leistungen-arbeitslosengeld ff:bezogene_leistungen-buergergeld) ;
+        ] ;
+    ] .

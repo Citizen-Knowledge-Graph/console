@@ -1,0 +1,21 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ff:solar a ff:RequirementProfile ;
+             ff:author ff:benjaminaaron ;
+             ff:created "2023-10-26"^^xsd:date ;
+             ff:title "Solarpanel Förderung" ;
+             ff:category ff:Waermewende, ff:Klimaschutz ;
+             ff:targetGroup ff:Citizen ;
+             ff:fundingProvider ff:GermanState .
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasResidence ;
+        sh:in ("Berlin") ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ]  .

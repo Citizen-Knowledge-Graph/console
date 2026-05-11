@@ -1,0 +1,45 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:wfgam a ff:RequirementProfile ;
+    ff:title "Förderung gastronomischer Außenmöblierung in Wolfenbüttel"@de,
+        "Funding for gastronomic outdoor furniture in Wolfenbüttel"@en ;
+    ff:category ff:gewerbe-foerderung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta , ff:wolfenbuettel ;
+    ff:benefitInfo "Die Förderung gastronomischer Außenmöblierung unterstützt Betriebe bei der Anschaffung von wetterfesten und nachhaltigen Außenmöbeln für den gastronomischen Bereich."@de ,
+        "The funding for gastronomic outdoor furniture supports businesses in acquiring weather-resistant and sustainable outdoor furniture for gastronomy."@en ;
+    rdfs:seeAlso <https://www.wolfenbuettel.de/loadDocument.phtml?FID=3413.8485.1&Ext=PDF> ;
+    ff:hasMainShape ff:wfgamMainShape .
+
+ff:wfgamMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:interestInBusinessFunding ;
+        sh:in ( true ) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path ff:businessActivityLocation ;
+        sh:in (ff:businessActivityLocation-wolfenbuettel) ;
+        sh:minCount 1 ;
+        sh:message "Das gastronomische Gewerbe muss in Wolfenbüttel sein."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:industry ;
+        sh:in (ff:industry-gastronomy) ;
+        sh:minCount 1 ;
+        sh:message "Das Unternehmen muss im gastronomischen Bereich tätig sein."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:permitOutdoorSeating ;
+        sh:in ( true ) ;
+        sh:minCount 1 ;
+        sh:message "Eine Genehmigung für Außenbestuhlung muss vorliegen."@de ;
+    ] .

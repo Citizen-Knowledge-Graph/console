@@ -1,0 +1,117 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-01-16_17-50-03";
+         ff:hasName "Demo: Form Breakdown";
+         ff:hasExportTimestamp "2025-01-16T18:20:54.716Z";
+         ff:hasTranslateX -133;
+         ff:hasTranslateY 109;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7, ff:node8, ff:node9;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6, ff:edge7, ff:edge8, ff:edge9.
+ff:node1 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Knowledge base";
+         ff:hasPosX "331";
+         ff:hasPosY "164";
+         ff:hasWidth 557;
+         ff:hasHeight 1006;
+         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\n# DATAFIELDS\n\nff:hasChild a ff:DataField ;\n    ff:shaclShape [\n    \ta sh:PropertyShape ;\n        sh:path ff:hasChild ;\n        sh:name \"has child\" ;\n        sh:nodeKind sh:IRI ;\n        sh:description \"add child\" ;\n        sh:minCount 1 ;\n        ff:pointsToInstancesOf ff:Child ;\n\t] .\n\nfoaf:age a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path foaf:age ;\n        sh:name \"Age\" ;\n        sh:datatype xsd:integer ;\n        sh:minInclusive 0 ;\n        sh:minCount 1 ;\n        sh:maxCount 1 ;\n\t] .\n\nff:citizenship a ff:DataField ;\n\tff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:citizenship ;\n        sh:name \"Citizenship\" ;\n        sh:in (ff:cit-ao-ger ff:cit-ao-eu ff:cit-ao-3rd) ;\n\t] .\n\nff:cit-ao-ger a ff:AnswerOption ; ff:title \"German\" .\nff:cit-ao-eu a ff:AnswerOption ; ff:title \"EU\" .\nff:cit-ao-3rd a ff:AnswerOption ; ff:title \"Third country (non-EU)\" .\n\nff:hasResidence a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:hasResidence ;\n        sh:name \"Residence\" ;\n        sh:datatype xsd:string ;\n        sh:maxCount 1 ;\n    ] .\n\nff:residesInState a ff:DataField ;\n    ff:shaclShape [\n        a sh:PropertyShape ;\n        sh:path ff:residesInState ;\n        sh:name \"Federal state\" ;\n        sh:datatype xsd:string ;\n        sh:maxCount 1 ;\n    ] .\n\n# CLASSES\n\nff:Citizen a ff:Class .\nff:Child a ff:Class .".
+ff:node2 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Requirement profile";
+         ff:hasPosX "977";
+         ff:hasPosY "15";
+         ff:hasWidth 519;
+         ff:hasHeight 609;
+         ff:hasValue "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ff: <https://foerderfunke.org/default#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix foaf: <http://xmlns.com/foaf/0.1/> .\n\nff:kinderzuschlag a ff:RequirementProfile ;\n    ff:leikaId \"99107016017000\" ;\n    ff:title \"Kinderzuschlag\"@de , \"Child allowance\"@en ;\n    ff:hasMainPersonShape ff:kinderzuschlagMainPersonShape .\n\nff:kinderzuschlagMainPersonShape a sh:NodeShape ;\n\tsh:targetClass ff:Citizen ;\n\tsh:property [\n    \tsh:path ff:citizenship ;\n        sh:hasValue ff:cit-ao-ger ;\n\t\tsh:minCount 1 ;\n   \t] ;\n\tsh:property [\n      \tsh:path ff:hasResidence ;\n        sh:hasValue \"Augsburg\" ;\n        sh:minCount 1 ;\n  \t] ;\n    sh:property [\n        sh:path ff:hasChild ;\n        sh:qualifiedValueShape ff:ChildShape;\n        sh:qualifiedMinCount 1;\n    ] .\n\nff:ChildShape a sh:NodeShape ;\n\tsh:targetClass ff:Child ;\n\tsh:property [\n        sh:path foaf:age ;\n        sh:maxInclusive 25 ;\n        sh:minCount 1 ;\n    ] .".
+ff:node3 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Initial user profile";
+         ff:hasPosX 998;
+         ff:hasPosY 844;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#>.\n@prefix foaf: <http://xmlns.com/foaf/0.1/>.\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\n\nff:child0 a ff:Child;\n  foaf:age 10.\n\nff:mainPerson a ff:Citizen;\n  ff:hasChild ff:child0.".
+ff:node4 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Multiply out class shapes to individuals";
+         ff:hasPosX 1753;
+         ff:hasPosY -97;
+         ff:hasWidth 777;
+         ff:hasHeight 844;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\nCONSTRUCT {\n\t# multiply out form fields\n  \t?individualNodeShape a sh:NodeShape ;\n    \tsh:targetNode ?individual ;\n        ff:hasParent ?parentIndividual ;\n        ff:instanceOf ?class ;\n        sh:property ?individualDatafieldPropertyShape .\n  \t?individualDatafieldPropertyShape ?dfP ?dfO ;\n\t\tsh:order ?order .\n  \t# optionally also include requirement profile constraints\n  \t#?individualDatafieldPropertyShape ?rpP ?rpO .\n  \t#<< ?individualDatafieldPropertyShape ?rpP ?rpO >> ff:viaRequirementProfile ?reqProf .\n\n  \t# add user profile\n  \t?individual ?upP ?upO .\n\n  \t# add requirement profile metadata\n  \t?reqProf ?rpMetaP ?rpMetaO .\n} WHERE {\n  \t# from user profile\n  \t?individual a ?class ;\n    \t?upP ?upO .\n  \t?class a ff:Class .\n  \tBIND(IRI(CONCAT(STR(?individual), \"_NodeShape\")) AS ?individualNodeShape)\n\n  \tOPTIONAL {\n    \t?parentIndividual a ?otherClass .\n    \t?otherClass a ff:Class .\n    \t?parentIndividual ?predicate ?individual .\n  \t}\n\n  \t# from requirement profile\n  \t?reqProf a ff:RequirementProfile ;\n    \t?rpMetaP ?rpMetaO .         \n  \t?classNodeShape sh:targetClass ?class ;\n    \tsh:property ?classNodeShapeProperty .\n \t?classNodeShapeProperty sh:path ?datafield ;\n   \t\t?rpP ?rpO .\n  \tFILTER(?rpP != sh:path)\n  \tOPTIONAL { ?classNodeShapeProperty sh:order ?order }\n\n  \t# from datafields.ttl\n  \t?datafield a ff:DataField ;\n    \tff:shaclShape ?datafieldPropertyShape .\n  \t?datafieldPropertyShape ?dfP ?dfO .\n  \tFILTER(?dfP != sh:in)\n\n  \tBIND(IRI(CONCAT(STR(?individual), \"_\", REPLACE(STR(?datafield), \"^.*[#/]\", \"\"), \"PropShape\")) AS ?individualDatafieldPropertyShape)\n}".
+ff:node5 a ff:Node;
+         ff:hasClass ff:MergeTriplesNode;
+         ff:hasName "Merge triples";
+         ff:hasPosX 1726;
+         ff:hasPosY 793;
+         ff:hasContentHidden true.
+ff:node6 a ff:Node;
+         ff:hasClass ff:SparqlConstructExecNode;
+         ff:hasName "Run SPARQL CONSTRUCT";
+         ff:hasPosX 2635;
+         ff:hasPosY 776;
+         ff:hasContentHidden true.
+ff:node7 a ff:Node;
+         ff:hasClass ff:SparqlConstructExecNode;
+         ff:hasName "Run SPARQL CONSTRUCT";
+         ff:hasPosX 2626;
+         ff:hasPosY 915;
+         ff:hasContentHidden true.
+ff:node8 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Multiply out class shapes to individuals";
+         ff:hasPosX 1983;
+         ff:hasPosY 992;
+         ff:hasWidth 507;
+         ff:hasHeight 539;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nCONSTRUCT {\n  \t?individualDatafieldPropertyShape sh:in ?rootList .\n  \t?listNode rdf:first ?head ;\n\t\trdf:rest  ?tail .\n  \t?ao ?aoP ?aoO .\n} WHERE {\n  \t?individual a ?class .\n  \t?class a ff:Class .\n  \t?classNodeShape sh:targetClass ?class ;\n    \tsh:property ?classNodeShapeProperty .\n  \t?classNodeShapeProperty sh:path ?datafield .\n\n  \t?datafield a ff:DataField ;\n\t\tff:shaclShape ?datafieldPropertyShape .\n\n  \tBIND(IRI(CONCAT(STR(?individual), \"_\", REPLACE(STR(?datafield), \"^.*[#/]\", \"\"), \"PropShape\")) AS ?individualDatafieldPropertyShape)\n\n  \t?datafieldPropertyShape sh:in ?rootList .\n  \t?rootList rdf:rest* ?listNode .\n  \t?listNode rdf:first ?head ;\n\t\trdf:rest  ?tail .\n\n  \t?ao a ff:AnswerOption ;\n\t\t?aoP ?aoO .\n}".
+ff:node9 a ff:Node;
+         ff:hasClass ff:MergeTriplesNode;
+         ff:hasName "Input for form";
+         ff:hasPosX 3197;
+         ff:hasPosY 315.
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node3;
+         ff:hasTarget ff:node5;
+         ff:hasPortOut 1;
+         ff:hasPortIn 3.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node6;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge7 a ff:Edge;
+         ff:hasSource ff:node8;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge8 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge9 a ff:Edge;
+         ff:hasSource ff:node7;
+         ff:hasTarget ff:node9;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.

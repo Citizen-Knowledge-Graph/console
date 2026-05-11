@@ -1,0 +1,128 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:healthInsurance a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Krankenversicherung"@de , "Health Insurance"@en ;
+    schema:question "Haben Sie eine Krankenversicherung?"@de ,
+                    "Do you have health insurance?"@en ;
+    rdfs:comment "Erfasst wird, ob eine Person über eine gültige Krankenversicherung verfügt. In Deutschland besteht eine allgemeine Krankenversicherungspflicht (§ 193 VVG)."@de ,
+                 "This field captures whether a person has valid health insurance. In Germany, there is a general obligation to have health insurance (§ 193 German Insurance Contract Act)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:healthInsurance ;
+        sh:property [
+            sh:path ff:healthInsurance ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:careInsurance a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Pflegeversicherung"@de , "Care Insurance"@en ;
+    schema:question "Haben Sie eine Pflegeversicherung?"@de ,
+                    "Do you have care insurance?"@en ;
+    rdfs:comment "Erfasst wird, ob eine Person über eine Pflegeversicherung verfügt. In Deutschland besteht eine gesetzliche Pflicht zur Pflegeversicherung (§ 23 SGB XI)."@de ,
+                 "This field captures whether a person has care insurance. In Germany, there is a statutory obligation to have care insurance (§ 23 German Social Code, Book XI)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:careInsurance ;
+        sh:property [
+            sh:path ff:careInsurance ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+# specific
+
+ff:socialInsurance12Months a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Sozialversicherung mindestens 12 Monate"@de , "Social Insurance for at Least 12 Months"@en ;
+    schema:question "Waren Sie bisher insgesamt mindestens zwölf Monate sozialversichert?"@de ,
+                    "Have you been covered by social insurance for at least twelve months in total?"@en ;
+    rdfs:comment "Sozialversicherung umfasst die Pflichtversicherungen in Deutschland, insbesondere Kranken-, Pflege-, Renten-, Arbeitslosen- und Unfallversicherung. Die Frage bezieht sich darauf, ob eine Person in der Vergangenheit insgesamt mindestens zwölf Monate in einem oder mehreren dieser Systeme versichert war."@de ,
+                 "Social insurance includes the mandatory insurances in Germany, in particular health, long-term care, pension, unemployment, and accident insurance. This question refers to whether a person has been insured in one or more of these systems for at least twelve months in total in the past."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:socialInsurance12Months ;
+        sh:property [
+            sh:path ff:socialInsurance12Months ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:socialInsurance12MonthsLast3Years a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Sozialversicherung 12 Monate in den letzten 3 Jahren"@de , "Social Insurance 12 Months in the Last 3 Years"@en ;
+    schema:question "Waren Sie innerhalb der letzten drei Jahre mindestens zwölf Monate sozialversichert?"@de ,
+                    "Have you been covered by social insurance for at least twelve months within the last three years?"@en ;
+    rdfs:comment "Sozialversicherung umfasst die Pflichtversicherungen in Deutschland, insbesondere Kranken-, Pflege-, Renten-, Arbeitslosen- und Unfallversicherung. Die Frage bezieht sich darauf, ob innerhalb der letzten drei Jahre insgesamt mindestens zwölf Monate Versicherungsschutz in einem oder mehreren dieser Systeme bestand."@de ,
+                 "Social insurance includes the mandatory insurances in Germany, in particular health, long-term care, pension, unemployment, and accident insurance. This question refers to whether a person has had a total of at least twelve months of coverage in one or more of these systems within the last three years."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:socialInsurance12MonthsLast3Years ;
+        sh:property [
+            sh:path ff:socialInsurance12MonthsLast3Years ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:statutoryPensionFiveYears a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Gesetzliche Rentenversicherung: fünf Jahre"@de , "Statutory Pension: Five Years"@en ;
+    schema:question "Erfüllen Sie die fünfjährige Mindestversicherungszeit in der gesetzlichen Rentenversicherung?"@de ,
+                    "Do you meet the five-year minimum insurance period in the statutory pension scheme?"@en ;
+    rdfs:comment "Die gesetzliche Rentenversicherung verlangt eine Mindestversicherungszeit von fünf Jahren (Wartezeit). Dazu zählen Monate mit Pflicht- oder freiwilligen Beiträgen sowie sogenannte Anrechnungszeiten, also beitragsfreie Zeiten, die dennoch berücksichtigt werden. Anrechnungszeiten können zum Beispiel Zeiten von Schule oder Studium nach dem 17. Lebensjahr, Zeiten von Arbeitslosigkeit ohne Leistungsbezug, Zeiten der Schwangerschaft und Mutterschutzfristen oder längere Krankheitszeiten sein."@de ,
+                 "The statutory pension scheme requires a minimum insurance period of five years (qualifying period). This includes months with compulsory or voluntary contributions as well as so-called credited periods, which are contribution-free periods that still count. Credited periods can include, for example, periods of school or university after the age of 17, periods of unemployment without benefits, pregnancy and maternity leave, or long-term illness."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:statutoryPensionFiveYears ;
+        sh:property [
+            sh:path ff:statutoryPensionFiveYears ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .    
+
+ff:statutoryPension36Months5Years a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Gesetzliche Rentenversicherung: 36 Monate Pflichtbeiträge in 5 Jahren"@de , "Statutory Pension: 36 Months of Compulsory Contributions in 5 Years"@en ;
+    schema:question "Haben Sie in den letzten 5 Jahren mindestens 36 Monate Pflichtbeiträge zur gesetzlichen Rentenversicherung gezahlt?"@de ,
+                    "In the last five years, have you paid at least 36 months of compulsory contributions to the statutory pension scheme?"@en ;
+    rdfs:comment "Pflichtbeiträge sind Beiträge zur gesetzlichen Rentenversicherung, die aufgrund einer abhängigen Beschäftigung oder bestimmter anderer Tatbestände automatisch gezahlt werden. Die Frage bezieht sich auf die sogenannte 3/5-Regel, also ob innerhalb der letzten 5 Jahre mindestens 36 Monate Pflichtbeiträge gezahlt wurden (§ 43 SGB VI)."@de ,
+                 "Compulsory contributions are contributions to the statutory pension scheme that are automatically paid due to employment or certain other circumstances. This question refers to the so-called 3/5 rule, that is, whether at least 36 months of compulsory contributions have been paid within the last five years (§ 43 German Social Code, Book VI)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:statutoryPension36Months5Years ;
+        sh:property [
+            sh:path ff:statutoryPension36Months5Years ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:statutoryPension20YearsDisability a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Gesetzliche Rentenversicherung: 20 Jahre bei voller Erwerbsminderung"@de , "Statutory Pension: 20 Years During Full Disability"@en ;
+    schema:question "Haben Sie, seit Sie ununterbrochen voll erwerbsgemindert sind, insgesamt mindestens 20 Jahre Zeiten in der gesetzlichen Rentenversicherung angesammelt?"@de ,
+                    "Since you have been continuously fully reduced in earning capacity, have you accumulated at least 20 years in the statutory pension scheme?"@en ;
+    rdfs:comment "Die gesetzliche Rentenversicherung kennt besondere Anspruchsvoraussetzungen für Menschen, die voll erwerbsgemindert sind. Eine Möglichkeit besteht darin, dass seit Beginn der vollen Erwerbsminderung mindestens 20 Jahre Versicherungszeiten vorliegen. Dazu zählen Pflicht- und freiwillige Beiträge sowie bestimmte Anrechnungszeiten (§ 43 Abs. 6 SGB VI)."@de ,
+                 "The statutory pension scheme provides special eligibility requirements for people with full reduction in earning capacity. One option is that at least 20 years of insurance periods have been accumulated since the beginning of full reduction in earning capacity. These include compulsory and voluntary contributions as well as certain credited periods (§ 43 (6) German Social Code, Book VI)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:statutoryPension20YearsDisability ;
+        sh:property [
+            sh:path ff:statutoryPension20YearsDisability ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .    

@@ -1,0 +1,80 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:schwerbehindertenausweis a ff:RequirementProfile ;
+    ff:title "Schwerbehindertenausweis und Gleichstellung"@de ,
+             "Severely Disabled ID and Equal Status"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie, ff:sozialhilfe-grundsicherung-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:sozialamt ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "Menschen mit einer Behinderung haben je nach Grad der Behinderung und Arbeitsplatzsituation Anspruch auf einen Schwerbehindertenausweis oder eine Gleichstellung."@de ,
+                   "People with a disability may be entitled to a severely disabled person's ID card or to equal status, depending on the degree of disability and their employment situation."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:schwerbehindertenausweisMainShape ;
+    ff:hasFlowShape ff:schwerbehindertenausweisFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:schwerbehindertenausweisMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [ sh:path ff:has_disability ; sh:in (true) ] ;
+    sh:property [ sh:path ff:disability_expected_duration_6_months ; sh:in (true) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:registered_residence_country ; sh:in (ff:registered_residence_country-germany) ] ]
+            [ sh:property [ sh:path ff:aufenthaltsort ; sh:in (ff:aufenthaltsort-ao-ausserhalb) ] ]
+            [ sh:property [ sh:path ff:employment_country ; sh:in (ff:employment_country-germany) ] ]
+        )
+    ] ;
+    sh:property [ sh:path ff:disability_degree_evaluated; sh:in (true) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:disability_degree ; sh:minInclusive 50 ] ]
+            [ 
+                sh:and (
+                    sh:property [ sh:path ff:disability_degree ; sh:minInclusive 30 ; sh:maxInclusive 49 ]
+                    sh:property [ sh:path ff:job_at_risk_without_equal_status ; sh:in (true) ]
+                )
+            ]
+        )
+    ] .
+
+# ----- DECISION TREE LOGIC -----
+
+ff:schwerbehindertenausweisFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property ff:baseRequirements ;
+    sh:property ff:degreeEvaluatedPS ;
+    sh:property ff:jobRiskPS .
+
+ff:baseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:has_disability ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:disability_expected_duration_6_months ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:registered_residence_country ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:aufenthaltsort ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:employment_country ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:disability_degree_evaluated ; sh:minCount 1 ] .
+
+ff:degreeEvaluatedPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:disability_degree_evaluated ] true ) 
+        ]
+    ] ;
+    sh:path ff:disability_degree ; sh:minCount 1 .
+
+ff:jobRiskPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:or (
+            [ sh:path ff:disability_degree ; sh:maxInclusive 49 ]
+            [ sh:path ff:disability_degree ; sh:minInclusive 30 ]
+        )
+    ] ;
+    sh:path ff:job_at_risk_without_equal_status ; sh:minCount 1 .

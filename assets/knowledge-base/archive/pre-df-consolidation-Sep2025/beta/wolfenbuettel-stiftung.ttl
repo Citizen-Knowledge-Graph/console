@@ -1,0 +1,42 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:wolfenbuettel-stiftung a ff:RequirementProfile ;
+    ff:title "Wolfenbüttel Stiftung"@de , "Wolfenbüttel Foundation"@en ;
+    ff:category ff:stiftungs-foerderung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta , ff:wolfenbuettel ;
+    ff:benefitInfo "Die Wolfenbüttel-Stiftung unterstützt bedürftige Kinder, hilfsbedürftige ältere Menschen und soziale Projekte in Wolfenbüttel – ohne Rechtsanspruch auf Förderung."@de ,
+        "The Wolfenbüttel Foundation supports needy children, needy elderly people and social projects in Wolfenbüttel - without a legal claim to funding."@en ;
+    rdfs:seeAlso <https://www.wolfenbuettel.de/index.php?ModID=7&FID=2672.9007.1&object=tx%7C2672.9007.1> ;
+    ff:hasMainShape ff:wolfenbuettel-stiftungMainShape .
+
+ff:wolfenbuettel-stiftungMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:residence_city ;
+        sh:in (ff:residence_city-wolfenbuettel) ;
+        sh:minCount 1 ;
+        sh:message "Antragsberechtigt sind nur Personen und Institutionen mit Wohnsitz in Wolfenbüttel. (Quelle: 'Antragsberechtigt sind: Personen und Institutionen, die in Wolfenbüttel ansässig sind')."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:is_in_need ;
+        sh:in (true) ;
+        sh:minCount 1 ;
+        sh:message "Eine Förderung ist nur möglich, wenn eine Bedürftigkeit vorliegt. (Quelle: '... die bedürftig sind')."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:received_wolfenbuettel_stiftung_funding_previous_year ;
+        sh:in (false) ;
+        sh:minCount 1 ;
+        sh:message "Eine Förderung ist nur möglich, wenn im Vorjahr keine Förderung durch die Wolfenbüttel-Stiftung erhalten wurde. (Quelle: 'Die Förderung erfolgt nur einmal jährlich und nicht für bereits geförderte Projekte')."@de ;
+    ] .
+
+    
+
+

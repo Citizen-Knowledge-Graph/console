@@ -1,0 +1,34 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:mainPerson a ff:Citizen ;
+    ff:hasFirstNames "Max" ;
+    ff:hasFamilyName "Mustermann" ;
+    ff:hasBirthday "1992-05-17"^^xsd:date ;
+    ff:paysRentCold 900 ;
+    ff:hasLivingArea 80 ;
+    ff:hasResidence "Berlin" ;
+    ff:parentingSetup ff:Elternpaar ;
+    ff:receivesWohngeld 450 ;
+    ff:hasIncomeBrutto 2700 ;
+    ff:hasIncomeNetto 1600 ;
+    ff:hasChild ff:child0 ;
+    ff:hasChild ff:child1 .
+    # following the example calculation on page 8 here: https://www.arbeitsagentur.de/datei/kiz2-merkblattkinderzuschlag_ba034485.pdf
+    # ff:hasGesamtbedarf 2773 ;
+    # ff:hasGesamtverfuegung 2550 ;
+    # ff:hasGesamtverfuegungPlusKinderzuschlag 3134 .
+
+ff:child0 a ff:Child ;
+    ff:hasFirstNames "Maria" ;
+    ff:hasFamilyName "Mustermann" ;
+    ff:hasBirthday "2013-01-23"^^xsd:date ;
+    # ff:hasAge 11 ;
+    ff:hasMaritalStatus "LD" ; # ledig
+    ff:receiveKindergeld 250 .
+
+ff:child1 a ff:Child ;
+    ff:hasBirthday "2008-02-15"^^xsd:date ;
+    # ff:hasAge 16 ;
+    ff:hasMaritalStatus "LD" ;
+    ff:receiveKindergeld 250 .

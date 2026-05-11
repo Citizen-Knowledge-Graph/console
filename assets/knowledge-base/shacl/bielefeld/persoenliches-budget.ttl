@@ -1,0 +1,34 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:pbg a ff:RequirementProfile ;
+    ff:title "Persönliches Budget"@de ,
+                "Personal Budget"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:sozialamt, ff:bundesagentur-fuer-arbeit, ff:kassenaerztliche-vereinigung, ff:gesundheitsamt, ff:integrationsamt, ff:jugendamt, ff:rentenversicherung ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "Menschen mit einer Behinderung oder von Behinderung bedrohte Personen können Leistungen zur Teilhabe in Form eines Persönlichen Budgets erhalten. Dadurch werden ihnen die erforderlichen Hilfen als Geldleistung oder Gutschein gewährt, sodass sie diese selbstbestimmt organisieren können."@de ,
+                    "People with a disability or at risk of disability may receive participation benefits in the form of a Personal Budget. This provides them with the necessary support as cash benefits or vouchers, enabling them to organize assistance independently."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:pbgMainShape ;
+    ff:hasFlowShape ff:pbgFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:pbgMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [ sh:path ff:disability ; sh:in (true) ] .
+
+# ----- DECISION TREE LOGIC -----
+
+ff:pbgFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property ff:pbgBaseRequirements .
+
+ff:pbgBaseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:disability ; sh:minCount 1 ] .

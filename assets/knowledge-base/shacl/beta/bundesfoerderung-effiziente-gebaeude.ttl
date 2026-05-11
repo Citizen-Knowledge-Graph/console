@@ -1,0 +1,50 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shn: <https://schemas.link/shacl-next#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:beg a ff:RequirementProfile ;
+    ff:title "Bundesförderung für effiziente Gebäude – Einzelmaßnahmen: Sanieren"@de ,
+             "Federal Funding for Efficient Buildings – Individual Measures: Renovation"@en ;
+    ff:category ff:wohnungsbau-modernisierung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Die BEG EM Sanierung fördert Maßnahmen zur Verbesserung der Energieeffizienz und des Anteils erneuerbarer Energien bei bestehenden Gebäuden durch Zuschüsse oder Kredite. Die förderfähigen Maßnahmen umfassen Dämmung, Heizungsmodernisierung, Anlagentechnik und Fachplanung."@de ,
+                 "BEG EM Renovation supports measures to improve energy efficiency and the share of renewable energy in existing buildings through grants or loans. Eligible measures include insulation, heating modernization, technical systems, and energy planning."@en ;
+    rdfs:seeAlso <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestandsimmobilie/F%C3%B6rderprodukte/Bundesf%C3%B6rderung-effiziente-Geb%C3%A4ude-Einzelma%C3%9Fnahmen-Kredit-(261)/> ;
+    ff:hasMainShape ff:begMainShape .
+
+ff:begMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+   	
+    sh:property [
+        sh:path ff:propertyOwnerhship ;
+        sh:in ( true ) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path ff:propertyRequiresRenovation ;
+        sh:in ( true ) ;
+        sh:minCount 1 ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:buildingCountry ;
+        sh:in ( ff:buildingCountry-ger ) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path ff:buildingTypeRenovation ;
+        sh:in ( ff:buildingTypeRenovation-existing ) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [   
+        sh:path ff:renovationType ;
+        sh:in ( ff:renovationType-energyEfficiency ff:renovationType-renewableHeating ) ;
+        sh:minCount 1 ;
+        sh:message "Die Maßnahme muss zur Verbesserung der Energieeffizienz oder zur Erhöhung des Anteils erneuerbarer Energien beitragen. (Quelle: BEG Merkblatt – '... die Energieeffizienz und der Anteil erneuerbarer Energien ... gesteigert werden ...')"@de ;
+    ] .

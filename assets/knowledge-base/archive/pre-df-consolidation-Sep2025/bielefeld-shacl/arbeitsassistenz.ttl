@@ -1,0 +1,141 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:arbeitsassistenz a ff:RequirementProfile ;
+    ff:title "Arbeitsassistenz"@de ,
+              "Job Assistance"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:integrationsamt ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "Arbeitsassistenz ist eine Unterstützung für Menschen mit Behinderungen, bei der eine Hilfsperson am Arbeitsplatz notwendige Tätigkeiten übernimmt, um die Ausübung der beruflichen Aufgaben zu ermöglichen oder zu erleichtern."@de ,
+                "Job assistance is a support for people with disabilities, where an assistant at the workplace takes over necessary tasks to enable or facilitate the performance of professional duties."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:arbeitsassistenzMainShape ;
+    ff:hasFlowShape ff:arbeitsassistenzFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:arbeitsassistenzMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [ sh:path ff:has_disability ; sh:in (true) ] ;
+    sh:property [ sh:path ff:disability_degree_evaluated; sh:in (true) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:disability_degree ; sh:minInclusive 50 ] ]
+            [ 
+                sh:and (
+                    sh:property [ sh:path ff:disability_degree ; sh:minInclusive 30 ; sh:maxInclusive 49 ]
+                    sh:property [ sh:path ff:job_at_risk_without_equal_status ; sh:in (true) ]
+                )
+            ]
+        )
+    ] ;
+    sh:property [ sh:path ff:requires_assistance ; sh:in (true) ] ;
+    sh:property [ sh:path ff:core_activity_independent ; sh:in (true) ] ;
+    sh:property [ sh:path ff:existing_workplace_measures_sufficient ; sh:in (false) ] ;
+    sh:property [
+        sh:or (
+            [ sh:property ff:inclusiveWorkplacePS ]            
+            [ sh:property ff:socialSecurityEmploymentPS ]
+            [ sh:property ff:selfEmployedPS ]     
+            [ sh:property ff:founderPS ]      
+        )
+    ] .
+
+ff:inclusiveWorkplacePS a sh:PropertyShape ;
+    sh:and (
+        sh:property [ sh:path ff:workplace ; sh:in (ff:workplace-inclusive) ]
+        sh:property [ sh:path ff:workhours_per_week ; sh:minInclusive 12 ]
+    ) .
+
+ff:socialSecurityEmploymentPS a sh:PropertyShape ;
+    sh:and (
+        sh:property [ sh:path ff:beruf_neu ; sh:in (ff:beruf_neu-ao-soz) ]
+        sh:property [ sh:path ff:workhours_per_week ; sh:minInclusive 15 ]
+    ) .    
+
+ff:selfEmployedPS a sh:PropertyShape ;
+    sh:and (
+        sh:property [ sh:path ff:workplace ; sh:in (ff:workplace-self-employed) ]
+        sh:property [ sh:path ff:workhours_per_week ; sh:minInclusive 15 ]
+        sh:property [ sh:path ff:self_employment_secures_livelihood ; sh:in (true) ]
+    ) .
+    
+ff:founderPS a sh:PropertyShape ;
+    sh:and (
+        sh:property [ sh:path ff:interested_in_founding ; sh:in (true) ] 
+        sh:property [ sh:path ff:business_plan ; sh:in (true) ] 
+    ) .
+    
+
+# ----- DECISION TREE LOGIC -----
+
+ff:arbeitsassistenzFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property ff:baseRequirements ;
+    sh:property ff:degreeEvaluatedPS ;
+    sh:property ff:jobRiskPS ;
+    sh:property ff:insufficientWorkplacePS ;
+    sh:property ff:workplaceRequirementsPS .
+
+ff:baseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:has_disability ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:disability_degree_evaluated ; sh:minCount 1 ] .
+
+ff:degreeEvaluatedPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:disability_degree_evaluated ] true ) 
+        ]
+    ] ;
+    sh:property [ sh:path ff:disability_degree ; sh:minCount 1 ] .
+
+ff:jobRiskPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:or (
+            [ sh:path ff:disability_degree ; sh:maxInclusive 49 ]
+            [ sh:path ff:disability_degree ; sh:minInclusive 30 ]
+        )
+    ] ;
+    sh:property [ sh:path ff:job_at_risk_without_equal_status ; sh:minCount 1 ] .
+    
+ff:insufficientWorkplacePS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:or (
+            [ sh:not [  
+                sh:path ff:disability_degree; sh:minInclusive 50
+            ] ]
+            [
+                sh:not [
+                    sh:and (
+                        [ sh:path ff:disability_degree; sh:minInclusive 30 ; sh:maxInclusive 49 ]
+                        [ sh:path ff:job_at_risk_without_equal_status ; sh:in (true) ]
+                    )
+                ]
+            ]
+        )
+    ] ;
+    sh:property [ sh:path ff:requires_assistance ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:core_activity_independent ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:existing_workplace_measures_sufficient ; sh:minCount 1 ] .
+
+ff:workplaceRequirementsPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:and (
+                shn:eq ( [ sh:path ff:requires_assistance ] true ) 
+                shn:eq ( [ sh:path ff:core_activity_independent ] true )
+                shn:eq ( [ sh:path ff:existing_workplace_measures_sufficient ] false )
+            )  
+        ]
+    ] ;
+    sh:property [ sh:path ff:workplace ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:workhours_per_week ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:interested_in_founding ; sh:minCount 1 ] .

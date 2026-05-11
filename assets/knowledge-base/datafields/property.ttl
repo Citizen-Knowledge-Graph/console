@@ -1,0 +1,50 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+ff:propertyOwnerhship a ff:DataField ;
+    schema:category ff:wohnungsbau-modernisierung ;
+    rdfs:label "Gebäude Eigentumsverhältnis"@de , "Building Ownership"@en ;
+    schema:question "Sind Sie Eigentümer:in einer Wohnung oder eines Gebäudes?"@de ,
+                    "Do you own an apartment or a building?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:propertyOwnerhship ;
+        sh:property [
+            sh:path ff:residenceInWolfenbuettel ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:rentalProperty a ff:DataField ;
+    schema:category ff:wohnungsbau-modernisierung ;
+    rdfs:label "Mietobjekt"@de , "Rental Property"@en ;
+    schema:question "Vermieten Sie eine oder mehrere Wohnungen oder Gebäude?"@de ,
+                    "Do you rent out one or more apartments or buildings?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:rentalProperty ;
+        sh:property [
+            sh:path ff:rentalProperty ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:propertyRequiresRenovation a ff:DataField ;
+    schema:category ff:wohnungsbau-modernisierung ;
+    rdfs:label "Gebäude Renovierungsbedarf"@de , "Building Renovation Requirement"@en ;
+    schema:question "Muss Ihre Wohnung oder Ihr Gebäude renoviert werden?"@de ,
+                    "Does your apartment or building need renovation?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:propertyRequiresRenovation ;
+        sh:property [
+            sh:path ff:propertyRequiresRenovation ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

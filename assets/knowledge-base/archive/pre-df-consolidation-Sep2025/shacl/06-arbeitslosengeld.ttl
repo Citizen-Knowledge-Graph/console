@@ -1,0 +1,65 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:arbeitslosengeld a ff:RequirementProfile ;
+    ff:leikaId "99038001017000" ;
+    ff:title "Arbeitslosengeld"@de , "Unemployment benefit"@en ;
+    ff:category ff:arbeitslosigkeit-bc-kategorie ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/arbeitslosengeld> ;
+    ff:validationStage ff:complete-validation ;
+    ff:legalBasis ff:sgb-iii ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:bundesagentur-fuer-arbeit ;
+    ff:benefitInfo "Das Arbeitslosengeld (ALG) sichert Sie sozial ab, wenn Sie Ihre Arbeit oder Ihren Ausbildungsplatz verlieren. Es ersetzt einen Teil Ihres fehlenden Einkommens, damit Sie weiterhin Ihren Lebensunterhalt bestreiten können. Sie haben Anspruch auf diese Leistung, wenn Sie vor Ihrer Arbeitslosigkeit eine bestimmte Zeit pflichtversichert oder freiwillig versichert waren und monatlich Versicherungsbeiträge gezahlt haben."@de ,
+        "Unemployment benefit, or ALG (from the German word Arbeitslosengeld), provides a social safety net in case you lose your job or training position. It replaces part of your missing income so that you can continue to pay your bills."@en ;
+    ff:ineligibleGeneralExplanation "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Für den Anspruch auf Arbeitslosengeld gelten im Wesentlichen diese Voraussetzungen: Sie erfüllen die Anwartschaftszeit. Das bedeutet meist: Sie waren in den 30 Monaten vor Arbeitslosmeldung mindestens 12 Monate versicherungspflichtig beschäftigt. Dabei können mehrere Beschäftigungen zusammengerechnet werden. Sie haben sich bei Ihrer Agentur für Arbeit arbeitslos gemeldet. Sie sind ohne Beschäftigung, können aber eine versicherungspflichtige Beschäftigung ausüben (mindestens 15 Stunden pro Woche). Sie suchen eine versicherungspflichtige Beschäftigung und arbeiten dabei mit der Agentur für Arbeit zusammen. Waren Sie häufig befristet beschäftigt, gilt unter bestimmten Voraussetzungen eine kürzere Anwartschaftszeit: Dann genügen mindestens 6 Monate versicherungspflichtiger Beschäftigung in den 30 Monaten vor Arbeitslosmeldung. Zu den Voraussetzungen gehört, dass die meisten Beschäftigungen auf bis zu 14 Wochen befristet waren."@de ,
+        "You are probably not entitled to this benefit. The main requirements for entitlement to unemployment benefit are as follows: You fulfill the qualifying period. This usually means that you were employed for at least 12 months in the 30 months prior to registering as unemployed. Several jobs can be added together. You have registered as unemployed with your employment agency. You are unemployed, but you can work in a job that is subject to compulsory insurance (at least 15 hours per week). You are looking for employment that is subject to compulsory insurance and you are working together with the employment agency. If you were often in temporary employment, a shorter entitlement period applies under certain conditions: At least 6 months of employment subject to compulsory insurance in the 30 months before registering as unemployed are then sufficient. One of the requirements is that most jobs were limited to up to 14 weeks."@en ;
+    ff:hasMainShape ff:arbeitslosengeldMainShape .
+
+ff:arbeitslosengeldMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:geburtsdatum ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:pensionable ;
+        sh:minCount 1 ;
+        sh:in (false) ;
+    ] ;
+    sh:property [
+        sh:path ff:aufenthalt ;
+        sh:minCount 1 ;
+        sh:in (true) ;
+    ] ;
+    sh:property [
+        sh:path ff:aufenthaltsort ;
+        sh:minCount 1 ;
+        sh:in (ff:aufenthaltsort-ao-innerhalb) ;
+    ] ;
+    sh:property [
+        sh:path ff:erwerbsfaehig_neu ;
+        sh:minCount 1 ;
+        sh:in (ff:erwerbsfaehig_neu-ao-ja) ;
+    ] ;
+    sh:property [
+        sh:path ff:beruf_neu ;
+        sh:minCount 1 ;
+        sh:in (ff:beruf_neu-ao-alg) ;
+    ] ;
+    sh:property [
+        sh:path ff:einkommen_neu ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:einkommen_neu-ao-selbstaendig ff:einkommen_neu-ao-soz) ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ff:bezogene_leistungen;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:bezogene_leistungen-arbeitslosengeld ff:bezogene_leistungen-mutterschaftsgeld ff:bezogene_leistungen-rente) ;
+        ] ;
+    ] .

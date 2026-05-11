@@ -1,0 +1,89 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:ifb-inno-founder a ff:RequirementProfile ;
+    ff:title "InnoFounder - Förderprogramm für innovative und wissensbasierte Gründungsvorhaben"@de , "InnoFounder - Funding Program for Innovative and Knowledge-Based Startups"@en ;
+    ff:category ff:selbstaendigkeit-gruendung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "InnoFounder unterstützt innovative Startups in Hamburg mit einem nicht rückzahlbaren Zuschuss für Lebensunterhalt und Gründungskosten."@de ,
+        "InnoFounder supports innovative startups in Hamburg with a non-repayable grant for living expenses and startup costs."@en ;
+    rdfs:seeAlso <https://innovationsstarter.com/innofounder/> ;
+    ff:hasMainShape ff:ifb-inno-founderMainShape .
+
+ff:ifb-inno-founderMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    
+    sh:property [
+        sh:path ff:interested_in_founding ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ff:founding_status ;
+        sh:minCount 1 ;
+    ] ;
+    sh:or (
+        [
+            sh:property [
+                sh:path ff:interested_in_founding ;
+                sh:in ( true ) ;
+            ] ;
+        ]
+        [
+            sh:property [
+                sh:path ff:founding_status ;
+                sh:in ( true ) ;
+            ] ;
+        ]
+    ) ;
+    
+    sh:property [
+        sh:minCount 1 ;
+        sh:path ff:company_age ;
+        sh:in (ff:company_age-less-than-12-months ff:company_age-not-yet-founded) ;
+        sh:message "Das Unternehmen darf nicht älter als ein Jahr sein. (Quelle: Abschnitt 2, Antragsberechtigte - 'juristische Personen, die weniger als ein Jahr bestehen...')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:number_of_employees ;
+        sh:minCount 1 ;
+        sh:in (ff:number_of_employees-less-than-5) ;
+        sh:message "Das Unternehmen darf maximal fünf Vollzeitäquivalente Beschäftigte haben. (Quelle: Abschnitt 2, Antragsberechtigte - '... in der Regel weniger als fünf Mitarbeitende (in Vollzeitäquivalenten inkl. tätigen Gründerinnen und Gründern)...')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:annual_turnover ;
+        sh:minCount 1 ;
+        sh:in (ff:annual_turnover-less-than-500K) ;
+        sh:message "Der Jahresumsatz oder die Jahresbilanzsumme darf 500.000 € nicht übersteigen. (Quelle: Abschnitt 2, Antragsberechtigte - 'deren Jahresumsatz oder Jahresbilanzsumme 500.000 € nicht übersteigt.')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:headquarters_location ;
+        sh:minCount 1 ;
+        sh:in ( ff:headquarters-ao-hamburg ) ;
+        sh:message "Der Unternehmenssitz muss sich in Hamburg befinden. (Quelle: Abschnitt 3, Zuwendungsvoraussetzungen - 'die Projektaktivitäten im Wesentlichen in Hamburg durchgeführt werden und der geplante bzw. bestehende Unternehmenssitz Hamburg ist.')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:location_founding_team ;
+        sh:minCount 1 ;
+        sh:in ( ff:location_founding_team-hamburg ) ;
+        sh:message "Mindestens die Hälfte der Gründerinnen und Gründer müssen ihren Hauptwohnsitz in Hamburg haben. (Quelle: Abschnitt 3, Zuwendungsvoraussetzungen - 'Bei natürlichen Personen muss sich der Hauptwohnsitz mindestens der Hälfte der für die Förderung vorgesehenen Gründerpersonen in Hamburg befinden.')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:financial_difficulty ;
+        sh:minCount 1 ;
+        sh:in ( false ) ;
+        sh:message "Unternehmen in finanziellen Schwierigkeiten gemäß Art. 2 Nr. 18 AGVO sind ausgeschlossen. (Quelle: Abschnitt 3, Zuwendungsvoraussetzungen - 'von der Förderung ausgenommen sind jedoch Unternehmen in Schwierigkeiten.')"@de ;
+    ] ;
+    
+    sh:property [
+        sh:path ff:de_minimis_aid ;
+        sh:minCount 1 ;
+        sh:in (ff:de_minimis_aid-no ff:de_minimis_aid-unsure) ;
+        sh:message "Unternehmen, die die zulässige De-minimis-Grenze überschritten haben, sind nicht förderfähig. (Quelle: Abschnitt 7.2, Beihilferechtliche Grundlagen - 'Die Gewährung der Fördermittel erfolgt unter den Voraussetzungen der De-minimis-Verordnung ... und unterliegt den Beschränkungen des Beihilfenrechts.')"@de ;
+    ] .

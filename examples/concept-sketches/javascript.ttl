@@ -1,0 +1,92 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+         ff:hasId "graph_2025-01-20_18-02-42";
+         ff:hasName "PoC: discrete ages for testing ";
+         ff:hasExportTimestamp "2025-02-02T14:01:01.930Z";
+         ff:hasTranslateX -763;
+         ff:hasTranslateY 566;
+         ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7;
+         ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6.
+ff:node1 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Get boundary values";
+         ff:hasPosX -168;
+         ff:hasPosY -979;
+         ff:hasWidth 508;
+         ff:hasHeight 264;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\nSELECT * WHERE {\n  \t?nodeShape a sh:NodeShape .\n  \t?nodeShape sh:property ?propertyShape .\n  \t?propertyShape sh:path ff:hasAge .\n  \tOPTIONAL { ?propertyShape sh:minInclusive ?minIncl . }\n   \tOPTIONAL { ?propertyShape sh:minExclusive ?minExcl . }\n  \tOPTIONAL { ?propertyShape sh:maxInclusive ?maxIncl . }\n   \tOPTIONAL { ?propertyShape sh:maxExclusive ?maxExcl . }\n}".
+ff:node2 a ff:Node;
+         ff:hasClass ff:SparqlInputNode;
+         ff:hasName "Extract boundary values";
+         ff:hasPosX 453;
+         ff:hasPosY -276;
+         ff:hasWidth 543;
+         ff:hasHeight 348;
+         ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nPREFIX sh: <http://www.w3.org/ns/shacl#>\n\n SELECT ?value WHERE {\n\t?nodeShape a sh:NodeShape ;\n    \tsh:property ?propertyShape .\n    ?propertyShape sh:path ff:hasAge .\n    {\n    \t?propertyShape sh:minInclusive ?value .\n    } UNION {\n      \t?propertyShape sh:minExclusive ?value .\n    } UNION {\n      \t?propertyShape sh:maxInclusive ?value .\n    } UNION {\n      \t?propertyShape sh:maxExclusive ?value .\n    }\n} ORDER BY ?value".
+ff:node3 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX 654;
+         ff:hasPosY -918;
+         ff:hasWidth 519;
+         ff:hasHeight 299.
+ff:node4 a ff:Node;
+         ff:hasClass ff:SparqlSelectExecNode;
+         ff:hasName "Run SPARQL SELECT";
+         ff:hasPosX 1221;
+         ff:hasPosY -495;
+         ff:hasWidth 217;
+         ff:hasHeight 284.
+ff:node5 a ff:Node;
+         ff:hasClass ff:TurtleInputNode;
+         ff:hasName "Example constraints on ff:hasAge from multiple RPs";
+         ff:hasPosX -165;
+         ff:hasPosY -613;
+         ff:hasWidth 504;
+         ff:hasHeight 456;
+         ff:hasValue "@prefix ff: <https://foerderfunke.org/default#> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n\nff:dev1 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:minInclusive 15 ;\n        sh:maxExclusive 36 ;\n    ] .\n\nff:dev1 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:minExclusive 20 ;\n    ] .\n\nff:dev2 a sh:NodeShape ;\n    sh:targetClass ff:Citizen ;\n    sh:property [\n        sh:path ff:hasAge ;\n        sh:maxInclusive 40 ;\n    ] .".
+ff:node6 a ff:Node;
+         ff:hasClass ff:JavaScriptInputNode;
+         ff:hasName "Build values to test all possible age scenarios";
+         ff:hasPosX 1235;
+         ff:hasPosY -156;
+         ff:hasWidth 540;
+         ff:hasHeight 301;
+         ff:hasValue "let parsed = input.split(/\\r?\\n/).splice(1).map(Number)\nlet boundaryValues = [0, ...parsed, 100]\nlet output = []\n\nfor (let i = 0; i < boundaryValues.length; i++) {\n\tlet value = boundaryValues[i]\n    output.push(value)\n\tif (i < boundaryValues.length - 1) {\n    \tlet next = boundaryValues[i + 1]\n      \toutput.push(Math.round(value + ((next - value) / 2)))\n    }\n}\n\nreturn JSON.stringify(output)".
+ff:node7 a ff:Node;
+         ff:hasClass ff:JavaScriptExecNode;
+         ff:hasName "Run JavaScript";
+         ff:hasPosX 1926;
+         ff:hasPosY -340.
+ff:edge1 a ff:Edge;
+         ff:hasSource ff:node2;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge2 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node4;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+         ff:hasSource ff:node6;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge4 a ff:Edge;
+         ff:hasSource ff:node4;
+         ff:hasTarget ff:node7;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.
+ff:edge5 a ff:Edge;
+         ff:hasSource ff:node5;
+         ff:hasTarget ff:node3;
+         ff:hasPortOut 1;
+         ff:hasPortIn 2.
+ff:edge6 a ff:Edge;
+         ff:hasSource ff:node1;
+         ff:hasTarget ff:node3;
+         ff:hasPortOut 1;
+         ff:hasPortIn 1.

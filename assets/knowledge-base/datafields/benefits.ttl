@@ -1,0 +1,172 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:socialBenefitsReceiving a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Erhaltene Sozialleistungen"@de , "Social Benefits Received"@en ;
+    schema:question "Welche der folgenden Leistungen beziehen Sie derzeit? (Mehrfachnennung möglich)"@de ,
+                    "Which of the following benefits do you currently receive? (Multiple selections possible)"@en ;
+    rdfs:comment "Erfasst werden aktuell bezogene staatliche Transferleistungen und Sozialleistungen."@de ,
+                 "This field captures state transfer payments and social benefits currently received."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:socialBenefitsReceived ;
+        sh:property [
+            sh:path ff:socialBenefitsReceived ;
+            sh:in (
+                ff:socialBenefitsReceiving-none
+                ff:socialBenefitsReceiving-unemploymentBenefit
+                ff:socialBenefitsReceiving-citizensIncome
+                ff:socialBenefitsReceiving-asylumSeekersBenefits
+                ff:socialBenefitsReceiving-bafoeg
+                ff:socialBenefitsReceiving-housingAllowance
+                ff:socialBenefitsReceiving-childBenefit
+                ff:socialBenefitsReceiving-childSupplement
+                ff:socialBenefitsReceiving-parentalAllowance
+                ff:socialBenefitsReceiving-pension
+                ff:socialBenefitsReceiving-maternityAllowance
+                ff:socialBenefitsReceiving-disabilityPension
+                ff:socialBenefitsReceiving-basicSecurity
+                ff:socialBenefitsReceiving-subsistenceAssistance
+                ff:socialBenefitsReceiving-vocationalTrainingAllowance
+                ff:socialBenefitsReceiving-mobiproEU
+            ) ;
+            sh:minCount 0 ;
+        ] ;
+    ] .
+ff:socialBenefitsReceiving-none a ff:AnswerOption ; rdfs:label "Keine"@de , "None"@en .
+ff:socialBenefitsReceiving-unemploymentBenefit a ff:AnswerOption ; rdfs:label "Arbeitslosengeld"@de , "Unemployment benefit"@en .
+ff:socialBenefitsReceiving-citizensIncome a ff:AnswerOption ; rdfs:label "Bürgergeld"@de , "Citizen's income"@en .
+ff:socialBenefitsReceiving-asylumSeekersBenefits a ff:AnswerOption ; rdfs:label "Asylbewerberleistungen"@de , "Asylum seekers' benefits"@en .
+ff:socialBenefitsReceiving-bafoeg a ff:AnswerOption ; rdfs:label "BAföG"@de , "BAföG (student grant)"@en .
+ff:socialBenefitsReceiving-housingAllowance a ff:AnswerOption ; rdfs:label "Wohngeld"@de , "Housing allowance"@en .
+ff:socialBenefitsReceiving-childBenefit a ff:AnswerOption ; rdfs:label "Kindergeld"@de , "Child benefit"@en .
+ff:socialBenefitsReceiving-childSupplement a ff:AnswerOption ; rdfs:label "Kinderzuschlag"@de , "Child supplement"@en .
+ff:socialBenefitsReceiving-parentalAllowance a ff:AnswerOption ; rdfs:label "Elterngeld"@de , "Parental allowance"@en .
+ff:socialBenefitsReceiving-pension a ff:AnswerOption ; rdfs:label "Rente"@de , "Pension"@en .
+ff:socialBenefitsReceiving-maternityAllowance a ff:AnswerOption ; rdfs:label "Mutterschaftsgeld"@de , "Maternity allowance"@en .
+ff:socialBenefitsReceiving-disabilityPension a ff:AnswerOption ; rdfs:label "Erwerbsminderungsrente"@de , "Disability pension"@en .
+ff:socialBenefitsReceiving-basicSecurity a ff:AnswerOption ; rdfs:label "Grundsicherung"@de , "Basic security"@en .
+ff:socialBenefitsReceiving-subsistenceAssistance a ff:AnswerOption ; rdfs:label "Hilfe zum Lebensunterhalt"@de , "Assistance for subsistence"@en .
+ff:socialBenefitsReceiving-vocationalTrainingAllowance a ff:AnswerOption ; rdfs:label "Berufsausbildungsbeihilfe / Ausbildungsgeld"@de , "Vocational training allowance / training allowance"@en .
+ff:socialBenefitsReceiving-mobiproEU a ff:AnswerOption ; rdfs:label "Sicherung des Lebensunterhalts (MobiPro-EU)"@de , "Subsistence support (MobiPro-EU)"@en .
+
+ff:unemploymentBenefitApproved a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Arbeitslosengeld bewilligt"@de , "Unemployment Benefit Approved"@en ;
+    schema:question "Wurde Ihnen in der Vergangenheit Arbeitslosengeld bewilligt?"@de ,
+                    "Have you been approved for unemployment benefit in the past?"@en ;
+    rdfs:comment "Die Frage erfasst, ob ein Anspruch auf Arbeitslosengeld (nach dem Dritten Buch Sozialgesetzbuch – SGB III) in der Vergangenheit bestand oder bewilligt wurde. Dazu zählen auch aktuell bestehende Ansprüche."@de ,
+                 "This field captures whether an entitlement to unemployment benefit (under the German Social Code Book III – SGB III) has existed or was approved in the past. This also includes currently valid entitlements."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:unemploymentBenefitApproved ;
+        sh:property [
+            sh:path ff:unemploymentBenefitApproved ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+# specific
+
+ff:citizensIncomeLast3Years a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Bürgergeld in den letzten 3 Jahren"@de , "Citizen's Income in the Last 3 Years"@en ;
+    schema:question "Haben Sie innerhalb der letzten 3 Jahre Bürgergeld bezogen?"@de ,
+                    "Have you received citizen's income within the last 3 years?"@en ;
+    rdfs:comment "Die Frage erfasst, ob eine Person im relevanten Zeitraum Bürgergeld (Leistungen nach dem Zweiten Buch Sozialgesetzbuch – SGB II) erhalten hat."@de ,
+                 "This field captures whether a person has received citizen's income (benefits under the German Social Code Book II – SGB II) within the relevant period."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:citizensIncomeLast3Years ;
+        sh:property [
+            sh:path ff:citizensIncomeLast3Years ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:unemploymentBenefitApprovedLast3Years a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Arbeitslosengeld bewilligt in den letzten 3 Jahren"@de , "Unemployment Benefit Approved in the Last 3 Years"@en ;
+    schema:question "Wurde Ihnen in den letzten 3 Jahren Arbeitslosengeld bewilligt?"@de ,
+                    "Have you been approved for unemployment benefit in the last 3 years?"@en ;
+    rdfs:comment "Die Frage erfasst, ob ein Anspruch auf Arbeitslosengeld (nach dem Dritten Buch Sozialgesetzbuch – SGB III) innerhalb der letzten drei Jahre bestand oder bewilligt wurde."@de ,
+                 "This field captures whether an entitlement to unemployment benefit (under the German Social Code Book III – SGB III) has existed or was approved within the last three years."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:unemploymentBenefitApprovedLast3Years ;
+        sh:property [
+            sh:path ff:unemploymentBenefitApprovedLast3Years ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:childBenefitReceived a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Kindergeldbezug"@de , "Child Benefit Received"@en ;
+    schema:question "Beziehen Sie Kindergeld für ein oder mehrere Kinder?"@de ,
+                    "Do you receive child benefit for one or more children?"@en ;
+    rdfs:comment "Die Frage erfasst, ob Kindergeld nach dem Einkommensteuergesetz (EStG) oder vergleichbaren Vorschriften bezogen wird. Kindergeld wird in Deutschland in der Regel für alle Kinder bis zum 18. Lebensjahr gezahlt, unter bestimmten Voraussetzungen auch länger."@de ,
+                 "This field captures whether child benefit is received under the German Income Tax Act (EStG) or comparable regulations. In Germany, child benefit is usually paid for all children up to the age of 18, and under certain conditions for a longer period."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:childBenefitReceived ;
+        sh:property [
+            sh:path ff:childBenefitReceived ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:rehabilitationProvider a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Rehabilitation Provider"@en, "Rehabilitationsträger"@de ;
+    schema:question "Welche Einrichtung ist Ihr Rehabilitationsträger?"@de, "Which institution is your rehabilitation provider?"@en ;
+    rdfs:comment "Diese Frage hilft dabei, spezifische Fördermöglichkeiten oder Zuschüsse zu erfassen, die an bestimmte Rehabilitationsträger gebunden sind."@de,
+                    "This question helps identify specific funding opportunities or grants tied to certain rehabilitation providers."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:rehabilitationProvider ;
+        sh:property [
+            sh:path ff:rehabilitationProvider ;
+            sh:in (
+                ff:rehabilitationProvider-bundesagenturFuerArbeit
+                ff:rehabilitationProvider-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:rehabilitationProvider-bundesagenturFuerArbeit a ff:AnswerOption ; rdfs:label "Bundesagentur für Arbeit"@de, "Federal Employment Agency"@en .
+ff:rehabilitationProvider-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+
+ff:eligibleTransitionalAllowance a ff:DataField ;
+    schema:category ff:gesundheit-df-kategorie ;
+    rdfs:label "Eligible for Transitional Allowance"@en, "Anspruch auf Übergangsgeld"@de ;
+    schema:question "Are you eligible for transitional allowance?"@en, "Haben Sie Anspruch auf Übergangsgeld?"@de ;
+    rdfs:comment "This question helps identify individuals who are eligible for transitional allowance, which may affect their eligibility for specific funding opportunities or grants."@en,
+                 "Diese Frage hilft dabei, Personen zu identifizieren, die Anspruch auf Übergangsgeld haben, was ihre Förderfähigkeit für spezifische Fördermöglichkeiten oder Zuschüsse beeinflussen kann."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:eligibleTransitionalAllowance ;
+        sh:property [
+            sh:path ff:eligibleTransitionalAllowance ;
+            sh:in (
+                ff:eligibleTransitionalAllowance-yes
+                ff:eligibleTransitionalAllowance-no
+                ff:eligibleTransitionalAllowance-unsure
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:eligibleTransitionalAllowance-yes a ff:AnswerOption ; rdfs:label "Ja"@de, "Yes"@en .
+ff:eligibleTransitionalAllowance-no a ff:AnswerOption ; rdfs:label "Nein"@de, "No"@en .
+ff:eligibleTransitionalAllowance-unsure a ff:AnswerOption ; rdfs:label "Unsicher"@de, "Unknown"@en .

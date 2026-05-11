@@ -1,0 +1,60 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:allgemeine-krankenversicherungspflicht a ff:RequirementProfile ;
+    ff:title "Allgemeine Krankenversicherungspflicht"@de, 
+              "General Health Insurance Obligation"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:sgb-ix ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:integrationsamt ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "In Deutschland besteht eine allgemeine Krankenversicherungspflicht: Jeder mit Wohnsitz oder gewöhnlichem Aufenthalt muss versichert sein, entweder in der gesetzlichen (GKV) oder der privaten Krankenversicherung (PKV). Welche Absicherung gilt, hängt von der Lebenssituation ab; bei Unklarheiten hilft die Clearingstelle weiter."@de ,
+                "In Germany, there is a general health insurance obligation: Everyone with a residence or habitual abode must be insured, either in statutory health insurance (GKV) or private health insurance (PKV). The type of coverage depends on the life situation; in case of uncertainties, the clearing office can assist."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:allgemeine-krankenversicherungspflichtMainShape ;
+    ff:hasFlowShape ff:allgemeine-krankenversicherungspflichtFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:allgemeine-krankenversicherungspflichtMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [ 
+        sh:or (
+            [ sh:property [ sh:path ff:registered_residence_country ; sh:in (ff:registered_residence_country-germany) ] ]
+            [ sh:property [ sh:path ff:aufenthaltsort ; sh:in (ff:aufenthaltsort-ao-innerhalb) ] ]
+            [ sh:property [ sh:path ff:primary_occupation_country ; sh:in (ff:primary_occupation_country-germany) ] ]
+        )
+    ] .
+
+# ----- DECISION TREE LOGIC -----
+
+ff:allgemeine-krankenversicherungspflichtFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property ff:baseRequirements ;
+    sh:property ff:habitualResidencePS ;
+    sh:property ff:primaryOccupationPS .
+
+ff:baseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:registered_residence_country ; sh:minCount 1 ] .
+
+ff:habitualResidencePS a sh:PropertyShape ;
+    sh:deactivated [
+        shn:eq ( [ sh:path ff:registered_residence_country ] ff:registered_residence_country-germany )
+    ] ;
+    sh:property [ sh:path ff:aufenthaltsort ; sh:minCount 1 ] .
+
+ff:primaryOccupationPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:or (
+            [ shn:eq ( [ sh:path ff:registered_residence_country ] ff:registered_residence_country-germany ) ]
+            [ shn:eq ( [ sh:path ff:aufenthaltsort ] ff:aufenthaltsort-ao-innerhalb ) ]
+        ) 
+    ] ;
+    sh:property [ sh:path ff:primary_occupation_country ; sh:minCount 1 ] .
+    

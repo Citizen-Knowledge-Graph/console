@@ -1,0 +1,40 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:childToy a ff:RequirementProfile ;
+    ff:title "Spielzeug dev" .
+
+ff:MainPersonShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:hasChild ;
+        sh:node ff:ChildShape ;
+        sh:minCount 1 ;
+        sh:message "The child doesn't exist or doesn't fulfill all criteria" ;
+    ] .
+
+ff:ChildShape a sh:NodeShape ;
+    sh:targetObjectsOf ff:hasChild ;
+    sh:property [
+        sh:path ff:hasAge ;
+        sh:maxExclusive 18 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "The child must be under 18 years old" ;
+    ] ;
+    sh:property [
+        sh:path ff:hasToy ;
+        sh:node ff:ToyShape ;
+        sh:minCount 1 ;
+        sh:message "The toy of the child doesn't exist or doesn't fulfill all criteria" ;
+    ] .
+
+ff:ToyShape a sh:NodeShape ;
+    sh:targetObjectsOf ff:hasToy ;
+    sh:property [
+        sh:path ff:hasAge ;
+        sh:maxExclusive 5 ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "The toy must be under 5 years old" ;
+    ] .

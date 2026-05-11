@@ -1,0 +1,3 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:mainPerson a ff:Citizen .

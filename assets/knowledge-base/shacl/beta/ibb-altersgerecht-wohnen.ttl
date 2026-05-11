@@ -1,0 +1,63 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:iaw a ff:RequirementProfile ;
+    ff:title "IBB Altersgerecht Wohnen"@de , "IBB Age-Appropriate Living"@en ;
+    ff:category ff:wohnungsbau-modernisierung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Das Förderprogramm 'IBB Altersgerecht Wohnen' unterstützt Vermieter:innen und Investor:innen bei der Finanzierung von Modernisierungsmaßnahmen zur Barrierereduzierung, Erhöhung des Wohnkomforts und Einbruchschutz in Berlin. Ziel ist es, altersgerechtes Wohnen zu fördern und die Lebensqualität in Wohngebäuden zu verbessern."@de ,
+        "The 'IBB Altersgerecht Wohnen' funding program supports landlords and investors in financing modernization measures for barrier reduction, increased living comfort, and burglary protection in Berlin. The goal is to promote age-appropriate living and improve the quality of life in residential buildings."@en ;
+    rdfs:seeAlso <https://www.ibb.de/de/foerderprogramme/ibb-altersgerecht-wohnen.html> ;
+    ff:hasMainShape ff:iawMainShape .
+
+ff:iawMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:interestInBusinessFunding ;
+        sh:in ( true ) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path ff:propertyOwnerhship ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+
+    sh:property [
+        sh:path ff:rentalProperty ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+    ] ;
+
+    sh:property [
+        sh:path ff:housingInvestmentLocation ;
+        sh:minCount 1 ;
+        sh:in ( ff:housingInvestmentLocation-berlin ) ;
+    ] ;
+    sh:property [
+        sh:path ff:housingCompanyType ;
+        sh:minCount 1 ;
+        sh:in ( 
+            ff:housingCompanyType-communal 
+            ff:housingCompanyType-privateCompany
+            ff:housingCompanyType-cooperative 
+            ff:housingCompanyType-landlord 
+            ff:housingCompanyType-investor 
+        ) ;
+    ] ;
+    sh:property [
+        sh:path ff:housingProjectType ;
+        sh:minCount 1 ;
+        sh:in ( 
+            ff:housingProjectType-barrierReduction
+            ff:housingProjectType-livingComfort
+            ff:housingProjectType-burglaryProtection
+        ) ;
+    ] .
+    

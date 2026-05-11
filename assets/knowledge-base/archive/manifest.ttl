@@ -1,0 +1,21 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix schema: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+ff:datafieldsFile a schema:DigitalDocument ;
+    schema:identifier "datafields-file" ;
+    dcterms:format "text/turtle" ;
+    ff:relativePath "datafields.ttl" .
+
+ff:materializationFile a schema:DigitalDocument ;
+    schema:identifier "materialization-file" ;
+    dcterms:format "text/turtle" ;
+    ff:relativePath "materialization.ttl" .
+
+ff:requirementProfilesFolder a schema:Collection ;
+    schema:identifier "requirement-profiles-folder" ;
+    ff:relativePath "shacl/" .
+
+ff:userProfileExamplesFolder a schema:Collection ;
+    schema:identifier "user-profile-examples-folder" ;
+    ff:relativePath "user-profile-examples/" .

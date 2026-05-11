@@ -1,0 +1,50 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:but a ff:RequirementProfile ;
+    ff:leikaId "99107032017007" ;
+    ff:title "Bildung und Teilhabe - bei Bezug von Bürgergeld"@de , "Education and participation - with citizen's benefit"@en ;
+    ff:category ff:arbeitslosigkeit-bc-kategorie, ff:sozialhilfe-grundsicherung-bc-kategorie, ff:schule-studium-ausbildung-bc-kategorie, ff:leistungen-fuer-familien-bc-kategorie ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/bildung-und-teilhabe> ;
+    rdfs:seeAlso <https://sozialplattform.de/leistung/bildung-und-teilhabe-bei-bezug-von-buergergeld> ;
+    ff:legalBasis ff:sgb-iii ;
+    ff:administrativeLevel ff:bund, ff:land, ff:kommune ;
+    ff:providingAgency ff:jobcenter ;
+    ff:validationStage ff:complete-validation ;
+    ff:benefitInfo "In Deutschland sollen Kinder, Jugendliche und junge Erwachsene die gleichen Chancen haben. Wichtige Voraussetzungen für Chancengleichheit sind Bildung und die Teilnahme am sozialen und kulturellen Leben. Deswegen fördert der Staat Leistungen zur Bildung und Teilhabe, auch Bildungs- und Teilhabepaket genannt."@de ,
+        "In Germany, children, teens and young adults are supposed to have equal opportunities. Education and participation in social and cultural activities are important factors in ensuring equal opportunity. For this reason, the state provides benefits to support education and participation. This is also known as the education and participation package."@en ;
+    ff:ineligibleGeneralExplanation "Wahrscheinlich haben Sie keinen Anspruch auf diese Leistung. Verschiedene Leistungen für Bildung und Teilhabe sollen Kindern und Jugendlichen aus bedürftigen Familien ermöglichen, besser am sozialen und kulturellen Leben in der Schule und Freizeit teilzunehmen. Die Leistungen können Sie zusätzlich zu anderen Leistungen, wie z.B. Bürgergeld (früher ALG II), Sozialhilfe, Kinderzuschlag oder Wohngeld, bekommen."@de ,
+        "You are probably not entitled to this benefit. Various services for education and participation are intended to enable children and young people from needy families to participate better in social and cultural life at school and in their free time. You can receive the benefits in addition to other benefits, such as unemployment benefit II, social assistance, child allowance or housing benefit."@en ;
+    ff:hasMainShape ff:butMainShape .
+
+ff:butMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:children ;
+        sh:minCount 1 ;
+        sh:in (true) ;
+    ] ;
+    sh:property [
+        sh:path ff:childrenAge ;
+        sh:minCount 1 ;
+        sh:in (ff:childrenAge-sub_18 ff:childrenAge-18_25) ;
+    ] ;
+    sh:property [
+        sh:path ff:parentingSituation ;
+        sh:minCount 1 ;
+        sh:not [
+            sh:in (ff:parentingSituation-noChildrenInHousehold) ;
+        ] ;
+    ] ;
+    sh:property [
+        sh:path ff:habitualResidence ;
+        sh:minCount 1 ;
+        sh:in (ff:habitualResidence-ger) ;
+    ] ;
+    sh:property [
+        sh:path ff:socialBenefitsReceiving ;
+        sh:in (ff:socialBenefitsReceiving-citizensIncome ff:socialBenefitsReceiving-housingAllowance) ;
+        sh:minCount 1 ;
+    ] .

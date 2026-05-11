@@ -1,0 +1,65 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+    ff:hasId "graph_2025-04-04_09-10-27";
+    ff:hasName "Caritas Counseling Centres";
+    ff:hasExportTimestamp "2025-04-04T09:10:27.024Z";
+    ff:hasTranslateX -299;
+    ff:hasTranslateY 140;
+    ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5;
+    ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4.
+ff:node1 a ff:Node;
+    ff:hasClass ff:JavaScriptInputNode;
+    ff:hasName "JavaScript Input";
+    ff:hasPosX "370";
+    ff:hasPosY "-98";
+    ff:hasWidth 769;
+    ff:hasHeight 481;
+    ff:hasValue "let store = newStore()\nconst a = \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\"\n\nconst ff = function(localName) {\n\treturn \"https://foerderfunke.org/default#\" + localName\n}\nlet count = 0\n\nfor (let element of JSON.parse(input)) {\n  let cc = ff(\"counselingCentre\" + (count ++))\n  addTriple(store, cc, a, ff(\"CounselingCentre\"))\n  addTriple(store, cc, ff(\"hasTitle\"), element.Title)\n  addTriple(store, cc, ff(\"hasCity\"), element.City)\n  let address = element.Street + \", \" + element.Zipcode + \", \" + element.City\n  addTriple(store, cc, ff(\"hasAddress\"), address)\n  let contact = element.Phone + \", \" + element.Email\n  addTriple(store, cc, ff(\"hasContactDetails\"), contact)\n  addTriple(store, cc, ff(\"hasCoordinates\"), element.Latitude + \"/\" + element.Longitude)\n  if (element.Website) {\n  \t  addTriple(store, cc, ff(\"hasWebsite\"), \" \" + element.Website)\n  }\n}\n\nreturn storeToTurtle(store)\n\n// https://www.caritas.de/hilfeundberatung/onlineberatung/allgemeine-soziale-beratung/adressen".
+ff:node2 a ff:Node;
+    ff:hasClass ff:JavaScriptExecNode;
+    ff:hasName "Run JavaScript";
+    ff:hasPosX 1275;
+    ff:hasPosY 268;
+    ff:hasWidth 523;
+    ff:hasHeight 371.
+ff:node3 a ff:Node;
+    ff:hasClass ff:JsonLdInputNode;
+    ff:hasName "JSON-LD Input";
+    ff:hasPosX 620;
+    ff:hasPosY 428;
+    ff:hasWidth 517;
+    ff:hasHeight 441;
+    ff:hasValue "[\n  {\n    \"ContentID\": \"62f29518b6cc42e3b6c3c7d94635bbb1\",\n    \"Street\": \"Dieselstraße 11\",\n    \"Zipcode\": \"12057\",\n    \"City\": \"Berlin\",\n    \"Phone\": \"+030 (666) 33 7 90\",\n    \"Email\": \"asb-neukoelln@caritas-berlin.de\",\n    \"Latitude\": 52.47561,\n    \"Longitude\": 13.46685,\n    \"Title\": \"Allgemeine Soziale Beratung Neukölln\"\n  },\n  {\n    \"ContentID\": \"6ddd78660e084bd1aab910bd47103e82\",\n    \"Street\": \"Schiede 73\",\n    \"Zipcode\": \"65549\",\n    \"City\": \"Limburg\",\n    \"Phone\": \"+49 (6431) 200540\",\n    \"Email\": \"alb@caritas-limburg.de\",\n    \"Latitude\": 50.3850845,\n    \"Longitude\": 8.0635871,\n    \"Title\": \"Allgemeine Lebens- und Sozialberatung\"\n  }\n]".
+ff:node4 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "SPARQL Input";
+    ff:hasPosX 1841;
+    ff:hasPosY 64;
+    ff:hasValue "PREFIX ff: <https://foerderfunke.org/default#>\nSELECT * WHERE {\n    ?cc a ff:CounselingCentre ;\n          ff:hasCity ?city .\n  FILTER(regex(?city, \"Berlin\"))\n}".
+ff:node5 a ff:Node;
+    ff:hasClass ff:SparqlSelectExecNode;
+    ff:hasName "Run SPARQL SELECT";
+    ff:hasPosX 2339;
+    ff:hasPosY 261.
+ff:edge1 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node2;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+    ff:hasSource ff:node3;
+    ff:hasTarget ff:node2;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge3 a ff:Edge;
+    ff:hasSource ff:node4;
+    ff:hasTarget ff:node5;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+    ff:hasSource ff:node2;
+    ff:hasTarget ff:node5;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.

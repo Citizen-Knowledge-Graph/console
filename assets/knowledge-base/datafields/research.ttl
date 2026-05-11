@@ -1,0 +1,51 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:researchType a ff:DataField ;
+    schema:category ff:forschungszulage-df-kategorie ;
+    rdfs:label "Research Type"@en, "Forschungstyp"@de ;
+    schema:question "What type of research activities does your company conduct?"@en, "Welche Art von Forschungsaktivitäten führt Ihr Unternehmen durch?"@de ;
+    rdfs:comment "The type of research activities conducted by your company can be relevant for funding opportunities that target specific research areas or require companies to be engaged in certain types of research. Some grants are specifically available for companies conducting basic research, applied research, or experimental development."@en,
+                 "Die Art der Forschungsaktivitäten, die Ihr Unternehmen durchführt, kann für Fördermöglichkeiten relevant sein, die auf bestimmte Forschungsbereiche abzielen oder voraussetzen, dass Unternehmen bestimmte Arten von Forschung betreiben. Einige Förderungen sind speziell für Unternehmen verfügbar, die Grundlagenforschung, angewandte Forschung oder experimentelle Entwicklung betreiben."@de ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:researchType ;
+        sh:property [
+            sh:path ff:researchType ;
+            sh:in (
+                ff:researchType-foundational
+                ff:researchType-industrial
+                ff:researchType-experimental
+                ff:researchType-other
+                ff:researchType-none
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:researchType-foundational a ff:AnswerOption ; rdfs:label "Foundational Research"@en, "Grundlagenforschung"@de .
+ff:researchType-industrial a ff:AnswerOption ; rdfs:label "Industrial Research"@en, "Industrielle Forschung"@de .
+ff:researchType-experimental a ff:AnswerOption ; rdfs:label "Experimental Development"@en, "Experimentelle Entwicklung"@de .
+ff:researchType-other a ff:AnswerOption ; rdfs:label "Other"@en, "Sonstige"@de .
+ff:researchType-none a ff:AnswerOption ; rdfs:label "None"@en, "Keine"@de .
+
+ff:researchActivitiesSince2020 a ff:DataField ;
+    schema:category ff:employmentDfKategorie ;
+    rdfs:label "Forschungsaktivitäten seit 2020"@de , "Research Activities Since 2020"@en ;
+    schema:question "Hat Ihr Unternehmen Forschungsaktivitäten nach dem 1. Januar 2020 begonnen?"@de ,
+                    "Has your company started research activities after January 1, 2020?"@en ;
+    rdfs:comment "Dieses Feld erfasst, ob ein Unternehmen ab dem 1. Januar 2020 erstmals Forschungsaktivitäten aufgenommen hat."@de ,
+                 "This field captures whether a company has started research activities for the first time on or after January 1, 2020."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:researchActivitiesSince2020 ;
+        sh:property [
+            sh:path ff:researchActivitiesSince2020 ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

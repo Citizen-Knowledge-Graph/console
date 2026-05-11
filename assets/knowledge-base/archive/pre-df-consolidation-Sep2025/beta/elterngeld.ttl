@@ -1,0 +1,80 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:elterngeld a ff:RequirementProfile ;
+    ff:leikaId "99107018017000" ;
+    ff:title "Elterngeld"@de , "Parental Allowance"@en ;
+    ff:category ff:leistungen-fuer-familien-bc-kategorie ;
+    rdfs:seeAlso <https://sozialplattform.de/inhalt/elterngeld> ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Elterngeld unterstuetzt Eltern finanziell nach der Geburt ihres Kindes. Es ersetzt einen Teil des entgangenen Einkommens und hilft Eltern, sich um ihr Kind zu kuemmern."@de ,
+        "Parental allowance supports parents financially after the birth of their child. It replaces part of the lost income and helps parents care for their child."@en ;
+    ff:ineligibleGeneralExplanation "Sie haben vermutlich keinen Anspruch auf Elterngeld, wenn Sie nicht mit Ihrem Kind in einem gemeinsamen Haushalt leben oder Ihre Arbeitszeit 32 Stunden pro Woche überschreitet oder bestimmte Sozialleistungen beziehen."@de ,
+        "You are probably not entitled to parental allowance if you do not live in the same household as your child, if you work more than 32 hours per week, or if you receive certain social benefits."@en ;
+    ff:hasMainShape ff:elterngeldMainShape .
+
+ff:elterngeldMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+    sh:property [
+        sh:path ff:annnahme_kind ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:description "The person must live with a child in the household that they have taken in with the aim of adoption." ;
+    ] ;
+    sh:property [
+        sh:path ff:aufenthaltsort ;
+        sh:minCount 1 ;
+        sh:in ( ff:aufenthaltsort-ao-innerhalb ) ;
+        sh:description "The person must have a residence or habitual abode in Germany." ;
+    ] ;
+    sh:property [
+        sh:path ff:betreuung ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:description "The person must personally care for and raise the child." ;
+    ] ;
+    sh:property [
+        sh:path ff:einkommen ;
+        sh:minCount 1 ;
+        sh:maxInclusive 175000 ;
+        sh:description "The claim to parental allowance ceases if the taxable income in the last completed assessment period before the birth of the child exceeds 175,000 euros." ;
+    ] ;
+    sh:property [
+        sh:path ff:entwicklungshelfer ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:description "Development workers or missionaries of certain mission societies have a claim to parental allowance, even without residence in Germany." ;
+    ] ;
+    sh:property [
+        sh:path ff:erwerbsfaehig_neu ;
+        sh:minCount 1 ;
+        sh:not [ sh:in ( ff:erwerbsfaehig_neu-ao-ja ) ] ;
+        sh:description "The person must not be fully employed." ;
+    ] ;
+    sh:property [
+        sh:path ff:kinder ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:description "The person must live with their child in the same household." ;
+    ] ;
+    sh:property [
+        sh:path ff:sozialversicherung ;
+        sh:minCount 1 ;
+        sh:in ( true ) ;
+        sh:description "The person must be subject to German social security law or temporarily seconded abroad in a public-law service or official relationship." ;
+    ] ;
+    sh:property [
+        sh:path ff:staatsbuergerschaft ;
+        sh:minCount 1 ;
+        sh:in ( ff:staatsbuergerschaft-ao-ger ) ;
+        sh:description "German nationals temporarily working for an inter- or supranational institution have a claim to parental allowance." ;
+    ] ;
+    sh:property [
+        sh:path ff:sozialleistungen ;
+        sh:minCount 1 ;
+        sh:not [ sh:in ( ff:sozialleistungen-ao-buergergeld ff:sozialleistungen-ao-sozialhilfe ff:sozialleistungen-ao-bafoeg ff:sozialleistungen-ao-mutterschaftsgeld ff:sozialleistungen-ao-alg ff:sozialleistungen-ao-rente ) ] ;
+        sh:description "Receiving certain social benefits like Bürgergeld, social assistance, BAföG, maternity pay, unemployment benefits, or pensions may make the person ineligible for parental allowance." ;
+    ] .

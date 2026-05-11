@@ -1,0 +1,54 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# specifc
+
+ff:residenceInWolfenbuettel a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Wohnsitz in Wolfenbüttel"@de , "Residence in Wolfenbüttel"@en ;
+    schema:question "Haben Sie Ihren Wohnsitz in Wolfenbüttel?"@de ,
+                    "Do you have your residence in Wolfenbüttel?"@en ;
+    rdfs:comment "Dieses Feld erfasst, ob der Antragsteller seinen Wohnsitz in der Stadt Wolfenbüttel hat."@de ,
+                 "This field captures whether the applicant has their residence in the city of Wolfenbüttel."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:residenceInWolfenbuettel ;
+        sh:property [
+            sh:path ff:residenceInWolfenbuettel ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:wbFoundationPreviousYear a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Förderung durch Wolfenbüttel Stiftung im Vorjahr"@de , "Wolfenbüttel Foundation Funding Last Year"@en ;
+    schema:question "Haben Sie oder Ihre Familie in den vergangen zwölf Monaten eine Förderung von der Wolfenbüttel Stiftung erhalten?"@de ,
+        "Did you or your family receive funding from the Wolfenbüttel Foundation in the past 12 months?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:wbFoundationPreviousYear ;
+        sh:property [
+            sh:path ff:wbFoundationPreviousYear ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:wbFoundationOrganisationPreviousYear a ff:DataField ;
+    schema:category ff:financeDfKategorie ;
+    rdfs:label "Förderung durch Wolfenbüttel Stiftung im Vorjahr"@de , "Wolfenbüttel Foundation Funding Last Year"@en ;
+    schema:question "Hat der Verein oder die Organisation, in dem Sie sich engagieren, in den vergangen zwölf Monaten eine Förderung von der Wolfenbüttel Stiftung erhalten?"@de ,
+        "Did the association or organization you are involved with receive funding from the Wolfenbüttel Foundation in the previous year?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:wbFoundationOrganisationPreviousYear ;
+        sh:property [
+            sh:path ff:wbFoundationOrganisationPreviousYear ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

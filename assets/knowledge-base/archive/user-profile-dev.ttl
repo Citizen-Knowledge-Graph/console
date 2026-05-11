@@ -1,0 +1,41 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+
+ff:mainPerson a ff:Citizen ;
+#    # ff:hilfe-zum-lebensunterhalt
+#    ff:aufenthaltsort ff:aufenthaltsort-ao-innerhalb ;
+#    ff:geburtsdatum "1992-05-17"^^xsd:date ;
+#    # ff:pensionable false ;
+#    ff:erwerbsfaehig_neu ff:erwerbsfaehig_neu-ao-nein-weniger-6-monate ;
+#    ff:beruf_neu ff:beruf_neu-ao-soz ; # not ff:beruf_neu-ao-alg
+#    ff:einkommen_neu ff:einkommen_neu-ao-soz . # not ff:einkommen_neu-ao-alg ff:einkommen_neu-ao-alg-ii
+
+#    # ff:kindergeld
+#    ff:aufenthaltsort ff:aufenthaltsort-ao-innerhalb ;
+#    ff:geburtsdatum "1992-05-17"^^xsd:date ;
+#    ff:kinder true ;
+#    ff:kinder_unter_18 true ;
+#    ff:kinder_18_25 false ;
+#    ff:beruf_neu ff:beruf_neu-ao-soz ;
+#    ff:einkommen_neu ff:einkommen_neu-ao-soz ;
+#    ff:kindergeld false .
+
+#   # ff:kinderzuschlag
+#    ff:aufenthalt true ;
+#    ff:kinder true ;
+#    ff:lebenssituation ff:lebenssituation-ao-gemeinschaft ;
+#    ff:aufenthaltsort ff:aufenthaltsort-ao-innerhalb ;
+#    ff:einkommen_familie ff:einkommen_familie-ao-monatsbrutto-ueber-900-600 ;
+#    ff:kinder_unter_18 true ;
+#    ff:kinder_18_25 false ;
+#    ff:kindergeld true ;
+#    ff:einkommen_neu ff:einkommen_neu-ao-soz .
+
+#   # ff:bildung-und-teilhabe-bei-bezug-von-buergergeld
+    ff:kinder true ;
+    ff:lebenssituation ff:lebenssituation-ao-gemeinschaft;
+    ff:aufenthaltsort ff:aufenthaltsort-ao-innerhalb ;
+    ff:kinder_18_25 true ;
+    ff:kinder_unter_18 true ;
+    ff:einkommen_neu ff:einkommen_neu-ao-alg-ii ;
+    ff:einkommen_neu ff:einkommen_neu-ao-wohngeld .

@@ -1,0 +1,147 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix shn: <https://schemas.link/shacl-next#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:std a ff:RequirementProfile ;
+    ff:title "Diamorphingestützte Therapie"@de ,"Diamorphine-Assisted Therapy"@en ;
+    ff:category ff:gesundheit-pflege-bc-kategorie ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:legalBasis ff:betaeubungsmittelgesetz ;
+    ff:administrativeLevel ff:bund ;
+    ff:providingAgency ff:gesundheitsamt, ff:kassenaerztliche_vereinigung ;
+    ff:tag ff:bielefunke ;
+    ff:benefitInfo "Die diamorphingestützte Therapie ist eine besondere Form der Behandlung für Menschen, die stark von Heroin abhängig sind und bei denen andere Therapien nicht geholfen haben."@de ,
+        "Diamorphine-assisted therapy is a special form of treatment for people who are heavily dependent on heroin and for whom other therapies have not helped."@en ;
+    ff:moreInfoAt <https://raw.githubusercontent.com/Citizen-Knowledge-Graph/foerderfunke-react-app/refs/heads/main/public/assets/data/requirement-profiles/requirement-profiles-hydration.json> ;
+    ff:hasMainShape ff:substitutionstherapieDiamorphinMainShape ;
+    ff:hasFlowShape ff:substitutionstherapieDiamorphinFlowShape .
+
+# ----- EVALUATION LOGIC -----
+
+ff:substitutionstherapieDiamorphinMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [ sh:path ff:opioidAddiction ; sh:in (true) ] ;
+    sh:property [ sh:path ff:hasAge ; sh:minInclusive 18 ] ;
+    sh:property [
+        sh:or (
+            [ sh:property [ sh:path ff:sobrietyWish ; sh:in (true) ] ]
+            [ sh:property [ sh:path ff:severeDisease ; sh:in (true) ] ]
+            [ sh:and (
+                [ sh:not [ sh:property [ sh:path ff:gender ; sh:in (sh:male) ] ] ]
+                [ sh:or (
+                    [ sh:property [ sh:path ff:pregnancy ; sh:in (true) ] ]
+                    [ sh:property [ sh:path ff:recentChildbirth ; sh:in (true) ] ]
+                )]
+            ) ]
+        )
+    ] ;
+    sh:property [ sh:path ff:opioidAddictionMoreThanTwoYears ; sh:in (true) ] ;
+    sh:property [ sh:path ff:addictionDamage ; sh:in (true) ] ;
+    sh:property [ sh:path ff:regularSubstitutiontherapy6months ; sh:in (true) ] ;
+    sh:property [ sh:path ff:regularSubstitutiontherapyUnsuccessful ; sh:in (true) ] .
+    
+# ----- DECISION TREE LOGIC -----
+
+ff:substitutionstherapieDiamorphinFlowShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property ff:stdBaseRequirements ;
+    sh:property ff:stdSobrietyWishPS ;
+    sh:property ff:stdSevereDiseasePS ;
+    sh:property ff:stdGenderRequirementsPS ;
+    sh:property ff:pregancyRequirementsPS ;
+    sh:property ff:stdRecentBirthPS ;
+    sh:property ff:stdDurationRequirementPS ;
+    sh:property ff:stdAddictionDamageRequirementPS ;
+    sh:property ff:stdPreviousTherapyRequirementPS ;
+    sh:property ff:stdUnsuccessfulTherapyRequirementPS .
+
+ff:stdBaseRequirements a sh:PropertyShape ;
+    sh:property [ sh:path ff:opioidAddiction ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:healthInsurance ; sh:minCount 1 ] ;
+    sh:property [ sh:path ff:birthDate ; sh:minCount 1 ] .
+
+ff:stdSobrietyWishPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:and (
+                [ shn:eq ( [ sh:path ff:opioidAddiction ] true ) ]
+                [ sh:path ff:hasAge ; sh:minInclusive 18 ]
+        )]
+    ] ;
+    sh:property [ sh:path ff:sobrietyWish ; sh:minCount 1 ] .
+
+ff:stdSevereDiseasePS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:sobrietyWish ] false )
+        ]
+    ] ;
+    sh:property [ sh:path ff:severeDisease ; sh:minCount 1 ] .
+
+ff:stdGenderRequirementsPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:severeDisease ] false )
+        ]
+    ] ;
+    sh:property [ sh:path ff:gender ; sh:minCount 1 ] .
+
+ff:stdPregnancyPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:or (
+                [ sh:property [ sh:path ff:gender ; sh:in (ff:gender-female) ] ]        
+                [ sh:property [ sh:path ff:gender ; sh:in (ff:gender-diverse) ] ]
+                [ sh:property [ sh:path ff:gender ; sh:in (ff:gender-other) ] ]
+            )
+        ]
+    ] ;
+    sh:property [ sh:path ff:pregnancy ; sh:minCount 1 ] .
+
+ff:stdRecentBirthPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:pregnancy ] false )
+        ]
+    ] ;
+    sh:property [ sh:path ff:recentChildbirth ; sh:minCount 1 ] .
+
+ff:stdDurationRequirementPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            sh:or (
+                [ shn:eq ( [ sh:path ff:sobrietyWish ] true ) ]
+                [ shn:eq ( [ sh:path ff:severeDisease ] true ) ]
+                [ shn:eq ( [ sh:path ff:pregnancy ] true ) ]
+                [ shn:eq ( [ sh:path ff:recentChildbirth ] true ) ]
+            )
+        ]
+    ] ;
+    sh:property [ sh:path ff:opioidAddictionMoreThanTwoYears ; sh:minCount 1 ] .
+
+ff:stdAddictionDamageRequirementPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:opioidAddictionMoreThanTwoYears ] true )
+        ]
+    ] ;
+    sh:property [ sh:path ff:addictionDamage ; sh:minCount 1 ] .
+
+ff:stdPreviousTherapyRequirementPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:addictionDamage ] true )
+        ]
+    ] ;
+    sh:property [ sh:path ff:regularSubstitutiontherapy6months ; sh:minCount 1 ] .
+
+ff:stdUnsuccessfulTherapyRequirementPS a sh:PropertyShape ;
+    sh:deactivated [
+        sh:not [
+            shn:eq ( [ sh:path ff:regularSubstitutiontherapy6months ] true )
+        ]
+    ] ;
+    sh:property [ sh:path ff:regularSubstitutiontherapyUnsuccessful ; sh:minCount 1 ] .

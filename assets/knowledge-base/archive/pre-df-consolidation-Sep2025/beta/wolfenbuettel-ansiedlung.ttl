@@ -1,0 +1,47 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:wolfenbuettel-ansiedlung a ff:RequirementProfile ;
+    ff:title "Förderung der Ansiedlung von Einzelhandelsunternehmen und Gastronomiebetrieben"@de , 
+             "Funding for the Establishment of Retail Businesses and Gastronomy"@en ;
+    ff:category ff:gewerbe-foerderung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta , ff:wolfenbuettel ;
+    ff:benefitInfo "Die Stadt Wolfenbüttel unterstützt die Ansiedlung von Einzelhandelsunternehmen und Gastronomiebetrieben in der Innenstadt mit finanziellen Zuschüssen."@de ,
+        "The city of Wolfenbüttel supports the establishment of retail businesses and gastronomy in the city center with financial grants."@en ;
+    rdfs:seeAlso <https://www.wolfenbuettel.de/loadDocument.phtml?FID=2093.1241.1&Ext=PDF> ;
+    ff:hasMainShape ff:wolfenbuettel-ansiedlungMainShape .
+
+ff:wolfenbuettel-ansiedlungMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+    sh:property [
+        sh:path ff:interested_offers_location ;
+        sh:in (ff:interested_offers_location-wolfenbuettel) ;
+        sh:minCount 1 ;
+        sh:message "Person muss sich für Angebote in der Gegend interessieren."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:industry ;
+        sh:in (ff:industry-ao-gastronomy ff:industry-ao-retail) ;
+        sh:minCount 1 ;
+        sh:message "Das Unternehmen muss entweder der Gastronomie oder dem Einzelhandel angehören."@de ;
+    ] ;
+
+    sh:property [
+        sh:path ff:business_activity_location ;
+        sh:in (ff:business_activity_location-wolfenbuettel) ;
+        sh:minCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:path ff:business_location_inner_city ;
+        sh:in (true) ;
+        sh:minCount 1 ;
+        sh:message "Das Unternehmen muss sich innerhalb der Innenstadt (innere Okerumflut) von Wolfenbüttel befinden."@de ;
+    ] .
+
+

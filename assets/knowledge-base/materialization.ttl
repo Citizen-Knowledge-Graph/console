@@ -1,0 +1,156 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+
+# MATERIALIZATION RULES
+
+ff:CalculateAgeFromBirthdate a ff:MaterializationRule ;
+    rdfs:label "Berechnung des Alters basierend auf dem Geburtsdatum"@de, "Calculate the age from the birthdate"@en ;
+    ff:input ff:birthDate ;
+    ff:output ff:hasAge ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        CONSTRUCT {
+            ?person ff:hasAge ?age .
+        } WHERE {
+            ?person ff:birthDate ?bday .
+            BIND(YEAR(NOW()) - YEAR(?bday) - IF(MONTH(NOW()) < MONTH(?bday) || (MONTH(NOW()) = MONTH(?bday) && DAY(NOW()) < DAY(?bday)), 1, 0) AS ?age) .
+        }
+    """ .
+
+ff:PensionableFromBirthdate a ff:MaterializationRule ;
+    rdfs:label "Feststellung der Pensionsberechtigung basierend auf dem Geburtsdatum"@de, "Determining qualification for pension from the birthdate"@en ;
+    ff:input ff:birthDate ;
+    ff:output ff:pensionable ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        CONSTRUCT {
+            ?person ff:pensionable ?pensionable .
+        } WHERE {
+            ?person ff:birthDate ?bday .
+            BIND(YEAR(?bday) AS ?birthYear) BIND(MONTH(?bday) AS ?birthMonth) BIND(DAY(?bday) AS ?birthDay)
+            OPTIONAL {
+                ?yearRow ff:appliesToBirthYear ?birthYear ;
+                    ff:hasPensionAgeYears ?pensionAgeYears ;
+                    ff:hasPensionAgeMonths ?pensionAgeMonths .
+            }
+            BIND(COALESCE(?pensionAgeYears, 67) AS ?finalPensionAgeYears)
+            BIND(COALESCE(?pensionAgeMonths, 0) AS ?finalPensionAgeMonths)
+            BIND(?birthYear + ?finalPensionAgeYears AS ?pensionYear)
+            BIND(?birthMonth + ?finalPensionAgeMonths AS ?monthsSum)
+            BIND(IF(?monthsSum > 12, ?monthsSum - 12, ?monthsSum) AS ?pensionMonth)
+            BIND(IF(?monthsSum > 12, ?pensionYear + 1, ?pensionYear) AS ?adjustedPensionYear)
+            BIND(CONCAT(
+                    STR(?adjustedPensionYear), "-",
+                    IF(STRLEN(STR(?pensionMonth)) = 1, CONCAT("0", STR(?pensionMonth)), STR(?pensionMonth)), "-",
+                    IF(STRLEN(STR(?birthDay)) = 1, CONCAT("0", STR(?birthDay)), STR(?birthDay)),
+                    "T00:00:00"
+            ) AS ?pensionDateStr)
+            BIND(xsd:dateTime(?pensionDateStr) AS ?pensionDate)
+            BIND(IF(NOW() >= ?pensionDate, true, false) AS ?pensionable)
+        }
+    """ .
+
+ff:PensionAgeTable a ff:TableOfConstants ;
+    ff:hasRow ff:Year1947 ; ff:hasRow ff:Year1948 ; ff:hasRow ff:Year1949 ; ff:hasRow ff:Year1950 ; ff:hasRow ff:Year1951 ;
+    ff:hasRow ff:Year1952 ; ff:hasRow ff:Year1953 ; ff:hasRow ff:Year1954 ; ff:hasRow ff:Year1955 ; ff:hasRow ff:Year1956 ;
+    ff:hasRow ff:Year1957 ; ff:hasRow ff:Year1958 ; ff:hasRow ff:Year1959 ; ff:hasRow ff:Year1960 ; ff:hasRow ff:Year1961 ;
+    ff:hasRow ff:Year1962 ; ff:hasRow ff:Year1963 ; ff:hasRow ff:Year1964 .
+ff:Year1947 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 0 ; ff:appliesToBirthYear 1947 .
+ff:Year1948 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 1 ; ff:appliesToBirthYear 1948 .
+ff:Year1949 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 2 ; ff:appliesToBirthYear 1949 .
+ff:Year1950 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 3 ; ff:appliesToBirthYear 1950 .
+ff:Year1951 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 4 ; ff:appliesToBirthYear 1951 .
+ff:Year1952 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 5 ; ff:appliesToBirthYear 1952 .
+ff:Year1953 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 6 ; ff:appliesToBirthYear 1953 .
+ff:Year1954 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 7 ; ff:appliesToBirthYear 1954 .
+ff:Year1955 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 8 ; ff:appliesToBirthYear 1955 .
+ff:Year1956 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 9 ; ff:appliesToBirthYear 1956 .
+ff:Year1957 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 10 ; ff:appliesToBirthYear 1957 .
+ff:Year1958 ff:hasPensionAgeYears 65 ; ff:hasPensionAgeMonths 11 ; ff:appliesToBirthYear 1958 .
+ff:Year1959 ff:hasPensionAgeYears 66 ; ff:hasPensionAgeMonths 0 ; ff:appliesToBirthYear 1959 .
+ff:Year1960 ff:hasPensionAgeYears 66 ; ff:hasPensionAgeMonths 2 ; ff:appliesToBirthYear 1960 .
+ff:Year1961 ff:hasPensionAgeYears 66 ; ff:hasPensionAgeMonths 4 ; ff:appliesToBirthYear 1961 .
+ff:Year1962 ff:hasPensionAgeYears 66 ; ff:hasPensionAgeMonths 6 ; ff:appliesToBirthYear 1962 .
+ff:Year1963 ff:hasPensionAgeYears 66 ; ff:hasPensionAgeMonths 8 ; ff:appliesToBirthYear 1963 .
+ff:Year1964 ff:hasPensionAgeYears 66 ; ff:hasPensionAgeMonths 10 ; ff:appliesToBirthYear 1964 .
+
+ff:NoKidsImpliesNoKidsInAgeRanges a ff:MaterializationRule ;
+    rdfs:label "Wenn jemand keine Kinder hat, hat er auch keine Kinder in diesen beiden Altersspannen"@de, "If someone has no children, they also have no children in these two age ranges"@en ;
+    ff:input ff:kinder ;
+    ff:output ff:kinder_unter_18 ;
+    ff:output ff:kinder_18_25 ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        CONSTRUCT {
+            ?person ff:kinder_unter_18 false .
+            ?person ff:kinder_18_25 false .
+        } WHERE {
+            ?person ff:kinder false .
+        }
+    """ .
+
+ff:KidsInAgeRangesMeansHavingKids a ff:MaterializationRule ;
+    rdfs:label "Wenn jemand Kinder in Altersspannen hat, hat die Person Kinder"@de, "If someone has children in age ranges, the person has children"@en ;
+    ff:input ff:kinder_unter_18 ;
+    ff:input ff:kinder_18_25 ;
+    ff:output ff:kinder ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        CONSTRUCT {
+            ?person ff:kinder true .
+        } WHERE {
+            {
+                ?person ff:kinder_unter_18 true .
+            } UNION {
+                ?person ff:kinder_18_25 true .
+            }
+        }
+    """ .
+
+ff:HouseholdMembersToVermoegensGrenzeBuergergeld a ff:MaterializationRule ;
+    rdfs:label "Berechnung der Vermögensgrenze für das Bürgergeld basierend auf der Anzahl der Haushaltsmitglieder"@de, 
+        "Calculation of the asset limit for citizen's benefit based on the number of household members"@en ;
+    ff:input ff:householdMembers ;
+    ff:input ff:citizensIncomeLast3Years ;
+    ff:output ff:assetLimitCitizensIncome ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+        CONSTRUCT {
+            ?person ff:assetLimitCitizensIncome ?assetLimit .
+        } WHERE {
+            ?person ff:householdMembers ?members ;
+                    ff:citizensIncomeLast3Years ?pastEligible .
+
+            BIND(
+                IF(?pastEligible = true,
+                   ?members * 15000,
+                   40000 + (IF(?members > 1, (?members - 1) * 15000, 0))
+                ) AS ?assetLimit
+            )
+        }
+    """ .
+
+ff:HouseholdMembersToVermoegensGrenzeWohngeld a ff:MaterializationRule ;
+    rdfs:label "Berechnung der Vermögensgrenze für das Wohngeld basierend auf der Anzahl der Haushaltsmitglieder"@de, 
+        "Calculation of the asset limit for housing benefit based on the number of household members"@en ;
+    ff:input ff:householdMembers ;
+    ff:output ff:assetLimitHousingAllowance ;
+    ff:sparqlConstructQuery """
+        PREFIX ff: <https://foerderfunke.org/default#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+        CONSTRUCT {
+            ?person ff:assetLimitHousingAllowance ?assetLimit .
+        } WHERE {
+            ?person ff:householdMembers ?members .
+
+            BIND(
+                60000 + (IF(?members > 1, (?members - 1) * 30000, 0))
+                AS ?assetLimit
+            )
+        }
+    """ .

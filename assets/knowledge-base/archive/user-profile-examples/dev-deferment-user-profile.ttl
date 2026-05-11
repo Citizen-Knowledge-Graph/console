@@ -1,0 +1,28 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+ff:mainPerson a ff:Citizen ;
+    ff:hasCompliedRequirementProfile ff:compliedrequirementprofile0 ;
+    ff:hasBirthday "1990-01-02"^^xsd:date ;
+    ff:hasDeferred ff:deferment0 ;
+    ff:hasDeferred ff:deferment1 ;
+    ff:hasDeferred ff:deferment2 .
+    # ff:jenabonus --> ff:hasResidence "Jena" ;
+    # ff:jenabonus --> ff:eligibleForSocialSupport true .
+
+ff:compliedrequirementprofile0 a ff:CompliedRequirementProfile ;
+    ff:hasRpUri ff:jenabonus .
+
+ff:deferment0 a ff:Deferment ; # via materialization
+    rdf:subject ff:mainPerson ;
+    rdf:predicate ff:hasAge .
+
+ff:deferment1 a ff:Deferment ; # via complied requirement profile
+    rdf:subject ff:mainPerson ;
+    rdf:predicate ff:eligibleForSocialSupport .
+
+ff:deferment2 a ff:Deferment ; # via missing data field
+    rdf:subject ff:mainPerson ;
+    rdf:predicate ff:hasChild .

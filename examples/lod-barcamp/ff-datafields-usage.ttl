@@ -1,0 +1,88 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix ff: <https://foerderfunke.org/default#>.
+
+ff:graph a ff:Graph;
+    ff:hasId "graph_2025-11-24_12-58-57";
+    ff:hasName "Barcamp FF Session";
+    ff:hasExportTimestamp "2025-11-25T13:37:46.678Z";
+    ff:hasTranslateX 414;
+    ff:hasTranslateY 120;
+    ff:hasNode ff:node1, ff:node2, ff:node3, ff:node4, ff:node5, ff:node6, ff:node7;
+    ff:hasEdge ff:edge1, ff:edge2, ff:edge3, ff:edge4, ff:edge5, ff:edge6.
+ff:node1 a ff:Node;
+    ff:hasClass ff:ExternalTurtleFilesInputNode;
+    ff:hasName "All FörderFunke triples";
+    ff:hasPosX -363;
+    ff:hasPosY 63;
+    ff:hasWidth 874;
+    ff:hasHeight 133;
+    ff:hasValue "https://raw.githubusercontent.com/Citizen-Knowledge-Graph/knowledge-base/refs/heads/main/build/rps.built.ttl\nhttps://raw.githubusercontent.com/Citizen-Knowledge-Graph/knowledge-base/refs/heads/main/build/def.built.ttl".
+ff:node2 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "Collecting constraints on datafields across requirement profiles";
+    ff:hasPosX "787";
+    ff:hasPosY "-99";
+    ff:hasWidth 548;
+    ff:hasHeight 594;
+    ff:hasValue "PREFIX sh:  <http://www.w3.org/ns/shacl#>\nPREFIX ff:  <https://foerderfunke.org/default#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?requirementProfile ?datafield ?constraintType\n       (GROUP_CONCAT(?value; separator=\", \") AS ?constraintValue)\nWHERE {\n  ?root ff:hasMainShape ?mainShape ;\n        ff:title ?requirementProfile .\n  \t\tFILTER(LANG(?requirementProfile) = \"de\")\n  ?mainShape\n      ( sh:property\n      | sh:or\n      | sh:and\n      | sh:not\n      | rdf:first\n      | rdf:rest\n      )*\n      ?propShape .\n\n  ?propShape sh:path ?path .\n  ?path rdfs:label ?datafield .\n  FILTER(LANG(?datafield) = \"de\")\n\n  {\n    ?propShape ?constraintType ?constraintValueRaw .\n\n    FILTER(\n      ?constraintType != sh:path    &&\n      ?constraintType != sh:message &&\n      ?constraintType != sh:minCount &&\n      ?constraintType != sh:not      &&\n      ?constraintType != sh:in\n    )\n\n    BIND(STR(?constraintValueRaw) AS ?value)\n  }\n  UNION\n  {\n    ?propShape sh:in ?posList .\n    ?posList rdf:rest*/rdf:first ?item .\n\n    BIND(sh:in AS ?constraintType)\n    BIND(STR(?item) AS ?value)\n  }\n  UNION\n  {\n    SELECT ?root ?path ?constraintType\n           (CONCAT(\"NOT (\", GROUP_CONCAT(STR(?negItem); separator=\", \"), \")\") AS ?value)\n    WHERE {\n      ?root ff:hasMainShape ?mainShape .\n\n      ?mainShape\n          ( sh:property\n          | sh:or\n          | sh:and\n          | sh:not\n          | rdf:first\n          | rdf:rest\n          )*\n          ?propShape .\n\n      ?propShape sh:path ?path ;\n                 sh:not ?notNode .\n\n      ?notNode sh:in ?negList .\n      ?negList rdf:rest*/rdf:first ?negItem .\n\n      BIND(sh:in AS ?constraintType)\n    }\n    GROUP BY ?root ?path ?constraintType\n  }\n}\nGROUP BY ?requirementProfile ?datafield ?constraintType\nORDER BY ?datafield ?requirementProfile ?constraintType".
+ff:node3 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "Datafield reuse across requirement profiles";
+    ff:hasPosX "-378";
+    ff:hasPosY "596";
+    ff:hasValue "PREFIX sh:  <http://www.w3.org/ns/shacl#>\nPREFIX ff:  <https://foerderfunke.org/default#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nSELECT ?datafield\n       (COUNT(DISTINCT ?root) AS ?occurences)\n       (GROUP_CONCAT(DISTINCT ?rootLocal; separator=\", \") AS ?RPs)\nWHERE {\n  ?root ff:hasMainShape ?mainShape .\n\n  BIND(IRI(STR(?root)) AS ?rootIRI)\n  BIND(\n      REPLACE(STR(?rootIRI), '^.*[/#]', '')\n      AS ?rootLocal\n  )\n  ?mainShape\n      ( sh:property\n      | sh:or\n      | sh:and\n      | sh:not\n      | rdf:first\n      | rdf:rest\n      )*\n      ?propShape .\n\n  ?propShape sh:path ?path .\n  \n  ?path rdfs:label ?datafield .\n  FILTER(LANG(?datafield) = \"de\")\n}\nGROUP BY ?path ?datafield\nORDER BY DESC(?occurences)".
+ff:node4 a ff:Node;
+    ff:hasClass ff:SparqlInputNode;
+    ff:hasName "Datafields being used per requirement profile";
+    ff:hasPosX -1185;
+    ff:hasPosY 1312;
+    ff:hasWidth 566;
+    ff:hasHeight 419;
+    ff:hasValue "PREFIX sh:  <http://www.w3.org/ns/shacl#>\nPREFIX ff:  <https://foerderfunke.org/default#>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nSELECT ?requirementProfile (COUNT(DISTINCT ?path) AS ?datafields)\nWHERE {\n  ?root ff:hasMainShape ?mainShape ;\n          ff:title ?requirementProfile .\n  \t\tFILTER(LANG(?requirementProfile) = \"de\")\n  ?mainShape\n      ( sh:property\n      | sh:or\n      | sh:and\n      | sh:not\n      | rdf:first\n      | rdf:rest\n      )*\n      ?propShape .\n\n  ?propShape sh:path ?path .\n}\nGROUP BY ?requirementProfile\nORDER BY DESC(?datafields)".
+ff:node5 a ff:Node;
+    ff:hasClass ff:SparqlSelectExecNode;
+    ff:hasName "Run SPARQL SELECT";
+    ff:hasPosX 788;
+    ff:hasPosY 518;
+    ff:hasWidth 1521;
+    ff:hasHeight 8998.
+ff:node6 a ff:Node;
+    ff:hasClass ff:SparqlSelectExecNode;
+    ff:hasName "Run SPARQL SELECT";
+    ff:hasPosX "67";
+    ff:hasPosY "593".
+ff:node7 a ff:Node;
+    ff:hasClass ff:SparqlSelectExecNode;
+    ff:hasName "Run SPARQL SELECT";
+    ff:hasPosX -574;
+    ff:hasPosY 1307.
+ff:edge1 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node6;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge2 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node7;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge3 a ff:Edge;
+    ff:hasSource ff:node2;
+    ff:hasTarget ff:node5;
+    ff:hasPortOut 1;
+    ff:hasPortIn 1.
+ff:edge4 a ff:Edge;
+    ff:hasSource ff:node3;
+    ff:hasTarget ff:node6;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge5 a ff:Edge;
+    ff:hasSource ff:node4;
+    ff:hasTarget ff:node7;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.
+ff:edge6 a ff:Edge;
+    ff:hasSource ff:node1;
+    ff:hasTarget ff:node5;
+    ff:hasPortOut 1;
+    ff:hasPortIn 2.

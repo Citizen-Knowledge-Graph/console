@@ -1,0 +1,218 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+# general
+
+ff:schoolEducation a ff:DataField ;
+    schema:category ff:bildung-df-kategorie;
+    rdfs:label "Schulbildung"@de , "School Education"@en ;
+    schema:question "Welchen allgemeinbildenden Schulabschluss haben Sie?"@de , "What is your highest general school qualification?"@en ;
+    rdfs:comment "Falls Sie keinen Schulabschluss haben, wählen Sie bitte 'Kein Schulabschluss' aus. Wenn Sie einen ausländischen Schulabschluss haben, der in Deutschland nicht anerkannt wird, wählen Sie bitte 'Andere' aus."@de ,
+        "If you do not have a school leaving certificate, please select 'No school leaving certificate'. If you have a foreign school leaving certificate that is not recognized in Germany, please select 'Other'."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:schoolEducation ;
+        sh:property [
+            sh:path ff:schoolEducation ;
+            sh:in (
+                ff:schoolEducation-noGraduation
+                ff:schoolEducation-lowerSecondary
+                ff:schoolEducation-intermediateSecondary
+                ff:schoolEducation-upperSecondary
+                ff:schoolEducation-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:schoolEducation-noGraduation a ff:AnswerOption ; rdfs:label "Kein Schulabschluss"@de , "No school leaving certificate"@en .
+ff:schoolEducation-lowerSecondary a ff:AnswerOption ; rdfs:label "Hauptschulabschluss"@de , "Lower secondary school leaving certificate"@en .
+ff:schoolEducation-intermediateSecondary a ff:AnswerOption ; rdfs:label "Realschulabschluss"@de , "Intermediate secondary school leaving certificate"@en .
+ff:schoolEducation-upperSecondary a ff:AnswerOption ; rdfs:label "Abitur/Fachabitur"@de , "Upper secondary school leaving certificate (Abitur/Fachabitur)"@en .
+ff:schoolEducation-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:vocationalTraining a ff:DataField ;
+    schema:category ff:bildung-df-kategorie;
+    rdfs:label "Berufsausbildung"@de , "Vocational Training"@en ;
+    schema:question "Welche berufliche Ausbildung haben Sie abgeschlossen?"@de , "What vocational training have you completed?"@en ;
+    rdfs:comment "Falls Sie keine Berufsausbildung haben, wählen Sie bitte 'Keine Berufsausbildung' aus. Wenn Sie eine ausländische Berufsausbildung haben, die in Deutschland nicht anerkannt wird, wählen Sie bitte 'Andere' aus."@de ,
+        "If you do not have vocational training, please select 'No vocational training'. If you have foreign vocational training that is not recognized in Germany, please select 'Other'."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:vocationalTraining ;
+        sh:property [
+            sh:path ff:vocationalTraining ;
+            sh:in (
+                ff:vocationalTraining-noTraining
+                ff:vocationalTraining-dualTraining
+                ff:vocationalTraining-schoolBasedTraining
+                ff:vocationalTraining-advancedVocationalTraining
+                ff:vocationalTraining-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:vocationalTraining-noTraining a ff:AnswerOption ; rdfs:label "Keine Berufsausbildung"@de , "No vocational training"@en .
+ff:vocationalTraining-dualTraining a ff:AnswerOption ; rdfs:label "Duale Berufsausbildung"@de , "Dual vocational training"@en .
+ff:vocationalTraining-schoolBasedTraining a ff:AnswerOption ; rdfs:label "Schulische Berufsausbildung"@de , "School-based vocational training"@en .
+ff:vocationalTraining-advancedVocationalTraining a ff:AnswerOption ; rdfs:label "Aufstiegsfortbildung (z.B. Meister:in, Fachwirt:in)"@de , "Advanced vocational training (e.g. master craftsman, specialist)"@en .
+ff:vocationalTraining-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:vocationalTrainingRecent a ff:DataField ;
+    schema:category ff:bildung-df-kategorie ;
+    rdfs:label "Zeitpunkt des Berufsabschlusses"@de , "Timing of Vocational Qualification"@en ;
+    schema:question "Haben Sie den Berufsabschluss in den letzten zwölf Monaten erworben?"@de , "Did you obtain the vocational qualification within the past 12 months?"@en ;
+    rdfs:comment "Diese Frage bezieht sich auf den angegebenen Berufsabschluss. Bitte geben Sie an, ob dieser Abschluss innerhalb der letzten zwölf Monate durch eine Prüfung erworben wurde."@de ,
+                 "This question refers to the vocational qualification specified earlier. Please indicate whether this qualification was obtained within the past 12 months through an exam."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:vocationalTrainingRecent ;
+        sh:property [
+            sh:path ff:vocationalTrainingRecent ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:higherEducation a ff:DataField ;
+    schema:category ff:bildung-df-kategorie;
+    rdfs:label "Hochschulbildung"@de , "Higher Education"@en ;
+    schema:question "Welche Hochschulbildung haben Sie abgeschlossen?"@de , "What higher education qualification have you completed?"@en ;
+    rdfs:comment "Falls Sie keine Hochschulbildung haben, wählen Sie bitte 'Keine Hochschulbildung' aus. Wenn Sie eine ausländische Hochschulbildung haben, die in Deutschland nicht anerkannt wird, wählen Sie bitte 'Andere' aus."@de ,
+        "If you do not have a higher education qualification, please select 'No higher education qualification'. If you have a foreign higher education qualification that is not recognized in Germany, please select 'Other'."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:higherEducation ;
+        sh:property [
+            sh:path ff:higherEducation ;
+            sh:in (
+                ff:higherEducation-noDegree
+                ff:higherEducation-bachelor
+                ff:higherEducation-master
+                ff:higherEducation-stateExam
+                ff:higherEducation-doctorate
+                ff:higherEducation-habilitation
+                ff:higherEducation-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:higherEducation-noDegree a ff:AnswerOption ; rdfs:label "Keine Hochschulbildung"@de , "No higher education qualification"@en .
+ff:higherEducation-bachelor a ff:AnswerOption ; rdfs:label "Bachelor"@de , "Bachelor's degree"@en .
+ff:higherEducation-master a ff:AnswerOption ; rdfs:label "Master"@de , "Master's degree"@en .
+ff:higherEducation-stateExam a ff:AnswerOption ; rdfs:label "Staatsexamen"@de , "State examination"@en .
+ff:higherEducation-doctorate a ff:AnswerOption ; rdfs:label "Doktortitel"@de , "Doctorate"@en .
+ff:higherEducation-habilitation a ff:AnswerOption ; rdfs:label "Habilitation"@de , "Habilitation"@en .
+ff:higherEducation-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:educationStatus a ff:DataField ;
+    schema:category ff:bildung-df-kategorie;
+    rdfs:label "Derzeitiger Bildungsstatus"@de , "Current Education Status"@en ;
+    schema:question "Was beschreibt Ihren derzeitigen Bildungsstatus am besten?"@de , "What best describes your current education status?"@en ;
+    rdfs:comment "Bitte wählen Sie die Option aus, die am besten zu Ihrer aktuellen Situation passt. Wenn Sie z.B. gerade eine Ausbildung machen, wählen Sie 'In Ausbildung'. Wenn Sie studieren, wählen Sie 'Studierend'."@de ,
+        "Please select the option that best fits your current situation. For example, if you are currently doing an apprenticeship, select 'In training'. If you are studying, select 'Studying'."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:educationStatus ;
+        sh:property [
+            sh:path ff:educationStatus ;
+            sh:in (
+                ff:educationStatus-notInEducation
+                ff:educationStatus-school
+                ff:educationStatus-vocationalTraining
+                ff:educationStatus-higherEducation
+                ff:educationStatus-other
+            ) ;
+        ] ;
+    ] .
+ff:educationStatus-notInEducation a ff:AnswerOption ; rdfs:label "Nicht in Ausbildung/Studium"@de , "Not in education/training"@en .
+ff:educationStatus-school a ff:AnswerOption ; rdfs:label "Schulisch"@de , "In school"@en .
+ff:educationStatus-vocationalTraining a ff:AnswerOption ; rdfs:label "In Ausbildung"@de , "In vocational training"@en .
+ff:educationStatus-higherEducation a ff:AnswerOption ; rdfs:label "Studierend"@de , "Studying"@en .
+ff:educationStatus-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:receivesScholarship a ff:DataField ;
+    schema:category ff:beschaeftigung-df-kategorie ;
+    rdfs:label "Erhalten Sie derzeit ein Stipendium?"@de , "Are you currently receiving a scholarship?"@en ;
+    schema:question "Erhalten Sie derzeit ein Stipendium?"@de ,
+                   "Are you currently receiving a scholarship?"@en ;
+    rdfs:comment "Bitte geben Sie an, ob Sie gegenwärtig ein Stipendium erhalten."@de ,
+                 "Please indicate whether you are currently receiving a scholarship."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:receivesScholarship ;
+        sh:property [
+            sh:path ff:receivesScholarship ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:educationLocation a ff:DataField ;
+    schema:category ff:bildung-df-kategorie ;
+    rdfs:label "Ort der Ausbildung"@de , "Place of Education"@en ;
+    schema:question "Wo findet Ihre Ausbildung statt?"@de , "Where is your education taking place?"@en ;
+    rdfs:comment "Mehrfachangaben möglich: z. B. Deutschland und Ausland (Austausch/Praktikum) oder Online/Fernstudium."@de ,
+                 "Multiple selections allowed: e.g., Germany and abroad (exchange/internship) or online/distance learning."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:educationLocation ;
+        sh:property [
+            sh:path ff:educationLocation ;
+            sh:in (
+                ff:educationLocation-ger
+                ff:educationLocation-abroad
+                ff:educationLocation-online
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:educationLocation-ger a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:educationLocation-abroad a ff:AnswerOption ; rdfs:label "Außerhalb Deutschlands"@de , "Abroad"@en .
+ff:educationLocation-online a ff:AnswerOption ; rdfs:label "Online / Fernstudium"@de , "Online / Distance learning"@en .
+
+# specific
+
+ff:higherEducationProgress a ff:DataField ;
+    schema:category ff:bildung-df-kategorie ;
+    rdfs:label "Fortschritt im Studium"@de , "Progress in Higher Education"@en ;
+    schema:question "Wie weit sind Sie in Ihrem akademischen Studium fortgeschritten?"@de , "How far along are you in your higher education studies?"@en ;
+    rdfs:comment "Bitte geben Sie an, in welcher Phase Ihres akademischen Studiums Sie sich aktuell befinden."@de , "Please indicate the current stage of your higher education studies."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:higherEducationProgress ;
+        sh:property [
+            sh:path ff:higherEducationProgress ;
+            sh:in (
+                ff:higherEducationProgress-lessThanHalf
+                ff:higherEducationProgress-moreThanHalf
+                ff:higherEducationProgress-completed
+                ff:higherEducationProgress-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:higherEducationProgress-lessThanHalf a ff:AnswerOption ; rdfs:label "Weniger als die Hälfte des Studiums abgeschlossen"@de , "Less than half of the studies completed"@en .
+ff:higherEducationProgress-moreThanHalf a ff:AnswerOption ; rdfs:label "Mehr als die Hälfte des Studiums abgeschlossen"@de , "More than half of the studies completed"@en .
+ff:higherEducationProgress-completed a ff:AnswerOption ; rdfs:label "Studium abgeschlossen"@de , "Studies completed"@en .
+ff:higherEducationProgress-other a ff:AnswerOption ; rdfs:label "Andere"@de , "Other"@en .
+
+ff:higherEducationEntrepreneurshipSupport a ff:DataField ;
+    schema:category ff:bildung-df-kategorie ;
+    rdfs:label "Unterstützung für Gründer:innen"@de , "Entrepreneurship Support"@en ;
+    schema:question "Bietet Ihre Hochschule Unterstützung für Gründer:innen?"@de ,
+                    "Does your higher education institution provide support for entrepreneurs?"@en ;
+    rdfs:comment "Gemeint sind z. B. Mentoring, Inkubator-Programme oder Finanzierungsmöglichkeiten, die speziell auf Gründer:innen ausgerichtet sind."@de ,
+                 "This refers to services such as mentoring, incubator programs, or funding opportunities specifically aimed at entrepreneurs."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:higherEducationEntrepreneurshipSupport ;
+        sh:property [
+            sh:path ff:higherEducationEntrepreneurshipSupport ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .

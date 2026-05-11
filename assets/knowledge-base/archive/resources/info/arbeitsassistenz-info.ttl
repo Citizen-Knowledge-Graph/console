@@ -1,0 +1,39 @@
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ff:arbeitsassistenz ff:hasInfoContent ff:arbeitsassistenz_info .
+
+ff:arbeitsassistenz_info a ff:InfoPageContent ;
+    ff:hasTeaser "Test 123" ;
+    ff:hasContact [
+        ff:infoType ff:general ;
+        ff:markdown "Here some general contact info that will always be shown." ;
+    ] , [
+        ff:infoType ff:specific ;
+        ff:markdown "Here some specific contact info for adults in Bielefeld" ;
+        ff:hasShaclShape [ a sh:NodeShape ; sh:targetClass ff:Citizen ;
+            sh:property ff:contact1ps1 ;
+            sh:property ff:contact1ps2 ;
+        ] ;
+    ] , [
+        ff:infoType ff:specific ;
+        ff:markdown "Here some specific contact info for Berlin" ;
+        ff:hasShaclShape [ a sh:NodeShape ; sh:targetClass ff:Citizen ;
+            sh:property ff:contact2ps1;
+        ] ;
+    ] .
+
+ff:contact1ps1 a sh:PropertyShape ;
+    sh:path ff:residence_city ;
+    sh:in (ff:residence_city-bielefeld) ;
+    sh:minCount 1 .
+
+ff:contact1ps2 a sh:PropertyShape ;
+    sh:path ff:hasAge ;
+    sh:minInclusive 18 ;
+    sh:minCount 1 .
+
+ff:contact2ps1 a sh:PropertyShape ;
+    sh:path ff:residence_city ;
+    sh:in (ff:residence_city-berlin) ;
+    sh:minCount 1 .

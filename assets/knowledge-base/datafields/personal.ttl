@@ -1,0 +1,164 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+ff:gender a ff:DataField ;
+    schema:category ff:personDfKategorie ;
+    rdfs:label "Geschlecht"@de , "Gender"@en ;
+    schema:question "Was ist Ihr Geschlecht?"@de , "What is your gender?"@en ;
+    rdfs:comment "Geschlecht bezeichnet die rechtlich oder sozial anerkannte Geschlechtszugehörigkeit einer Person. Neben den Kategorien männlich und weiblich ist in Deutschland auch die Eintragung divers möglich."@de ,
+                 "Gender refers to the legally or socially recognized gender identity of a person. In Germany, in addition to male and female, the entry 'diverse' is also possible."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:gender ;
+        sh:property [
+            sh:path ff:gender ;
+            sh:in (
+                ff:gender-male
+                ff:gender-female
+                ff:gender-diverse
+                ff:gender-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:gender-male a ff:AnswerOption ; rdfs:label "Männlich"@de , "Male"@en .
+ff:gender-female a ff:AnswerOption ; rdfs:label "Weiblich"@de , "Female"@en .
+ff:ggender-diverse a ff:AnswerOption ; rdfs:label "Divers"@de , "Diverse"@en .
+ff:gender-other a ff:AnswerOption ; rdfs:label "Anderes"@de , "Other"@en .
+
+ff:birthDate a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Geburtsdatum"@de , "Date of Birth"@en ;
+    schema:question "Wann haben Sie Geburtstag?"@de , "When is your birthday?"@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:birthDate ;
+        sh:property [
+            sh:path ff:birthDate ;
+            sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:citizenship a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Staatsbürgerschaft"@de , "Citizenship"@en ;
+    schema:question "Welche Staatsbürgerschaft haben Sie?"@de , "What is your citizenship?"@en ;
+    rdfs:comment "Welches Land steht auf Ihrem Pass oder Ausweis? Meistens ist das Deutschland. Mitgliedstaaten der Europäischen Union sind: Belgien, Bulgarien, Dänemark, Deutschland, Estland, Finnland, Frankreich, Griechenland, Irland, Italien, Kroatien, Lettland, Litauen, Luxemburg, Malta, die Niederlande, Österreich, Polen, Portugal, Rumänien, Schweden, die Slowakei, Slowenien, Spanien, die Tschechische Republik, Ungarn und Zypern."@de ,
+        "Which country is on your passport or ID card? Mostly it is Germany. Member states of the European Union are: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:citizenship ;
+        sh:property [
+            sh:path ff:citizenship ;
+            sh:in (ff:citizenship-ger ff:citizenship-eu ff:citizenship-3rd) ;
+        ] ;
+    ] .
+ff:citizenship-ger a ff:AnswerOption ; rdfs:label "Deutsch"@de , "German"@en .
+ff:citizenship-eu a ff:AnswerOption ; rdfs:label "EU"@de , "EU"@en .
+ff:citizenship-3rd a ff:AnswerOption ; rdfs:label "Drittstaat (Nicht-EU)"@de , "Third country (non-EU)"@en .
+
+ff:residencyStatus a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Aufenthaltsstatus"@de , "Residency Status"@en ;
+    schema:question "Welchen Aufenthaltsstatus haben Sie?"@de , "What is your residency status?"@en ;
+    rdfs:comment "Wenn Sie Ausländer:in sind, wählen Sie hier Ihren Aufenthaltsstatus aus. Wenn Sie Deutsche:r sind, wählen Sie bitte 'Nicht anwendbar'."@de ,
+        "If you are a foreigner, select your residency status here. If you are German, please select 'Not applicable'."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:residencyStatus ;
+        sh:property [
+            sh:path ff:residencyStatus ;
+            sh:in (
+                ff:residencyStatus-ger
+                ff:residencyStatus-asylum
+                ff:residencyStatus-toleration 
+                ff:residencyStatus-residencePermit 
+                ff:residencyStatus-settlementPermit
+                ff:residencyStatus-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:residencyStatus-ger a ff:AnswerOption ; rdfs:label "Deutsche Staatsbürger:in"@de , "German citizen"@en .
+ff:residencyStatus-asylum a ff:AnswerOption ; rdfs:label "Asylbewerber:in"@de , "Asylum seeker"@en .
+ff:residencyStatus-toleration a ff:AnswerOption ; rdfs:label "Duldung"@de , "Toleration"@en .
+ff:residencyStatus-residencePermit a ff:AnswerOption ; rdfs:label "Aufenthaltserlaubnis"@de , "Temporary residence permit"@en .
+ff:residencyStatus-settlementPermit a ff:AnswerOption ; rdfs:label "Niederlassungserlaubnis"@de , "Permanent residence permit"@en .
+ff:residencyStatus-weitere a ff:AnswerOption ; rdfs:label "Weitere"@de , "Other"@en .
+
+ff:habitualResidence a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie;
+    rdfs:label "Gewöhnlicher Aufenthaltsort"@de , "Habitual Residence"@en ;
+    schema:question "Wo ist Ihr gewöhnlicher Aufenthaltsort?"@de , "Where is your habitual residence?"@en ;
+    rdfs:comment "Der gewöhnliche Aufenthaltsort ist der Ort, an dem Sie sich normalerweise aufhalten. Das ist in der Regel der Ort, an dem Sie wohnen und arbeiten."@de ,
+        "The habitual residence is the place where you usually stay. This is usually the place where you live and work."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:habitualResidence ;
+        sh:property [
+            sh:path ff:habitualResidence ;
+            sh:in (
+                ff:habitualResidence-ger 
+                ff:habitualResidence-eu 
+                ff:habitualResidence-3rd
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+ff:habitualResidence-ger a ff:AnswerOption ; rdfs:label "Deutschland"@de , "Germany"@en .
+ff:habitualResidence-eu a ff:AnswerOption ; rdfs:label "EU"@de , "EU"@en .
+ff:habitualResidence-3rd a ff:AnswerOption ; rdfs:label "Drittstaat (Nicht-EU)"@de , "Third country (non-EU)"@en .
+
+ff:longTermStay a ff:DataField ;
+    schema:category ff:persoenliche-angaben-df-kategorie ;
+    rdfs:label "Langjähriger Aufenthalt in Deutschland"@de , "Long-term stay in Germany"@en ;
+    schema:question "Leben Sie seit mindestens fünf Jahren ununterbrochen rechtmäßig in Deutschland?"@de ,
+                    "Have you been living lawfully and continuously in Germany for at least five years?"@en ;
+    rdfs:comment "Dieses Feld erfasst, ob ein Anspruch nach § 23 Abs. 3 Satz 7 SGB XII bestehen kann (Sozialhilfe für Personen ohne regulären Aufenthaltstitel, aber mit langjährigem Aufenthalt)."@de ,
+                 "This field checks whether § 23(3) sentence 7 SGB XII may apply (social assistance eligibility after a long-term lawful stay without a regular residence permit)."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:longTermStay ;
+        sh:property [
+            sh:path ff:longTermStay ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:hasResidence a ff:DataField ;
+    rdfs:label "Wohnort"@de , "Place of Residence"@en ;
+    schema:question "In welcher Stadt oder Gemeinde wohnen Sie?"@de , "In which city or municipality do you live?"@en ;
+    rdfs:comment "Falls Ihr Wohnort nicht in der Liste enthalten ist, wählen Sie bitte 'Anderer Ort'. Die Liste enthält nur Orte, für die aktuell Förderprogramme verfügbar sind."@de ,
+        "If your place of residence is not listed, please select 'Other location'. The list only includes locations for which funding programs are currently available."@en ;
+    ff:hasShaclShape [
+        a sh:NodeShape ;
+        sh:targetSubjectsOf ff:hasResidence ;
+        sh:property [
+            sh:path ff:hasResidence ;
+            sh:in (
+                ff:hasResidence-muenchen 
+                ff:hasResidence-hamburg 
+                ff:hasResidence-frankfurt 
+                ff:hasResidence-koeln 
+                ff:hasResidence-berlin 
+                ff:hasResidence-wolfenbuettel 
+                ff:hasResidence-bielefeld
+                ff:hasResidence-other
+            ) ;
+            sh:maxCount 1 ;
+        ] ;
+    ] .
+
+ff:hasResidence-muenchen a ff:AnswerOption ; rdfs:label "München"@de , "Munich"@en .
+ff:hasResidence-hamburg a ff:AnswerOption ; rdfs:label "Hamburg"@de , "Hamburg"@en .
+ff:hasResidence-frankfurt a ff:AnswerOption ; rdfs:label "Frankfurt am Main"@de , "Frankfurt"@en .
+ff:hasResidence-koeln a ff:AnswerOption ; rdfs:label "Köln"@de , "Cologne"@en .
+ff:hasResidence-berlin a ff:AnswerOption ; rdfs:label "Berlin"@de , "Berlin"@en .
+ff:hasResidence-wolfenbuettel a ff:AnswerOption ; rdfs:label "Wolfenbüttel"@de , "Wolfenbüttel"@en .
+ff:hasResidence-bielefeld a ff:AnswerOption ; rdfs:label "Bielefeld"@de , "Bielefeld"@en .
+ff:hasResidence-other a ff:AnswerOption ; rdfs:label "Anderer Ort"@de , "Other location"@en .

@@ -1,0 +1,62 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shn: <https://schemas.link/shacl-next#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ff: <https://foerderfunke.org/default#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ff:bundesfoerderung-effiziente-gebaeude a ff:RequirementProfile ;
+    ff:title "Bundesförderung für effiziente Gebäude – Einzelmaßnahmen: Sanieren"@de ,
+             "Federal Funding for Efficient Buildings – Individual Measures: Renovation"@en ;
+    ff:category ff:wohnungsbau-modernisierung ;
+    ff:validationStage ff:preliminary-validation ;
+    ff:tag ff:beta ;
+    ff:benefitInfo "Die BEG EM Sanierung fördert Maßnahmen zur Verbesserung der Energieeffizienz und des Anteils erneuerbarer Energien bei bestehenden Gebäuden durch Zuschüsse oder Kredite. Die förderfähigen Maßnahmen umfassen Dämmung, Heizungsmodernisierung, Anlagentechnik und Fachplanung."@de ,
+                 "BEG EM Renovation supports measures to improve energy efficiency and the share of renewable energy in existing buildings through grants or loans. Eligible measures include insulation, heating modernization, technical systems, and energy planning."@en ;
+    rdfs:seeAlso <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestandsimmobilie/F%C3%B6rderprodukte/Bundesf%C3%B6rderung-effiziente-Geb%C3%A4ude-Einzelma%C3%9Fnahmen-Kredit-(261)/> ;
+    ff:hasMainShape ff:bundesfoerderung-effiziente-gebaeudeMainShape .
+
+ff:bundesfoerderung-effiziente-gebaeudeMainShape a sh:NodeShape ;
+    sh:targetClass ff:Citizen ;
+
+	sh:property [
+        sh:path ff:interested_in_building_renovation ;
+        sh:in ( true ) ;
+        sh:minCount 1 ;
+        sh:message "Die Antragstellerin oder der Antragsteller muss an einer Gebäudesanierung interessiert sein."@de ;
+    ] ;
+
+   	sh:property [
+        sh:deactivated [
+            sh:not [
+                shn:eq ([ sh:path ff:interested_in_building_renovation ] true )
+            ]
+        ] ;
+        sh:path ff:building_location_country ;
+        sh:in ( ff:building_location_country-germany ) ;
+        sh:minCount 1 ;
+        sh:message "Das Gebäude muss sich in Deutschland befinden. (Quelle: BEG Infoblatt – 'Ziel der Bundesförderung ... in Deutschland gesteigert und die CO2-Emissionen ... gesenkt werden.')"@de ;
+    ] ;
+
+    sh:property [
+        sh:deactivated [
+            sh:not [
+                shn:eq ([ sh:path ff:interested_in_building_renovation ] true )
+            ]
+        ] ;
+        sh:path ff:building_status ;
+        sh:in ( ff:building_status-existing ) ;
+        sh:minCount 1 ;
+        sh:message "Gefördert werden ausschließlich Maßnahmen an bestehenden Gebäuden. (Quelle: BEG Infoblatt – '... bei der Antragstellung ... Sanierung ... Bestandsgebäude ...')"@de ;
+    ] ;
+
+    sh:property [
+        sh:deactivated [
+            sh:not [
+                shn:eq ([ sh:path ff:interested_in_building_renovation ] true )
+            ]
+        ] ;     
+        sh:path ff:building_renovation_type ;
+        sh:in ( ff:building_renovation_type-energy-efficiency ff:building_renovation_type-renewable-heating ) ;
+        sh:minCount 1 ;
+        sh:message "Die Maßnahme muss zur Verbesserung der Energieeffizienz oder zur Erhöhung des Anteils erneuerbarer Energien beitragen. (Quelle: BEG Merkblatt – '... die Energieeffizienz und der Anteil erneuerbarer Energien ... gesteigert werden ...')"@de ;
+    ] .
