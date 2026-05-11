@@ -42,6 +42,7 @@ const canvasCtxMenuItems = [
             { label: "Run SPARQL SELECT", action: "SparqlSelectExecNode" },
             { label: "Run SPARQL CONSTRUCT", action: "SparqlConstructExecNode" },
             { label: "Run SPARQL INSERT/DELETE", action: "SparqlInsertDeleteExecNode" },
+            { label: "Run SPARQL ASK", action: "SparqlAskExecNode" },
             { label: "Run SHACL validation", action: "ShaclValidationNode" },
             { label: "Run JavaScript", action: "JavaScriptExecNode" },
         ]

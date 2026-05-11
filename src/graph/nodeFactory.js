@@ -7,6 +7,7 @@ import { MergeTriplesNode } from "./node/processor/MergeTriplesNode.js"
 import { ShaclValidationNode } from "./node/processor/ShaclValidationNode.js"
 import { OutputViewNode } from "./node/view/OutputViewNode.js"
 import { SparqlInsertDeleteExecNode } from "./node/processor/SparqlInsertDeleteExecNode.js"
+import { SparqlAskExecNode } from "./node/processor/SparqlAskExecNode.js"
 import { ShaclFormLibNode } from "./node/edit/ShaclFormLibNode.js"
 import { ShaclFormNode } from "./node/edit/ShaclFormNode.js"
 import { OutputViewLeafNode } from "./node/view/OutputViewLeafNode.js"
@@ -63,6 +64,7 @@ const nodeClasses = {
     "ShaclValidationNode": ShaclValidationNode,
     "OutputViewNode": OutputViewNode,
     "SparqlInsertDeleteExecNode": SparqlInsertDeleteExecNode,
+    "SparqlAskExecNode": SparqlAskExecNode,
     "ShaclFormLibNode": ShaclFormLibNode,
     "ShaclFormNode": ShaclFormNode,
     "OutputViewLeafNode": OutputViewLeafNode,

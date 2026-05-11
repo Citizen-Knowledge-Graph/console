@@ -83,6 +83,17 @@ export async function runSparqlInsertDeleteQueryOnStore(query, store) {
     await queryEngine.queryVoid(query, { sources: [store] })
 }
 
+export async function runSparqlAskQueryOnStore(query, store) {
+    const queryEngine = new QueryEngine()
+    return await queryEngine.queryBoolean(query, { sources: [ store ] })
+}
+
+export async function runSparqlAskQueryOnRdfString(query, rdfStr) {
+    let store = new Store()
+    await addRdfStringToStore(rdfStr, store)
+    return await runSparqlAskQueryOnStore(query, store)
+}
+
 export function addRdfStringToStore(rdfStr, store) {
     return new Promise((resolve, reject) => {
         const parser = new Parser()

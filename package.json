@@ -1,6 +1,6 @@
 {
   "name": "@foerderfunke/console",
-  "version": "0.1.3-beta",
+  "version": "0.1.4-beta",
   "description": "Playground and discovery tool for Linked Data",
   "author": "@foerderfunke",
   "type": "module",
